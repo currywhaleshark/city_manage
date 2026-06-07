@@ -1,0 +1,175 @@
+Initial development prompt, public repository version
+====================================================
+
+This file records the initial app-building request in a public-safe form.
+It intentionally omits repository-wide agent instructions and does not contain
+API keys, access tokens, customer names, partner names, or private credentials.
+
+Request summary
+---------------
+
+Build a browser-based three.js mini traffic city simulator from scratch.
+
+Required delivery:
+
+- Create a new public GitHub repository.
+- Implement a static web app that works without an external server.
+- Use Vite + TypeScript + three.js if possible.
+- Configure GitHub Pages deployment through CI/CD.
+- Make the app work correctly under the GitHub Pages repository subpath.
+- Verify both the local version and published version with Playwright.
+- Do not report unverified items as verified.
+
+Application goal:
+
+- Let users build a simple city traffic map.
+- Let vehicles automatically drive on the road network.
+- Let traffic signal control change traffic flow.
+- Let users visualize congestion.
+- Let users compare traffic improvements using statistics.
+
+Core features requested:
+
+1. Road and intersection editing
+
+- Place straight roads on a grid.
+- Add roads by clicking or dragging.
+- Create cross intersections.
+- Create T intersections.
+- Treat connected roads as intersections automatically.
+- Configure road direction.
+- Toggle one-way and two-way roads.
+- Change lane count from 1 to 3 lanes.
+- Delete roads.
+- Make roads and intersections visually understandable.
+
+2. Vehicle automation
+
+- Add vehicles.
+- Set or automatically choose origin and destination.
+- Select routes on the road network.
+- Move vehicles along roads.
+- Support right turns, left turns, and straight movement at intersections.
+- Stop when another vehicle is ahead.
+- Stop at red lights.
+- Restart when the signal turns green or the road clears.
+- Avoid extreme vehicle overlap.
+- Smooth acceleration, deceleration, and orientation changes.
+- Use delta time so motion is not frame-rate dependent.
+- Record completed trips in statistics.
+
+3. Signal control
+
+- Add traffic signals to intersections.
+- Cycle green, yellow, and red states.
+- Configure signal duration.
+- Support per-intersection signal patterns.
+- Provide alternating north-south and east-west green phases.
+- Configure yellow time.
+- Stop vehicles on red and let vehicles proceed on green.
+- Show signal states in both 3D and HUD.
+- Show simple pedestrian signals.
+
+4. Congestion visualization
+
+- Calculate congestion per road.
+- Color roads green, yellow, or red depending on congestion.
+- Emphasize sections with many stopped vehicles.
+- Toggle congestion display on and off.
+- List congested roads.
+- Base congestion on density, average speed, and stopped vehicle count.
+
+5. Statistics and comparison
+
+Display:
+
+- Average travel time
+- Average waiting time
+- Throughput
+- Congestion length
+- Average speed
+- Current vehicle count
+- Stopped vehicle count
+- FPS
+
+Comparison:
+
+- Save current statistics as a snapshot.
+- Compare later statistics after signal or road changes.
+- Show improvement or degradation with percentage deltas.
+
+Interaction requirements:
+
+- WASD or arrow keys: move camera
+- Mouse drag: rotate camera
+- Wheel: zoom
+- Left click: place or select objects
+- Right click: delete or cancel
+- 1: road placement mode
+- 2: intersection placement mode
+- 3: signal placement mode
+- 4: vehicle add mode
+- 5: select/edit mode
+- Space: pause/resume
+- R: reset camera
+- C: toggle congestion display
+- Tab: show/hide statistics panel
+
+Screen layout:
+
+- Center: three.js 3D city view
+- Left: editing toolbar
+- Right: statistics panel
+- Top: simulation state, pause/resume, speed multiplier
+- Top right: FPS
+- Bottom: current mode, selected road settings, hints
+- 3D scene: roads, intersections, signals, vehicles, pedestrians, congestion colors
+
+Initial state:
+
+- Show a sample city immediately after startup.
+- Include a cross intersection, T intersection, one-way road, multi-lane road,
+  multiple signals, moving vehicles, simple pedestrians, and a congestion-prone area.
+
+Visual direction:
+
+- Miniature city style.
+- Include roads, sidewalks, buildings, street trees, crosswalks, signal poles, and vehicles.
+- Use varied vehicle colors and sizes.
+- Make signal colors readable.
+- Keep vehicle movement, turning, stopping, and restarting visually smooth.
+- Preserve city depth even during congestion overlay.
+- Keep UI readable and responsive.
+- Avoid excessive geometry or expensive rendering.
+
+Implementation direction:
+
+- Keep the traffic logic understandable and testable.
+- Use generated basic three.js geometry rather than heavy external assets.
+- Split road, intersection, signal, vehicle, and statistics logic where practical.
+- Keep state management simple.
+- Automate GitHub Pages deployment with GitHub Actions on push to main.
+
+QA requested:
+
+- Create a QA inventory before implementation.
+- Separate functional QA and visual QA.
+- Identify what Playwright can verify and what requires visual inspection.
+- Use Playwright to verify local functionality and screenshots.
+- Use Playwright to verify the published GitHub Pages version separately.
+- Run an exploratory pass for 30 to 90 seconds.
+- Fix issues found during QA where practical.
+
+Final report requested:
+
+- Repository name and URL
+- GitHub Pages URL
+- Implemented features
+- CI/CD summary
+- Locally verified items
+- Published-version verified items
+- Playwright operations performed
+- Visual QA observations
+- Unverified items
+- Remaining issues
+- README screenshot path

@@ -34,6 +34,10 @@ GitHub Pages: https://sudoyan118.github.io/mini-traffic-city-sim/
 - `C`: 混雑表示 ON/OFF
 - `Tab`: 統計パネル表示切替
 
+画面左側の編集ツールバーと右側の統計パネルの詳しい使い方は [UI Guide](docs/UI_GUIDE.md) にまとめています。
+
+初回の開発要求プロンプトは、公開用に機密情報を含まない形で [INITIAL_PROMPT.txt](docs/INITIAL_PROMPT.txt) に保存しています。
+
 ## ローカル起動
 
 ```bash
