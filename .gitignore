@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+.playwright-cli
+.env
+.env.*
+!.env.example
+output/playwright/*.png
+output/playwright/*.webm
+output/playwright/*.zip
