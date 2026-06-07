@@ -1,175 +1,451 @@
-Initial development prompt, public repository version
-====================================================
+playwright-interactive を使って、ゼロからブラウザで動く three.js のミニ交通都市シミュレーターを作ってください。
 
-This file records the initial app-building request in a public-safe form.
-It intentionally omits repository-wide agent instructions and does not contain
-API keys, access tokens, customer names, partner names, or private credentials.
+前提:
+- GitHub CLI (gh) は認証済みです
+- GitHub リポジトリの新規作成から始めてください
+- 作業ディレクトリは Windows の D:\Prj 配下を使ってください
+- D:\Prj にリポジトリを clone / 作成して問題ありません
+- 最終的に GitHub Pages にデプロイし、公開URLを Playwright で実際に確認してください
+- GitHub Pages へのデプロイは手動ではなく、CI/CD で自動化してください
+- ユーザーによる手動操作を前提にせず、ローカル版・公開版ともに Playwright によるブラウザ操作で functional QA と visual QA を実施してください
+- 確認できなかった項目は、確認済みとして報告しないでください
 
-Request summary
----------------
+作るもの:
+- three.js を使ったブラウザ動作のミニ交通都市シミュレーター
+- 起動後すぐに試せること
+- 小さな3D都市マップ上で、道路、交差点、信号、車両、歩行者、混雑状況を観察・調整できること
+- 滑らかな見た目と操作感を重視すること
+- 車両の移動、右左折、停止、再発進がなるべく自然に見えること
+- 信号切替、車両追加、道路配置、混雑表示、統計表示をブラウザ上で操作できること
+- GitHub Pages のサブパス公開で壊れないようにすること
+- 外部サーバーなしで動作する静的Webアプリとして実装すること
 
-Build a browser-based three.js mini traffic city simulator from scratch.
+アプリの主な目的:
+- ユーザーが簡単な都市交通マップを作る
+- 車両が道路上を自動で走行する
+- 信号制御によって交通の流れが変わる
+- 渋滞や混雑を視覚的に確認できる
+- 統計値を見ながら交通改善を試せる
 
-Required delivery:
+実装する主要機能:
 
-- Create a new public GitHub repository.
-- Implement a static web app that works without an external server.
-- Use Vite + TypeScript + three.js if possible.
-- Configure GitHub Pages deployment through CI/CD.
-- Make the app work correctly under the GitHub Pages repository subpath.
-- Verify both the local version and published version with Playwright.
-- Do not report unverified items as verified.
+1. 道路・交差点の作成機能
 
-Application goal:
+最優先機能として実装してください。
 
-- Let users build a simple city traffic map.
-- Let vehicles automatically drive on the road network.
-- Let traffic signal control change traffic flow.
-- Let users visualize congestion.
-- Let users compare traffic improvements using statistics.
+ユーザーが小さな都市マップを編集できるようにしてください。
 
-Core features requested:
+最低限必要な機能:
+- グリッド上に直線道路を配置できる
+- 道路をクリックまたはドラッグで追加できる
+- 十字路を作成できる
+- T字路を作成できる
+- 道路同士が接続された場合、自動的に交差点として扱う
+- 道路の進行方向を設定できる
+- 一方通行と双方向を切り替えられる
+- 車線数を 1〜3 車線程度で変更できる
+- 道路を削除できる
+- 道路や交差点の見た目が分かりやすいこと
 
-1. Road and intersection editing
+UI例:
+- 道路追加モード
+- 削除モード
+- 一方通行切替モード
+- 車線数変更ボタン
+- 十字路プリセット追加ボタン
+- T字路プリセット追加ボタン
 
-- Place straight roads on a grid.
-- Add roads by clicking or dragging.
-- Create cross intersections.
-- Create T intersections.
-- Treat connected roads as intersections automatically.
-- Configure road direction.
-- Toggle one-way and two-way roads.
-- Change lane count from 1 to 3 lanes.
-- Delete roads.
-- Make roads and intersections visually understandable.
+2. 車両の自動移動機能
 
-2. Vehicle automation
+道路上を車が自動で走るようにしてください。
 
-- Add vehicles.
-- Set or automatically choose origin and destination.
-- Select routes on the road network.
-- Move vehicles along roads.
-- Support right turns, left turns, and straight movement at intersections.
-- Stop when another vehicle is ahead.
-- Stop at red lights.
-- Restart when the signal turns green or the road clears.
-- Avoid extreme vehicle overlap.
-- Smooth acceleration, deceleration, and orientation changes.
-- Use delta time so motion is not frame-rate dependent.
-- Record completed trips in statistics.
+最低限必要な機能:
+- 車両を追加できる
+- 出発地と目的地を設定できる
+- 出発地と目的地が未設定の場合は、自動でランダムに選ばれる
+- 道路ネットワーク上で経路を自動選択する
+- 車両は道路に沿って移動する
+- 交差点で右折・左折・直進できる
+- 前方の車が詰まっていたら停止する
+- 信号が赤なら停止する
+- 信号が青になったら再発進する
+- 車両同士が極端に重ならないようにする
+- 車両の速度が急に変わりすぎないように、加速・減速を滑らかにする
+- 目的地に到達した車両は統計に記録され、新しい目的地へ向かうか、一定時間後に再生成される
 
-3. Signal control
+滑らかさに関する要件:
+- 車両の向きが進行方向に自然に回転すること
+- 右左折時にカクカクしすぎないこと
+- 停止・発進時に瞬間移動や急停止に見えないようにすること
+- delta time を使い、フレームレート依存の動きにならないようにすること
 
-- Add traffic signals to intersections.
-- Cycle green, yellow, and red states.
-- Configure signal duration.
-- Support per-intersection signal patterns.
-- Provide alternating north-south and east-west green phases.
-- Configure yellow time.
-- Stop vehicles on red and let vehicles proceed on green.
-- Show signal states in both 3D and HUD.
-- Show simple pedestrian signals.
+3. 信号制御機能
 
-4. Congestion visualization
+交通シミュレーターらしさを出す重要機能として実装してください。
 
-- Calculate congestion per road.
-- Color roads green, yellow, or red depending on congestion.
-- Emphasize sections with many stopped vehicles.
-- Toggle congestion display on and off.
-- List congested roads.
-- Base congestion on density, average speed, and stopped vehicle count.
+最低限必要な機能:
+- 交差点に信号を設置できる
+- 信号は青・黄・赤を切り替える
+- 信号周期を設定できる
+- 交差点ごとに信号パターンを変更できる
+- 南北方向と東西方向で交互に青になる基本パターンを用意する
+- 黄色時間を設定できる
+- 赤信号では車両が停止する
+- 青信号では車両が進行する
+- 信号状態が3D上でもHUD上でも分かるようにする
+- 歩行者信号も簡易的に表示する
 
-5. Statistics and comparison
+UI例:
+- 信号追加ボタン
+- 青時間変更スライダー
+- 黄時間変更スライダー
+- 信号パターン切替ボタン
+- 全信号同期 / 非同期切替
 
-Display:
+4. 渋滞・混雑の可視化機能
 
-- Average travel time
-- Average waiting time
-- Throughput
-- Congestion length
-- Average speed
-- Current vehicle count
-- Stopped vehicle count
+シミュレーション結果を分かりやすく見せるために実装してください。
+
+最低限必要な機能:
+- 道路ごとの混雑度を算出する
+- 混雑度に応じて道路の色を変える
+- 空いている道路は緑
+- やや混雑している道路は黄色
+- 渋滞している道路は赤
+- 停止車両が多い区間を強調表示する
+- 混雑表示の ON / OFF を切り替えられる
+- 渋滞している道路を一覧表示できる
+- 車両密度、平均速度、停止台数を元に混雑度を決める
+
+視覚要件:
+- 通常表示と混雑表示の違いがすぐ分かること
+- 混雑表示中でも車両や信号が見づらくならないこと
+- HUD と3D表示が重なりすぎないこと
+
+5. 統計表示・比較機能
+
+交通設定の良し悪しを数値で判断できるようにしてください。
+
+最低限表示する指標:
+- 平均移動時間
+- 平均待ち時間
+- 通過台数
+- 渋滞長
+- 平均速度
+- 現在の車両数
+- 停止中の車両数
 - FPS
 
-Comparison:
+比較機能:
+- 現在の統計をスナップショットとして保存できる
+- 信号周期や道路設定を変えた後の統計と比較できる
+- 比較結果として、改善 / 悪化が分かる表示を行う
+- 例: 平均待ち時間 -12%、通過台数 +8% など
 
-- Save current statistics as a snapshot.
-- Compare later statistics after signal or road changes.
-- Show improvement or degradation with percentage deltas.
+UI例:
+- 右側パネルにリアルタイム統計を表示
+- 「統計を保存」ボタン
+- 「比較をリセット」ボタン
+- 改善した項目を分かりやすく表示
 
-Interaction requirements:
+操作仕様:
+- WASD または矢印キー: カメラ移動
+- マウスドラッグ: カメラ回転
+- ホイール: ズーム
+- 左クリック: 道路・交差点・信号・車両などの配置または選択
+- 右クリック: 削除またはキャンセル
+- 1キー: 道路配置モード
+- 2キー: 交差点配置モード
+- 3キー: 信号配置モード
+- 4キー: 車両追加モード
+- 5キー: 選択 / 編集モード
+- Space: シミュレーションの一時停止 / 再開
+- R: カメラ位置リセット
+- C: 混雑表示 ON / OFF
+- Tab: 統計パネル表示切替
 
-- WASD or arrow keys: move camera
-- Mouse drag: rotate camera
-- Wheel: zoom
-- Left click: place or select objects
-- Right click: delete or cancel
-- 1: road placement mode
-- 2: intersection placement mode
-- 3: signal placement mode
-- 4: vehicle add mode
-- 5: select/edit mode
-- Space: pause/resume
-- R: reset camera
-- C: toggle congestion display
-- Tab: show/hide statistics panel
+画面構成:
+- 中央: three.js による3D都市ビュー
+- 左側: 編集ツールバー
+- 右側: 統計パネル
+- 上部: シミュレーション状態、再生 / 一時停止、速度倍率
+- 右上: FPS表示
+- 下部: 現在の操作モード、選択中の道路設定、ヒント表示
+- 3Dビュー上: 道路、交差点、信号、車両、歩行者、混雑色
 
-Screen layout:
+初期状態:
+- 起動直後に、サンプル都市マップが表示されること
+- 少なくとも以下を含めること:
+  - 十字路を含む道路ネットワーク
+  - T字路
+  - 一方通行道路
+  - 複数車線道路
+  - 複数の信号
+  - 自動走行する車両
+  - 簡易歩行者
+  - 混雑が発生しやすい区間
+- ユーザーが何も作らなくても、すぐに交通の流れを観察できること
 
-- Center: three.js 3D city view
-- Left: editing toolbar
-- Right: statistics panel
-- Top: simulation state, pause/resume, speed multiplier
-- Top right: FPS
-- Bottom: current mode, selected road settings, hints
-- 3D scene: roads, intersections, signals, vehicles, pedestrians, congestion colors
+ビジュアル仕様:
+- ミニチュア都市らしい見た目にすること
+- 道路、歩道、建物、街路樹、横断歩道、信号機、車両を配置すること
+- 車両は色やサイズを少し変えて単調にならないようにすること
+- 信号の色が遠目でも分かるようにすること
+- 車両の停止・発進・右左折が滑らかに見えるようにすること
+- 混雑表示時も街の立体感が失われないようにすること
+- UIは読みやすく、操作モードが明確に分かること
+- リサイズ時に canvas と HUD が崩れないこと
+- 低〜中スペック環境でも動くように、過度なポリゴン数や重い処理を避けること
 
-Initial state:
+実装方針:
+- 可能であれば Vite + TypeScript + three.js 構成にしてください
+- 構成は任せますが、GitHub Pages のサブパス公開で壊れないようにしてください
+- Vite の base path を GitHub Pages のリポジトリ名に合わせて設定してください
+- アセット参照、公開パス、ビルド設定を Pages 前提で調整してください
+- 外部アセットに依存しすぎず、建物・道路・車両・信号などは three.js の基本ジオメトリで生成してください
+- 交通ロジックは複雑にしすぎず、検証可能な範囲で実装してください
+- シミュレーション更新は delta time ベースにしてください
+- 車両、道路、交差点、信号、統計処理をできるだけモジュール分割してください
+- 状態管理が複雑になりすぎないようにしてください
+- GitHub Pages への公開は CI/CD で行ってください
+- GitHub Actions などを使い、main ブランチへの push を契機に build と deploy が自動で走るようにしてください
+- Pages 公開に必要な workflow、設定ファイル、デプロイ設定をリポジトリに含めてください
+- 手動作業前提にせず、リポジトリを clone した後でも CI/CD で再現可能な状態にしてください
 
-- Show a sample city immediately after startup.
-- Include a cross intersection, T intersection, one-way road, multi-lane road,
-  multiple signals, moving vehicles, simple pedestrians, and a congestion-prone area.
+推奨データ構造:
+- RoadSegment:
+  - id
+  - startNodeId
+  - endNodeId
+  - laneCount
+  - direction
+  - length
+  - congestionLevel
+  - vehicleIds
+- IntersectionNode:
+  - id
+  - position
+  - connectedRoadIds
+  - signalId
+  - type
+- TrafficSignal:
+  - id
+  - intersectionId
+  - phase
+  - greenDuration
+  - yellowDuration
+  - redDuration
+  - currentTimer
+  - pattern
+- Vehicle:
+  - id
+  - currentRoadId
+  - route
+  - positionAlongRoad
+  - speed
+  - targetSpeed
+  - waitingTime
+  - tripStartTime
+  - destinationNodeId
+- SimulationStats:
+  - averageTravelTime
+  - averageWaitingTime
+  - throughput
+  - congestionLength
+  - averageSpeed
+  - stoppedVehicleCount
 
-Visual direction:
+作業手順:
 
-- Miniature city style.
-- Include roads, sidewalks, buildings, street trees, crosswalks, signal poles, and vehicles.
-- Use varied vehicle colors and sizes.
-- Make signal colors readable.
-- Keep vehicle movement, turning, stopping, and restarting visually smooth.
-- Preserve city depth even during congestion overlay.
-- Keep UI readable and responsive.
-- Avoid excessive geometry or expensive rendering.
+1. QA inventory を先に作成する
+   - ユーザー要求
+   - 実装対象
+   - 完了報告で主張する内容
+   をそれぞれ検証可能な項目に分解する
+   - 機能QAと見た目QAを分離して整理する
+   - Playwrightで確認可能な項目と、目視評価が必要な項目を分ける
 
-Implementation direction:
+2. GitHub リポジトリを新規作成する
+   - 適切な public リポジトリを作る
+   - D:\Prj 配下で作業開始する
+   - README、ライセンス、基本設定を含める
 
-- Keep the traffic logic understandable and testable.
-- Use generated basic three.js geometry rather than heavy external assets.
-- Split road, intersection, signal, vehicle, and statistics logic where practical.
-- Keep state management simple.
-- Automate GitHub Pages deployment with GitHub Actions on push to main.
+3. ローカル実装を行う
+   - 必要な依存を導入する
+   - dev server を継続セッションで起動する
+   - 127.0.0.1 のURLを Playwright で開く
+   - 初期表示にエラーがないことを確認する
 
-QA requested:
+4. 反復実装を行う
+   - 同じ Playwright セッションを維持する
+   - コード変更後は reload で確認する
+   - 主要コントロールをすべて実操作で確認する
+   - reversible な状態変化は往復確認する
+   - 道路配置、削除、一方通行切替、車線数変更を確認する
+   - 車両追加、停止、再発進、右左折を確認する
+   - 信号周期変更、混雑表示、統計保存、比較表示を確認する
 
-- Create a QA inventory before implementation.
-- Separate functional QA and visual QA.
-- Identify what Playwright can verify and what requires visual inspection.
-- Use Playwright to verify local functionality and screenshots.
-- Use Playwright to verify the published GitHub Pages version separately.
-- Run an exploratory pass for 30 to 90 seconds.
-- Fix issues found during QA where practical.
+5. functional QA を実施する
 
-Final report requested:
+   以下を Playwright で実操作して確認してください。
 
-- Repository name and URL
-- GitHub Pages URL
-- Implemented features
-- CI/CD summary
-- Locally verified items
-- Published-version verified items
-- Playwright operations performed
-- Visual QA observations
-- Unverified items
-- Remaining issues
-- README screenshot path
+   初期表示:
+   - アプリがエラーなく起動する
+   - サンプル都市マップが表示される
+   - 車両が自動走行している
+   - 信号が青・黄・赤で切り替わる
+   - 統計値が更新される
+
+   道路・交差点:
+   - 直線道路を配置できる
+   - 十字路を作成できる
+   - T字路を作成できる
+   - 道路を削除できる
+   - 一方通行と双方向を切り替えられる
+   - 車線数を変更できる
+   - 接続された道路が交差点として扱われる
+
+   車両:
+   - 車両を追加できる
+   - 車両が道路上を移動する
+   - 車両が交差点で右左折する
+   - 前方に車がいる場合に停止する
+   - 前方が空くと再発進する
+   - 目的地に到達すると統計に反映される
+
+   信号:
+   - 信号を追加できる
+   - 青・黄・赤が周期的に切り替わる
+   - 赤信号で車両が停止する
+   - 青信号で車両が進行する
+   - 信号周期を変更できる
+   - 交差点ごとの信号パターンを変更できる
+
+   混雑可視化:
+   - 混雑表示をON/OFFできる
+   - 空いている道路が緑で表示される
+   - 混雑道路が黄色で表示される
+   - 渋滞道路が赤で表示される
+   - 停止車両が多い区間が強調される
+
+   統計・比較:
+   - 平均移動時間が表示される
+   - 平均待ち時間が表示される
+   - 通過台数が表示される
+   - 渋滞長が表示される
+   - 平均速度が表示される
+   - 現在の車両数が表示される
+   - 停止中の車両数が表示される
+   - 統計を保存できる
+   - 設定変更後に比較結果が表示される
+
+   UI・操作:
+   - WASD または矢印キーでカメラ移動できる
+   - マウスドラッグでカメラ回転できる
+   - ホイールでズームできる
+   - Spaceで一時停止 / 再開できる
+   - Rでカメラをリセットできる
+   - Cで混雑表示を切り替えられる
+   - Tabで統計パネルを表示 / 非表示できる
+   - リサイズ後も操作できる
+
+6. visual QA を実施する
+
+   以下を Playwright のスクリーンショットと目視で確認してください。
+
+   初期表示:
+   - ミニチュア都市らしい見た目になっている
+   - 道路、交差点、信号、車両、建物が識別できる
+   - HUDが読みやすい
+   - 画面がごちゃつきすぎていない
+
+   走行中:
+   - 車両の移動が滑らか
+   - 右左折が不自然にカクつかない
+   - 停止・再発進が自然
+   - 車両同士が極端に重ならない
+   - 信号の色が見やすい
+
+   編集中:
+   - 道路配置モードが分かりやすい
+   - 道路追加後の接続状態が分かりやすい
+   - 一方通行の向きが分かりやすい
+   - 車線数の違いが見た目で分かる
+   - 削除操作後に表示が破綻しない
+
+   混雑表示:
+   - 緑・黄・赤の混雑表示が分かりやすい
+   - 混雑表示中でも車両や信号が見える
+   - 渋滞区間が直感的に分かる
+
+   統計表示:
+   - 数値が読みやすい
+   - 比較結果が分かりやすい
+   - HUDと3Dビューが重なりすぎない
+   - テキストが背景に埋もれない
+
+   リサイズ:
+   - 横長画面で崩れない
+   - 縦長画面で崩れない
+   - 小さい画面でも主要UIが操作可能
+   - canvas のアスペクト比が破綻しない
+   - clipping / overflow がない
+
+7. exploratory pass を行う
+   - 30〜90秒程度、実際に遊ぶように確認する
+   - 道路を追加し、車両を増やし、信号周期を変え、混雑表示と統計を確認する
+   - 渋滞が起きる状態と、改善される状態の両方を試す
+   - 違和感、誤判定、視認性の低さ、パフォーマンス低下、ちらつき、操作しづらさがあれば修正する
+
+8. GitHub Pages 用の CI/CD を構築する
+   - GitHub Actions で build と deploy を自動化する
+   - main ブランチへの push で GitHub Pages が更新されるようにする
+   - Pages 公開に必要な設定をリポジトリに含める
+   - Vite の base path を GitHub Pages のサブパスに対応させる
+   - 手動作業前提にせず、リポジトリを clone した後でも CI/CD で再現可能な状態にする
+
+9. GitHub Pages にデプロイする
+   - 必要な変更を commit / push する
+   - CI/CD が正常に完走することを確認する
+   - GitHub Pages の公開URLを取得する
+
+10. 公開版 QA を実施する
+   - GitHub Pages のURLを Playwright で開く
+   - ローカル確認とは別に公開版でも確認する
+   - 初期表示、車両走行、信号切替、道路配置、車両追加、混雑表示、統計表示を確認する
+   - アセット読込、base path、公開環境での表示崩れを確認する
+   - 公開版で問題があれば修正して再度 push し、CI/CD 経由で再デプロイする
+
+11. README を整備する
+   - README の先頭付近に、アプリの実スクリーンショットをヘッダー画像として掲載する
+   - ヘッダー画像は、ミニチュア都市、道路、信号、車両、混雑表示、統計HUDが伝わる代表的なプレイ中スクリーンショットにする
+   - README には以下を記載する:
+     - アプリ概要
+     - 主な機能
+     - 操作方法
+     - ローカル起動方法
+     - GitHub Pages の公開URL
+     - CI/CD によるデプロイ方法の概要
+     - QA で確認した内容
+     - スクリーンショット
+
+12. 最後に結果を報告する
+   - GitHub リポジトリ名
+   - GitHub リポジトリ URL
+   - GitHub Pages 公開 URL
+   - 実装した機能
+   - 構築した CI/CD の概要
+   - ローカルで確認済みの項目
+   - 公開版で確認済みの項目
+   - Playwright で確認した操作
+   - visual QA で確認した画面状態
+   - 未確認項目
+   - 残課題
+   - README に使ったスクリーンショットのパス
+
+重要:
+- 最終報告では、実際に確認していないことを確認済みと書かないでください
+- Playwright で確認した内容と、目視確認のみの内容を分けて報告してください
+- CI/CD が失敗した場合は、原因と対応状況を明記してください
+- GitHub Pages の公開 URL が表示できない場合は、そこまでに完了した内容と未完了理由を明記してください
+- 滑らかな車両移動、自然な右左折、見やすい混雑可視化を優先してください
