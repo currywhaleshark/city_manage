@@ -1,0 +1,636 @@
+{
+  "before": {
+    "time": 420,
+    "arrived": 28,
+    "active": 66,
+    "queued": 46,
+    "unreleased": 0,
+    "unreachable": 0,
+    "averageTravelTime": 183.28571428571428,
+    "averageWaitingTime": 121.49285714285466,
+    "averageDemandWait": 242.44928571428426,
+    "stopped": 62,
+    "meanSpeed": 0.2156999557540006,
+    "totalWaitingTime": 33942.8999999998,
+    "roads": [
+      {
+        "id": "n0-0_n0-1",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n0-0_n1-0",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-1_n0-2",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n0-1_n1-1",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-2_n0-3",
+        "name": "햇살 주택길",
+        "count": 7,
+        "stopped": 6,
+        "meanSpeed": 0.8849986369986208,
+        "congestion": 0.7346710495886978
+      },
+      {
+        "id": "n0-2_n1-2",
+        "name": "학교 가는 길",
+        "count": 8,
+        "stopped": 6,
+        "meanSpeed": 0.47334535043610304,
+        "congestion": 0.8016615749896892
+      },
+      {
+        "id": "n0-3_n0-4",
+        "name": "햇살 주택길",
+        "count": 4,
+        "stopped": 4,
+        "meanSpeed": 0,
+        "congestion": 0.6902941176470588
+      },
+      {
+        "id": "n0-3_n1-3",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-4_n1-4",
+        "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-0_n1-1",
+        "name": "햇살 주택길",
+        "count": 4,
+        "stopped": 4,
+        "meanSpeed": 0,
+        "congestion": 0.6902941176470588
+      },
+      {
+        "id": "n1-0_n2-0",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-1_n1-2",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-1_n2-1",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-2_n1-3",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-2_n2-2",
+        "name": "학교 가는 길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-3_n1-4",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-3_n2-3",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-4_n2-4",
+        "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-0_n2-1",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-1_n2-2",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-2_n2-3",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-2_n3-2",
+        "name": "학교 가는 길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n2-3_n2-4",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-4_n3-4",
+        "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-0_n3-1",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-0_n4-0",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-1_n3-2",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-1_n4-1",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-2_n3-3",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-2_n4-2",
+        "name": "학교 가는 길",
+        "count": 1,
+        "stopped": 0,
+        "meanSpeed": 4.25444381728487,
+        "congestion": 0.32507974057768935
+      },
+      {
+        "id": "n3-3_n3-4",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-3_n4-3",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-4_n4-4",
+        "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-0_n4-1",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-1_n4-2",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-2_n4-3",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-3_n4-4",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      }
+    ]
+  },
+  "after": {
+    "time": 420,
+    "arrived": 51,
+    "active": 64,
+    "queued": 25,
+    "unreleased": 0,
+    "unreachable": 0,
+    "averageTravelTime": 160.6882352941177,
+    "averageWaitingTime": 111.47647058823303,
+    "averageDemandWait": 201.26928571428274,
+    "stopped": 63,
+    "meanSpeed": 0.10866126548605416,
+    "totalWaitingTime": 28177.699999999582,
+    "roads": [
+      {
+        "id": "n0-0_n0-1",
+        "name": "햇살 주택길",
+        "count": 3,
+        "stopped": 3,
+        "meanSpeed": 0,
+        "congestion": 0.6552205882352942
+      },
+      {
+        "id": "n0-0_n1-0",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-1_n0-2",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n0-1_n1-1",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-2_n0-3",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n0-2_n1-2",
+        "name": "학교 가는 길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n0-3_n0-4",
+        "name": "햇살 주택길",
+        "count": 3,
+        "stopped": 3,
+        "meanSpeed": 0,
+        "congestion": 0.6552205882352942
+      },
+      {
+        "id": "n0-3_n1-3",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-4_n1-4",
+        "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-0_n1-1",
+        "name": "햇살 주택길",
+        "count": 3,
+        "stopped": 3,
+        "meanSpeed": 0,
+        "congestion": 0.6552205882352942
+      },
+      {
+        "id": "n1-0_n2-0",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-1_n1-2",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-1_n2-1",
+        "name": "동네 가로길",
+        "count": 5,
+        "stopped": 5,
+        "meanSpeed": 0,
+        "congestion": 0.7253676470588235
+      },
+      {
+        "id": "n1-2_n1-3",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-2_n2-2",
+        "name": "학교 가는 길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-3_n1-4",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-3_n2-3",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-4_n2-4",
+        "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-0_n2-1",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-1_n2-2",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-2_n2-3",
+        "name": "상가 연결길",
+        "count": 1,
+        "stopped": 1,
+        "meanSpeed": 0,
+        "congestion": 0.5850735294117647
+      },
+      {
+        "id": "n2-2_n3-2",
+        "name": "학교 가는 길",
+        "count": 5,
+        "stopped": 4,
+        "meanSpeed": 1.380709098419389,
+        "congestion": 0.6409909799331942
+      },
+      {
+        "id": "n2-3_n2-4",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-4_n3-4",
+        "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-0_n3-1",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-0_n4-0",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-1_n3-2",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-1_n4-1",
+        "name": "동네 가로길",
+        "count": 1,
+        "stopped": 1,
+        "meanSpeed": 0.027500850255482136,
+        "congestion": 0.5831828459567003
+      },
+      {
+        "id": "n3-2_n3-3",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-2_n4-2",
+        "name": "학교 가는 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "n3-3_n3-4",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-3_n4-3",
+        "name": "동네 가로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-4_n4-4",
+        "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-0_n4-1",
+        "name": "상가 연결길",
+        "count": 1,
+        "stopped": 1,
+        "meanSpeed": 0.023274648755039932,
+        "congestion": 0.5834733973098557
+      },
+      {
+        "id": "n4-1_n4-2",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-2_n4-3",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-3_n4-4",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-1_n3-1",
+        "name": "새로운 우회도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      }
+    ]
+  },
+  "drawCalls": 264,
+  "consoleErrors": []
+}

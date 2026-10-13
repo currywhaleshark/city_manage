@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Traffic Microsim</title>
+  <style>
+    :root{
+      --void:#000; --canvas:#070809; --panel:#1b1f27; --line:#2a303c;
+      --ink:#eef1f6; --dim:#828c9e; --accent:#4ade80; --ai:#7aa2ff;
+      --danger:#f87171; --warn:#fbbf24; font-size:15px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--void);color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;overflow:hidden}
+    #wrap{display:grid;grid-template-columns:1fr 6fr 1fr;grid-template-rows:minmax(0,1fr);
+      gap:14px;padding:14px;height:100vh}
+    canvas{background:var(--canvas);border-radius:16px;display:block;width:100%;height:100%;
+      min-height:0;min-width:0;border:1px solid var(--line);box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
+    #stage{display:flex;gap:14px;min-width:0;min-height:0;height:100%}
+    #road{flex:0 0 32%;width:100%;height:100%;min-width:0;min-height:0}
+    #stwrap{position:relative;flex:1;min-width:0;height:100%}
+    #spacetime{width:100%;height:100%;display:block;background:#070809;border-radius:16px;
+      border:1px solid var(--line);box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
+    #stoverlay{position:absolute;inset:0;pointer-events:none}
+    .stlabel{position:absolute;font-size:.66rem;color:var(--dim);letter-spacing:.02em;white-space:nowrap}
+    .stramp{position:absolute;left:0;right:0;border-top:1px dashed var(--warn);pointer-events:none}
+    .stlegend{position:absolute;right:10px;top:8px;display:flex;align-items:center;gap:6px;
+      font-size:.6rem;color:var(--dim)}
+    .stlegend .bar{width:64px;height:8px;border-radius:4px;
+      background:linear-gradient(to right, hsl(0,85%,50%), hsl(120,85%,50%));border:1px solid var(--line)}
+    #config,#panel{min-width:0;min-height:0;height:100%;overflow-y:auto;background:var(--panel);
+      border:1px solid var(--line);border-radius:16px;padding:18px;
+      box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
+    .ptitle{font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--dim);margin:0 0 6px}
+    .dtype{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.92rem;margin:18px 0 2px}
+    .dtype:first-of-type{margin-top:10px}
+    .dtype .dot{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor}
+    label{display:block;font-size:.7rem;color:var(--dim);margin:9px 0 1px;letter-spacing:.02em}
+    label span{color:var(--ink);font-weight:600}
+    input[type=range]{width:100%;accent-color:var(--ai);height:4px;cursor:pointer}
+    button.mini{background:#262c38;border:1px solid var(--line);color:var(--ink);
+      padding:8px 14px;border-radius:9px;cursor:pointer;font-size:.84rem;margin:6px 8px 0 0}
+    button.mini:hover{border-color:var(--ai)}
+    button.mini.on{border-color:var(--ai);color:var(--ai)}
+    .ovrow{display:flex;align-items:center;gap:8px;padding:6px 9px;border:1px solid var(--line);
+      border-radius:8px;margin:5px 0;cursor:pointer;font-size:.82rem;background:#0d1117}
+    .ovrow:hover{border-color:var(--ai)}
+    .ovrow.active{border-color:var(--ai);background:#1a2230}
+    .ovrow .dot{width:8px;height:8px;border-radius:50%;flex:none}
+    .ovrow .sp{margin-left:auto;color:var(--dim);font-size:.72rem;letter-spacing:.02em}
+    .ovempty{color:#4a5365;font-size:.78rem;font-style:italic;padding:6px 2px}
+    .help{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;
+      border-radius:50%;border:1px solid var(--line);color:var(--dim);font-size:9px;font-weight:700;
+      margin-left:6px;cursor:help;vertical-align:middle;line-height:1}
+    .help:hover{border-color:var(--ai);color:var(--ai)}
+    ::-webkit-scrollbar{width:9px} ::-webkit-scrollbar-thumb{background:#2a303c;border-radius:9px}
+    ::-webkit-scrollbar-track{background:transparent}
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="config"></div>
+    <div id="stage"><canvas id="road"></canvas><div id="stwrap"><canvas id="spacetime"></canvas><div id="stoverlay"></div></div></div>
+    <div id="panel"></div>
+  </div>
+  <script>
+  "use strict";
+
+  // ---- Constants (single source of truth) ----
+  const ROAD_LENGTH = 1500;   // metres, open road — pos 0 = entry (south, bottom), ROAD_LENGTH = exit (north, top). Cars travel +pos; no wrap.
+  let INFLOW_VPH = 4500;      // mainline demand, vehicles/hour across all lanes — below ~6000 vph capacity of 3 lanes so it flows
+  let _nextId = 0;            // global id counter (inflow + seed ids never collide)
+  let _inAccum = 0;           // inflow accumulator (fractional vehicles carried between steps — models upstream queue)
+  const DT = 0.1;             // seconds per fixed sim step
+  const B_SAFE = 4;           // m/s^2, MOBIL max imposed braking
+  const LANE_PX = 40;         // on-screen lane width (px) — road runs south→north
+  let VIEW_SCALE = 3;         // px per metre along travel — lower zoom = more road (more cars) on screen
+  let DRIVE_SIGN = 1;         // +1 = drive on the left (keep-left), -1 = drive on the right
+  let SPEED_LIMIT = 100 / 3.6; // m/s — soft limit; each car's desired speed = limit × comply × jitter
+  let DISCIPLINE = 0.2;       // "slower traffic keeps inner" strength — the experiment knob (see mobilDecision)
+
+  // ---- On-ramp bottleneck (Stage B) ----
+  const RAMP_POS = 700;       // merge end — where the accel lane meets the mainline (metres)
+  const RAMP_LEN = 150;       // accel-lane length; ramp spans pos [RAMP_POS-RAMP_LEN, RAMP_POS]
+  let RAMP_VPH = 1200;        // ramp demand, vehicles/hour
+  let _rampAccum = 0;         // ramp inflow accumulator (queues fractional vehicles at the ramp entry)
+  // The ramp joins on the DRIVING side: drive-left (DRIVE_SIGN 1) → inner lane 0; drive-right → outer lane.
+  function mergeLane() { return DRIVE_SIGN === 1 ? 0 : world.laneCount - 1; }
+
+  // ---- Driver profiles: ALL behaviour lives here as data ----
+  // comply = attitude to the speed limit (1 = drives it, <1 below, >1 speeder); per-car jitter varies it.
+  // v0 desired speed (m/s, base — used only by load-time asserts), T headway (s), a max accel,
+  // b comfy decel, s0 min gap (m), len vehicle length (m), politeness, bias (+slow side), threshold (m/s²)
+  const PROFILES = {
+    hugger:     { comply: 1.0,  v0: 30, T: 1.6, a: 1.2, b: 2.0, s0: 2, len: 4.5, politeness: 0.6, bias:  0.3, threshold: 0.4, color: "#4ade80" },
+    overtaker:  { comply: 1.03, v0: 38, T: 1.0, a: 2.0, b: 3.0, s0: 2, len: 4.5, politeness: 0.0, bias: -0.2, threshold: 0.05, color: "#fbbf24" },
+    cautious:   { comply: 0.95, v0: 24, T: 2.2, a: 0.8, b: 1.5, s0: 3, len: 4.5, politeness: 0.7, bias:  0.0, threshold: 0.2, color: "#7aa2ff" },
+    aggressive: { comply: 1.05, v0: 38, T: 0.6, a: 2.2, b: 3.5, s0: 1.5, len: 4.5, politeness: 0.1, bias: 0.0, threshold: 0.2, color: "#f87171" },
+  };
+  const PROFILE_KEYS = Object.keys(PROFILES);
+
+  // ---- IDM (Intelligent Driver Model) — pure functions ----
+  // gap = bumper-to-bumper distance to leader; dv = self.vel - leader.vel (closing > 0)
+  function desiredGap(p, vel, dv) {
+    // s0 + v*T + (v*dv) / (2*sqrt(a*b)) — the v*T term is "following distance in seconds"
+    const dynamic = vel * p.T + (vel * dv) / (2 * Math.sqrt(p.a * p.b));
+    return p.s0 + Math.max(0, dynamic);
+  }
+
+  // returns raw (unclamped) IDM acceleration; integration in stepLongitudinal clamps velocity to >= 0.
+  // v0 (optional) is the car's own desired speed (limit × comply × jitter); falls back to the profile base.
+  function idmAccel(p, vel, gap, dv, v0) {
+    const vmax = v0 ?? p.v0;
+    const free = 1 - Math.pow(vel / vmax, 4);             // free-road acceleration term
+    const interaction = Math.pow(desiredGap(p, vel, dv) / Math.max(gap, 0.1), 2);
+    return p.a * (free - interaction);
+  }
+
+  const _h = PROFILES.hugger;
+  // free car (huge gap) accelerates toward v0
+  console.assert(idmAccel(_h, 0, 1e9, 0) > 0, "free car should accelerate");
+  console.assert(Math.abs(idmAccel(_h, _h.v0, 1e9, 0)) < 0.01, "car at v0 with clear road ~0 accel");
+  // car closing on a slower/stopped leader brakes
+  console.assert(idmAccel(_h, _h.v0, 5, _h.v0) < 0, "car behind a close slow leader should brake");
+  // desired gap grows with speed
+  console.assert(desiredGap(_h, 30, 0) > desiredGap(_h, 10, 0), "gap grows with speed");
+
+  // ---- World state + spawn ----
+  // mix: { hugger: 0.3, overtaker: 0.3, cautious: 0.2, aggressive: 0.2 } (relative weights, any positive sum)
+  function pickProfileKey(mix) {
+    const total = PROFILE_KEYS.reduce((s, k) => s + (mix[k] || 0), 0);
+    if (total <= 0) return PROFILE_KEYS[0];          // degenerate all-zero mix
+    let r = Math.random() * total;                    // scale into [0, total)
+    for (const k of PROFILE_KEYS) { r -= (mix[k] || 0); if (r <= 0) return k; }
+    return PROFILE_KEYS[0];                            // float-safety fallback
+  }
+
+  // SEEDS the open road with an initial sparse population spread along 0..ROAD_LENGTH.
+  // Ongoing traffic arrives via spawnInflow at the south entry; cars exit (are removed) at the north end.
+  function spawnWorld(laneCount, carCount, mix) {
+    const lanes = Array.from({ length: laneCount }, () => []);
+    for (let i = 0; i < carCount; i++) {
+      const lane = i % laneCount;
+      const profile = PROFILES[pickProfileKey(mix)];
+      const jitter = 1 + (Math.random() - 0.5) * 0.12;   // ±6% personal speed variation
+      const v0 = SPEED_LIMIT * profile.comply * jitter;  // desired speed relative to the limit
+      lanes[lane].push({ id: _nextId++, pos: 0, vel: v0, laneIdx: lane, laneIdxTarget: lane,
+        jitter, v0, lcCool: 0, profile });
+    }
+    // even spacing per lane along the open road, then sort by pos
+    for (let l = 0; l < laneCount; l++) {
+      const arr = lanes[l];
+      arr.forEach((v, k) => { v.pos = (ROAD_LENGTH / arr.length) * k; });
+      arr.sort((a, b) => a.pos - b.pos);
+    }
+    return { lanes, laneCount, roadLength: ROAD_LENGTH, ramp: [] };
+  }
+
+  // ---- spawnWorld asserts (structural, deterministic) ----
+  const _w = spawnWorld(3, 30, { hugger: 1 });
+  console.assert(_w.lanes.length === 3, "should have 3 lanes");
+  console.assert(_w.lanes.flat().length === 30, "should spawn 30 cars total");
+  console.assert(_w.lanes.every(l => l.every((v, i) => i === 0 || v.pos >= l[i-1].pos)), "lanes sorted by pos");
+
+  // ---- Longitudinal step: leader lookup + IDM integration ----
+  // leader = next car ahead in same sorted (ascending pos) lane. On an open road the car at the
+  // front has no leader (null → infinite gap → accelerates freely toward v0).
+  function leaderOf(laneArr, index) {
+    const ahead = laneArr[index + 1];
+    if (!ahead) return null;        // last car in lane: open road ahead, no leader
+    const self = laneArr[index];
+    const gap = ahead.pos - self.pos - ahead.profile.len; // no wrap
+    return { car: ahead, gap };
+  }
+
+  function stepLongitudinal(world, dt) {
+    for (let l = 0; l < world.laneCount; l++) {
+      const arr = world.lanes[l];
+      for (let i = 0; i < arr.length; i++) {
+        const self = arr[i];
+        const ld = leaderOf(arr, i);
+        const gap = ld ? ld.gap : 1e9;
+        const dv = ld ? self.vel - ld.car.vel : 0;
+        const accel = idmAccel(self.profile, self.vel, gap, dv, self.v0);
+        self.vel = Math.max(0, self.vel + accel * dt);
+        self.pos = self.pos + self.vel * dt;           // open road — no wrap
+      }
+      // outflow: remove cars that have run off the north end (exited the road)
+      world.lanes[l] = arr.filter(v => v.pos < world.roadLength);
+      world.lanes[l].sort((a, b) => a.pos - b.pos);    // keep lanes sorted ascending
+    }
+  }
+
+  // ---- stepLongitudinal asserts (open-road invariants over 200 steps, NO inflow) ----
+  // last car in a single-car lane has no leader and accelerates freely
+  console.assert(leaderOf(spawnWorld(1, 1, { hugger: 1 }).lanes[0], 0) === null,
+    "front car has no leader (null → infinite gap → free acceleration)");
+  const _w2 = spawnWorld(1, 6, { hugger: 1 });
+  let _prevPos = _w2.lanes[0].map(v => ({ id: v.id, pos: v.pos }));
+  let _forwardOnly = true;
+  for (let k = 0; k < 200; k++) {
+    stepLongitudinal(_w2, DT);
+    // (a) no negative velocities; (c) surviving cars only ever moved forward
+    for (const v of _w2.lanes[0]) {
+      if (v.vel < 0) _forwardOnly = false;
+      const prev = _prevPos.find(p => p.id === v.id);
+      if (prev && v.pos < prev.pos - 1e-9) _forwardOnly = false;
+    }
+    _prevPos = _w2.lanes[0].map(v => ({ id: v.id, pos: v.pos }));
+  }
+  console.assert(_forwardOnly, "no negative velocities and positions only ever increased (open road)");
+  // (b) within a lane no two adjacent sorted cars overlap
+  console.assert(_w2.lanes[0].every((v, i) => i === 0 || v.pos - _w2.lanes[0][i-1].pos >= 0.5),
+    "no two cars overlap within a lane");
+  // (c) with no inflow over 200 steps, the road eventually empties out the north end
+  console.assert(_w2.lanes[0].length <= 6, "no-inflow road drains (count never grows past seed)");
+
+  // ---- Lateral step: MOBIL lane-changing model ----
+  // nearest leader and follower in targetLane for a car at position `pos`.
+  // `self` (optional) is excluded so a car never finds itself as its own
+  // neighbour when querying its own lane (gap 0 would otherwise win).
+  //
+  // INVARIANT: world.lanes[targetLane] is sorted ascending by .pos (the codebase
+  // re-sorts every lane at the end of every step). This lets us binary-search the
+  // lower bound instead of scanning the whole lane — O(log n) not O(n), which is
+  // what makes the MOBIL step scale to thousands of cars on a long corridor.
+  //
+  // Equivalence to the old linear scan (for the distinct-position case the sim runs in):
+  //   leader   = nearest car at-or-ahead of `pos` (smallest v.pos - pos), excl. self → scan up   from lb.
+  //   follower = nearest car behind `pos`         (smallest pos - v.pos), excl. self → scan down from lb-1.
+  function neighbours(world, targetLane, pos, self) {
+    const arr = world.lanes[targetLane];
+    // lower bound: first index lb with arr[lb].pos >= pos (so [0,lb) are strictly behind).
+    let lo = 0, hi = arr.length;
+    while (lo < hi) {
+      const mid = (lo + hi) >> 1;
+      if (arr[mid].pos < pos) lo = mid + 1; else hi = mid;
+    }
+    const lb = lo;
+    // leader: nearest at-or-ahead → scan forward from lb, skipping self (only one self).
+    let leader = null;
+    for (let i = lb; i < arr.length; i++) {
+      if (arr[i] === self) continue;
+      leader = arr[i]; break;
+    }
+    // follower: nearest behind → scan backward from lb-1, skipping self.
+    let follower = null;
+    for (let i = lb - 1; i >= 0; i--) {
+      if (arr[i] === self) continue;
+      follower = arr[i]; break;
+    }
+    return { leader, follower };                    // either may be null (open road)
+  }
+
+  // ---- neighbours equivalence asserts: binary search === brute-force linear scan ----
+  // The binary version is the hot path; this proves it returns the IDENTICAL leader/follower
+  // *object* the old O(n) scan would, so behaviour is unchanged. We use DISTINCT positions
+  // (exact ties are out of scope — behaviourally negligible) so the nearest neighbour is unique.
+  (function () {
+    // brute-force reference = the original linear scan, verbatim.
+    function neighboursLinear(world, targetLane, pos, self) {
+      const arr = world.lanes[targetLane];
+      let leader = null, follower = null, leadGap = Infinity, followGap = Infinity;
+      for (const v of arr) {
+        if (v === self) continue;
+        if (v.pos >= pos) { const ahead = v.pos - pos; if (ahead < leadGap) { leadGap = ahead; leader = v; } }
+        else { const behind = pos - v.pos; if (behind < followGap) { followGap = behind; follower = v; } }
+      }
+      return { leader, follower };
+    }
+    // build a sorted lane of N cars with DISTINCT positions (jittered grid, no ties).
+    function makeLane(n) {
+      const arr = [];
+      const used = new Set();
+      for (let i = 0; i < n; i++) {
+        let p;
+        do { p = Math.round(Math.random() * ROAD_LENGTH * 10) / 10; } while (used.has(p));
+        used.add(p);
+        arr.push({ id: -1000 - i, pos: p, vel: 0, profile: PROFILES.hugger });
+      }
+      arr.sort((a, b) => a.pos - b.pos);
+      return arr;
+    }
+    let ok = true;
+    const eq = (a, b) => a.leader === b.leader && a.follower === b.follower;
+    for (let trial = 0; trial < 60 && ok; trial++) {
+      const n = Math.floor(Math.random() * 12);           // 0..11 cars (includes empty lane)
+      const world = { lanes: [makeLane(n)], laneCount: 1, roadLength: ROAD_LENGTH };
+      const arr = world.lanes[0];
+      // candidate query positions: below all, above all, between cars, and exactly on cars.
+      const queries = [-50, ROAD_LENGTH + 50, Math.random() * ROAD_LENGTH];
+      for (const c of arr) { queries.push(c.pos); queries.push(c.pos - 0.05); queries.push(c.pos + 0.05); }
+      for (const q of queries) {
+        // self not in lane
+        if (!eq(neighbours(world, 0, q, null), neighboursLinear(world, 0, q, null))) ok = false;
+        // self set to a car in the lane (query at that car's pos — the mobilDecision case)
+        for (const s of arr) {
+          if (!eq(neighbours(world, 0, s.pos, s), neighboursLinear(world, 0, s.pos, s))) ok = false;
+          if (!eq(neighbours(world, 0, q, s), neighboursLinear(world, 0, q, s))) ok = false;
+        }
+        if (!ok) break;
+      }
+    }
+    console.assert(ok, "neighbours: binary search matches brute-force linear scan (leader & follower identical)");
+  })();
+
+  function accelToward(self, leader, roadLength) {
+    if (!leader) return idmAccel(self.profile, self.vel, 1e9, 0, self.v0);
+    const gap = leader.pos - self.pos - leader.profile.len; // no wrap; idmAccel clamps gap to >= 0.1
+    return idmAccel(self.profile, self.vel, gap, self.vel - leader.vel, self.v0);
+  }
+
+  // returns -1 / 0 / +1 lane delta. Evaluates real IDM accels for self, new follower, old follower.
+  function mobilDecision(world, lane, index) {
+    const self = world.lanes[lane][index];
+    const p = self.profile;
+    let best = 0, bestGain = p.threshold;
+
+    // old-lane neighbours don't depend on dir — query once above the loop
+    const { leader: oldLead, follower: oldFoll } = neighbours(world, lane, self.pos, self);
+
+    for (const dir of [-1, +1]) {
+      const target = lane + dir;
+      if (target < 0 || target >= world.laneCount) continue;
+
+      const { leader: newLead, follower: newFoll } = neighbours(world, target, self.pos, self);
+
+      // safety: new follower must not be forced to brake harder than B_SAFE
+      const newFollAfter = newFoll
+        ? accelToward(newFoll, self, world.roadLength) : 0;
+      if (newFoll && newFollAfter < -B_SAFE) continue;
+
+      // incentive: self gain + politeness * (followers' gain)
+      const selfBefore = accelToward(self, oldLead, world.roadLength);
+      const selfAfter = accelToward(self, newLead, world.roadLength);
+
+      const newFollBefore = newFoll ? accelToward(newFoll, newLead, world.roadLength) : 0;
+      const oldFollBefore = oldFoll ? accelToward(oldFoll, self, world.roadLength) : 0;
+      // after self leaves, the old follower's new leader is self's old leader
+      const oldFollAfter = oldFoll ? accelToward(oldFoll, oldLead, world.roadLength) : 0;
+
+      // bias: +bias favours keeping to the "slow" side. DRIVE_SIGN flips it for
+      // drive-on-left (1: slow side = left/lane 0) vs drive-on-right (-1: mirror). dir=-1 moves left.
+      // Lane discipline = the real "slower traffic keep inner" rule, NOT a blanket inner-pull (which
+      // would just cram everyone into lane 0 and waste the outer lanes). The keep-inner bias scales
+      // with how far BELOW the limit this car is: a car at the limit gets ~no pull and is free to use
+      // the outer lanes to overtake; a slow car gets a strong pull to vacate them. MOBIL's incentive
+      // still lets anyone pull out when genuinely blocked — that's the "unless overtaking" part.
+      const deficit = Math.max(0, Math.min(1, (SPEED_LIMIT - self.vel) / SPEED_LIMIT));
+      const biasTerm = -dir * (p.bias + DISCIPLINE * deficit) * DRIVE_SIGN;
+
+      const gain = (selfAfter - selfBefore)
+        + p.politeness * ((newFollAfter - newFollBefore) + (oldFollAfter - oldFollBefore))
+        + biasTerm;
+
+      if (gain > bestGain) { bestGain = gain; best = dir; }
+    }
+    return best;
+  }
+
+  const LC_COOLDOWN = 15;   // steps a car must wait after a lane change before changing again (~1.5s)
+  function stepLateral(world) {
+    // 1. collect decisions off the current snapshot (read-only this pass). Cars on cooldown hold
+    //    their lane — this both models maneuver commitment and de-synchronises decisions so a
+    //    momentary lane imbalance settles instead of sloshing back and forth every tick.
+    const moves = [];
+    for (let l = 0; l < world.laneCount; l++) {
+      for (let i = 0; i < world.lanes[l].length; i++) {
+        const car = world.lanes[l][i];
+        if (car.lcCool > 0) { car.lcCool--; continue; }
+        const dir = mobilDecision(world, l, i);
+        if (dir !== 0) moves.push({ car, from: l, to: l + dir });
+      }
+    }
+    // 2. apply, skipping any move whose target slot is no longer clear of s0
+    for (const m of moves) {
+      const { leader, follower } = neighbours(world, m.to, m.car.pos);
+      const p = m.car.profile;
+      const leadClear = !leader || ((leader.pos - m.car.pos) - leader.profile.len) >= p.s0;
+      const follClear = !follower || ((m.car.pos - follower.pos) - p.len) >= follower.profile.s0;
+      if (!leadClear || !follClear) continue; // someone took the gap this tick; stay, re-evaluate next tick
+      const src = world.lanes[m.from];
+      const idx = src.indexOf(m.car);
+      if (idx === -1) continue;
+      src.splice(idx, 1);
+      m.car.laneIdxTarget = m.to;  // integer target; render lerps laneIdx toward it (Task 8)
+      m.car.lcCool = LC_COOLDOWN;  // commit to the new lane for a bit
+      world.lanes[m.to].push(m.car);
+    }
+    for (let l = 0; l < world.laneCount; l++) world.lanes[l].sort((a, b) => a.pos - b.pos);
+  }
+
+  // ---- MOBIL invariant asserts (multi-lane open road, 200 steps, NO inflow) ----
+  const _wl = spawnWorld(3, 60, { overtaker: 0.5, aggressive: 0.5 });
+  for (let k = 0; k < 200; k++) { stepLongitudinal(_wl, DT); stepLateral(_wl); }
+  let _overlap = false;
+  for (const lane of _wl.lanes)
+    for (let i = 1; i < lane.length; i++)
+      if (lane[i].pos - lane[i-1].pos < 0.5) _overlap = true;
+  console.assert(!_overlap, "INVARIANT: no two cars overlap within a lane");
+  console.assert(_wl.lanes.flat().length <= 60, "INVARIANT: open-road outflow removes cars (count <= seeded)");
+
+  // ---- Canvas ----
+  const canvas = document.getElementById("road");
+  const ctx = canvas.getContext("2d");
+
+  // ---- Space–time diagram (heatmap): mean mainline speed per position-bin, scrolled over time ----
+  const ST_BINS = 100;        // position bins along the road → ROAD_LENGTH/ST_BINS = 15 m each
+  const ST_COLW = 2;          // px width of each new time-column
+  const ST_INTERVAL = 1.0;    // push one column per this many SECONDS of sim time (consistent x time-scale)
+  let _stAccum = 0;           // sim-time accumulator for column pushes
+  const stCanvas = document.getElementById("spacetime");
+  const stctx = stCanvas.getContext("2d");
+
+  // Sample per-bin mean speed of mainline cars, scroll the heatmap left, append a new column at the right.
+  function pushSpaceTimeColumn() {
+    const w = stCanvas.width, h = stCanvas.height;
+    const binM = ROAD_LENGTH / ST_BINS;
+    const sum = new Array(ST_BINS).fill(0);
+    const cnt = new Array(ST_BINS).fill(0);
+    for (const car of world.lanes.flat()) {
+      const b = Math.max(0, Math.min(ST_BINS - 1, Math.floor(car.pos / binM)));
+      sum[b] += car.vel; cnt[b]++;
+    }
+    // scroll existing image left by one column (self-copy)
+    stctx.drawImage(stCanvas, -ST_COLW, 0);
+    // draw the new column at the right edge; higher pos → higher on screen (north up)
+    const x = w - ST_COLW;
+    for (let b = 0; b < ST_BINS; b++) {
+      const yTop = h * (1 - (b + 1) / ST_BINS);
+      const yBot = h * (1 - b / ST_BINS);
+      if (cnt[b] === 0) {
+        stctx.fillStyle = "#0b0d10";                 // empty bin → reads as clear / no cars
+      } else {
+        const mean = sum[b] / cnt[b];
+        const hue = 120 * Math.max(0, Math.min(1, mean / SPEED_LIMIT)); // 0 = red, ≥limit = green
+        stctx.fillStyle = `hsl(${hue}, 85%, 50%)`;
+      }
+      stctx.fillRect(x, yTop, ST_COLW, yBot - yTop);
+    }
+  }
+
+  function render(ctx, world, camera) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const scale = VIEW_SCALE;                      // px per metre along travel (vertical)
+    const WINDOW_M = canvas.height / scale;        // metres of road visible (grows with canvas height)
+    const roadW = world.laneCount * LANE_PX;       // total road width on screen
+    const LANE_X0 = (canvas.width - roadW) / 2;    // left edge — keeps the road centred
+    // north is up: higher world position renders higher on screen (smaller y). Open road — no wrap.
+    const screenY = p => canvas.height - (p - camera.pos) * scale;
+    const laneCenter = li => LANE_X0 + (li + 0.5) * LANE_PX;
+
+    // asphalt strip
+    ctx.fillStyle = "#0e1116";
+    ctx.fillRect(LANE_X0, 0, roadW, canvas.height);
+    // road edges (solid) + scrolling dashed interior dividers (vertical)
+    ctx.strokeStyle = "#2a303c";
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([]);
+    for (const x of [LANE_X0, LANE_X0 + roadW]) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    }
+    const dash = 12 * scale, gap = 10 * scale;
+    ctx.strokeStyle = "#3a414f";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([dash, gap]);
+    ctx.lineDashOffset = (-camera.pos * scale) % (dash + gap); // scroll DOWN as we move north (forward)
+    for (let i = 1; i < world.laneCount; i++) {
+      const x = LANE_X0 + i * LANE_PX;
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // ---- on-ramp accel lane: a strip just OUTSIDE the merge lane that tapers in toward it ----
+    // It sits on the DRIVE_SIGN side: drive-left → left of lane 0; drive-right → right of last lane.
+    const ml = mergeLane();
+    const side = DRIVE_SIGN === 1 ? -1 : +1;          // which way the ramp lies relative to merge lane
+    const yEntry = screenY(RAMP_POS - RAMP_LEN);      // ramp entry (lower pos → lower on screen)
+    const yMerge = screenY(RAMP_POS);                 // merge end
+    const mergeEdge = laneCenter(ml) + side * (LANE_PX / 2);     // the merge-lane edge the ramp meets
+    const farEdge = mergeEdge + side * LANE_PX;        // one lane-width out at the ramp entry
+    if (yMerge < canvas.height && yEntry > 0) {        // only when the ramp zone is on screen
+      ctx.fillStyle = "#0e1116";                       // asphalt
+      ctx.beginPath();
+      ctx.moveTo(farEdge, yEntry);                     // outer corner at entry
+      ctx.lineTo(mergeEdge, yEntry);                   // inner corner at entry
+      ctx.lineTo(mergeEdge, yMerge);                   // converges to merge-lane edge at the merge point
+      ctx.lineTo(mergeEdge, yMerge);                   // (tapered triangle from far edge → merge edge)
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = "#3a414f";                     // subtle edge line along the taper
+      ctx.lineWidth = 1;
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.moveTo(farEdge, yEntry);
+      ctx.lineTo(mergeEdge, yMerge);
+      ctx.stroke();
+      // merge-point marker
+      ctx.fillStyle = "#fbbf24";
+      ctx.fillRect(mergeEdge - 2, yMerge - 1, 4, 2);
+      ctx.fillStyle = "#6b7589";
+      ctx.font = "600 9px -apple-system, system-ui, sans-serif";
+      ctx.textAlign = side === -1 ? "right" : "left";
+      ctx.fillText("on-ramp", mergeEdge + side * 6, (yEntry + yMerge) / 2);
+      ctx.textAlign = "left";
+    }
+
+    // cars: W1 x L1.5 — length (1.5) along travel/vertical, width (1) across the lane
+    for (let l = 0; l < world.laneCount; l++) {
+      for (const v of world.lanes[l]) {
+        const dispPos = v.pos + v.vel * _acc;          // extrapolate by leftover time → smooth at 60fps
+        const d = dispPos - camera.pos;                // metres above the camera (open road, no wrap)
+        if (d < 0 || d > WINDOW_M) continue;       // below the screen / behind camera, or off the top
+        // glide: ease the float laneIdx toward the integer target lane (~0.5s per lane)
+        const t = v.laneIdxTarget ?? v.laneIdx;
+        v.laneIdx += Math.max(-0.08, Math.min(0.08, t - v.laneIdx));
+        const carL = v.profile.len * scale;            // length  (1.5 units)
+        const carW = (v.profile.len / 1.5) * scale;    // width   (1 unit)
+        const cx = laneCenter(v.laneIdx) - carW / 2;
+        const cy = screenY(dispPos) - carL / 2;
+        ctx.fillStyle = v.profile.color;
+        ctx.beginPath();
+        ctx.roundRect(cx, cy, carW, carL, 2.5);
+        ctx.fill();
+        if (v.id === state.followId) {               // highlight the followed car
+          ctx.strokeStyle = "#eef1f6";
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([]);
+          ctx.beginPath();
+          ctx.roundRect(cx - 2.5, cy - 2.5, carW + 5, carL + 5, 4);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // ---- ramp cars: funnel from the off-side toward the merge-lane centre as pos → RAMP_POS ----
+    for (const v of world.ramp) {
+      const dispPos = v.pos + v.vel * _acc;
+      const d = dispPos - camera.pos;
+      if (d < 0 || d > WINDOW_M) continue;             // off-screen, cull
+      const frac = Math.max(0, Math.min(1, (dispPos - (RAMP_POS - RAMP_LEN)) / RAMP_LEN));
+      const xCenter = farEdge + (laneCenter(ml) - farEdge) * frac; // off-side → merge centre
+      const carL = v.profile.len * scale;
+      const carW = (v.profile.len / 1.5) * scale;
+      const cx = xCenter - carW / 2;
+      const cy = screenY(dispPos) - carL / 2;
+      ctx.fillStyle = v.profile.color;
+      ctx.beginPath();
+      ctx.roundRect(cx, cy, carW, carL, 2.5);
+      ctx.fill();
+      if (v.id === state.followId) {
+        ctx.strokeStyle = "#eef1f6"; ctx.lineWidth = 1.5; ctx.setLineDash([]);
+        ctx.beginPath(); ctx.roundRect(cx - 2.5, cy - 2.5, carW + 5, carL + 5, 4); ctx.stroke();
+      }
+    }
+
+    // compass markers — reinforce south→north travel (drawn on top)
+    ctx.fillStyle = "#3a414f";
+    ctx.font = "600 11px -apple-system, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("N ↑", canvas.width / 2, 18);
+    ctx.fillText("S", canvas.width / 2, canvas.height - 10);
+    ctx.textAlign = "left";
+  }
+
+  // ---- Sim loop (initial world; controls come later) ----
+  let world = spawnWorld(3, 40, { hugger: 0.3, overtaker: 0.3, cautious: 0.2, aggressive: 0.2 });
+  let camera = { pos: 0 };
+  const CAMERA_HOME = RAMP_POS - 200; // default camera (metres) — frames the merge zone + upstream queue
+  let _acc = 0;               // leftover sub-step time (s); render extrapolates by vel·_acc for smooth motion
+
+  // ---- Controls panels ----
+  const panel = document.getElementById("panel");    // right: simulation controls
+  const config = document.getElementById("config");  // left: per-driver-type behaviour
+  const state = {
+    laneCount: 3, speed: 2, paused: false, followId: null,
+    mix: { hugger: 0.3, overtaker: 0.3, cautious: 0.2, aggressive: 0.2 },
+  };
+
+  // camera — defaults to a FIXED view near the south entry (CAMERA_HOME). Clicking a car in the
+  // overview sets state.followId; then the camera pins that car low on screen and the road scrolls past.
+  function updateCamera() {
+    const car = state.followId != null ? world.lanes.flat().concat(world.ramp).find(v => v.id === state.followId) : null;
+    if (car) {
+      const offset = canvas.height * 0.05;           // pin it low so the road ahead (north) fills the view
+      camera.pos = car.pos + car.vel * _acc - offset; // open road — no wrap, no clamp
+    } else {
+      camera.pos = CAMERA_HOME;                       // default: fixed view
+    }
+  }
+
+  // slider helper — appends to `parent`, calls onInput(parsedValue) live. `help` adds a ? tooltip.
+  function slider(parent, label, min, max, val, step, onInput, help) {
+    const wrap = document.createElement("div");
+    wrap.style.margin = "6px 0";
+    const out = document.createElement("span");
+    out.textContent = val;
+    const lab = document.createElement("label");
+    lab.append(label + ": ");
+    lab.appendChild(out);
+    if (help) {
+      const q = document.createElement("span");
+      q.className = "help"; q.textContent = "?"; q.title = help;
+      lab.appendChild(q);
+    }
+    const inp = document.createElement("input");
+    Object.assign(inp, { type: "range", min, max, step, value: val });
+    inp.style.width = "100%";
+    inp.oninput = () => { out.textContent = inp.value; onInput(parseFloat(inp.value)); };
+    wrap.append(lab, inp);
+    parent.appendChild(wrap);
+    return inp;
+  }
+
+  function reset() {                                 // full re-spawn (the "↻ New" button)
+    world = spawnWorld(state.laneCount, 40, state.mix); // seed ~40 cars; inflow sustains the rest
+    state.followId = null;                           // back to the fixed default camera
+    _inAccum = 0;                                    // clear any queued inflow
+    _rampAccum = 0;                                  // clear any queued ramp inflow
+    stctx.fillStyle = "#070809";                     // wipe the space–time history on a fresh run
+    stctx.fillRect(0, 0, stCanvas.width, stCanvas.height);
+    _stAccum = 0;
+  }
+
+  // recompute every car's desired speed from the current limit (called on limit/comply change)
+  function applySpeeds() { for (const v of world.lanes.flat()) v.v0 = SPEED_LIMIT * v.profile.comply * v.jitter; }
+
+  // ---- inflow generator: cars arrive at the south entry (pos 0) at INFLOW_VPH ----
+  // Demand accrues fractionally; whole vehicles are released into whichever mainline lane has the
+  // most room at the entry. If even the best lane is blocked, the vehicle stays queued in the
+  // accumulator (modelling an upstream queue) until room opens up.
+  function spawnInflow(dt) {
+    _inAccum += (INFLOW_VPH / 3600) * dt;
+    while (_inAccum >= 1) {
+      // pick the lane whose nearest car (lowest pos) is furthest ahead; empty lane = room ROAD_LENGTH
+      let bestLane = 0, bestRoom = -1;
+      for (let l = 0; l < world.laneCount; l++) {
+        const arr = world.lanes[l];
+        const room = arr.length ? arr[0].pos : world.roadLength;
+        if (room > bestRoom) { bestRoom = room; bestLane = l; }
+      }
+      const profile = PROFILES[pickProfileKey(state.mix)];
+      const minRoom = profile.s0 + profile.len + 5;
+      if (bestRoom < minRoom) break;                 // entry blocked → demand stays queued
+      const jitter = 1 + (Math.random() - 0.5) * 0.12;
+      const v0 = SPEED_LIMIT * profile.comply * jitter;
+      const vel = Math.min(v0, bestRoom * 0.3);      // enter cautiously into the available room
+      world.lanes[bestLane].unshift({ id: _nextId++, pos: 0, vel, laneIdx: bestLane,
+        laneIdxTarget: bestLane, jitter, v0, lcCool: 0, profile });
+      _inAccum -= 1;
+    }
+  }
+
+  // ---- On-ramp inflow: cars arrive at the ramp entry (RAMP_POS - RAMP_LEN) at RAMP_VPH ----
+  // Demand accrues fractionally; a whole vehicle is released only when the ramp entry has room.
+  // If the lowest-pos ramp car is too close to the entry, the vehicle stays queued in the accumulator.
+  function spawnRampInflow(dt) {
+    _rampAccum += (RAMP_VPH / 3600) * dt;
+    while (_rampAccum >= 1) {
+      world.ramp.sort((a, b) => a.pos - b.pos);
+      const entry = RAMP_POS - RAMP_LEN;
+      const profile = PROFILES[pickProfileKey(state.mix)];
+      const lowest = world.ramp[0];
+      if (lowest && (lowest.pos - entry) < (profile.s0 + profile.len + 5)) break; // ramp queue builds
+      const jitter = 1 + (Math.random() - 0.5) * 0.12;
+      const v0 = SPEED_LIMIT * profile.comply * jitter;
+      const sideOffset = DRIVE_SIGN === 1 ? -0.9 : 0.9; // renders OUTSIDE the merge lane until it merges
+      world.ramp.push({ id: _nextId++, pos: entry, vel: v0 * 0.4,
+        laneIdx: mergeLane() + sideOffset, laneIdxTarget: mergeLane() + sideOffset,
+        jitter, v0, lcCool: 0, profile });
+      _rampAccum -= 1;
+    }
+  }
+
+  // ---- On-ramp step: longitudinal motion along the accel lane + the merge attempt ----
+  // Each ramp car follows its ramp-leader, but also brakes for a VIRTUAL WALL at RAMP_POS so an
+  // un-merged car stops at the merge end rather than overshooting. When a safe gap opens in the
+  // mergeLane it splices into the mainline; otherwise it waits at the wall — that's the bottleneck.
+  function stepRamp(world, dt) {
+    world.ramp.sort((a, b) => a.pos - b.pos);
+    // front-to-back so a merging car is removed before the one behind it evaluates
+    for (let i = world.ramp.length - 1; i >= 0; i--) {
+      const self = world.ramp[i];
+      const ahead = world.ramp[i + 1];               // next ramp car ahead (higher pos)
+      const gapLead = ahead ? (ahead.pos - self.pos - ahead.profile.len) : Infinity;
+      const dvLead = ahead ? self.vel - ahead.vel : 0;
+      const gapWall = RAMP_POS - self.pos - 0.5;     // stop just shy of the merge end
+      const dvWall = self.vel;                       // closing on a stationary obstacle
+      let gap, dv;
+      if (gapWall < gapLead) { gap = gapWall; dv = dvWall; }
+      else { gap = gapLead; dv = dvLead; }
+      const accel = idmAccel(self.profile, self.vel, gap, dv, self.v0);
+      self.vel = Math.max(0, self.vel + accel * dt);
+      self.pos = Math.min(RAMP_POS, self.pos + self.vel * dt);
+
+      // merge attempt into the mainline merge lane. Gap acceptance RELAXES as the accel lane runs
+      // out (urgency 0 at the ramp entry → 1 at the merge end): early on, a car waits for a comfortable
+      // gap, but a car about to run out of road forces its way in and the mainline yields — i.e. we
+      // tolerate the follower braking harder the more desperate the merge is. That forced merge is
+      // exactly the capacity drop that makes an on-ramp a bottleneck. (The old code demanded a full
+      // s0 gap on BOTH sides, which dense traffic never offers → ramp cars piled up forever.)
+      const ml = mergeLane();
+      const { leader, follower } = neighbours(world, ml, self.pos, self);
+      const urgency = Math.max(0, Math.min(1, (self.pos - (RAMP_POS - RAMP_LEN)) / RAMP_LEN));
+      const leadGap = leader ? (leader.pos - self.pos - leader.profile.len) : Infinity;
+      const follGap = follower ? (self.pos - follower.pos - follower.profile.len) : Infinity;
+      // accelToward is velocity-aware (a fast follower with a tiny gap returns a huge braking demand,
+      // so it's still rejected); the limit just rises near the ramp end so the mainline cooperates.
+      const brakeLimit = B_SAFE * (1 + 3 * urgency);
+      const follBrake = follower ? accelToward(follower, self, world.roadLength) : 0;
+      const noOverlap = leadGap >= 1 && follGap >= 1;        // never merge on top of another car
+      if (noOverlap && follBrake >= -brakeLimit) {
+        world.ramp.splice(i, 1);                     // leave the ramp
+        self.laneIdxTarget = ml;                     // keep off-lane laneIdx so render glides it in
+        self.lcCool = LC_COOLDOWN;
+        world.lanes[ml].push(self);
+        world.lanes[ml].sort((a, b) => a.pos - b.pos);
+      }
+    }
+    world.ramp.sort((a, b) => a.pos - b.pos);
+  }
+
+  // ---- ramp asserts: a ramp car never overshoots RAMP_POS, and merges into a clear merge lane ----
+  (function () {
+    const _saveSign = DRIVE_SIGN; DRIVE_SIGN = 1;     // drive-left → mergeLane() === 0
+    const _saveWorld = world;
+    world = spawnWorld(3, 0, { hugger: 1 });          // empty mainline (clear merge lane)
+    const ml = world.laneCount > 0 ? 0 : 0;
+    const prof = PROFILES.hugger;
+    const car = { id: -1, pos: RAMP_POS - RAMP_LEN, vel: prof.v0 * 0.4,
+      laneIdx: 0 - 0.9, laneIdxTarget: 0 - 0.9, jitter: 1, v0: prof.v0, lcCool: 0, profile: prof };
+    world.ramp.push(car);
+    let _everOver = false;
+    for (let k = 0; k < 300; k++) {
+      stepRamp(world, DT);
+      for (const r of world.ramp) if (r.pos > RAMP_POS + 1e-6) _everOver = true;
+    }
+    console.assert(!_everOver, "ramp car never exceeds RAMP_POS");
+    console.assert(world.ramp.length === 0 && world.lanes[0].some(v => v.id === -1),
+      "ramp car merges into a clear merge lane (out of ramp, into mergeLane)");
+    world = _saveWorld; DRIVE_SIGN = _saveSign;        // restore live state
+  })();
+  // reducing lanes: distribute the removed lanes' cars ACROSS the kept lanes (into the least-occupied
+  // lane that has a clear gap at the car's position). Keeping the lanes balanced avoids the synchronised
+  // "sloshing" — if one lane were left fuller, every car would pile into the emptier lane on the same
+  // snapshot, overshoot, and oscillate forever. Cars that fit nowhere "exit" (lane closed).
+  function setLaneCount(n) {
+    if (n > world.laneCount) { while (world.lanes.length < n) world.lanes.push([]); }
+    else if (n < world.laneCount) {
+      const moving = [];
+      while (world.lanes.length > n) moving.push(...world.lanes.pop());
+      for (const v of moving) {
+        const order = [...Array(n).keys()].sort((a, b) => world.lanes[a].length - world.lanes[b].length);
+        for (const lane of order) {
+          const { leader, follower } = neighbours(world, lane, v.pos);
+          const okLead = !leader   || ((leader.pos - v.pos) - leader.profile.len) >= v.profile.s0;
+          const okFoll = !follower || ((v.pos - follower.pos) - v.profile.len) >= follower.profile.s0;
+          if (okLead && okFoll) { v.laneIdx = lane; v.laneIdxTarget = lane; world.lanes[lane].push(v); break; }
+        }
+      }
+    }
+    world.laneCount = n;
+    for (const l of world.lanes) l.sort((a, b) => a.pos - b.pos);
+  }
+  // rebalance existing cars' types to match the mix — minimal churn, keeps position/lane/speed
+  function applyMixLive() {
+    const cars = world.lanes.flat(), total = cars.length;
+    const sum = PROFILE_KEYS.reduce((s, k) => s + (state.mix[k] || 0), 0);
+    if (!total || sum <= 0) return;
+    const typeOf = p => PROFILE_KEYS.find(k => PROFILES[k] === p);
+    const target = {}; let assigned = 0;
+    PROFILE_KEYS.forEach(k => { target[k] = Math.round((state.mix[k] || 0) / sum * total); assigned += target[k]; });
+    target[PROFILE_KEYS[0]] += total - assigned;     // absorb rounding drift
+    const cur = {}; PROFILE_KEYS.forEach(k => cur[k] = 0); cars.forEach(c => cur[typeOf(c.profile)]++);
+    const pool = [];                                 // surplus cars free to convert
+    PROFILE_KEYS.forEach(k => { let d = cur[k] - target[k];
+      for (const c of cars) { if (d <= 0) break; if (typeOf(c.profile) === k && !pool.includes(c)) { pool.push(c); d--; } } });
+    let pi = 0;
+    PROFILE_KEYS.forEach(k => { let d = target[k] - cur[k]; while (d-- > 0 && pi < pool.length) pool[pi++].profile = PROFILES[k]; });
+    applySpeeds();                                   // reassigned cars adopt their new type's desired speed
+  }
+
+  // ---- RIGHT panel: live traffic metrics (the experiment's dependent variables) ----
+  panel.insertAdjacentHTML("beforeend", '<div class="ptitle">Traffic</div>');
+  const metricsEl = document.createElement("div");
+  metricsEl.style.margin = "2px 0 16px";
+  panel.appendChild(metricsEl);
+
+  // ---- RIGHT panel: simulation controls ----
+  panel.insertAdjacentHTML("beforeend", '<div class="ptitle">Simulation</div>');
+  slider(panel, "Sim speed (×)", 0.25, 4, 2, 0.25, v => state.speed = v,
+    "How fast the simulation runs. 1× = real time; below 1× slows it down for closer watching.");
+  slider(panel, "Zoom (px/m)", 1.5, 8, 3, 0.5, v => VIEW_SCALE = v,
+    "Zoom level — pixels per metre of road. LOWER = zoom out to see more of the loop and more cars at once; HIGHER = zoom in for a close look at individual cars.");
+  slider(panel, "Speed limit (km/h)", 40, 150, 100, 5, v => { SPEED_LIMIT = v / 3.6; applySpeeds(); },
+    "The posted limit. It's soft — drivers scatter around it: cautious types go under, aggressive types over, plus a little individual variation (set per type under Driver behaviour).");
+  slider(panel, "Inflow (veh/h)", 500, 6500, 4500, 250, v => INFLOW_VPH = v,
+    "Upstream traffic demand entering the south end, vehicles per hour across all lanes. Above the road's capacity (~2000/lane) a queue builds at the entry. Cars exit and are removed at the north end, so jams can actually drain.");
+  slider(panel, "Ramp inflow (veh/h)", 0, 2500, 1200, 100, v => RAMP_VPH = v,
+    "Traffic demand entering from the on-ramp, veh/h. Push it up and watch the merge create a bottleneck that backs the mainline up; drop it and the jam drains. This is the pain point on/off ramps cause in real traffic.");
+  slider(panel, "Lanes", 1, 5, 3, 1, v => { state.laneCount = v; setLaneCount(v); },
+    "Number of lanes. Added or merged live, without restarting.");
+  slider(panel, "Lane discipline", 0, 1.5, 0.2, 0.05, v => DISCIPLINE = v,
+    "'Slower traffic keep inner.' How strongly cars below the limit are pulled to the inner lane so faster cars can overtake in the outer lanes — they still pull out to overtake when blocked. 0 = no discipline (slow cars camp in any lane); high = slow cars vacate the outer lanes. Raise it and watch whether the Traffic metrics improve.");
+  const btnPause = document.createElement("button");
+  btnPause.className = "mini";
+  btnPause.textContent = "Pause";
+  btnPause.onclick = () => { state.paused = !state.paused; btnPause.textContent = state.paused ? "Play" : "Pause"; };
+  const btnStep = document.createElement("button");
+  btnStep.className = "mini";
+  btnStep.textContent = "Step";
+  btnStep.onclick = () => { stepLongitudinal(world, DT); stepLateral(world); };
+  const btnNew = document.createElement("button");
+  btnNew.className = "mini";
+  btnNew.textContent = "↻ New";
+  btnNew.onclick = () => reset();
+  // drive side — flips the keep-lane bias for everyone (default: left). Applies live.
+  const btnSide = document.createElement("button");
+  btnSide.className = "mini";
+  btnSide.textContent = "Drive: Left";
+  btnSide.onclick = () => {
+    DRIVE_SIGN = -DRIVE_SIGN;
+    btnSide.textContent = "Drive: " + (DRIVE_SIGN === 1 ? "Left" : "Right");
+  };
+  panel.append(btnPause, btnStep, btnNew, btnSide);
+
+  // ---- in-view car overview (click a car to follow it) ----
+  panel.insertAdjacentHTML("beforeend", '<div class="ptitle" style="margin-top:18px">In view — click to follow</div>');
+  const overview = document.createElement("div");
+  panel.appendChild(overview);
+  overview.addEventListener("click", e => {
+    const row = e.target.closest("[data-follow]");
+    if (row) state.followId = Number(row.dataset.follow);
+  });
+  function renderOverview() {
+    const scale = VIEW_SCALE, WINDOW_M = canvas.height / scale;
+    const rampSet = new Set(world.ramp);
+    const inView = world.lanes.flat().concat(world.ramp)
+      .map(v => ({ v, d: v.pos - camera.pos }))      // metres above the camera (open road, no wrap)
+      .filter(o => o.d >= 0 && o.d <= WINDOW_M)
+      .sort((a, b) => b.d - a.d);                    // north-most (furthest ahead) first
+    if (!inView.length) { overview.innerHTML = '<div class="ovempty">no cars in view</div>'; return; }
+    const typeOf = p => PROFILE_KEYS.find(k => PROFILES[k] === p) || "?";
+    overview.innerHTML = inView.map(({ v }) =>
+      `<div class="ovrow ${v.id === state.followId ? "active" : ""}" data-follow="${v.id}">
+        <span class="dot" style="background:${v.profile.color}"></span>${typeOf(v.profile)}
+        <span class="sp">${(v.vel * 3.6).toFixed(0)} km/h · ${rampSet.has(v) ? "ramp" : "L" + ((v.laneIdxTarget ?? Math.round(v.laneIdx)) + 1)}</span>
+      </div>`).join("");
+  }
+
+  // ---- live traffic metrics: mean speed + how many cars are crawling. These are the numbers to
+  //      compare across Lane-discipline settings to answer "does discipline make the jam less bad?" ----
+  let _emaMean = null;                               // smoothed mean speed so A/B comparison isn't jumpy
+  function renderMetrics() {
+    const cars = world.lanes.flat().concat(world.ramp);
+    if (!cars.length) { metricsEl.innerHTML = '<div class="ovempty">no cars</div>'; return; }
+    const limit = SPEED_LIMIT * 3.6;
+    let sum = 0, crawl = 0;
+    for (const v of cars) { sum += v.vel * 3.6; if (v.vel < SPEED_LIMIT * 0.4) crawl++; }
+    const mean = sum / cars.length;
+    _emaMean = _emaMean == null ? mean : _emaMean + 0.05 * (mean - _emaMean);
+    const eff = limit > 0 ? (_emaMean / limit) * 100 : 0;
+    const crawlPct = (crawl / cars.length) * 100;
+    const crawlColor = crawlPct > 25 ? "var(--danger)" : crawlPct > 8 ? "var(--warn)" : "var(--accent)";
+    const row = (label, value, color, help) =>
+      `<div style="display:flex;align-items:baseline;justify-content:space-between;margin:5px 0">
+         <span style="font-size:.72rem;color:var(--dim)">${label}<span class="help" title="${help}">?</span></span>
+         <span style="font-weight:700;font-size:.95rem;color:${color}">${value}</span>
+       </div>`;
+    metricsEl.innerHTML =
+      row("mean speed", _emaMean.toFixed(0) + " km/h", "var(--ink)",
+          "Average speed of every car, smoothed over a few seconds. Higher = traffic flowing better.") +
+      row("flow efficiency", eff.toFixed(0) + "%", eff > 70 ? "var(--accent)" : eff > 45 ? "var(--warn)" : "var(--danger)",
+          "Mean speed as a share of the speed limit. ~100% = free flow; low = jammed.") +
+      row("crawling", crawlPct.toFixed(0) + "%", crawlColor,
+          "Share of cars below 40% of the limit — stuck in a jam. Watch this fall (or not) as you raise Lane discipline.");
+  }
+
+  // ---- LEFT panel: per-driver-type behaviour config ----
+  config.insertAdjacentHTML("beforeend", '<div class="ptitle">Driver behaviour</div>');
+  // Editing a knob mutates the shared PROFILES[type] object, so it applies to every car of that
+  // type. These are the "when do they decide" parameters; spawn % sets how many of each appear.
+  const DRIVER_KNOBS = [
+    { key: "comply",     label: "speed vs limit (%)", min: 60, max: 140, step: 5, mul: 100,
+      help: "How this driver type treats the speed limit: 100% drives it, below = slower, above = a speeder. Individual cars vary a little around this." },
+    { key: "T",          label: "follow distance (s)", min: 0.4, max: 3, step: 0.1,
+      help: "Seconds of gap kept to the car ahead (the 2-second rule). Lower = tailgates; higher = big cushion." },
+    { key: "a",          label: "acceleration (m/s²)", min: 0.5, max: 3, step: 0.1,
+      help: "How hard they accelerate and brake. Higher = peppier and more aggressive." },
+    { key: "threshold",  label: "lane-change threshold", min: 0.02, max: 1, step: 0.02,
+      help: "How much faster another lane must let them go before they switch. LOW = changes lanes eagerly (overtaker); HIGH = stays put (hugger)." },
+    { key: "politeness", label: "politeness", min: 0, max: 1, step: 0.05,
+      help: "How much they weigh inconveniencing other drivers before pulling in. HIGH = won't cut people off; 0 = selfish." },
+    { key: "bias",       label: "keep-side bias", min: -0.5, max: 0.5, step: 0.05,
+      help: "Pull back toward the slow side (left when driving on the left). Positive = hugs the slow lane; negative = hunts the fast lane to overtake." },
+  ];
+  for (const k of PROFILE_KEYS) {
+    const h = document.createElement("div");
+    h.className = "dtype";
+    h.innerHTML = `<span class="dot" style="background:${PROFILES[k].color};color:${PROFILES[k].color}"></span>${k}`;
+    config.appendChild(h);
+    slider(config, "spawn %", 0, 100, Math.round(state.mix[k] * 100), 5,
+      v => { state.mix[k] = v / 100; applyMixLive(); },
+      "Share of cars that are this driver type (relative weight). Rebalances the existing cars live.");
+    for (const knob of DRIVER_KNOBS) {
+      const mul = knob.mul || 1;
+      slider(config, knob.label, knob.min, knob.max, +(PROFILES[k][knob.key] * mul).toFixed(2), knob.step,
+        v => { PROFILES[k][knob.key] = v / mul; if (knob.key === "comply") applySpeeds(); }, knob.help);
+    }
+  }
+
+  // ---- static space–time overlay (HTML, absolutely positioned — does NOT scroll with the heatmap) ----
+  const stOverlay = document.getElementById("stoverlay");
+  function buildSpaceTimeOverlay() {
+    const rampTop = (1 - RAMP_POS / ROAD_LENGTH) * 100;
+    stOverlay.innerHTML =
+      // title + one-line "what it is"
+      `<div class="stlabel" style="left:8px;top:6px;color:var(--ai);font-weight:700;letter-spacing:.12em">SPACE–TIME MAP</div>` +
+      `<div class="stlabel" style="left:8px;top:21px">↕ where on road · ↔ time · colour = speed</div>` +
+      // vertical axis = position along the road (matches the road strip to the left)
+      `<div class="stlabel" style="left:8px;top:40px">▲ exit (north)</div>` +
+      `<div class="stlabel" style="left:8px;bottom:22px">▼ entry (south)</div>` +
+      `<div class="stlabel" style="left:8px;top:calc(${rampTop}% - 7px);color:var(--warn)">◀ on-ramp</div>` +
+      `<div class="stramp" style="top:${rampTop}%"></div>` +
+      // horizontal axis = time
+      `<div class="stlabel" style="left:50%;bottom:5px;transform:translateX(-50%)">◀ earlier&nbsp;&nbsp;·&nbsp;&nbsp;time&nbsp;&nbsp;·&nbsp;&nbsp;now ▶ &nbsp;(1 col = ${ST_INTERVAL}s)</div>` +
+      // speed legend (red = stopped → green = limit)
+      `<div class="stlegend"><span>stopped</span><span class="bar"></span><span>limit</span></div>` +
+      // how to read it
+      `<div class="stlabel" style="right:8px;top:26px;max-width:46%;white-space:normal;text-align:right;line-height:1.35">red band = a jam; it grows ▼ downward as it backs up upstream</div>`;
+  }
+  buildSpaceTimeOverlay();
+
+  // ---- canvas sizing: fill the window height ----
+  function fit() {                                   // size both backing stores to their grid cells
+    const r = canvas.getBoundingClientRect();
+    canvas.width = Math.max(200, Math.round(r.width));
+    canvas.height = Math.max(400, Math.round(r.height));
+    const sr = stCanvas.getBoundingClientRect();
+    const sw = Math.max(120, Math.round(sr.width));
+    const sh = Math.max(200, Math.round(sr.height));
+    stCanvas.width = sw;                             // resolution change invalidates history → clear
+    stCanvas.height = sh;
+    stctx.fillStyle = "#070809";
+    stctx.fillRect(0, 0, sw, sh);
+    buildSpaceTimeOverlay();
+  }
+  fit();
+  window.addEventListener("resize", fit);
+
+  // wall-clock accumulator: run fixed-DT sub-steps to match real elapsed time × speed.
+  // speed = 1 is real time; below 1 slows everything (cars AND stripes) down. fps-independent.
+  let _ovTick = 0, _last = null;
+  function frame(ts) {
+    if (state.paused) { _last = ts; }
+    else {
+      if (_last == null) _last = ts;
+      let dtReal = (ts - _last) / 1000; _last = ts;
+      if (!(dtReal > 0)) dtReal = 0;
+      dtReal = Math.min(dtReal, 0.1);                // cap after a stall / inactive tab
+      _acc += dtReal * state.speed;
+      let steps = Math.floor(_acc / DT);
+      if (steps > 30) steps = 30;                    // safety cap
+      _acc -= steps * DT;
+      for (let n = 0; n < steps; n++) {
+        stepLongitudinal(world, DT); stepLateral(world); stepRamp(world, DT);
+        spawnInflow(DT); spawnRampInflow(DT);
+      }
+      _stAccum += steps * DT;                         // accrue sim time; emit one column per ST_INTERVAL
+      while (_stAccum >= ST_INTERVAL) { pushSpaceTimeColumn(); _stAccum -= ST_INTERVAL; }
+    }
+    updateCamera();
+    render(ctx, world, camera);
+    if (_ovTick++ % 12 === 0) { renderOverview(); renderMetrics(); }  // refresh ~5×/sec, not every frame
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  </script>
+</body>
+</html>

@@ -1,520 +1,666 @@
+import {
+  CONFIG,
+  createDemand,
+  createNetwork,
+  DEFAULT_POLICY,
+} from "./scenario";
 import type {
-  DirectionMode,
-  IntersectionNode,
-  Pedestrian,
-  RoadSegment,
-  SignalPattern,
-  SignalPhase,
-  SimulationStats,
-  SnapshotComparison,
-  TrafficSignal,
-  Vec2,
-  Vehicle
-} from './types';
+  CompletedTrip,
+  Crossing,
+  Lane,
+  Network,
+  PolicySelection,
+  Pose,
+  Trip,
+  Vehicle,
+} from "./types";
+import { idmAccel } from "./simulation/idm";
+import {
+  createCrossing,
+  createArrival,
+  crossingPose,
+  findRoute,
+  signalPhase,
+} from "./simulation/network";
+import { collectMetrics } from "./metrics";
+import { validatePolicy } from "./policies";
+import {
+  CLEAR_DISTANCE,
+  movementsConflict,
+  sameMovement,
+} from "./simulation/junctions";
+import {
+  LANE_CHANGE,
+  assessLaneChange,
+  laneChangePose,
+  neighbours,
+  occupiesLane,
+  permitsRoute,
+} from "./simulation/lanes";
 
-const GRID = 5;
-const MAX_SPEED = 5.8;
-const SAFE_GAP = 2.6;
-const STOP_LINE = 1.25;
-const COLORS = [0x4f8cff, 0xf56b6b, 0xf9b94f, 0x78d67d, 0xc58cff, 0xffffff];
-
-const keyOf = (p: Vec2) => `${Math.round(p.x / GRID)},${Math.round(p.z / GRID)}`;
-const dist = (a: Vec2, b: Vec2) => Math.hypot(a.x - b.x, a.z - b.z);
-const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
-const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
+import {
+  PedestrianSystem,
+  type PedestrianTrip,
+} from "./simulation/pedestrians";
+export const MODEL_VERSION = "pedestrians-v4";
 export class TrafficSimulation {
-  nodes = new Map<string, IntersectionNode>();
-  roads = new Map<string, RoadSegment>();
-  signals = new Map<string, TrafficSignal>();
-  vehicles = new Map<string, Vehicle>();
-  pedestrians = new Map<string, Pedestrian>();
-  stats: SimulationStats = {
-    averageTravelTime: 0,
-    averageWaitingTime: 0,
-    throughput: 0,
-    congestionLength: 0,
-    averageSpeed: 0,
-    currentVehicleCount: 0,
-    stoppedVehicleCount: 0,
-    fps: 0
-  };
-
-  selectedRoadId?: string;
-  selectedNodeId?: string;
-  selectedSignalId?: string;
-  snapshot?: SimulationStats;
-  comparison?: SnapshotComparison;
-  congestionOverlay = false;
-  paused = false;
-  speedMultiplier = 1;
-  defaultLaneCount = 2;
-  defaultDirection: DirectionMode = 'two-way';
-  signalSync = false;
-  time = 0;
-
-  private nodeKeys = new Map<string, string>();
-  private idCounter = 1;
-  private travelSamples: number[] = [];
-  private waitSamples: number[] = [];
-
-  constructor() {
-    this.seedCity();
+  readonly pedestrians: PedestrianSystem;
+  readonly network: Network;
+  readonly demand: readonly Trip[];
+  readonly policy: PolicySelection;
+  readonly vehicles = new Map<number, Vehicle>();
+  readonly completed: CompletedTrip[] = [];
+  readonly pending: Trip[] = [];
+  readonly nodeLocks = new Map<string, Set<number>>();
+  readonly laneReservations = new Map<string, Set<number>>();
+  readonly movementReservations = new Map<number, Crossing>();
+  readonly laneChangeEvents: {
+    time: number;
+    vehicle: number;
+    from: string;
+    to: string;
+    reason: "route" | "flow";
+    incentive: number;
+  }[] = [];
+  readonly events: {
+    time: number;
+    vehicle: number;
+    node: string;
+    phase: string;
+    type: "enter" | "arrive";
+    fromLaneId?: string;
+    nextLaneId?: string;
+    entrySpeed?: number;
+  }[] = [];
+  readonly history: { time: number; stopped: number; arrived: number }[] = [];
+  private released = 0;
+  private ticks = 0;
+  private accumulated = 0;
+  private routeCache = new Map<string, string[]>();
+  private movementCache = new Map<string, Crossing>();
+  private laneCache = new Map<string, Vehicle[]>();
+  constructor(
+    policy: PolicySelection = DEFAULT_POLICY,
+    demand: readonly Trip[] = createDemand(),
+    network?: Network,
+    pedestrianDemand: readonly PedestrianTrip[] = [],
+  ) {
+    validatePolicy(policy);
+    this.policy = { ...policy };
+    this.demand = demand;
+    this.network = network ?? createNetwork(policy);
+    this.pedestrians = new PedestrianSystem(this.network, pedestrianDemand);
   }
-
-  seedCity() {
-    this.nodes.clear();
-    this.roads.clear();
-    this.signals.clear();
-    this.vehicles.clear();
-    this.pedestrians.clear();
-    this.nodeKeys.clear();
-    this.idCounter = 1;
-    this.travelSamples = [];
-    this.waitSamples = [];
-    this.time = 0;
-
-    const roads: [Vec2, Vec2, number, DirectionMode][] = [];
-    const addLine = (points: Vec2[], lanes: number, direction: DirectionMode) => {
-      for (let i = 0; i < points.length - 1; i += 1) roads.push([points[i], points[i + 1], lanes, direction]);
-    };
-    addLine([{ x: -20, z: 0 }, { x: -10, z: 0 }, { x: 0, z: 0 }, { x: 10, z: 0 }, { x: 20, z: 0 }], 3, 'two-way');
-    addLine([{ x: 0, z: -20 }, { x: 0, z: -10 }, { x: 0, z: 0 }, { x: 0, z: 10 }, { x: 0, z: 20 }], 2, 'two-way');
-    addLine([{ x: -20, z: -10 }, { x: -10, z: -10 }, { x: 0, z: -10 }, { x: 10, z: -10 }, { x: 15, z: -10 }], 2, 'two-way');
-    addLine([{ x: -15, z: 10 }, { x: -10, z: 10 }, { x: 0, z: 10 }, { x: 10, z: 10 }, { x: 20, z: 10 }], 1, 'one-way');
-    addLine([{ x: -15, z: 10 }, { x: -15, z: 0 }, { x: -15, z: -10 }], 2, 'two-way');
-    addLine([{ x: 15, z: -10 }, { x: 15, z: 0 }, { x: 15, z: 10 }, { x: 15, z: 20 }], 1, 'two-way');
-    addLine([{ x: -20, z: 0 }, { x: -20, z: -10 }], 1, 'two-way');
-    addLine([{ x: 20, z: 0 }, { x: 20, z: 10 }], 2, 'two-way');
-    roads.forEach(([a, b, lanes, direction]) => this.addRoad(a, b, lanes, direction));
-    [...this.nodes.values()]
-      .filter((node) => node.connectedRoadIds.length >= 3)
-      .forEach((node, index) => this.addSignal(node.id, index * 1.7));
-    for (let i = 0; i < 24; i += 1) this.addVehicle();
-    for (const node of this.nodes.values()) {
-      if (node.connectedRoadIds.length >= 3) {
-        this.pedestrians.set(`ped-${node.id}`, {
-          id: `ped-${node.id}`,
-          nodeId: node.id,
-          phase: Math.random() * Math.PI * 2,
-          speed: 0.7 + Math.random() * 0.4
-        });
-      }
+  get time() {
+    return this.ticks * CONFIG.dt;
+  }
+  get stats() {
+    return collectMetrics(this);
+  }
+  get alpha() {
+    return Math.min(1, this.accumulated / CONFIG.dt);
+  }
+  get releasedCount() {
+    return this.released;
+  }
+  route(origin: string, destination: string) {
+    const key = `${origin}>${destination}`;
+    if (!this.routeCache.has(key))
+      this.routeCache.set(key, findRoute(this.network, origin, destination));
+    return this.routeCache.get(key)!;
+  }
+  invalidateRoutes() {
+    this.routeCache.clear();
+  }
+  advance(seconds: number) {
+    if (!Number.isFinite(seconds) || seconds < 0) return;
+    this.accumulated += seconds;
+    while (this.accumulated + 1e-9 >= CONFIG.dt) {
+      this.step();
+      this.accumulated -= CONFIG.dt;
     }
-    this.recomputeNodeTypes();
+    if (this.accumulated < 0) this.accumulated = 0;
   }
-
-  addRoad(start: Vec2, end: Vec2, laneCount = this.defaultLaneCount, direction = this.defaultDirection) {
-    const a = this.getOrCreateNode(start);
-    const b = this.getOrCreateNode(end);
-    const existing = [...this.roads.values()].find((road) =>
-      (road.startNodeId === a.id && road.endNodeId === b.id) || (road.startNodeId === b.id && road.endNodeId === a.id)
+  runUntil(seconds: number) {
+    while (this.time + 1e-9 < seconds) this.step();
+  }
+  private laneCars(laneId: string) {
+    const cached = this.laneCache.get(laneId);
+    if (cached) return cached;
+    const cars = [...this.vehicles.values()]
+      .filter((v) => occupiesLane(v, laneId))
+      .sort((a, b) => b.s - a.s || a.id - b.id);
+    this.laneCache.set(laneId, cars);
+    return cars;
+  }
+  private availableLane(
+    roadId: string,
+    from: string,
+    nextRoadId?: string,
+    incomingLaneId?: string,
+  ): Lane | undefined {
+    const lanes = (this.network.outgoing.get(from) ?? []).filter(
+      (lane) =>
+        lane.roadId === roadId && permitsRoute(this.network, lane, nextRoadId),
     );
-    if (existing) return existing;
-    const road: RoadSegment = {
-      id: `road-${this.idCounter++}`,
-      startNodeId: a.id,
-      endNodeId: b.id,
-      laneCount,
-      direction,
-      length: dist(a.position, b.position),
-      congestionLevel: 0,
-      vehicleIds: [],
-      stoppedCount: 0
-    };
-    this.roads.set(road.id, road);
-    a.connectedRoadIds.push(road.id);
-    b.connectedRoadIds.push(road.id);
-    this.recomputeNodeTypes();
-    return road;
+    return lanes
+      .sort(
+        (a, b) =>
+          Number(!!this.laneReservations.get(b.id)?.size) -
+            Number(!!this.laneReservations.get(a.id)?.size) ||
+          this.laneCars(a.id).length - this.laneCars(b.id).length ||
+          a.index - b.index,
+      )
+      .find((lane) => {
+        const cars = this.laneCars(lane.id),
+          tail = cars[cars.length - 1];
+        const reservations =
+          this.laneReservations.get(lane.id) ?? new Set<number>();
+        // Occupied cars plus outstanding claims must fit as a stopped queue.
+        // Moving traffic may be followed; a stopped tail at the entrance closes it.
+        const storageAvailable =
+          (cars.length + reservations.size + 1) * CLEAR_DISTANCE <= lane.length;
+        const entranceAvailable =
+          !tail ||
+          tail.s >= CLEAR_DISTANCE + 3 ||
+          (incomingLaneId !== undefined && tail.speed >= 0.3);
+        return (
+          [...reservations].every(
+            (id) =>
+              incomingLaneId !== undefined &&
+              this.movementReservations.get(id)?.fromLaneId === incomingLaneId,
+          ) &&
+          !cars.some((car) => car.laneChange) &&
+          storageAvailable &&
+          entranceAvailable
+        );
+      });
   }
-
-  addCross(center: Vec2) {
-    const c = this.snap(center);
-    this.addRoad(c, { x: c.x - GRID, z: c.z }, this.defaultLaneCount, this.defaultDirection);
-    this.addRoad(c, { x: c.x + GRID, z: c.z }, this.defaultLaneCount, this.defaultDirection);
-    this.addRoad(c, { x: c.x, z: c.z - GRID }, this.defaultLaneCount, this.defaultDirection);
-    this.addRoad(c, { x: c.x, z: c.z + GRID }, this.defaultLaneCount, this.defaultDirection);
-  }
-
-  addT(center: Vec2) {
-    const c = this.snap(center);
-    this.addRoad(c, { x: c.x - GRID, z: c.z }, this.defaultLaneCount, this.defaultDirection);
-    this.addRoad(c, { x: c.x + GRID, z: c.z }, this.defaultLaneCount, this.defaultDirection);
-    this.addRoad(c, { x: c.x, z: c.z + GRID }, this.defaultLaneCount, this.defaultDirection);
-  }
-
-  deleteRoad(roadId: string) {
-    const road = this.roads.get(roadId);
-    if (!road) return;
-    this.vehicles.forEach((vehicle) => {
-      if (vehicle.currentRoadId === roadId || vehicle.route.includes(roadId)) this.vehicles.delete(vehicle.id);
-    });
-    [road.startNodeId, road.endNodeId].forEach((nodeId) => {
-      const node = this.nodes.get(nodeId);
-      if (node) node.connectedRoadIds = node.connectedRoadIds.filter((id) => id !== roadId);
-    });
-    this.roads.delete(roadId);
-    this.selectedRoadId = undefined;
-    this.recomputeNodeTypes();
-  }
-
-  toggleRoadDirection(roadId: string) {
-    const road = this.roads.get(roadId);
-    if (road) road.direction = road.direction === 'two-way' ? 'one-way' : 'two-way';
-  }
-
-  setRoadLaneCount(roadId: string, laneCount: number) {
-    const road = this.roads.get(roadId);
-    if (road) road.laneCount = clamp(Math.round(laneCount), 1, 3);
-  }
-
-  addSignal(nodeId: string, offset = this.signalSync ? 0 : Math.random() * 4) {
-    const node = this.nodes.get(nodeId);
-    if (!node) return undefined;
-    if (node.signalId) return this.signals.get(node.signalId);
-    const signal: TrafficSignal = {
-      id: `signal-${this.idCounter++}`,
-      intersectionId: nodeId,
-      phase: 'ns-green',
-      greenDuration: 7,
-      yellowDuration: 2,
-      redDuration: 7,
-      currentTimer: offset,
-      pattern: 'alternating',
-      offset
-    };
-    node.signalId = signal.id;
-    this.signals.set(signal.id, signal);
-    this.selectedSignalId = signal.id;
-    return signal;
-  }
-
-  setSignalDurations(signalId: string, green: number, yellow: number) {
-    const signal = this.signals.get(signalId);
-    if (!signal) return;
-    signal.greenDuration = clamp(green, 3, 20);
-    signal.yellowDuration = clamp(yellow, 1, 6);
-    signal.redDuration = signal.greenDuration;
-  }
-
-  cycleSignalPattern(signalId: string) {
-    const signal = this.signals.get(signalId);
-    if (!signal) return;
-    const patterns: SignalPattern[] = ['alternating', 'north-south-priority', 'east-west-priority'];
-    signal.pattern = patterns[(patterns.indexOf(signal.pattern) + 1) % patterns.length];
-  }
-
-  setSignalSync(sync: boolean) {
-    this.signalSync = sync;
-    this.signals.forEach((signal) => {
-      signal.offset = sync ? 0 : Math.random() * 6;
-      signal.currentTimer = signal.offset;
-    });
-  }
-
-  addVehicle(originNodeId?: string, destinationNodeId?: string) {
-    const nodes = [...this.nodes.values()].filter((node) => node.connectedRoadIds.length > 0);
-    if (nodes.length < 2 || this.roads.size === 0) return undefined;
-    const origin = originNodeId ? this.nodes.get(originNodeId) : nodes[Math.floor(Math.random() * nodes.length)];
-    let dest = destinationNodeId ? this.nodes.get(destinationNodeId) : nodes[Math.floor(Math.random() * nodes.length)];
-    if (!origin || !dest) return undefined;
-    for (let guard = 0; dest.id === origin.id && guard < 8; guard += 1) dest = nodes[Math.floor(Math.random() * nodes.length)];
-    const route = this.findRoute(origin.id, dest.id);
-    if (route.length === 0) return undefined;
-    const firstRoad = this.roads.get(route[0]);
-    if (!firstRoad) return undefined;
-    const toNodeId = firstRoad.startNodeId === origin.id ? firstRoad.endNodeId : firstRoad.startNodeId;
-    const vehicle: Vehicle = {
-      id: `vehicle-${this.idCounter++}`,
-      currentRoadId: firstRoad.id,
-      route,
-      positionAlongRoad: 0.2,
-      speed: 0,
-      targetSpeed: MAX_SPEED * (0.72 + Math.random() * 0.24),
-      waitingTime: 0,
-      tripStartTime: this.time,
-      destinationNodeId: dest.id,
-      fromNodeId: origin.id,
-      toNodeId,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      length: 0.85 + Math.random() * 0.35,
-      lane: Math.floor(Math.random() * firstRoad.laneCount),
-      turnBlend: 0
-    };
-    this.vehicles.set(vehicle.id, vehicle);
-    firstRoad.vehicleIds.push(vehicle.id);
-    return vehicle;
-  }
-
-  update(dt: number, fps: number) {
-    this.stats.fps = fps;
-    if (this.paused) {
-      this.refreshStats();
-      return;
+  private spawn() {
+    while (
+      this.released < this.demand.length &&
+      this.demand[this.released].departAt <= this.time + 1e-9
+    )
+      this.pending.push(this.demand[this.released++]);
+    for (let i = 0; i < this.pending.length; ) {
+      const trip = this.pending[i],
+        route = this.route(trip.origin, trip.destination);
+      const lane = route.length
+        ? this.availableLane(route[0], trip.origin, route[1])
+        : undefined;
+      if (!lane) {
+        i++;
+        continue;
+      }
+      const pose = this.lanePose(lane, 0);
+      this.vehicles.set(trip.id, {
+        id: trip.id,
+        trip,
+        laneId: lane.id,
+        route: [...route],
+        routeIndex: 0,
+        s: 0,
+        speed: 0,
+        acceleration: 0,
+        maxAccel: 1.8,
+        comfortBrake: 2.8,
+        safetyGap: CONFIG.minimumGap,
+        headway: 1.1,
+        waitingTime: this.time - trip.departAt,
+        enteredAt: this.time,
+        pose,
+        previousPose: { ...pose },
+      });
+      this.pending.splice(i, 1);
+      this.laneCache.delete(lane.id);
     }
-    const step = Math.min(dt * this.speedMultiplier, 0.08);
-    this.time += step;
-    this.updateSignals(step);
-    this.updateVehicles(step);
-    this.updatePedestrians(step);
-    this.updateCongestion();
-    this.refreshStats();
   }
-
-  saveSnapshot() {
-    this.snapshot = { ...this.stats };
-    this.comparison = {
-      averageTravelTime: 0,
-      averageWaitingTime: 0,
-      throughput: 0,
-      congestionLength: 0,
-      averageSpeed: 0
-    };
-  }
-
-  resetComparison() {
-    this.snapshot = undefined;
-    this.comparison = undefined;
-  }
-
-  getRoadWorldPosition(vehicle: Vehicle) {
-    const road = this.roads.get(vehicle.currentRoadId);
-    if (!road) return { x: 0, z: 0, angle: 0 };
-    const a = this.nodes.get(vehicle.fromNodeId)?.position;
-    const b = this.nodes.get(vehicle.toNodeId)?.position;
-    if (!a || !b) return { x: 0, z: 0, angle: 0 };
-    const t = clamp(vehicle.positionAlongRoad / road.length, 0, 1);
-    const dx = b.x - a.x;
-    const dz = b.z - a.z;
-    const len = Math.hypot(dx, dz) || 1;
-    const normalX = -dz / len;
-    const normalZ = dx / len;
-    const laneOffset = ((vehicle.lane + 0.5) / road.laneCount - 0.5) * (0.7 + road.laneCount * 0.26);
+  lanePose(lane: Lane, s: number): Pose {
+    const t = s / lane.length;
     return {
-      x: lerp(a.x, b.x, t) + normalX * laneOffset,
-      z: lerp(a.z, b.z, t) + normalZ * laneOffset,
-      angle: Math.atan2(dx, dz)
+      x: lane.start.x + (lane.end.x - lane.start.x) * t,
+      z: lane.start.z + (lane.end.z - lane.start.z) * t,
+      angle: Math.atan2(lane.end.x - lane.start.x, lane.end.z - lane.start.z),
     };
   }
-
-  snap(p: Vec2): Vec2 {
-    return { x: Math.round(p.x / GRID) * GRID, z: Math.round(p.z / GRID) * GRID };
+  private releaseReservation(id: number) {
+    const plan = this.movementReservations.get(id);
+    if (!plan) return;
+    this.movementReservations.delete(id);
+    const locks = this.nodeLocks.get(plan.nodeId);
+    locks?.delete(id);
+    if (!locks?.size) this.nodeLocks.delete(plan.nodeId);
+    this.releaseExit(plan.nextLaneId, id);
   }
-
-  nearestRoad(p: Vec2, threshold = 1.8) {
-    let best: RoadSegment | undefined;
-    let bestDist = Infinity;
-    for (const road of this.roads.values()) {
-      const a = this.nodes.get(road.startNodeId)?.position;
-      const b = this.nodes.get(road.endNodeId)?.position;
-      if (!a || !b) continue;
-      const d = this.distanceToSegment(p, a, b);
-      if (d < bestDist) {
-        bestDist = d;
-        best = road;
-      }
-    }
-    return bestDist <= threshold ? best : undefined;
+  private releaseExit(laneId: string, id: number) {
+    const reservations = this.laneReservations.get(laneId);
+    reservations?.delete(id);
+    if (!reservations?.size) this.laneReservations.delete(laneId);
   }
-
-  nearestNode(p: Vec2, threshold = 2.4) {
-    let best: IntersectionNode | undefined;
-    let bestDist = Infinity;
-    for (const node of this.nodes.values()) {
-      const d = dist(p, node.position);
-      if (d < bestDist) {
-        bestDist = d;
-        best = node;
-      }
-    }
-    return bestDist <= threshold ? best : undefined;
-  }
-
-  private getOrCreateNode(position: Vec2) {
-    const snapped = this.snap(position);
-    const key = keyOf(snapped);
-    const existingId = this.nodeKeys.get(key);
-    if (existingId) return this.nodes.get(existingId)!;
-    const node: IntersectionNode = {
-      id: `node-${this.idCounter++}`,
-      position: snapped,
-      connectedRoadIds: [],
-      type: 'dead-end'
+  /** Continuous centre position along approach -> curve -> exit for car following. */
+  private pathLeader(plan: Crossing, self: Vehicle, distance: number) {
+    let leader: { car: Vehicle; distance: number } | undefined;
+    const consider = (car: Vehicle, at: number) => {
+      if (
+        car.id !== self.id &&
+        at > distance + 1e-8 &&
+        (!leader || at < leader.distance)
+      )
+        leader = { car, distance: at };
     };
-    this.nodes.set(node.id, node);
-    this.nodeKeys.set(key, node.id);
-    return node;
+    for (const id of this.nodeLocks.get(plan.nodeId) ?? []) {
+      const otherPlan = this.movementReservations.get(id)!;
+      if (!sameMovement(plan, otherPlan)) continue;
+      const car = this.vehicles.get(id)!;
+      if (car.crossing) consider(car, car.crossing.distance);
+      else if (car.laneId === plan.fromLaneId)
+        consider(car, car.s - this.network.lanes.get(car.laneId)!.length);
+      else if (car.laneId === plan.nextLaneId)
+        consider(car, plan.length + car.s);
+    }
+    if (plan.nextLaneId)
+      for (const car of this.laneCars(plan.nextLaneId))
+        consider(car, plan.length + car.s);
+    return leader;
   }
-
-  private recomputeNodeTypes() {
-    this.nodes.forEach((node) => {
-      const count = node.connectedRoadIds.length;
-      node.type = count >= 4 ? 'cross' : count === 3 ? 't' : count === 2 ? 'straight' : 'dead-end';
-    });
-  }
-
-  private updateSignals(dt: number) {
-    this.signals.forEach((signal) => {
-      signal.currentTimer += dt;
-      const g = signal.pattern === 'north-south-priority' ? signal.greenDuration * 1.45 : signal.greenDuration;
-      const ewG = signal.pattern === 'east-west-priority' ? signal.greenDuration * 1.45 : signal.greenDuration;
-      const cycle = g + signal.yellowDuration + ewG + signal.yellowDuration;
-      const t = signal.currentTimer % cycle;
-      if (t < g) signal.phase = 'ns-green';
-      else if (t < g + signal.yellowDuration) signal.phase = 'ns-yellow';
-      else if (t < g + signal.yellowDuration + ewG) signal.phase = 'ew-green';
-      else signal.phase = 'ew-yellow';
-    });
-  }
-
-  private updateVehicles(dt: number) {
-    const vehicles = [...this.vehicles.values()];
-    for (const vehicle of vehicles) {
-      const road = this.roads.get(vehicle.currentRoadId);
-      if (!road) continue;
-      const blockedByCar = this.hasVehicleAhead(vehicle, road);
-      const blockedBySignal = this.isBlockedBySignal(vehicle, road);
-      const desired = blockedByCar || blockedBySignal ? 0 : vehicle.targetSpeed;
-      const accel = desired > vehicle.speed ? 3.4 : 6.2;
-      vehicle.speed += clamp(desired - vehicle.speed, -accel * dt, accel * dt);
-      if (vehicle.speed < 0.04) vehicle.speed = 0;
-      if (vehicle.speed < 0.25 && (blockedByCar || blockedBySignal)) vehicle.waitingTime += dt;
-      vehicle.positionAlongRoad += vehicle.speed * dt;
-      if (vehicle.positionAlongRoad >= road.length) this.advanceVehicle(vehicle, road);
+  private releaseLocks() {
+    for (const [id, plan] of this.movementReservations) {
+      const car = this.vehicles.get(id);
+      if (!car) {
+        this.releaseReservation(id);
+        continue;
+      }
+      if (car.crossing) continue;
+      const approaching = car.laneId === plan.fromLaneId;
+      const lane = this.network.lanes.get(car.laneId)!;
+      if (
+        approaching
+          ? signalPhase(
+              this.network.nodes.get(plan.nodeId)!.signal,
+              this.time,
+            ) !== `${lane.axis}-green`
+          : car.s >= CLEAR_DISTANCE
+      )
+        this.releaseReservation(id);
     }
   }
-
-  private advanceVehicle(vehicle: Vehicle, road: RoadSegment) {
-    const reached = vehicle.toNodeId;
-    road.vehicleIds = road.vehicleIds.filter((id) => id !== vehicle.id);
-    if (reached === vehicle.destinationNodeId || vehicle.route.length <= 1) {
-      this.travelSamples.push(this.time - vehicle.tripStartTime);
-      this.waitSamples.push(vehicle.waitingTime);
-      if (this.travelSamples.length > 80) this.travelSamples.shift();
-      if (this.waitSamples.length > 80) this.waitSamples.shift();
-      this.vehicles.delete(vehicle.id);
-      window.setTimeout(() => this.addVehicle(reached), 450 + Math.random() * 900);
-      return;
-    }
-    vehicle.route.shift();
-    const nextRoadId = vehicle.route[0];
-    const nextRoad = this.roads.get(nextRoadId);
-    if (!nextRoad) {
-      this.vehicles.delete(vehicle.id);
-      return;
-    }
-    vehicle.fromNodeId = reached;
-    vehicle.toNodeId = nextRoad.startNodeId === reached ? nextRoad.endNodeId : nextRoad.startNodeId;
-    vehicle.currentRoadId = nextRoad.id;
-    vehicle.positionAlongRoad = 0;
-    vehicle.lane = Math.min(vehicle.lane, nextRoad.laneCount - 1);
-    vehicle.turnBlend = 1;
-    nextRoad.vehicleIds.push(vehicle.id);
+  private movement(from: string, to: string) {
+    const key = `${from}>${to}`;
+    if (!this.movementCache.has(key))
+      this.movementCache.set(
+        key,
+        to
+          ? createCrossing(this.network, from, to)
+          : createArrival(this.network, from),
+      );
+    return this.movementCache.get(key)!;
   }
-
-  private hasVehicleAhead(vehicle: Vehicle, road: RoadSegment) {
-    for (const otherId of road.vehicleIds) {
-      if (otherId === vehicle.id) continue;
-      const other = this.vehicles.get(otherId);
-      if (!other || other.fromNodeId !== vehicle.fromNodeId || other.toNodeId !== vehicle.toNodeId) continue;
-      const gap = other.positionAlongRoad - vehicle.positionAlongRoad;
-      if (gap > 0 && gap < SAFE_GAP + vehicle.speed * 0.35) return true;
-    }
-    return false;
-  }
-
-  private isBlockedBySignal(vehicle: Vehicle, road: RoadSegment) {
-    if (road.length - vehicle.positionAlongRoad > STOP_LINE + Math.max(0, vehicle.speed * 0.35)) return false;
-    const node = this.nodes.get(vehicle.toNodeId);
-    if (!node?.signalId) return false;
-    const signal = this.signals.get(node.signalId);
-    if (!signal) return false;
-    const from = this.nodes.get(vehicle.fromNodeId)?.position;
-    const to = node.position;
-    if (!from) return false;
-    const isNorthSouth = Math.abs(to.z - from.z) > Math.abs(to.x - from.x);
-    const green = isNorthSouth ? signal.phase === 'ns-green' : signal.phase === 'ew-green';
-    return !green;
-  }
-
-  private updatePedestrians(dt: number) {
-    this.pedestrians.forEach((ped) => {
-      ped.phase += ped.speed * dt;
-    });
-  }
-
-  private updateCongestion() {
-    this.roads.forEach((road) => {
-      const vehicles = road.vehicleIds.map((id) => this.vehicles.get(id)).filter(Boolean) as Vehicle[];
-      const density = vehicles.length / Math.max(1, road.length / 4) / road.laneCount;
-      const avgSpeed = vehicles.length ? vehicles.reduce((sum, v) => sum + v.speed, 0) / vehicles.length : MAX_SPEED;
-      const stopped = vehicles.filter((v) => v.speed < 0.35).length;
-      road.stoppedCount = stopped;
-      road.congestionLevel = clamp(density * 0.58 + (1 - avgSpeed / MAX_SPEED) * 0.28 + stopped * 0.07, 0, 1);
-    });
-  }
-
-  private refreshStats() {
-    const vehicles = [...this.vehicles.values()];
-    this.stats.currentVehicleCount = vehicles.length;
-    this.stats.stoppedVehicleCount = vehicles.filter((vehicle) => vehicle.speed < 0.35).length;
-    this.stats.averageSpeed = vehicles.length ? vehicles.reduce((sum, v) => sum + v.speed, 0) / vehicles.length : 0;
-    this.stats.averageTravelTime = this.travelSamples.length
-      ? this.travelSamples.reduce((sum, v) => sum + v, 0) / this.travelSamples.length
-      : 0;
-    this.stats.averageWaitingTime = this.waitSamples.length
-      ? this.waitSamples.reduce((sum, v) => sum + v, 0) / this.waitSamples.length
-      : 0;
-    this.stats.throughput = this.travelSamples.length;
-    this.stats.congestionLength = [...this.roads.values()]
-      .filter((road) => road.congestionLevel > 0.58)
-      .reduce((sum, road) => sum + road.length, 0);
-    if (this.snapshot) {
-      this.comparison = {
-        averageTravelTime: percentDelta(this.snapshot.averageTravelTime, this.stats.averageTravelTime, true),
-        averageWaitingTime: percentDelta(this.snapshot.averageWaitingTime, this.stats.averageWaitingTime, true),
-        throughput: percentDelta(this.snapshot.throughput, this.stats.throughput, false),
-        congestionLength: percentDelta(this.snapshot.congestionLength, this.stats.congestionLength, true),
-        averageSpeed: percentDelta(this.snapshot.averageSpeed, this.stats.averageSpeed, false)
+  private planLaneChanges() {
+    const candidates = [...this.vehicles.values()]
+      .filter(
+        (car) =>
+          !car.crossing &&
+          !car.laneChange &&
+          !this.movementReservations.has(car.id),
+      )
+      .sort((a, b) => a.trip.departAt - b.trip.departAt || a.id - b.id);
+    for (const car of candidates) {
+      const lane = this.network.lanes.get(car.laneId)!;
+      if (
+        this.network.roads.get(lane.roadId)!.laneCount < 2 ||
+        car.s < CLEAR_DISTANCE + 1 ||
+        car.s >
+          lane.length -
+            LANE_CHANGE.junctionMargin -
+            LANE_CHANGE.distance +
+            1e-8 ||
+        this.time - (car.lastLaneChangeAt ?? -Infinity) < LANE_CHANGE.cooldown
+      )
+        continue;
+      const nextRoad = car.route[car.routeIndex + 1];
+      const required = !permitsRoute(this.network, lane, nextRoad);
+      const targets = (this.network.outgoing.get(lane.from) ?? []).filter(
+        (target) =>
+          target.roadId === lane.roadId &&
+          target.to === lane.to &&
+          Math.abs(target.index - lane.index) === 1 &&
+          permitsRoute(this.network, target, nextRoad),
+      );
+      let best: { lane: Lane; incentive: number } | undefined;
+      for (const target of targets) {
+        // Claim both lanes for the manoeuvre; exclude incoming junction traffic and competing merges.
+        const pair = [lane.id, target.id];
+        if (
+          [...this.movementReservations.values()].some((plan) =>
+            pair.includes(plan.nextLaneId),
+          ) ||
+          [...this.vehicles.values()].some(
+            (other) =>
+              other.laneChange &&
+              (pair.includes(other.laneId) ||
+                pair.includes(other.laneChange.toLaneId)),
+          )
+        )
+          continue;
+        const decision = assessLaneChange(
+          car,
+          this.laneCars(lane.id),
+          this.laneCars(target.id),
+          target,
+          this.network.roads.get(lane.roadId)!.speedLimit,
+          required,
+        );
+        if (decision.allowed && (!best || decision.incentive > best.incentive))
+          best = { lane: target, incentive: decision.incentive };
+      }
+      if (!best) continue;
+      const reason = required ? "route" : "flow";
+      car.laneChange = {
+        fromLaneId: lane.id,
+        toLaneId: best.lane.id,
+        startS: car.s,
+        length: LANE_CHANGE.distance,
+        reason,
       };
+      this.laneChangeEvents.push({
+        time: this.time,
+        vehicle: car.id,
+        from: lane.id,
+        to: best.lane.id,
+        reason,
+        incentive: best.incentive,
+      });
+      this.laneCache.clear();
     }
   }
-
-  private findRoute(startNodeId: string, endNodeId: string) {
-    const queue: { nodeId: string; route: string[] }[] = [{ nodeId: startNodeId, route: [] }];
-    const visited = new Set<string>([startNodeId]);
-    while (queue.length) {
-      const item = queue.shift()!;
-      if (item.nodeId === endNodeId) return item.route;
-      const node = this.nodes.get(item.nodeId);
-      if (!node) continue;
-      const candidates = [...node.connectedRoadIds].sort(() => Math.random() - 0.5);
-      for (const roadId of candidates) {
-        const road = this.roads.get(roadId);
-        if (!road) continue;
-        if (road.direction === 'one-way' && road.startNodeId !== item.nodeId) continue;
-        const next = road.startNodeId === item.nodeId ? road.endNodeId : road.startNodeId;
-        if (visited.has(next)) continue;
-        visited.add(next);
-        queue.push({ nodeId: next, route: [...item.route, roadId] });
+  private reserveApproaches() {
+    const candidates: { car: Vehicle; rank: number }[] = [];
+    for (const lane of this.network.lanes.values()) {
+      if (this.pedestrians.blockedNodes.has(lane.to)) continue;
+      for (const [rank, lead] of this.laneCars(lane.id).entries()) {
+        if (
+          !lead ||
+          lead.laneChange ||
+          this.movementReservations.has(lead.id) ||
+          !permitsRoute(this.network, lane, lead.route[lead.routeIndex + 1])
+        )
+          continue;
+        // Only reserve a nearby approach; red/yellow always keeps the stop line.
+        const approach = Math.min(20, Math.max(12, lead.speed * 1.8));
+        if (
+          lane.length - lead.s <= approach &&
+          signalPhase(this.network.nodes.get(lane.to)!.signal, this.time) ===
+            `${lane.axis}-green`
+        )
+          candidates.push({ car: lead, rank });
       }
     }
-    return [];
+    // Front-to-back within each lane; no follower may reserve across an unserved leader.
+    candidates.sort(
+      (a, b) =>
+        a.rank - b.rank ||
+        a.car.trip.departAt - b.car.trip.departAt ||
+        a.car.id - b.car.id,
+    );
+    for (const { car } of candidates) {
+      const lane = this.network.lanes.get(car.laneId)!;
+      const out =
+        lane.to === car.trip.destination
+          ? undefined
+          : this.availableLane(
+              car.route[car.routeIndex + 1],
+              lane.to,
+              car.route[car.routeIndex + 2],
+              lane.id,
+            );
+      if (lane.to !== car.trip.destination && !out) continue;
+      const plan = this.movement(lane.id, out?.id ?? "");
+      const before = neighbours(this.laneCars(lane.id), car).leader;
+      const beforePlan = before && this.movementReservations.get(before.id);
+      if (before && (!beforePlan || !sameMovement(plan, beforePlan))) continue;
+      const locks = this.nodeLocks.get(lane.to) ?? new Set<number>();
+      if (
+        [...locks].some(
+          (id) =>
+            !sameMovement(plan, this.movementReservations.get(id)!) &&
+            movementsConflict(
+              this.network,
+              plan,
+              this.movementReservations.get(id)!,
+            ),
+        )
+      )
+        continue;
+      const ahead = this.pathLeader(plan, car, car.s - lane.length);
+      if (ahead && ahead.distance - (car.s - lane.length) < CLEAR_DISTANCE)
+        continue;
+      locks.add(car.id);
+      this.nodeLocks.set(lane.to, locks);
+      this.movementReservations.set(car.id, plan);
+      if (out) {
+        const reservations =
+          this.laneReservations.get(out.id) ?? new Set<number>();
+        reservations.add(car.id);
+        this.laneReservations.set(out.id, reservations);
+      }
+    }
   }
-
-  private distanceToSegment(p: Vec2, a: Vec2, b: Vec2) {
-    const dx = b.x - a.x;
-    const dz = b.z - a.z;
-    const l2 = dx * dx + dz * dz;
-    if (l2 === 0) return dist(p, a);
-    const t = clamp(((p.x - a.x) * dx + (p.z - a.z) * dz) / l2, 0, 1);
-    return dist(p, { x: a.x + t * dx, z: a.z + t * dz });
+  private arrive(v: Vehicle) {
+    this.completed.push({
+      id: v.id,
+      travelTime: this.time - v.trip.departAt,
+      waitingTime: v.waitingTime,
+      purpose: v.trip.purpose,
+    });
+    this.events.push({
+      time: this.time,
+      vehicle: v.id,
+      node: v.trip.destination,
+      phase: "destination",
+      type: "arrive",
+    });
+    this.vehicles.delete(v.id);
+    this.releaseReservation(v.id);
   }
-}
-
-function percentDelta(before: number, after: number, lowerIsBetter: boolean) {
-  if (before === 0) return after === 0 ? 0 : 100;
-  const raw = ((after - before) / Math.abs(before)) * 100;
-  return lowerIsBetter ? -raw : raw;
+  step() {
+    const dt = CONFIG.dt;
+    this.laneCache.clear();
+    this.ticks++;
+    this.releaseLocks();
+    this.pedestrians.step(this.time, dt, this.nodeLocks);
+    this.spawn();
+    for (const v of this.vehicles.values()) v.previousPose = { ...v.pose };
+    const transferred = new Set<number>();
+    const crossingUpdates = new Map<
+      number,
+      { distance: number; speed: number; acceleration: number }
+    >();
+    for (const v of this.vehicles.values())
+      if (v.crossing) {
+        const c = v.crossing;
+        const ahead = this.pathLeader(c, v, c.distance);
+        const gap = ahead
+          ? ahead.distance - c.distance - CONFIG.carLength
+          : 1e6;
+        const target = Math.min(c.speedLimit, v.trip.targetSpeed);
+        const acceleration = Math.max(
+          -8,
+          Math.min(
+            v.maxAccel,
+            idmAccel(
+              v,
+              v.speed,
+              gap,
+              ahead ? v.speed - ahead.car.speed : 0,
+              target,
+            ),
+          ),
+        );
+        const oldSpeed = v.speed;
+        let speed = Math.max(0, v.speed + acceleration * dt);
+        const cap = ahead ? ahead.distance - CLEAR_DISTANCE : Infinity;
+        const distance = Math.max(
+          c.distance,
+          Math.min(c.length, cap, c.distance + (oldSpeed + speed) * 0.5 * dt),
+        );
+        if (distance >= cap - 1e-8) speed = 0;
+        crossingUpdates.set(v.id, { distance, speed, acceleration });
+      }
+    for (const [id, update] of crossingUpdates) {
+      const v = this.vehicles.get(id)!,
+        c = v.crossing!;
+      v.speed = update.speed;
+      v.acceleration = update.acceleration;
+      c.distance = update.distance;
+      c.progress = c.distance / c.length;
+      if (v.speed < 0.3) v.waitingTime += dt;
+      v.pose = crossingPose(c, c.distance);
+      if (c.progress >= 1) {
+        if (!c.nextLaneId) {
+          this.arrive(v);
+          continue;
+        }
+        v.laneId = c.nextLaneId;
+        v.s = 0;
+        v.routeIndex++;
+        this.releaseExit(c.nextLaneId, v.id);
+        v.crossing = undefined;
+        this.laneCache.delete(v.laneId);
+        transferred.add(v.id);
+      }
+    }
+    this.planLaneChanges();
+    this.reserveApproaches();
+    const next = new Map<number, { s: number; speed: number }>();
+    const entrants: Vehicle[] = [];
+    for (const lane of this.network.lanes.values()) {
+      const cars = this.laneCars(lane.id);
+      for (let index = 0; index < cars.length; index++) {
+        const v = cars[index];
+        if (transferred.has(v.id) || v.laneId !== lane.id) continue;
+        let leader = cars[index - 1];
+        if (v.laneChange) {
+          const adjacent = neighbours(
+            this.laneCars(v.laneChange.toLaneId),
+            v,
+          ).leader;
+          if (adjacent && (!leader || adjacent.s < leader.s)) leader = adjacent;
+        }
+        let cap = Infinity,
+          gap = 1e6,
+          closing = 0;
+        if (leader) {
+          gap = leader.s - v.s - CONFIG.carLength;
+          closing = v.speed - leader.speed;
+          cap =
+            leader.s -
+            (v.laneChange || leader.laneChange
+              ? Math.hypot(CONFIG.carLength, CONFIG.carWidth)
+              : CONFIG.carLength) -
+            0.15;
+        }
+        const plan = this.movementReservations.get(v.id);
+        const permitted = plan?.fromLaneId === lane.id;
+        const stopAt =
+          !v.laneChange &&
+          !permitsRoute(this.network, lane, v.route[v.routeIndex + 1])
+            ? lane.length - LANE_CHANGE.junctionMargin - LANE_CHANGE.distance
+            : lane.length;
+        if (!permitted) {
+          const stopGap = stopAt - v.s + v.safetyGap;
+          if (stopGap < gap) {
+            gap = stopGap;
+            closing = v.speed;
+          }
+        }
+        cap = Math.min(cap, stopAt);
+        let target = Math.min(
+          v.trip.targetSpeed,
+          this.network.roads.get(lane.roadId)!.speedLimit,
+        );
+        if (permitted) {
+          target = Math.min(
+            target,
+            Math.sqrt(
+              plan.speedLimit ** 2 + 2 * v.comfortBrake * (lane.length - v.s),
+            ),
+          );
+          const ahead = this.pathLeader(plan, v, v.s - lane.length);
+          const downstreamGap = ahead
+            ? lane.length - v.s + ahead.distance - CONFIG.carLength
+            : 1e6;
+          if (ahead)
+            cap = Math.min(cap, lane.length + ahead.distance - CLEAR_DISTANCE);
+          if (downstreamGap < gap) {
+            gap = downstreamGap;
+            closing = v.speed - ahead!.car.speed;
+          }
+        }
+        const acceleration = Math.max(
+          -8,
+          Math.min(v.maxAccel, idmAccel(v, v.speed, gap, closing, target)),
+        );
+        let speed = Math.max(0, v.speed + acceleration * dt);
+        let s = Math.min(cap, v.s + (v.speed + speed) * 0.5 * dt);
+        if (s < v.s) s = v.s;
+        if (s >= cap - 1e-8 && !(permitted && cap === lane.length)) speed = 0;
+        v.acceleration = acceleration;
+        next.set(v.id, { s, speed });
+        if (!leader && !v.laneChange && permitted && s >= lane.length - 1e-8)
+          entrants.push(v);
+      }
+    }
+    for (const [id, p] of next) {
+      const v = this.vehicles.get(id)!;
+      v.s = p.s;
+      v.speed = p.speed;
+      if (v.speed < 0.3) v.waitingTime += dt;
+      const lane = this.network.lanes.get(v.laneId)!;
+      if (v.laneChange) {
+        const change = v.laneChange,
+          target = this.network.lanes.get(change.toLaneId)!;
+        v.pose = laneChangePose(
+          lane,
+          target,
+          v.s,
+          change.startS,
+          change.length,
+        );
+        if (v.s >= change.startS + change.length - 1e-8) {
+          v.laneId = target.id;
+          v.laneChange = undefined;
+          v.lastLaneChangeAt = this.time;
+        }
+      } else v.pose = this.lanePose(lane, v.s);
+    }
+    entrants.sort((a, b) => a.trip.departAt - b.trip.departAt || a.id - b.id);
+    for (const v of entrants) {
+      const lane = this.network.lanes.get(v.laneId)!;
+      const node = this.network.nodes.get(lane.to)!;
+      const phase = signalPhase(node.signal, this.time);
+      const plan = this.movementReservations.get(v.id);
+      if (!plan || phase !== `${lane.axis}-green`) continue;
+      v.s = lane.length;
+      v.crossing = { ...plan, distance: 0, progress: 0 };
+      v.pose = crossingPose(v.crossing, 0);
+      this.events.push({
+        time: this.time,
+        vehicle: v.id,
+        node: node.id,
+        phase,
+        type: "enter",
+        fromLaneId: lane.id,
+        nextLaneId: plan.nextLaneId,
+        entrySpeed: v.speed,
+      });
+    }
+    if (this.ticks % 50 === 0) {
+      const stats = this.stats;
+      this.history.push({
+        time: this.time,
+        stopped: stats.stopped,
+        arrived: stats.arrived,
+      });
+    }
+  }
 }

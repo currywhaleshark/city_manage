@@ -1,8 +1,15 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: '/mini-traffic-city-sim/',
+  base: "./",
   build: {
-    target: 'es2020'
-  }
+    target: "es2020",
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [{ name: "three", test: /node_modules[\\/]three[\\/]/ }],
+        },
+      },
+    },
+  },
 });

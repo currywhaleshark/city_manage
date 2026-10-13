@@ -1,0 +1,17 @@
+{
+  "productionBuild": true,
+  "modelVersion": "pedestrians-v4",
+  "loadingView": true,
+  "importFailureRecovery": true,
+  "quality": "light",
+  "debugEndpointAbsent": true,
+  "beforeArrived": 28,
+  "afterArrived": 65,
+  "observationSeconds": 420,
+  "scriptPaths": [
+    "/assets/index-BAcyH4Lz.js",
+    "/assets/main-ruFGxeYt.js",
+    "/assets/three-Cezv4uga.js"
+  ],
+  "errors": []
+}
