@@ -1,0 +1,5617 @@
+{
+  "modelVersion": "waste-services-v1",
+  "duration": 600,
+  "observations": [
+    {
+      "seed": 2404,
+      "policies": [],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 27.879430193908522,
+          "after": 27.879430193908522,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 199.61479134618506,
+          "after": 199.61479134618506,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 78.7792765404983,
+          "after": 78.7792765404983,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 101.30000000000001,
+          "after": 101.30000000000001,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 31,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 0,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 29,
+          "generated": 15.309508016333229,
+          "collected": 0,
+          "remaining": 44.30950801633972,
+          "participation": 0.3689876433927566,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.30950801633972,
+          "afterRemaining": 44.30950801633972
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 15.30663398653186,
+          "collected": 0,
+          "remaining": 45.30663398654042,
+          "participation": 0.37883479183074087,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.30663398654042,
+          "afterRemaining": 45.30663398654042
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 31,
+          "generated": 10.958862170575735,
+          "collected": 0,
+          "remaining": 41.958862170582506,
+          "participation": 0.7125735329464078,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.958862170582506,
+          "afterRemaining": 41.958862170582506
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 37,
+          "generated": 12.680756071581865,
+          "collected": 0,
+          "remaining": 49.68075607160313,
+          "participation": 0.6600452830316499,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 49.68075607160313,
+          "afterRemaining": 49.68075607160313
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 34,
+          "generated": 11.033315887673542,
+          "collected": 35.43616995137878,
+          "remaining": 9.597145936294805,
+          "participation": 0.6395119352964684,
+          "lastCollectedAt": 78.10000000000001,
+          "completedAt": 78.10000000000001,
+          "beforeRemaining": 9.597145936294805,
+          "afterRemaining": 9.597145936294805
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 37,
+          "generated": 13.490200407802071,
+          "collected": 41.728315242934464,
+          "remaining": 8.761885164867657,
+          "participation": 0.4296320036519319,
+          "lastCollectedAt": 210.3,
+          "completedAt": 210.3,
+          "beforeRemaining": 8.761885164867657,
+          "afterRemaining": 8.761885164867657
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 198,
+        "generated": 78.7792765404983,
+        "collected": 77.16448519431324,
+        "remaining": 199.61479134618506,
+        "collectionRate": 27.879430193908522,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 77.16448519431324,
+        "trucks": 2,
+        "averageTravelTime": 101.30000000000001,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 15.309508016333229,
+            "collected": 0,
+            "remaining": 44.30950801633972,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 15.30663398653186,
+            "collected": 0,
+            "remaining": 45.30663398654042,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 10.958862170575735,
+            "collected": 0,
+            "remaining": 41.958862170582506,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 12.680756071581865,
+            "collected": 0,
+            "remaining": 49.68075607160313,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 11.033315887673542,
+            "collected": 35.43616995137878,
+            "remaining": 9.597145936294805,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": 78.10000000000001,
+            "completedAt": 78.10000000000001
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 13.490200407802071,
+            "collected": 41.728315242934464,
+            "remaining": 8.761885164867657,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": 210.3,
+            "completedAt": 210.3
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 198,
+        "generated": 78.7792765404983,
+        "collected": 77.16448519431324,
+        "remaining": 199.61479134618506,
+        "collectionRate": 27.879430193908522,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 77.16448519431324,
+        "trucks": 2,
+        "averageTravelTime": 101.30000000000001,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 15.309508016333229,
+            "collected": 0,
+            "remaining": 44.30950801633972,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 15.30663398653186,
+            "collected": 0,
+            "remaining": 45.30663398654042,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 10.958862170575735,
+            "collected": 0,
+            "remaining": 41.958862170582506,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 12.680756071581865,
+            "collected": 0,
+            "remaining": 49.68075607160313,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 11.033315887673542,
+            "collected": 35.43616995137878,
+            "remaining": 9.597145936294805,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": 78.10000000000001,
+            "completedAt": 78.10000000000001
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 13.490200407802071,
+            "collected": 41.728315242934464,
+            "remaining": 8.761885164867657,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": 210.3,
+            "completedAt": 210.3
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 41.728315242934464,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 163.9
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 35.43616995137878,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 38.7
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 31
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "extraTruck"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 27.879430193908522,
+          "after": 51.48437744346136,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 199.61479134618506,
+          "after": 134.28118912110645,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 78.7792765404983,
+          "after": 78.7792765404983,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 3,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 101.30000000000001,
+          "after": 141.1,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 31,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 45,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 29,
+          "generated": 15.309508016333229,
+          "collected": 0,
+          "remaining": 44.30950801633972,
+          "participation": 0.3689876433927566,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.30950801633972,
+          "afterRemaining": 9.879735839873707
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 15.30663398653186,
+          "collected": 0,
+          "remaining": 45.30663398654042,
+          "participation": 0.37883479183074087,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.30663398654042,
+          "afterRemaining": 45.30663398654042
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 31,
+          "generated": 10.958862170575735,
+          "collected": 0,
+          "remaining": 41.958862170582506,
+          "participation": 0.7125735329464078,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.958862170582506,
+          "afterRemaining": 11.055032121961652
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 37,
+          "generated": 12.680756071581865,
+          "collected": 0,
+          "remaining": 49.68075607160313,
+          "participation": 0.6600452830316499,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 49.68075607160313,
+          "afterRemaining": 49.68075607160313
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 34,
+          "generated": 11.033315887673542,
+          "collected": 35.43616995137878,
+          "remaining": 9.597145936294805,
+          "participation": 0.6395119352964684,
+          "lastCollectedAt": 78.10000000000001,
+          "completedAt": 78.10000000000001,
+          "beforeRemaining": 9.597145936294805,
+          "afterRemaining": 9.597145936294805
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 37,
+          "generated": 13.490200407802071,
+          "collected": 41.728315242934464,
+          "remaining": 8.761885164867657,
+          "participation": 0.4296320036519319,
+          "lastCollectedAt": 210.3,
+          "completedAt": 210.3,
+          "beforeRemaining": 8.761885164867657,
+          "afterRemaining": 8.761885164867657
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 198,
+        "generated": 78.7792765404983,
+        "collected": 77.16448519431324,
+        "remaining": 199.61479134618506,
+        "collectionRate": 27.879430193908522,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 77.16448519431324,
+        "trucks": 2,
+        "averageTravelTime": 101.30000000000001,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 15.309508016333229,
+            "collected": 0,
+            "remaining": 44.30950801633972,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 15.30663398653186,
+            "collected": 0,
+            "remaining": 45.30663398654042,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 10.958862170575735,
+            "collected": 0,
+            "remaining": 41.958862170582506,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 12.680756071581865,
+            "collected": 0,
+            "remaining": 49.68075607160313,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 11.033315887673542,
+            "collected": 35.43616995137878,
+            "remaining": 9.597145936294805,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": 78.10000000000001,
+            "completedAt": 78.10000000000001
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 13.490200407802071,
+            "collected": 41.728315242934464,
+            "remaining": 8.761885164867657,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": 210.3,
+            "completedAt": 210.3
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 198,
+        "generated": 78.7792765404983,
+        "collected": 142.49808741939185,
+        "remaining": 134.28118912110645,
+        "collectionRate": 51.48437744346136,
+        "clearedSites": 0,
+        "visitedSites": 4,
+        "completedSites": 3,
+        "disposed": 55,
+        "inTrucks": 87.49808741939265,
+        "trucks": 3,
+        "averageTravelTime": 141.1,
+        "unfinishedJourneys": 2,
+        "cost": 45,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 15.309508016333229,
+            "collected": 34.42977217645819,
+            "remaining": 9.879735839873707,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": 212.8,
+            "completedAt": 212.8
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 15.30663398653186,
+            "collected": 0,
+            "remaining": 45.30663398654042,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 10.958862170575735,
+            "collected": 30.90383004862044,
+            "remaining": 11.055032121961652,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": 600,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 12.680756071581865,
+            "collected": 0,
+            "remaining": 49.68075607160313,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 11.033315887673542,
+            "collected": 35.43616995137878,
+            "remaining": 9.597145936294805,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": 78.10000000000001,
+            "completedAt": 78.10000000000001
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 13.490200407802071,
+            "collected": 41.728315242934464,
+            "remaining": 8.761885164867657,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": 210.3,
+            "completedAt": 210.3
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 41.728315242934464,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 163.9
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "collecting",
+          "load": 11.339999999999987,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 38.7
+            },
+            {
+              "target": "outer",
+              "seconds": 138.5
+            },
+            {
+              "target": "depot",
+              "seconds": 61.20000000000002
+            },
+            {
+              "target": "outer",
+              "seconds": 269.79999999999995
+            }
+          ]
+        },
+        {
+          "id": 10002,
+          "phase": "driving",
+          "load": 34.42977217645819,
+          "journeys": [
+            {
+              "target": "north",
+              "seconds": 174.5
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 31
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "route"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 27.879430193908522,
+          "after": 26.681956788904554,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 199.61479134618506,
+          "after": 202.9291495733199,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 78.7792765404983,
+          "after": 78.7792765404983,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 101.30000000000001,
+          "after": 107.35,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 40,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 20,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 29,
+          "generated": 15.309508016333229,
+          "collected": 0,
+          "remaining": 44.30950801633972,
+          "participation": 0.3689876433927566,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.30950801633972,
+          "afterRemaining": 44.30950801633972
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 15.30663398653186,
+          "collected": 0,
+          "remaining": 45.30663398654042,
+          "participation": 0.37883479183074087,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.30663398654042,
+          "afterRemaining": 45.30663398654042
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 31,
+          "generated": 10.958862170575735,
+          "collected": 0,
+          "remaining": 41.958862170582506,
+          "participation": 0.7125735329464078,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.958862170582506,
+          "afterRemaining": 8.255676168501346
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 37,
+          "generated": 12.680756071581865,
+          "collected": 0,
+          "remaining": 49.68075607160313,
+          "participation": 0.6600452830316499,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 49.68075607160313,
+          "afterRemaining": 9.533815106484312
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 34,
+          "generated": 11.033315887673542,
+          "collected": 35.43616995137878,
+          "remaining": 9.597145936294805,
+          "participation": 0.6395119352964684,
+          "lastCollectedAt": 78.10000000000001,
+          "completedAt": 78.10000000000001,
+          "beforeRemaining": 9.597145936294805,
+          "afterRemaining": 45.03331588767276
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 37,
+          "generated": 13.490200407802071,
+          "collected": 41.728315242934464,
+          "remaining": 8.761885164867657,
+          "participation": 0.4296320036519319,
+          "lastCollectedAt": 210.3,
+          "completedAt": 210.3,
+          "beforeRemaining": 8.761885164867657,
+          "afterRemaining": 50.49020040780147
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 198,
+        "generated": 78.7792765404983,
+        "collected": 77.16448519431324,
+        "remaining": 199.61479134618506,
+        "collectionRate": 27.879430193908522,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 77.16448519431324,
+        "trucks": 2,
+        "averageTravelTime": 101.30000000000001,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 15.309508016333229,
+            "collected": 0,
+            "remaining": 44.30950801633972,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 15.30663398653186,
+            "collected": 0,
+            "remaining": 45.30663398654042,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 10.958862170575735,
+            "collected": 0,
+            "remaining": 41.958862170582506,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 12.680756071581865,
+            "collected": 0,
+            "remaining": 49.68075607160313,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 11.033315887673542,
+            "collected": 35.43616995137878,
+            "remaining": 9.597145936294805,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": 78.10000000000001,
+            "completedAt": 78.10000000000001
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 13.490200407802071,
+            "collected": 41.728315242934464,
+            "remaining": 8.761885164867657,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": 210.3,
+            "completedAt": 210.3
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 198,
+        "generated": 78.7792765404983,
+        "collected": 73.8501269671784,
+        "remaining": 202.9291495733199,
+        "collectionRate": 26.681956788904554,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 73.8501269671784,
+        "trucks": 2,
+        "averageTravelTime": 107.35,
+        "unfinishedJourneys": 2,
+        "cost": 20,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 15.309508016333229,
+            "collected": 0,
+            "remaining": 44.30950801633972,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 15.30663398653186,
+            "collected": 0,
+            "remaining": 45.30663398654042,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 10.958862170575735,
+            "collected": 33.703186002076805,
+            "remaining": 8.255676168501346,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": 148,
+            "completedAt": 148
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 12.680756071581865,
+            "collected": 40.146940965101585,
+            "remaining": 9.533815106484312,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": 148.9,
+            "completedAt": 148.9
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 11.033315887673542,
+            "collected": 0,
+            "remaining": 45.03331588767276,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 13.490200407802071,
+            "collected": 0,
+            "remaining": 50.49020040780147,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": null,
+            "completedAt": null
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 40.146940965101585,
+          "journeys": [
+            {
+              "target": "south",
+              "seconds": 104.2
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 33.703186002076805,
+          "journeys": [
+            {
+              "target": "outer",
+              "seconds": 110.5
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 40
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "reduce"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 27.879430193908522,
+          "after": 29.84819704437511,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 199.61479134618506,
+          "after": 177.127884804175,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 78.7792765404983,
+          "after": 54.492277235153495,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 101.30000000000001,
+          "after": 101.30000000000001,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 31,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 35,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 29,
+          "generated": 15.309508016333229,
+          "collected": 0,
+          "remaining": 44.30950801633972,
+          "participation": 0.3689876433927566,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.30950801633972,
+          "afterRemaining": 40.920096445654984
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 15.30663398653186,
+          "collected": 0,
+          "remaining": 45.30663398654042,
+          "participation": 0.37883479183074087,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.30663398654042,
+          "afterRemaining": 41.827422686589934
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 31,
+          "generated": 10.958862170575735,
+          "collected": 0,
+          "remaining": 41.958862170582506,
+          "participation": 0.7125735329464078,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.958862170582506,
+          "afterRemaining": 37.273465090213804
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 37,
+          "generated": 12.680756071581865,
+          "collected": 0,
+          "remaining": 49.68075607160313,
+          "participation": 0.6600452830316499,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 49.68075607160313,
+          "afterRemaining": 44.65883213340146
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 34,
+          "generated": 11.033315887673542,
+          "collected": 35.43616995137878,
+          "remaining": 9.597145936294805,
+          "participation": 0.6395119352964684,
+          "lastCollectedAt": 78.10000000000001,
+          "completedAt": 78.10000000000001,
+          "beforeRemaining": 9.597145936294805,
+          "afterRemaining": 5.921452067240582
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 37,
+          "generated": 13.490200407802071,
+          "collected": 41.728315242934464,
+          "remaining": 8.761885164867657,
+          "participation": 0.4296320036519319,
+          "lastCollectedAt": 210.3,
+          "completedAt": 210.3,
+          "beforeRemaining": 8.761885164867657,
+          "afterRemaining": 6.526616381099684
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 198,
+        "generated": 78.7792765404983,
+        "collected": 77.16448519431324,
+        "remaining": 199.61479134618506,
+        "collectionRate": 27.879430193908522,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 77.16448519431324,
+        "trucks": 2,
+        "averageTravelTime": 101.30000000000001,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 15.309508016333229,
+            "collected": 0,
+            "remaining": 44.30950801633972,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 15.30663398653186,
+            "collected": 0,
+            "remaining": 45.30663398654042,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 10.958862170575735,
+            "collected": 0,
+            "remaining": 41.958862170582506,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 12.680756071581865,
+            "collected": 0,
+            "remaining": 49.68075607160313,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 11.033315887673542,
+            "collected": 35.43616995137878,
+            "remaining": 9.597145936294805,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": 78.10000000000001,
+            "completedAt": 78.10000000000001
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 13.490200407802071,
+            "collected": 41.728315242934464,
+            "remaining": 8.761885164867657,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": 210.3,
+            "completedAt": 210.3
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 198,
+        "generated": 54.492277235153495,
+        "collected": 75.36439243097848,
+        "remaining": 177.127884804175,
+        "collectionRate": 29.84819704437511,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 75.36439243097848,
+        "trucks": 2,
+        "averageTravelTime": 101.30000000000001,
+        "unfinishedJourneys": 2,
+        "cost": 35,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 11.920096445663011,
+            "collected": 0,
+            "remaining": 40.920096445654984,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 11.827422686582821,
+            "collected": 0,
+            "remaining": 41.827422686589934,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 6.273465090201107,
+            "collected": 0,
+            "remaining": 37.273465090213804,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 7.6588321333894935,
+            "collected": 0,
+            "remaining": 44.65883213340146,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 6.79975357003709,
+            "collected": 34.878301502795495,
+            "remaining": 5.921452067240582,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": 77.5,
+            "completedAt": 77.5
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 10.012707309279966,
+            "collected": 40.48609092818299,
+            "remaining": 6.526616381099684,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": 208.9,
+            "completedAt": 208.9
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 40.48609092818299,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 163.9
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 34.878301502795495,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 38.7
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 31
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "extraTruck",
+        "route",
+        "reduce"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 27.879430193908522,
+          "after": 28.284690220776397,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 199.61479134618506,
+          "after": 181.0756187878064,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 78.7792765404983,
+          "after": 54.492277235153495,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 101.30000000000001,
+          "after": 107.35,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 40,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 100,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 29,
+          "generated": 15.309508016333229,
+          "collected": 0,
+          "remaining": 44.30950801633972,
+          "participation": 0.3689876433927566,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.30950801633972,
+          "afterRemaining": 40.920096445654984
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 15.30663398653186,
+          "collected": 0,
+          "remaining": 45.30663398654042,
+          "participation": 0.37883479183074087,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.30663398654042,
+          "afterRemaining": 41.827422686589934
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 31,
+          "generated": 10.958862170575735,
+          "collected": 0,
+          "remaining": 41.958862170582506,
+          "participation": 0.7125735329464078,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.958862170582506,
+          "afterRemaining": 4.73960287564691
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 37,
+          "generated": 12.680756071581865,
+          "collected": 0,
+          "remaining": 49.68075607160313,
+          "participation": 0.6600452830316499,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 49.68075607160313,
+          "afterRemaining": 5.776035900597588
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 34,
+          "generated": 11.033315887673542,
+          "collected": 35.43616995137878,
+          "remaining": 9.597145936294805,
+          "participation": 0.6395119352964684,
+          "lastCollectedAt": 78.10000000000001,
+          "completedAt": 78.10000000000001,
+          "beforeRemaining": 9.597145936294805,
+          "afterRemaining": 40.799753570021494
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 37,
+          "generated": 13.490200407802071,
+          "collected": 41.728315242934464,
+          "remaining": 8.761885164867657,
+          "participation": 0.4296320036519319,
+          "lastCollectedAt": 210.3,
+          "completedAt": 210.3,
+          "beforeRemaining": 8.761885164867657,
+          "afterRemaining": 47.012707309286384
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 198,
+        "generated": 78.7792765404983,
+        "collected": 77.16448519431324,
+        "remaining": 199.61479134618506,
+        "collectionRate": 27.879430193908522,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 77.16448519431324,
+        "trucks": 2,
+        "averageTravelTime": 101.30000000000001,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 15.309508016333229,
+            "collected": 0,
+            "remaining": 44.30950801633972,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 15.30663398653186,
+            "collected": 0,
+            "remaining": 45.30663398654042,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 10.958862170575735,
+            "collected": 0,
+            "remaining": 41.958862170582506,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 12.680756071581865,
+            "collected": 0,
+            "remaining": 49.68075607160313,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 11.033315887673542,
+            "collected": 35.43616995137878,
+            "remaining": 9.597145936294805,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": 78.10000000000001,
+            "completedAt": 78.10000000000001
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 13.490200407802071,
+            "collected": 41.728315242934464,
+            "remaining": 8.761885164867657,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": 210.3,
+            "completedAt": 210.3
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 198,
+        "generated": 54.492277235153495,
+        "collected": 71.41665844734709,
+        "remaining": 181.0756187878064,
+        "collectionRate": 28.284690220776397,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 71.41665844734709,
+        "trucks": 3,
+        "averageTravelTime": 107.35,
+        "unfinishedJourneys": 3,
+        "cost": 100,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 29,
+            "generated": 11.920096445663011,
+            "collected": 0,
+            "remaining": 40.920096445654984,
+            "participation": 0.3689876433927566,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 11.827422686582821,
+            "collected": 0,
+            "remaining": 41.827422686589934,
+            "participation": 0.37883479183074087,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 31,
+            "generated": 6.273465090201107,
+            "collected": 32.53386221455352,
+            "remaining": 4.73960287564691,
+            "participation": 0.7125735329464078,
+            "lastCollectedAt": 146.70000000000002,
+            "completedAt": 146.70000000000002
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 37,
+            "generated": 7.6588321333894935,
+            "collected": 38.88279623279357,
+            "remaining": 5.776035900597588,
+            "participation": 0.6600452830316499,
+            "lastCollectedAt": 147.5,
+            "completedAt": 147.5
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 34,
+            "generated": 6.79975357003709,
+            "collected": 0,
+            "remaining": 40.799753570021494,
+            "participation": 0.6395119352964684,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 37,
+            "generated": 10.012707309279966,
+            "collected": 0,
+            "remaining": 47.012707309286384,
+            "participation": 0.4296320036519319,
+            "lastCollectedAt": null,
+            "completedAt": null
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 38.88279623279357,
+          "journeys": [
+            {
+              "target": "south",
+              "seconds": 104.2
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 32.53386221455352,
+          "journeys": [
+            {
+              "target": "outer",
+              "seconds": 110.5
+            }
+          ]
+        },
+        {
+          "id": 10002,
+          "phase": "driving",
+          "load": 0,
+          "journeys": []
+        }
+      ],
+      "ordinaryTraffic": 40
+    },
+    {
+      "seed": 2405,
+      "policies": [],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 33.78539232967156,
+          "after": 33.78539232967156,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 161.81052801009835,
+          "after": 161.81052801009835,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 71.37285623698952,
+          "after": 71.37285623698952,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 140.06666666666666,
+          "after": 140.06666666666666,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 31,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 0,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 27,
+          "generated": 11.599725136531655,
+          "collected": 24.021599989650575,
+          "remaining": 14.578125146882174,
+          "participation": 0.6557241466362029,
+          "lastCollectedAt": 439.20000000000005,
+          "completedAt": null,
+          "beforeRemaining": 14.578125146882174,
+          "afterRemaining": 14.578125146882174
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 10.598911080507925,
+          "collected": 0,
+          "remaining": 40.59891108050692,
+          "participation": 0.7396392434602603,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 40.59891108050692,
+          "afterRemaining": 40.59891108050692
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 30,
+          "generated": 14.054109448566127,
+          "collected": 0,
+          "remaining": 44.054109448565555,
+          "participation": 0.629008210147731,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.054109448565555,
+          "afterRemaining": 44.054109448565555
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 32,
+          "generated": 9.131096657365662,
+          "collected": 0,
+          "remaining": 41.13109665737011,
+          "participation": 0.6847576657310128,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.13109665737011,
+          "afterRemaining": 41.13109665737011
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 12.858668534083613,
+          "collected": 27.562328226892056,
+          "remaining": 11.296340307192553,
+          "participation": 0.31680871394928545,
+          "lastCollectedAt": 72.9,
+          "completedAt": 72.9,
+          "beforeRemaining": 11.296340307192553,
+          "afterRemaining": 11.296340307192553
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 28,
+          "generated": 13.130345379934548,
+          "collected": 30.97840001034853,
+          "remaining": 10.151945369586018,
+          "participation": 0.4373219721019268,
+          "lastCollectedAt": 136.1,
+          "completedAt": 136.1,
+          "beforeRemaining": 10.151945369586018,
+          "afterRemaining": 10.151945369586018
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 173,
+        "generated": 71.37285623698952,
+        "collected": 82.56232822689117,
+        "remaining": 161.81052801009835,
+        "collectionRate": 33.78539232967156,
+        "clearedSites": 0,
+        "visitedSites": 3,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 82.56232822689205,
+        "trucks": 2,
+        "averageTravelTime": 140.06666666666666,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 11.599725136531655,
+            "collected": 24.021599989650575,
+            "remaining": 14.578125146882174,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": 439.20000000000005,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 10.598911080507925,
+            "collected": 0,
+            "remaining": 40.59891108050692,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 14.054109448566127,
+            "collected": 0,
+            "remaining": 44.054109448565555,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 9.131096657365662,
+            "collected": 0,
+            "remaining": 41.13109665737011,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 12.858668534083613,
+            "collected": 27.562328226892056,
+            "remaining": 11.296340307192553,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": 72.9,
+            "completedAt": 72.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 13.130345379934548,
+            "collected": 30.97840001034853,
+            "remaining": 10.151945369586018,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": 136.1,
+            "completedAt": 136.1
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 173,
+        "generated": 71.37285623698952,
+        "collected": 82.56232822689117,
+        "remaining": 161.81052801009835,
+        "collectionRate": 33.78539232967156,
+        "clearedSites": 0,
+        "visitedSites": 3,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 82.56232822689205,
+        "trucks": 2,
+        "averageTravelTime": 140.06666666666666,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 11.599725136531655,
+            "collected": 24.021599989650575,
+            "remaining": 14.578125146882174,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": 439.20000000000005,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 10.598911080507925,
+            "collected": 0,
+            "remaining": 40.59891108050692,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 14.054109448566127,
+            "collected": 0,
+            "remaining": 44.054109448565555,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 9.131096657365662,
+            "collected": 0,
+            "remaining": 41.13109665737011,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 12.858668534083613,
+            "collected": 27.562328226892056,
+            "remaining": 11.296340307192553,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": 72.9,
+            "completedAt": 72.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 13.130345379934548,
+            "collected": 30.97840001034853,
+            "remaining": 10.151945369586018,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": 136.1,
+            "completedAt": 136.1
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 55,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 101.60000000000001
+            },
+            {
+              "target": "north",
+              "seconds": 276.4
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 27.562328226892056,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 42.2
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 31
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "extraTruck"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 33.78539232967156,
+          "after": 54.349782033222816,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 161.81052801009835,
+          "after": 111.55674152382477,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 71.37285623698952,
+          "after": 71.37285623698952,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 4,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 140.06666666666666,
+          "after": 125.05,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 31,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 45,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 27,
+          "generated": 11.599725136531655,
+          "collected": 24.021599989650575,
+          "remaining": 14.578125146882174,
+          "participation": 0.6557241466362029,
+          "lastCollectedAt": 439.20000000000005,
+          "completedAt": null,
+          "beforeRemaining": 14.578125146882174,
+          "afterRemaining": 6.8863701560546655
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 10.598911080507925,
+          "collected": 0,
+          "remaining": 40.59891108050692,
+          "participation": 0.7396392434602603,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 40.59891108050692,
+          "afterRemaining": 40.59891108050692
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 30,
+          "generated": 14.054109448566127,
+          "collected": 0,
+          "remaining": 44.054109448565555,
+          "participation": 0.629008210147731,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.054109448565555,
+          "afterRemaining": 1.492077953122854
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 32,
+          "generated": 9.131096657365662,
+          "collected": 0,
+          "remaining": 41.13109665737011,
+          "participation": 0.6847576657310128,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.13109665737011,
+          "afterRemaining": 41.13109665737011
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 12.858668534083613,
+          "collected": 27.562328226892056,
+          "remaining": 11.296340307192553,
+          "participation": 0.31680871394928545,
+          "lastCollectedAt": 72.9,
+          "completedAt": 72.9,
+          "beforeRemaining": 11.296340307192553,
+          "afterRemaining": 11.296340307192553
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 28,
+          "generated": 13.130345379934548,
+          "collected": 30.97840001034853,
+          "remaining": 10.151945369586018,
+          "participation": 0.4373219721019268,
+          "lastCollectedAt": 136.1,
+          "completedAt": 136.1,
+          "beforeRemaining": 10.151945369586018,
+          "afterRemaining": 10.151945369586018
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 173,
+        "generated": 71.37285623698952,
+        "collected": 82.56232822689117,
+        "remaining": 161.81052801009835,
+        "collectionRate": 33.78539232967156,
+        "clearedSites": 0,
+        "visitedSites": 3,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 82.56232822689205,
+        "trucks": 2,
+        "averageTravelTime": 140.06666666666666,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 11.599725136531655,
+            "collected": 24.021599989650575,
+            "remaining": 14.578125146882174,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": 439.20000000000005,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 10.598911080507925,
+            "collected": 0,
+            "remaining": 40.59891108050692,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 14.054109448566127,
+            "collected": 0,
+            "remaining": 44.054109448565555,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 9.131096657365662,
+            "collected": 0,
+            "remaining": 41.13109665737011,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 12.858668534083613,
+            "collected": 27.562328226892056,
+            "remaining": 11.296340307192553,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": 72.9,
+            "completedAt": 72.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 13.130345379934548,
+            "collected": 30.97840001034853,
+            "remaining": 10.151945369586018,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": 136.1,
+            "completedAt": 136.1
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 173,
+        "generated": 71.37285623698952,
+        "collected": 132.81611471316475,
+        "remaining": 111.55674152382477,
+        "collectionRate": 54.349782033222816,
+        "clearedSites": 0,
+        "visitedSites": 4,
+        "completedSites": 4,
+        "disposed": 55,
+        "inTrucks": 77.81611471316522,
+        "trucks": 3,
+        "averageTravelTime": 125.05,
+        "unfinishedJourneys": 3,
+        "cost": 45,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 11.599725136531655,
+            "collected": 31.71335498048102,
+            "remaining": 6.8863701560546655,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": 243.8,
+            "completedAt": 243.8
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 10.598911080507925,
+            "collected": 0,
+            "remaining": 40.59891108050692,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 14.054109448566127,
+            "collected": 42.56203149544313,
+            "remaining": 1.492077953122854,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": 536.3000000000001,
+            "completedAt": 536.3000000000001
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 9.131096657365662,
+            "collected": 0,
+            "remaining": 41.13109665737011,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 12.858668534083613,
+            "collected": 27.562328226892056,
+            "remaining": 11.296340307192553,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": 72.9,
+            "completedAt": 72.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 13.130345379934548,
+            "collected": 30.97840001034853,
+            "remaining": 10.151945369586018,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": 136.1,
+            "completedAt": 136.1
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 30.97840001034853,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 101.60000000000001
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 15.124359722335667,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 42.2
+            },
+            {
+              "target": "outer",
+              "seconds": 174.5
+            },
+            {
+              "target": "depot",
+              "seconds": 55.69999999999999
+            },
+            {
+              "target": "outer",
+              "seconds": 167.79999999999995
+            }
+          ]
+        },
+        {
+          "id": 10002,
+          "phase": "driving",
+          "load": 31.71335498048102,
+          "journeys": [
+            {
+              "target": "north",
+              "seconds": 208.5
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 31
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "route"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 33.78539232967156,
+          "after": 27.672354542575718,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 161.81052801009835,
+          "after": 176.74913305327092,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 71.37285623698952,
+          "after": 71.37285623698952,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 140.06666666666666,
+          "after": 107.35,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 37,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 20,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 27,
+          "generated": 11.599725136531655,
+          "collected": 24.021599989650575,
+          "remaining": 14.578125146882174,
+          "participation": 0.6557241466362029,
+          "lastCollectedAt": 439.20000000000005,
+          "completedAt": null,
+          "beforeRemaining": 14.578125146882174,
+          "afterRemaining": 38.599725136529266
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 10.598911080507925,
+          "collected": 0,
+          "remaining": 40.59891108050692,
+          "participation": 0.7396392434602603,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 40.59891108050692,
+          "afterRemaining": 40.59891108050692
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 30,
+          "generated": 14.054109448566127,
+          "collected": 0,
+          "remaining": 44.054109448565555,
+          "participation": 0.629008210147731,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.054109448565555,
+          "afterRemaining": 10.59445617264424
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 32,
+          "generated": 9.131096657365662,
+          "collected": 0,
+          "remaining": 41.13109665737011,
+          "participation": 0.6847576657310128,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.13109665737011,
+          "afterRemaining": 6.967026749569549
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 12.858668534083613,
+          "collected": 27.562328226892056,
+          "remaining": 11.296340307192553,
+          "participation": 0.31680871394928545,
+          "lastCollectedAt": 72.9,
+          "completedAt": 72.9,
+          "beforeRemaining": 11.296340307192553,
+          "afterRemaining": 38.858668534093454
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 28,
+          "generated": 13.130345379934548,
+          "collected": 30.97840001034853,
+          "remaining": 10.151945369586018,
+          "participation": 0.4373219721019268,
+          "lastCollectedAt": 136.1,
+          "completedAt": 136.1,
+          "beforeRemaining": 10.151945369586018,
+          "afterRemaining": 41.13034537993474
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 173,
+        "generated": 71.37285623698952,
+        "collected": 82.56232822689117,
+        "remaining": 161.81052801009835,
+        "collectionRate": 33.78539232967156,
+        "clearedSites": 0,
+        "visitedSites": 3,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 82.56232822689205,
+        "trucks": 2,
+        "averageTravelTime": 140.06666666666666,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 11.599725136531655,
+            "collected": 24.021599989650575,
+            "remaining": 14.578125146882174,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": 439.20000000000005,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 10.598911080507925,
+            "collected": 0,
+            "remaining": 40.59891108050692,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 14.054109448566127,
+            "collected": 0,
+            "remaining": 44.054109448565555,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 9.131096657365662,
+            "collected": 0,
+            "remaining": 41.13109665737011,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 12.858668534083613,
+            "collected": 27.562328226892056,
+            "remaining": 11.296340307192553,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": 72.9,
+            "completedAt": 72.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 13.130345379934548,
+            "collected": 30.97840001034853,
+            "remaining": 10.151945369586018,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": 136.1,
+            "completedAt": 136.1
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 173,
+        "generated": 71.37285623698952,
+        "collected": 67.6237231837186,
+        "remaining": 176.74913305327092,
+        "collectionRate": 27.672354542575718,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 67.6237231837186,
+        "trucks": 2,
+        "averageTravelTime": 107.35,
+        "unfinishedJourneys": 2,
+        "cost": 20,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 11.599725136531655,
+            "collected": 0,
+            "remaining": 38.599725136529266,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 10.598911080507925,
+            "collected": 0,
+            "remaining": 40.59891108050692,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 14.054109448566127,
+            "collected": 33.45965327592194,
+            "remaining": 10.59445617264424,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": 147.70000000000002,
+            "completedAt": 147.70000000000002
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 9.131096657365662,
+            "collected": 34.164069907796666,
+            "remaining": 6.967026749569549,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": 142.20000000000002,
+            "completedAt": 142.20000000000002
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 12.858668534083613,
+            "collected": 0,
+            "remaining": 38.858668534093454,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 13.130345379934548,
+            "collected": 0,
+            "remaining": 41.13034537993474,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": null,
+            "completedAt": null
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 34.164069907796666,
+          "journeys": [
+            {
+              "target": "south",
+              "seconds": 104.2
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 33.45965327592194,
+          "journeys": [
+            {
+              "target": "outer",
+              "seconds": 110.5
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 37
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "reduce"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 33.78539232967156,
+          "after": 37.362961781162966,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 161.81052801009835,
+          "after": 137.90189295095405,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 71.37285623698952,
+          "after": 47.160302709655255,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 140.06666666666666,
+          "after": 140.36666666666665,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 31,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 35,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 27,
+          "generated": 11.599725136531655,
+          "collected": 24.021599989650575,
+          "remaining": 14.578125146882174,
+          "participation": 0.6557241466362029,
+          "lastCollectedAt": 439.20000000000005,
+          "completedAt": null,
+          "beforeRemaining": 14.578125146882174,
+          "afterRemaining": 9.218353818928048
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 10.598911080507925,
+          "collected": 0,
+          "remaining": 40.59891108050692,
+          "participation": 0.7396392434602603,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 40.59891108050692,
+          "afterRemaining": 35.89528873665999
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 30,
+          "generated": 14.054109448566127,
+          "collected": 0,
+          "remaining": 44.054109448565555,
+          "participation": 0.629008210147731,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.054109448565555,
+          "afterRemaining": 38.75001931088093
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 32,
+          "generated": 9.131096657365662,
+          "collected": 0,
+          "remaining": 41.13109665737011,
+          "participation": 0.6847576657310128,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.13109665737011,
+          "afterRemaining": 37.379543597783254
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 12.858668534083613,
+          "collected": 27.562328226892056,
+          "remaining": 11.296340307192553,
+          "participation": 0.31680871394928545,
+          "lastCollectedAt": 72.9,
+          "completedAt": 72.9,
+          "beforeRemaining": 11.296340307192553,
+          "afterRemaining": 9.156015830552992
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 28,
+          "generated": 13.130345379934548,
+          "collected": 30.97840001034853,
+          "remaining": 10.151945369586018,
+          "participation": 0.4373219721019268,
+          "lastCollectedAt": 136.1,
+          "completedAt": 136.1,
+          "beforeRemaining": 10.151945369586018,
+          "afterRemaining": 7.50267165615433
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 173,
+        "generated": 71.37285623698952,
+        "collected": 82.56232822689117,
+        "remaining": 161.81052801009835,
+        "collectionRate": 33.78539232967156,
+        "clearedSites": 0,
+        "visitedSites": 3,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 82.56232822689205,
+        "trucks": 2,
+        "averageTravelTime": 140.06666666666666,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 11.599725136531655,
+            "collected": 24.021599989650575,
+            "remaining": 14.578125146882174,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": 439.20000000000005,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 10.598911080507925,
+            "collected": 0,
+            "remaining": 40.59891108050692,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 14.054109448566127,
+            "collected": 0,
+            "remaining": 44.054109448565555,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 9.131096657365662,
+            "collected": 0,
+            "remaining": 41.13109665737011,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 12.858668534083613,
+            "collected": 27.562328226892056,
+            "remaining": 11.296340307192553,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": 72.9,
+            "completedAt": 72.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 13.130345379934548,
+            "collected": 30.97840001034853,
+            "remaining": 10.151945369586018,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": 136.1,
+            "completedAt": 136.1
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 173,
+        "generated": 47.160302709655255,
+        "collected": 82.25840975870119,
+        "remaining": 137.90189295095405,
+        "collectionRate": 37.362961781162966,
+        "clearedSites": 0,
+        "visitedSites": 3,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 82.25840975870209,
+        "trucks": 2,
+        "averageTravelTime": 140.36666666666665,
+        "unfinishedJourneys": 2,
+        "cost": 35,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 7.035993216713124,
+            "collected": 24.817639397778645,
+            "remaining": 9.218353818928048,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": 440.1,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 5.895288736655204,
+            "collected": 0,
+            "remaining": 35.89528873665999,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 8.75001931089037,
+            "collected": 0,
+            "remaining": 38.75001931088093,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 5.379543597767739,
+            "collected": 0,
+            "remaining": 37.379543597783254,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.414425589254032,
+            "collected": 27.25840975870209,
+            "remaining": 9.156015830552992,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": 72.5,
+            "completedAt": 72.5
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 9.685032258374786,
+            "collected": 30.18236060222046,
+            "remaining": 7.50267165615433,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": 135.20000000000002,
+            "completedAt": 135.20000000000002
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 55,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 101.60000000000001
+            },
+            {
+              "target": "north",
+              "seconds": 277.29999999999995
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 27.25840975870209,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 42.2
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 31
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "extraTruck",
+        "route",
+        "reduce"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 33.78539232967156,
+          "after": 29.70541532559067,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 161.81052801009835,
+          "after": 154.7607704076745,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 71.37285623698952,
+          "after": 47.160302709655255,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 140.06666666666666,
+          "after": 107.35,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 31,
+          "after": 37,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 100,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 27,
+          "generated": 11.599725136531655,
+          "collected": 24.021599989650575,
+          "remaining": 14.578125146882174,
+          "participation": 0.6557241466362029,
+          "lastCollectedAt": 439.20000000000005,
+          "completedAt": null,
+          "beforeRemaining": 14.578125146882174,
+          "afterRemaining": 34.03599321670367
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 30,
+          "generated": 10.598911080507925,
+          "collected": 0,
+          "remaining": 40.59891108050692,
+          "participation": 0.7396392434602603,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 40.59891108050692,
+          "afterRemaining": 35.89528873665999
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 30,
+          "generated": 14.054109448566127,
+          "collected": 0,
+          "remaining": 44.054109448565555,
+          "participation": 0.629008210147731,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 44.054109448565555,
+          "afterRemaining": 6.616472935584638
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 32,
+          "generated": 9.131096657365662,
+          "collected": 0,
+          "remaining": 41.13109665737011,
+          "participation": 0.6847576657310128,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.13109665737011,
+          "afterRemaining": 4.113557671093176
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 12.858668534083613,
+          "collected": 27.562328226892056,
+          "remaining": 11.296340307192553,
+          "participation": 0.31680871394928545,
+          "lastCollectedAt": 72.9,
+          "completedAt": 72.9,
+          "beforeRemaining": 11.296340307192553,
+          "afterRemaining": 36.414425589260645
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 28,
+          "generated": 13.130345379934548,
+          "collected": 30.97840001034853,
+          "remaining": 10.151945369586018,
+          "participation": 0.4373219721019268,
+          "lastCollectedAt": 136.1,
+          "completedAt": 136.1,
+          "beforeRemaining": 10.151945369586018,
+          "afterRemaining": 37.685032258374804
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 173,
+        "generated": 71.37285623698952,
+        "collected": 82.56232822689117,
+        "remaining": 161.81052801009835,
+        "collectionRate": 33.78539232967156,
+        "clearedSites": 0,
+        "visitedSites": 3,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 82.56232822689205,
+        "trucks": 2,
+        "averageTravelTime": 140.06666666666666,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 11.599725136531655,
+            "collected": 24.021599989650575,
+            "remaining": 14.578125146882174,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": 439.20000000000005,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 10.598911080507925,
+            "collected": 0,
+            "remaining": 40.59891108050692,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 14.054109448566127,
+            "collected": 0,
+            "remaining": 44.054109448565555,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 9.131096657365662,
+            "collected": 0,
+            "remaining": 41.13109665737011,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 12.858668534083613,
+            "collected": 27.562328226892056,
+            "remaining": 11.296340307192553,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": 72.9,
+            "completedAt": 72.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 13.130345379934548,
+            "collected": 30.97840001034853,
+            "remaining": 10.151945369586018,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": 136.1,
+            "completedAt": 136.1
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 173,
+        "generated": 47.160302709655255,
+        "collected": 65.39953230198074,
+        "remaining": 154.7607704076745,
+        "collectionRate": 29.70541532559067,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 65.39953230198074,
+        "trucks": 3,
+        "averageTravelTime": 107.35,
+        "unfinishedJourneys": 3,
+        "cost": 100,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 27,
+            "generated": 7.035993216713124,
+            "collected": 0,
+            "remaining": 34.03599321670367,
+            "participation": 0.6557241466362029,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 30,
+            "generated": 5.895288736655204,
+            "collected": 0,
+            "remaining": 35.89528873665999,
+            "participation": 0.7396392434602603,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 30,
+            "generated": 8.75001931089037,
+            "collected": 32.13354637530344,
+            "remaining": 6.616472935584638,
+            "participation": 0.629008210147731,
+            "lastCollectedAt": 146.3,
+            "completedAt": 146.3
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 32,
+            "generated": 5.379543597767739,
+            "collected": 33.26598592667731,
+            "remaining": 4.113557671093176,
+            "participation": 0.6847576657310128,
+            "lastCollectedAt": 141.20000000000002,
+            "completedAt": 141.20000000000002
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.414425589254032,
+            "collected": 0,
+            "remaining": 36.414425589260645,
+            "participation": 0.31680871394928545,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 28,
+            "generated": 9.685032258374786,
+            "collected": 0,
+            "remaining": 37.685032258374804,
+            "participation": 0.4373219721019268,
+            "lastCollectedAt": null,
+            "completedAt": null
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 33.26598592667731,
+          "journeys": [
+            {
+              "target": "south",
+              "seconds": 104.2
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 32.13354637530344,
+          "journeys": [
+            {
+              "target": "outer",
+              "seconds": 110.5
+            }
+          ]
+        },
+        {
+          "id": 10002,
+          "phase": "driving",
+          "load": 0,
+          "journeys": []
+        }
+      ],
+      "ordinaryTraffic": 37
+    },
+    {
+      "seed": 2406,
+      "policies": [],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 23.11750464360042,
+          "after": 23.11750464360042,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 201.1769105680711,
+          "after": 201.1769105680711,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 72.66802942007457,
+          "after": 72.66802942007457,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 97.9,
+          "after": 97.9,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 29,
+          "after": 29,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 0,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 13.946959290654151,
+          "collected": 0,
+          "remaining": 50.946959290635164,
+          "participation": 0.4553733152570203,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 50.946959290635164,
+          "afterRemaining": 50.946959290635164
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 8.330886842682208,
+          "collected": 0,
+          "remaining": 45.33088684267125,
+          "participation": 0.5743659101426601,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.33088684267125,
+          "afterRemaining": 45.33088684267125
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 26,
+          "generated": 15.079133642836101,
+          "collected": 0,
+          "remaining": 41.07913364284836,
+          "participation": 0.39481483050622046,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.07913364284836,
+          "afterRemaining": 41.07913364284836
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 34,
+          "generated": 11.721573429181335,
+          "collected": 0,
+          "remaining": 45.72157342917046,
+          "participation": 0.49050248588901013,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.72157342917046,
+          "afterRemaining": 45.72157342917046
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 10.266599917784207,
+          "collected": 27.178947890559474,
+          "remaining": 9.087652027225701,
+          "participation": 0.3676309770671651,
+          "lastCollectedAt": 68.9,
+          "completedAt": 68.9,
+          "beforeRemaining": 9.087652027225701,
+          "afterRemaining": 9.087652027225701
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 29,
+          "generated": 13.322876296936569,
+          "collected": 33.31217096144398,
+          "remaining": 9.010705335494963,
+          "participation": 0.6982029001228511,
+          "lastCollectedAt": 194.20000000000002,
+          "completedAt": 194.20000000000002,
+          "beforeRemaining": 9.010705335494963,
+          "afterRemaining": 9.010705335494963
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 189,
+        "generated": 72.66802942007457,
+        "collected": 60.49111885200345,
+        "remaining": 201.1769105680711,
+        "collectionRate": 23.11750464360042,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 60.49111885200345,
+        "trucks": 2,
+        "averageTravelTime": 97.9,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 13.946959290654151,
+            "collected": 0,
+            "remaining": 50.946959290635164,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 8.330886842682208,
+            "collected": 0,
+            "remaining": 45.33088684267125,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 15.079133642836101,
+            "collected": 0,
+            "remaining": 41.07913364284836,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 11.721573429181335,
+            "collected": 0,
+            "remaining": 45.72157342917046,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.266599917784207,
+            "collected": 27.178947890559474,
+            "remaining": 9.087652027225701,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": 68.9,
+            "completedAt": 68.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 13.322876296936569,
+            "collected": 33.31217096144398,
+            "remaining": 9.010705335494963,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": 194.20000000000002,
+            "completedAt": 194.20000000000002
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 189,
+        "generated": 72.66802942007457,
+        "collected": 60.49111885200345,
+        "remaining": 201.1769105680711,
+        "collectionRate": 23.11750464360042,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 60.49111885200345,
+        "trucks": 2,
+        "averageTravelTime": 97.9,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 13.946959290654151,
+            "collected": 0,
+            "remaining": 50.946959290635164,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 8.330886842682208,
+            "collected": 0,
+            "remaining": 45.33088684267125,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 15.079133642836101,
+            "collected": 0,
+            "remaining": 41.07913364284836,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 11.721573429181335,
+            "collected": 0,
+            "remaining": 45.72157342917046,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.266599917784207,
+            "collected": 27.178947890559474,
+            "remaining": 9.087652027225701,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": 68.9,
+            "completedAt": 68.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 13.322876296936569,
+            "collected": 33.31217096144398,
+            "remaining": 9.010705335494963,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": 194.20000000000002,
+            "completedAt": 194.20000000000002
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 33.31217096144398,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 157.10000000000002
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 27.178947890559474,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 38.7
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 29
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "extraTruck"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 23.11750464360042,
+          "after": 49.85652975215177,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 201.1769105680711,
+          "after": 131.20943048038583,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 72.66802942007457,
+          "after": 72.66802942007457,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 3,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 97.9,
+          "after": 114,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 29,
+          "after": 27,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 45,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 13.946959290654151,
+          "collected": 0,
+          "remaining": 50.946959290635164,
+          "participation": 0.4553733152570203,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 50.946959290635164,
+          "afterRemaining": 8.80053131240191
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 8.330886842682208,
+          "collected": 0,
+          "remaining": 45.33088684267125,
+          "participation": 0.5743659101426601,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.33088684267125,
+          "afterRemaining": 45.33088684267125
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 26,
+          "generated": 15.079133642836101,
+          "collected": 0,
+          "remaining": 41.07913364284836,
+          "participation": 0.39481483050622046,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.07913364284836,
+          "afterRemaining": 13.258081533395913
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 34,
+          "generated": 11.721573429181335,
+          "collected": 0,
+          "remaining": 45.72157342917046,
+          "participation": 0.49050248588901013,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.72157342917046,
+          "afterRemaining": 45.72157342917046
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 10.266599917784207,
+          "collected": 27.178947890559474,
+          "remaining": 9.087652027225701,
+          "participation": 0.3676309770671651,
+          "lastCollectedAt": 68.9,
+          "completedAt": 68.9,
+          "beforeRemaining": 9.087652027225701,
+          "afterRemaining": 9.087652027225701
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 29,
+          "generated": 13.322876296936569,
+          "collected": 33.31217096144398,
+          "remaining": 9.010705335494963,
+          "participation": 0.6982029001228511,
+          "lastCollectedAt": 194.20000000000002,
+          "completedAt": 194.20000000000002,
+          "beforeRemaining": 9.010705335494963,
+          "afterRemaining": 9.010705335494963
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 189,
+        "generated": 72.66802942007457,
+        "collected": 60.49111885200345,
+        "remaining": 201.1769105680711,
+        "collectionRate": 23.11750464360042,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 60.49111885200345,
+        "trucks": 2,
+        "averageTravelTime": 97.9,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 13.946959290654151,
+            "collected": 0,
+            "remaining": 50.946959290635164,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 8.330886842682208,
+            "collected": 0,
+            "remaining": 45.33088684267125,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 15.079133642836101,
+            "collected": 0,
+            "remaining": 41.07913364284836,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 11.721573429181335,
+            "collected": 0,
+            "remaining": 45.72157342917046,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.266599917784207,
+            "collected": 27.178947890559474,
+            "remaining": 9.087652027225701,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": 68.9,
+            "completedAt": 68.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 13.322876296936569,
+            "collected": 33.31217096144398,
+            "remaining": 9.010705335494963,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": 194.20000000000002,
+            "completedAt": 194.20000000000002
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 189,
+        "generated": 72.66802942007457,
+        "collected": 130.45859893968873,
+        "remaining": 131.20943048038583,
+        "collectionRate": 49.85652975215177,
+        "clearedSites": 0,
+        "visitedSites": 4,
+        "completedSites": 3,
+        "disposed": 55,
+        "inTrucks": 75.45859893968964,
+        "trucks": 3,
+        "averageTravelTime": 114,
+        "unfinishedJourneys": 3,
+        "cost": 45,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 13.946959290654151,
+            "collected": 42.14642797824565,
+            "remaining": 8.80053131240191,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": 221.4,
+            "completedAt": 221.4
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 8.330886842682208,
+            "collected": 0,
+            "remaining": 45.33088684267125,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 15.079133642836101,
+            "collected": 27.821052109439623,
+            "remaining": 13.258081533395913,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": 244.4,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 11.721573429181335,
+            "collected": 0,
+            "remaining": 45.72157342917046,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.266599917784207,
+            "collected": 27.178947890559474,
+            "remaining": 9.087652027225701,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": 68.9,
+            "completedAt": 68.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 13.322876296936569,
+            "collected": 33.31217096144398,
+            "remaining": 9.010705335494963,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": 194.20000000000002,
+            "completedAt": 194.20000000000002
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 33.31217096144398,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 157.10000000000002
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 0,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 38.7
+            },
+            {
+              "target": "outer",
+              "seconds": 144.5
+            },
+            {
+              "target": "depot",
+              "seconds": 55.20000000000002
+            }
+          ]
+        },
+        {
+          "id": 10002,
+          "phase": "driving",
+          "load": 42.14642797824565,
+          "journeys": [
+            {
+              "target": "north",
+              "seconds": 174.5
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 27
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "route"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 23.11750464360042,
+          "after": 25.391154531850045,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 201.1769105680711,
+          "after": 195.2274957095766,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 72.66802942007457,
+          "after": 72.66802942007457,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 97.9,
+          "after": 107.35,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 29,
+          "after": 44,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 20,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 13.946959290654151,
+          "collected": 0,
+          "remaining": 50.946959290635164,
+          "participation": 0.4553733152570203,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 50.946959290635164,
+          "afterRemaining": 50.946959290635164
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 8.330886842682208,
+          "collected": 0,
+          "remaining": 45.33088684267125,
+          "participation": 0.5743659101426601,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.33088684267125,
+          "afterRemaining": 45.33088684267125
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 26,
+          "generated": 15.079133642836101,
+          "collected": 0,
+          "remaining": 41.07913364284836,
+          "participation": 0.39481483050622046,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.07913364284836,
+          "afterRemaining": 11.47522070219841
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 34,
+          "generated": 11.721573429181335,
+          "collected": 0,
+          "remaining": 45.72157342917046,
+          "participation": 0.49050248588901013,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.72157342917046,
+          "afterRemaining": 8.884952659319504
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 10.266599917784207,
+          "collected": 27.178947890559474,
+          "remaining": 9.087652027225701,
+          "participation": 0.3676309770671651,
+          "lastCollectedAt": 68.9,
+          "completedAt": 68.9,
+          "beforeRemaining": 9.087652027225701,
+          "afterRemaining": 36.26659991778269
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 29,
+          "generated": 13.322876296936569,
+          "collected": 33.31217096144398,
+          "remaining": 9.010705335494963,
+          "participation": 0.6982029001228511,
+          "lastCollectedAt": 194.20000000000002,
+          "completedAt": 194.20000000000002,
+          "beforeRemaining": 9.010705335494963,
+          "afterRemaining": 42.322876296930104
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 189,
+        "generated": 72.66802942007457,
+        "collected": 60.49111885200345,
+        "remaining": 201.1769105680711,
+        "collectionRate": 23.11750464360042,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 60.49111885200345,
+        "trucks": 2,
+        "averageTravelTime": 97.9,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 13.946959290654151,
+            "collected": 0,
+            "remaining": 50.946959290635164,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 8.330886842682208,
+            "collected": 0,
+            "remaining": 45.33088684267125,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 15.079133642836101,
+            "collected": 0,
+            "remaining": 41.07913364284836,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 11.721573429181335,
+            "collected": 0,
+            "remaining": 45.72157342917046,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.266599917784207,
+            "collected": 27.178947890559474,
+            "remaining": 9.087652027225701,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": 68.9,
+            "completedAt": 68.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 13.322876296936569,
+            "collected": 33.31217096144398,
+            "remaining": 9.010705335494963,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": 194.20000000000002,
+            "completedAt": 194.20000000000002
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 189,
+        "generated": 72.66802942007457,
+        "collected": 66.44053371049797,
+        "remaining": 195.2274957095766,
+        "collectionRate": 25.391154531850045,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 66.44053371049797,
+        "trucks": 2,
+        "averageTravelTime": 107.35,
+        "unfinishedJourneys": 2,
+        "cost": 20,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 13.946959290654151,
+            "collected": 0,
+            "remaining": 50.946959290635164,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 8.330886842682208,
+            "collected": 0,
+            "remaining": 45.33088684267125,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 15.079133642836101,
+            "collected": 29.60391294063771,
+            "remaining": 11.47522070219841,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": 143.4,
+            "completedAt": 143.4
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 11.721573429181335,
+            "collected": 36.83662076986026,
+            "remaining": 8.884952659319504,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": 145.20000000000002,
+            "completedAt": 145.20000000000002
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.266599917784207,
+            "collected": 0,
+            "remaining": 36.26659991778269,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 13.322876296936569,
+            "collected": 0,
+            "remaining": 42.322876296930104,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": null,
+            "completedAt": null
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 36.83662076986026,
+          "journeys": [
+            {
+              "target": "south",
+              "seconds": 104.2
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 29.60391294063771,
+          "journeys": [
+            {
+              "target": "outer",
+              "seconds": 110.5
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 44
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "reduce"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 23.11750464360042,
+          "after": 24.319145724040013,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 201.1769105680711,
+          "after": 181.72396563185566,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 72.66802942007457,
+          "after": 51.11880860808444,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 97.9,
+          "after": 97.9,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 29,
+          "after": 29,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 35,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 13.946959290654151,
+          "collected": 0,
+          "remaining": 50.946959290635164,
+          "participation": 0.4553733152570203,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 50.946959290635164,
+          "afterRemaining": 47.136315436710674
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 8.330886842682208,
+          "collected": 0,
+          "remaining": 45.33088684267125,
+          "participation": 0.5743659101426601,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.33088684267125,
+          "afterRemaining": 42.45990040046718
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 26,
+          "generated": 15.079133642836101,
+          "collected": 0,
+          "remaining": 41.07913364284836,
+          "participation": 0.39481483050622046,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.07913364284836,
+          "afterRemaining": 37.50705428680655
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 34,
+          "generated": 11.721573429181335,
+          "collected": 0,
+          "remaining": 45.72157342917046,
+          "participation": 0.49050248588901013,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.72157342917046,
+          "afterRemaining": 42.27189688585861
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 10.266599917784207,
+          "collected": 27.178947890559474,
+          "remaining": 9.087652027225701,
+          "participation": 0.3676309770671651,
+          "lastCollectedAt": 68.9,
+          "completedAt": 68.9,
+          "beforeRemaining": 9.087652027225701,
+          "afterRemaining": 7.085777926757134
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 29,
+          "generated": 13.322876296936569,
+          "collected": 33.31217096144398,
+          "remaining": 9.010705335494963,
+          "participation": 0.6982029001228511,
+          "lastCollectedAt": 194.20000000000002,
+          "completedAt": 194.20000000000002,
+          "beforeRemaining": 9.010705335494963,
+          "afterRemaining": 5.26302069527389
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 189,
+        "generated": 72.66802942007457,
+        "collected": 60.49111885200345,
+        "remaining": 201.1769105680711,
+        "collectionRate": 23.11750464360042,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 60.49111885200345,
+        "trucks": 2,
+        "averageTravelTime": 97.9,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 13.946959290654151,
+            "collected": 0,
+            "remaining": 50.946959290635164,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 8.330886842682208,
+            "collected": 0,
+            "remaining": 45.33088684267125,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 15.079133642836101,
+            "collected": 0,
+            "remaining": 41.07913364284836,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 11.721573429181335,
+            "collected": 0,
+            "remaining": 45.72157342917046,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.266599917784207,
+            "collected": 27.178947890559474,
+            "remaining": 9.087652027225701,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": 68.9,
+            "completedAt": 68.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 13.322876296936569,
+            "collected": 33.31217096144398,
+            "remaining": 9.010705335494963,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": 194.20000000000002,
+            "completedAt": 194.20000000000002
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 189,
+        "generated": 51.11880860808444,
+        "collected": 58.39484297622879,
+        "remaining": 181.72396563185566,
+        "collectionRate": 24.319145724040013,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 58.39484297622879,
+        "trucks": 2,
+        "averageTravelTime": 97.9,
+        "unfinishedJourneys": 2,
+        "cost": 35,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 10.136315436689408,
+            "collected": 0,
+            "remaining": 47.136315436710674,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 5.459900400467171,
+            "collected": 0,
+            "remaining": 42.45990040046718,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 11.507054286809746,
+            "collected": 0,
+            "remaining": 37.50705428680655,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 8.27189688585468,
+            "collected": 0,
+            "remaining": 42.27189688585861,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 8.002007822424769,
+            "collected": 26.91622989566711,
+            "remaining": 7.085777926757134,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": 68.7,
+            "completedAt": 68.7
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 7.741633775838673,
+            "collected": 31.478613080561672,
+            "remaining": 5.26302069527389,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": 192.10000000000002,
+            "completedAt": 192.10000000000002
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 31.478613080561672,
+          "journeys": [
+            {
+              "target": "school",
+              "seconds": 157.10000000000002
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 26.91622989566711,
+          "journeys": [
+            {
+              "target": "market",
+              "seconds": 38.7
+            }
+          ]
+        }
+      ],
+      "ordinaryTraffic": 29
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "extraTruck",
+        "route",
+        "reduce"
+      ],
+      "rows": [
+        {
+          "label": "전체 수거율",
+          "before": 23.11750464360042,
+          "after": 26.95371442156475,
+          "unit": "%",
+          "lower": false
+        },
+        {
+          "label": "남은 일반 쓰레기",
+          "before": 201.1769105680711,
+          "after": 175.39787066339773,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "새로 나온 쓰레기",
+          "before": 72.66802942007457,
+          "after": 51.11880860808444,
+          "unit": "봉투",
+          "lower": true
+        },
+        {
+          "label": "한 차례 수거를 마친 곳",
+          "before": 2,
+          "after": 2,
+          "unit": "곳",
+          "lower": false
+        },
+        {
+          "label": "차량 평균 구간 이동 · 도착 구간",
+          "before": 97.9,
+          "after": 107.35,
+          "unit": "초",
+          "lower": true
+        },
+        {
+          "label": "일반 차량 도착",
+          "before": 29,
+          "after": 44,
+          "unit": "대",
+          "lower": false
+        },
+        {
+          "label": "정책 비용",
+          "before": 0,
+          "after": 100,
+          "unit": "",
+          "lower": null
+        }
+      ],
+      "sites": [
+        {
+          "id": "north",
+          "name": "북쪽 주택가",
+          "facilityId": "b0",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 13.946959290654151,
+          "collected": 0,
+          "remaining": 50.946959290635164,
+          "participation": 0.4553733152570203,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 50.946959290635164,
+          "afterRemaining": 47.136315436710674
+        },
+        {
+          "id": "west",
+          "name": "학교 가는 길 주택가",
+          "facilityId": "b4",
+          "districtId": "nw",
+          "initial": 37,
+          "generated": 8.330886842682208,
+          "collected": 0,
+          "remaining": 45.33088684267125,
+          "participation": 0.5743659101426601,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.33088684267125,
+          "afterRemaining": 42.45990040046718
+        },
+        {
+          "id": "outer",
+          "name": "서쪽 끝 주택가",
+          "facilityId": "b8",
+          "districtId": "sw",
+          "initial": 26,
+          "generated": 15.079133642836101,
+          "collected": 0,
+          "remaining": 41.07913364284836,
+          "participation": 0.39481483050622046,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 41.07913364284836,
+          "afterRemaining": 8.774128893693298
+        },
+        {
+          "id": "south",
+          "name": "남쪽 주택가",
+          "facilityId": "b12",
+          "districtId": "sw",
+          "initial": 34,
+          "generated": 11.721573429181335,
+          "collected": 0,
+          "remaining": 45.72157342917046,
+          "participation": 0.49050248588901013,
+          "lastCollectedAt": null,
+          "completedAt": null,
+          "beforeRemaining": 45.72157342917046,
+          "afterRemaining": 6.283884334287766
+        },
+        {
+          "id": "market",
+          "name": "동쪽 상점가",
+          "facilityId": "b7",
+          "districtId": "ne",
+          "initial": 26,
+          "generated": 10.266599917784207,
+          "collected": 27.178947890559474,
+          "remaining": 9.087652027225701,
+          "participation": 0.3676309770671651,
+          "lastCollectedAt": 68.9,
+          "completedAt": 68.9,
+          "beforeRemaining": 9.087652027225701,
+          "afterRemaining": 34.00200782242478
+        },
+        {
+          "id": "school",
+          "name": "학교 앞 수거장",
+          "facilityId": "b6",
+          "districtId": "ne",
+          "initial": 29,
+          "generated": 13.322876296936569,
+          "collected": 33.31217096144398,
+          "remaining": 9.010705335494963,
+          "participation": 0.6982029001228511,
+          "lastCollectedAt": 194.20000000000002,
+          "completedAt": 194.20000000000002,
+          "beforeRemaining": 9.010705335494963,
+          "afterRemaining": 36.74163377584242
+        }
+      ],
+      "before": {
+        "time": 600,
+        "initial": 189,
+        "generated": 72.66802942007457,
+        "collected": 60.49111885200345,
+        "remaining": 201.1769105680711,
+        "collectionRate": 23.11750464360042,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 60.49111885200345,
+        "trucks": 2,
+        "averageTravelTime": 97.9,
+        "unfinishedJourneys": 2,
+        "cost": 0,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 13.946959290654151,
+            "collected": 0,
+            "remaining": 50.946959290635164,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 8.330886842682208,
+            "collected": 0,
+            "remaining": 45.33088684267125,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 15.079133642836101,
+            "collected": 0,
+            "remaining": 41.07913364284836,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 11.721573429181335,
+            "collected": 0,
+            "remaining": 45.72157342917046,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 10.266599917784207,
+            "collected": 27.178947890559474,
+            "remaining": 9.087652027225701,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": 68.9,
+            "completedAt": 68.9
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 13.322876296936569,
+            "collected": 33.31217096144398,
+            "remaining": 9.010705335494963,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": 194.20000000000002,
+            "completedAt": 194.20000000000002
+          }
+        ]
+      },
+      "after": {
+        "time": 600,
+        "initial": 189,
+        "generated": 51.11880860808444,
+        "collected": 64.72093794468671,
+        "remaining": 175.39787066339773,
+        "collectionRate": 26.95371442156475,
+        "clearedSites": 0,
+        "visitedSites": 2,
+        "completedSites": 2,
+        "disposed": 0,
+        "inTrucks": 64.72093794468671,
+        "trucks": 3,
+        "averageTravelTime": 107.35,
+        "unfinishedJourneys": 3,
+        "cost": 100,
+        "sites": [
+          {
+            "id": "north",
+            "name": "북쪽 주택가",
+            "facilityId": "b0",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 10.136315436689408,
+            "collected": 0,
+            "remaining": 47.136315436710674,
+            "participation": 0.4553733152570203,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "west",
+            "name": "학교 가는 길 주택가",
+            "facilityId": "b4",
+            "districtId": "nw",
+            "initial": 37,
+            "generated": 5.459900400467171,
+            "collected": 0,
+            "remaining": 42.45990040046718,
+            "participation": 0.5743659101426601,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "outer",
+            "name": "서쪽 끝 주택가",
+            "facilityId": "b8",
+            "districtId": "sw",
+            "initial": 26,
+            "generated": 11.507054286809746,
+            "collected": 28.732925393118737,
+            "remaining": 8.774128893693298,
+            "participation": 0.39481483050622046,
+            "lastCollectedAt": 142.5,
+            "completedAt": 142.5
+          },
+          {
+            "id": "south",
+            "name": "남쪽 주택가",
+            "facilityId": "b12",
+            "districtId": "sw",
+            "initial": 34,
+            "generated": 8.27189688585468,
+            "collected": 35.98801255156798,
+            "remaining": 6.283884334287766,
+            "participation": 0.49050248588901013,
+            "lastCollectedAt": 144.20000000000002,
+            "completedAt": 144.20000000000002
+          },
+          {
+            "id": "market",
+            "name": "동쪽 상점가",
+            "facilityId": "b7",
+            "districtId": "ne",
+            "initial": 26,
+            "generated": 8.002007822424769,
+            "collected": 0,
+            "remaining": 34.00200782242478,
+            "participation": 0.3676309770671651,
+            "lastCollectedAt": null,
+            "completedAt": null
+          },
+          {
+            "id": "school",
+            "name": "학교 앞 수거장",
+            "facilityId": "b6",
+            "districtId": "ne",
+            "initial": 29,
+            "generated": 7.741633775838673,
+            "collected": 0,
+            "remaining": 36.74163377584242,
+            "participation": 0.6982029001228511,
+            "lastCollectedAt": null,
+            "completedAt": null
+          }
+        ]
+      },
+      "trips": [
+        {
+          "id": 10000,
+          "phase": "driving",
+          "load": 35.98801255156798,
+          "journeys": [
+            {
+              "target": "south",
+              "seconds": 104.2
+            }
+          ]
+        },
+        {
+          "id": 10001,
+          "phase": "driving",
+          "load": 28.732925393118737,
+          "journeys": [
+            {
+              "target": "outer",
+              "seconds": 110.5
+            }
+          ]
+        },
+        {
+          "id": 10002,
+          "phase": "driving",
+          "load": 0,
+          "journeys": []
+        }
+      ],
+      "ordinaryTraffic": 44
+    }
+  ]
+}

@@ -1,0 +1,7684 @@
+{
+  "modelVersion": "facility-access-v2",
+  "timeUnit": "planning-round",
+  "rules": {
+    "walkSpeedMetersPerSecond": 1.2,
+    "estimatedCrossingSeconds": 15,
+    "walkLimitSeconds": 300,
+    "allocation": "shortest-path-first",
+    "dailyPrimaryActivity": true
+  },
+  "observations": [
+    {
+      "seed": 2404,
+      "policies": [],
+      "siteId": "west",
+      "cost": 0,
+      "population": 1180,
+      "served": 270,
+      "reachable": 672,
+      "capacity": 270,
+      "capacityShortfall": 402,
+      "averageNearestSeconds": 253.3101694915254,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 12,
+          "unserved": 68,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "library"
+      ],
+      "siteId": "north",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 978,
+      "capacity": 410,
+      "capacityShortfall": 568,
+      "averageNearestSeconds": 195.7053672316384,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 279.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 169.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 114.33333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 139.66666666666666,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 84.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 64,
+          "unserved": 56,
+          "librarySeconds": 114.33333333333331,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 13,
+          "unserved": 87,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 224.33333333333337,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 249.6666666666667,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "park"
+      ],
+      "siteId": "north",
+      "cost": 35,
+      "population": 1180,
+      "served": 430,
+      "reachable": 874,
+      "capacity": 430,
+      "capacityShortfall": 444,
+      "averageNearestSeconds": 219.7,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 46,
+          "unserved": 74,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 48,
+          "unserved": 32,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333333
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 56,
+          "unserved": 64,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 224.33333333333337
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 249.6666666666667
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "library"
+      ],
+      "siteId": "west",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 833,
+      "capacity": 410,
+      "capacityShortfall": 423,
+      "averageNearestSeconds": 209.1454802259887,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 389.33333333333337,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 334.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 279.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 12,
+          "unserved": 68,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 64,
+          "unserved": 56,
+          "librarySeconds": 114.33333333333334,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 52,
+          "unserved": 48,
+          "librarySeconds": 84.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 24,
+          "unserved": 96,
+          "librarySeconds": 114.33333333333334,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "west",
+          "name": "B · 작은 골목 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 216
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "library"
+      ],
+      "siteId": "south",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 774,
+      "capacity": 410,
+      "capacityShortfall": 364,
+      "averageNearestSeconds": 225.81242937853105,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 12,
+          "unserved": 68,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 38,
+          "unserved": 62,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 62,
+          "unserved": 58,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 84.66666666666669,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "south",
+          "name": "C · 남쪽 생활 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 24,
+            "z": 264
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "park"
+      ],
+      "siteId": "south",
+      "cost": 35,
+      "population": 1180,
+      "served": 430,
+      "reachable": 874,
+      "capacity": 430,
+      "capacityShortfall": 444,
+      "averageNearestSeconds": 221.1491525423729,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 12,
+          "unserved": 68,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 14,
+          "unserved": 106,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 249.66666666666669
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 48,
+          "unserved": 52,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 139.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 58,
+          "unserved": 62,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666669
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 84.66666666666669
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "south",
+          "name": "C · 남쪽 생활 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 264
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "library"
+      ],
+      "siteId": "riverside",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 784,
+      "capacity": 410,
+      "capacityShortfall": 374,
+      "averageNearestSeconds": 237.3875706214689,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 359.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 304.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 92,
+          "unserved": 28,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 19,
+          "unserved": 101,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 254,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 199,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 5,
+          "unserved": 115,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "riverside",
+          "name": "D · 하천 옆 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "park"
+      ],
+      "siteId": "riverside",
+      "cost": 35,
+      "population": 1180,
+      "served": 430,
+      "reachable": 672,
+      "capacity": 430,
+      "capacityShortfall": 242,
+      "averageNearestSeconds": 253.3101694915254,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 67,
+          "unserved": 53,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 22,
+          "unserved": 58,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "riverside",
+          "name": "D · 하천 옆 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "library"
+      ],
+      "siteId": "market",
+      "cost": 55,
+      "population": 1180,
+      "served": 270,
+      "reachable": 672,
+      "capacity": 410,
+      "capacityShortfall": 402,
+      "averageNearestSeconds": 253.3101694915254,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 12,
+          "unserved": 68,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "market",
+          "name": "E · 시장 옆 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 216,
+            "z": -24
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "library"
+      ],
+      "siteId": "industry",
+      "cost": 55,
+      "population": 1180,
+      "served": 270,
+      "reachable": 672,
+      "capacity": 410,
+      "capacityShortfall": 402,
+      "averageNearestSeconds": 253.3101694915254,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 12,
+          "unserved": 68,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "industry",
+          "name": "F · 산업지구 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 264,
+            "z": 264
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "park"
+      ],
+      "siteId": "industry",
+      "cost": 35,
+      "population": 1180,
+      "served": 270,
+      "reachable": 672,
+      "capacity": 430,
+      "capacityShortfall": 402,
+      "averageNearestSeconds": 253.3101694915254,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 12,
+          "unserved": 68,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "industry",
+          "name": "F · 산업지구 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 264,
+            "z": 264
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 35,
+      "population": 1180,
+      "served": 370,
+      "reachable": 672,
+      "capacity": 370,
+      "capacityShortfall": 302,
+      "averageNearestSeconds": 253.3101694915254,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 37,
+          "unserved": 83,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "gate"
+      ],
+      "siteId": "north",
+      "cost": 20,
+      "population": 1180,
+      "served": 270,
+      "reachable": 824,
+      "capacity": 270,
+      "capacityShortfall": 554,
+      "averageNearestSeconds": 239.1053672316384,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 404.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 49,
+          "unserved": 31,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 12,
+          "unserved": 68,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 184.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 129.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "expand",
+        "gate"
+      ],
+      "siteId": "north",
+      "cost": 55,
+      "population": 1180,
+      "served": 370,
+      "reachable": 824,
+      "capacity": 370,
+      "capacityShortfall": 454,
+      "averageNearestSeconds": 239.1053672316384,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 404.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 184.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 129.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 37,
+          "unserved": 83,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "library",
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 90,
+      "population": 1180,
+      "served": 449,
+      "reachable": 978,
+      "capacity": 510,
+      "capacityShortfall": 529,
+      "averageNearestSeconds": 195.7053672316384,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 279.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 39,
+          "unserved": 81,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 169.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 114.33333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 88,
+          "unserved": 12,
+          "librarySeconds": 139.66666666666666,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 84.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 64,
+          "unserved": 56,
+          "librarySeconds": 114.33333333333331,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 52,
+          "unserved": 48,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 224.33333333333337,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 249.6666666666667,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 119
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "park",
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 70,
+      "population": 1180,
+      "served": 530,
+      "reachable": 874,
+      "capacity": 530,
+      "capacityShortfall": 344,
+      "averageNearestSeconds": 219.7,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 46,
+          "unserved": 74,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333333
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 93,
+          "unserved": 27,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 224.33333333333337
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 249.6666666666667
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [],
+      "siteId": "west",
+      "cost": 0,
+      "population": 1180,
+      "served": 270,
+      "reachable": 667,
+      "capacity": 270,
+      "capacityShortfall": 397,
+      "averageNearestSeconds": 257.7008474576271,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "library"
+      ],
+      "siteId": "north",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 950,
+      "capacity": 410,
+      "capacityShortfall": 540,
+      "averageNearestSeconds": 200.5381355932203,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 279.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 169.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 62,
+          "unserved": 18,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 42,
+          "unserved": 38,
+          "librarySeconds": 114.33333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 139.66666666666666,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 84.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 60,
+          "unserved": 60,
+          "librarySeconds": 114.33333333333331,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 224.33333333333337,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 249.6666666666667,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "park"
+      ],
+      "siteId": "north",
+      "cost": 35,
+      "population": 1180,
+      "served": 430,
+      "reachable": 897,
+      "capacity": 430,
+      "capacityShortfall": 467,
+      "averageNearestSeconds": 221.46694915254233,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 72,
+          "unserved": 48,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 23,
+          "unserved": 97,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333333
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 60,
+          "unserved": 60,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 224.33333333333337
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 249.6666666666667
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "library"
+      ],
+      "siteId": "west",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 811,
+      "capacity": 410,
+      "capacityShortfall": 401,
+      "averageNearestSeconds": 218.52005649717512,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 389.33333333333337,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 334.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 279.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 60,
+          "unserved": 60,
+          "librarySeconds": 114.33333333333334,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 51,
+          "unserved": 49,
+          "librarySeconds": 84.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 29,
+          "unserved": 91,
+          "librarySeconds": 114.33333333333334,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "west",
+          "name": "B · 작은 골목 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 216
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "library"
+      ],
+      "siteId": "south",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 746,
+      "capacity": 410,
+      "capacityShortfall": 336,
+      "averageNearestSeconds": 235.05112994350281,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 10,
+          "unserved": 110,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 51,
+          "unserved": 49,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 50,
+          "unserved": 70,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 29,
+          "unserved": 51,
+          "librarySeconds": 84.66666666666669,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "south",
+          "name": "C · 남쪽 생활 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 24,
+            "z": 264
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "park"
+      ],
+      "siteId": "south",
+      "cost": 35,
+      "population": 1180,
+      "served": 430,
+      "reachable": 897,
+      "capacity": 430,
+      "capacityShortfall": 467,
+      "averageNearestSeconds": 219.85338983050846,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 249.66666666666669
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 39,
+          "unserved": 61,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 139.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 70,
+          "unserved": 50,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666669
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 51,
+          "unserved": 29,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 84.66666666666669
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "south",
+          "name": "C · 남쪽 생활 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 264
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "library"
+      ],
+      "siteId": "riverside",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 780,
+      "capacity": 410,
+      "capacityShortfall": 370,
+      "averageNearestSeconds": 240.93926553672316,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 359.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 304.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 117,
+          "unserved": 3,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 254,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 199,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "riverside",
+          "name": "D · 하천 옆 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "park"
+      ],
+      "siteId": "riverside",
+      "cost": 35,
+      "population": 1180,
+      "served": 402,
+      "reachable": 667,
+      "capacity": 430,
+      "capacityShortfall": 265,
+      "averageNearestSeconds": 257.7008474576271,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 72,
+          "unserved": 48,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 55,
+          "unserved": 65,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "riverside",
+          "name": "D · 하천 옆 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 132
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "library"
+      ],
+      "siteId": "market",
+      "cost": 55,
+      "population": 1180,
+      "served": 270,
+      "reachable": 667,
+      "capacity": 410,
+      "capacityShortfall": 397,
+      "averageNearestSeconds": 257.7008474576271,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "market",
+          "name": "E · 시장 옆 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 216,
+            "z": -24
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "library"
+      ],
+      "siteId": "industry",
+      "cost": 55,
+      "population": 1180,
+      "served": 270,
+      "reachable": 667,
+      "capacity": 410,
+      "capacityShortfall": 397,
+      "averageNearestSeconds": 257.7008474576271,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "industry",
+          "name": "F · 산업지구 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 264,
+            "z": 264
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "park"
+      ],
+      "siteId": "industry",
+      "cost": 35,
+      "population": 1180,
+      "served": 270,
+      "reachable": 667,
+      "capacity": 430,
+      "capacityShortfall": 397,
+      "averageNearestSeconds": 257.7008474576271,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "industry",
+          "name": "F · 산업지구 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 264,
+            "z": 264
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 35,
+      "population": 1180,
+      "served": 370,
+      "reachable": 667,
+      "capacity": 370,
+      "capacityShortfall": 297,
+      "averageNearestSeconds": 257.7008474576271,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 42,
+          "unserved": 38,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 2,
+          "unserved": 118,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "gate"
+      ],
+      "siteId": "north",
+      "cost": 20,
+      "population": 1180,
+      "served": 270,
+      "reachable": 809,
+      "capacity": 270,
+      "capacityShortfall": 539,
+      "averageNearestSeconds": 243.3200564971751,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 404.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 38,
+          "unserved": 42,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 86,
+          "unserved": 14,
+          "librarySeconds": 184.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 129.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "expand",
+        "gate"
+      ],
+      "siteId": "north",
+      "cost": 55,
+      "population": 1180,
+      "served": 370,
+      "reachable": 809,
+      "capacity": 370,
+      "capacityShortfall": 439,
+      "averageNearestSeconds": 243.3200564971751,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 404.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 42,
+          "unserved": 38,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 184.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 129.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 2,
+          "unserved": 118,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "library",
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 90,
+      "population": 1180,
+      "served": 479,
+      "reachable": 950,
+      "capacity": 510,
+      "capacityShortfall": 471,
+      "averageNearestSeconds": 200.5381355932203,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 279.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 169.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 42,
+          "unserved": 38,
+          "librarySeconds": 114.33333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 139.66666666666666,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 84.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 60,
+          "unserved": 60,
+          "librarySeconds": 114.33333333333331,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 51,
+          "unserved": 49,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 224.33333333333337,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 249.6666666666667,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 149
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "park",
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 70,
+      "population": 1180,
+      "served": 530,
+      "reachable": 897,
+      "capacity": 530,
+      "capacityShortfall": 367,
+      "averageNearestSeconds": 221.46694915254233,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 33,
+          "unserved": 47,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 72,
+          "unserved": 48,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 23,
+          "unserved": 97,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333333
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 62,
+          "unserved": 58,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 224.33333333333337
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 249.6666666666667
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [],
+      "siteId": "west",
+      "cost": 0,
+      "population": 1180,
+      "served": 270,
+      "reachable": 638,
+      "capacity": 270,
+      "capacityShortfall": 368,
+      "averageNearestSeconds": 260.5960451977401,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 2,
+          "unserved": 78,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "library"
+      ],
+      "siteId": "north",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 940,
+      "capacity": 410,
+      "capacityShortfall": 530,
+      "averageNearestSeconds": 203.43898305084747,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 279.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 169.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 46,
+          "unserved": 34,
+          "librarySeconds": 114.33333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 139.66666666666666,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 84.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 54,
+          "unserved": 66,
+          "librarySeconds": 114.33333333333331,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 2,
+          "unserved": 98,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 224.33333333333337,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 249.6666666666667,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "park"
+      ],
+      "siteId": "north",
+      "cost": 35,
+      "population": 1180,
+      "served": 430,
+      "reachable": 878,
+      "capacity": 430,
+      "capacityShortfall": 448,
+      "averageNearestSeconds": 223.1607344632768,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 66,
+          "unserved": 54,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 11,
+          "unserved": 109,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333333
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 66,
+          "unserved": 54,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 224.33333333333337
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 249.6666666666667
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "library"
+      ],
+      "siteId": "west",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 776,
+      "capacity": 410,
+      "capacityShortfall": 366,
+      "averageNearestSeconds": 221.87344632768364,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 389.33333333333337,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 334.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 279.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 2,
+          "unserved": 78,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 54,
+          "unserved": 66,
+          "librarySeconds": 114.33333333333334,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 39,
+          "unserved": 61,
+          "librarySeconds": 84.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 47,
+          "unserved": 73,
+          "librarySeconds": 114.33333333333334,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "west",
+          "name": "B · 작은 골목 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 216
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "library"
+      ],
+      "siteId": "south",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 725,
+      "capacity": 410,
+      "capacityShortfall": 315,
+      "averageNearestSeconds": 237.74011299435026,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 2,
+          "unserved": 78,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 14,
+          "unserved": 106,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 39,
+          "unserved": 61,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 59,
+          "unserved": 61,
+          "librarySeconds": 139.66666666666669,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 28,
+          "unserved": 52,
+          "librarySeconds": 84.66666666666669,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "south",
+          "name": "C · 남쪽 생활 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 24,
+            "z": 264
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "park"
+      ],
+      "siteId": "south",
+      "cost": 35,
+      "population": 1180,
+      "served": 430,
+      "reachable": 878,
+      "capacity": 430,
+      "capacityShortfall": 448,
+      "averageNearestSeconds": 222.65536723163845,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 2,
+          "unserved": 78,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 249.66666666666669
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 47,
+          "unserved": 53,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 139.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666669
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 52,
+          "unserved": 28,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 84.66666666666669
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "south",
+          "name": "C · 남쪽 생활 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 264
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "library"
+      ],
+      "siteId": "riverside",
+      "cost": 55,
+      "population": 1180,
+      "served": 410,
+      "reachable": 743,
+      "capacity": 410,
+      "capacityShortfall": 333,
+      "averageNearestSeconds": 243.31694915254238,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 359.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 304.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 115,
+          "unserved": 5,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 4,
+          "unserved": 116,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 44,
+          "unserved": 36,
+          "librarySeconds": 254,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 199,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "riverside",
+          "name": "D · 하천 옆 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "park"
+      ],
+      "siteId": "riverside",
+      "cost": 35,
+      "population": 1180,
+      "served": 422,
+      "reachable": 638,
+      "capacity": 430,
+      "capacityShortfall": 216,
+      "averageNearestSeconds": 260.5960451977401,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 66,
+          "unserved": 54,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 69,
+          "unserved": 51,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "riverside",
+          "name": "D · 하천 옆 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 152
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "library"
+      ],
+      "siteId": "market",
+      "cost": 55,
+      "population": 1180,
+      "served": 270,
+      "reachable": 638,
+      "capacity": 410,
+      "capacityShortfall": 368,
+      "averageNearestSeconds": 260.5960451977401,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 2,
+          "unserved": 78,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "market",
+          "name": "E · 시장 옆 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 216,
+            "z": -24
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "library"
+      ],
+      "siteId": "industry",
+      "cost": 55,
+      "population": 1180,
+      "served": 270,
+      "reachable": 638,
+      "capacity": 410,
+      "capacityShortfall": 368,
+      "averageNearestSeconds": 260.5960451977401,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 2,
+          "unserved": 78,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "industry",
+          "name": "F · 산업지구 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": 264,
+            "z": 264
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "park"
+      ],
+      "siteId": "industry",
+      "cost": 35,
+      "population": 1180,
+      "served": 270,
+      "reachable": 638,
+      "capacity": 430,
+      "capacityShortfall": 368,
+      "averageNearestSeconds": 260.5960451977401,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 2,
+          "unserved": 78,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "industry",
+          "name": "F · 산업지구 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": 264,
+            "z": 264
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 0
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 35,
+      "population": 1180,
+      "served": 370,
+      "reachable": 638,
+      "capacity": 370,
+      "capacityShortfall": 268,
+      "averageNearestSeconds": 260.5960451977401,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 46,
+          "unserved": 34,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 16,
+          "unserved": 104,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "gate"
+      ],
+      "siteId": "north",
+      "cost": 20,
+      "population": 1180,
+      "served": 270,
+      "reachable": 771,
+      "capacity": 270,
+      "capacityShortfall": 501,
+      "averageNearestSeconds": 246.5420903954802,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 404.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 40,
+          "unserved": 40,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 2,
+          "unserved": 78,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 184.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 129.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 80,
+          "isNew": false,
+          "used": 80
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "expand",
+        "gate"
+      ],
+      "siteId": "north",
+      "cost": 55,
+      "population": 1180,
+      "served": 370,
+      "reachable": 771,
+      "capacity": 370,
+      "capacityShortfall": 401,
+      "averageNearestSeconds": 246.5420903954802,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 404.6666666666666,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 46,
+          "unserved": 34,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 184.66666666666669,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 129.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 16,
+          "unserved": 104,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 239.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 349.66666666666663,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 294.66666666666663,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "library",
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 90,
+      "population": 1180,
+      "served": 447,
+      "reachable": 940,
+      "capacity": 510,
+      "capacityShortfall": 493,
+      "averageNearestSeconds": 203.43898305084747,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 279.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 224.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 61,
+          "unserved": 59,
+          "librarySeconds": 249.66666666666669,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 169.33333333333337,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 46,
+          "unserved": 34,
+          "librarySeconds": 114.33333333333333,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 139.66666666666666,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 36,
+          "unserved": 44,
+          "librarySeconds": 84.66666666666666,
+          "parkSeconds": 194.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 54,
+          "unserved": 66,
+          "librarySeconds": 114.33333333333331,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 39,
+          "unserved": 61,
+          "librarySeconds": 194.66666666666669,
+          "parkSeconds": 304.66666666666663
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 224.33333333333337,
+          "parkSeconds": 414.66666666666663
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 249.6666666666667,
+          "parkSeconds": 359.66666666666663
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 117
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 도서관",
+          "kind": "library",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 140,
+          "isNew": true,
+          "used": 140
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "park",
+        "expand"
+      ],
+      "siteId": "north",
+      "cost": 70,
+      "population": 1180,
+      "served": 530,
+      "reachable": 878,
+      "capacity": 530,
+      "capacityShortfall": 348,
+      "averageNearestSeconds": 223.1607344632768,
+      "neighborhoods": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "served": 31,
+          "unserved": 49,
+          "librarySeconds": 434.33333333333326,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "served": 66,
+          "unserved": 54,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "served": 11,
+          "unserved": 109,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333333
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "served": 100,
+          "unserved": 0,
+          "librarySeconds": 214.33333333333334,
+          "parkSeconds": 139.66666666666666
+        },
+        {
+          "id": "block-1-4",
+          "name": "남쪽 주거단지 1",
+          "served": 80,
+          "unserved": 0,
+          "librarySeconds": 159.33333333333334,
+          "parkSeconds": 84.66666666666666
+        },
+        {
+          "id": "block-0-5",
+          "name": "남쪽 주거단지 2",
+          "served": 82,
+          "unserved": 38,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 114.33333333333331
+        },
+        {
+          "id": "block-1-6",
+          "name": "남쪽 주거단지 3",
+          "served": 0,
+          "unserved": 100,
+          "librarySeconds": 269.3333333333333,
+          "parkSeconds": 194.66666666666669
+        },
+        {
+          "id": "block-0-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 120,
+          "librarySeconds": 379.3333333333333,
+          "parkSeconds": 224.33333333333337
+        },
+        {
+          "id": "block-1-7",
+          "name": "남쪽 주거단지 4",
+          "served": 0,
+          "unserved": 80,
+          "librarySeconds": 324.3333333333333,
+          "parkSeconds": 249.6666666666667
+        }
+      ],
+      "facilities": [
+        {
+          "id": "library-existing",
+          "name": "남쪽 작은도서관",
+          "kind": "library",
+          "position": {
+            "x": 72,
+            "z": 108
+          },
+          "capacity": 180,
+          "isNew": false,
+          "used": 180
+        },
+        {
+          "id": "park-north",
+          "name": "북쪽 초록 공원",
+          "kind": "park",
+          "position": {
+            "x": -24,
+            "z": -72
+          },
+          "capacity": 90,
+          "isNew": false,
+          "used": 90
+        },
+        {
+          "id": "park-east",
+          "name": "공원·일터 구역 공원",
+          "kind": "park",
+          "position": {
+            "x": 24,
+            "z": 24
+          },
+          "capacity": 100,
+          "isNew": false,
+          "used": 100
+        },
+        {
+          "id": "facility-new",
+          "siteId": "north",
+          "name": "A · 햇살 주거 공터 공원",
+          "kind": "park",
+          "position": {
+            "x": -72,
+            "z": 120
+          },
+          "capacity": 160,
+          "isNew": true,
+          "used": 160
+        }
+      ]
+    }
+  ]
+}

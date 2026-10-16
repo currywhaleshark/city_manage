@@ -1,0 +1,146 @@
+{
+  "measuredAt": "2026-10-14T04:40:10.036Z",
+  "method": "Isolated renderer harness, 140 ordinary trips, 60 pedestrians, 3 cargo trucks, handling and diverse supply. Stock building colors, 7 quantity labels, applied policy pins. Chrome CPU slowdown 4x is emulation, not school hardware. Full production HUD is excluded.",
+  "measurements": [
+    {
+      "cpuSlowdownRate": 4,
+      "modelVersion": "pedestrians-v4",
+      "logistics": {
+        "trucks": 3,
+        "delivered": 34.3000000000001,
+        "inTrucks": 36.565000000000325,
+        "stockLabels": 4
+      },
+      "scenarioId": "logistics",
+      "serviceTrucks": 0,
+      "demandCount": 140,
+      "pedestrianCount": 60,
+      "pedestrianActive": 23,
+      "quality": "normal",
+      "measuredSeconds": 5.024799999999999,
+      "speed": 2,
+      "simulationStart": 180,
+      "simulationSecondsAdvanced": 10,
+      "renderedFPS": 24.478586212386567,
+      "animationFrameRate": 24.478586212386567,
+      "frameP50Ms": 38.80000000000018,
+      "frameP95Ms": 54.5,
+      "framesOver50Ms": 17,
+      "frames": 123,
+      "renderCpuMsPerSecond": 774.597993983222,
+      "simulationCpuMsPerSecond": 117.91514073506112,
+      "minActive": 77,
+      "maxActive": 79,
+      "stats": {
+        "time": 190,
+        "arrived": 7,
+        "active": 76,
+        "queued": 39,
+        "unreleased": 18,
+        "unreachable": 0,
+        "averageTravelTime": 105.75714285714285,
+        "averageWaitingTime": 55.90000000000016,
+        "averageDemandWait": 65.6221311475405,
+        "stopped": 69,
+        "meanSpeed": 0.398434024390493,
+        "totalWaitingTime": 8005.899999999941
+      },
+      "pedestrians": {
+        "arrived": 36,
+        "active": 23,
+        "queued": 0,
+        "unreleased": 1,
+        "waiting": 16,
+        "crossing": 0,
+        "averageWaitingTime": 24.352898018406687,
+        "averageTravelTime": 65.01666666666668
+      },
+      "display": {
+        "quality": "normal",
+        "pixelRatio": 1.5,
+        "shadows": true,
+        "maxFPS": 60,
+        "width": 1920,
+        "height": 1080
+      },
+      "drawCalls": 312,
+      "memory": {
+        "geometries": 366,
+        "textures": 1
+      },
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 (0x00001F55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 12
+    },
+    {
+      "cpuSlowdownRate": 4,
+      "modelVersion": "pedestrians-v4",
+      "logistics": {
+        "trucks": 3,
+        "delivered": 34.3000000000001,
+        "inTrucks": 36.565000000000325,
+        "stockLabels": 4
+      },
+      "scenarioId": "logistics",
+      "serviceTrucks": 0,
+      "demandCount": 140,
+      "pedestrianCount": 60,
+      "pedestrianActive": 23,
+      "quality": "light",
+      "measuredSeconds": 5.0032000000000005,
+      "speed": 2,
+      "simulationStart": 180,
+      "simulationSecondsAdvanced": 10,
+      "renderedFPS": 29.7809401982731,
+      "animationFrameRate": 66.35753118004476,
+      "frameP50Ms": 31.399999999999636,
+      "frameP95Ms": 38.900000000000546,
+      "framesOver50Ms": 1,
+      "frames": 149,
+      "renderCpuMsPerSecond": 628.2779020187303,
+      "simulationCpuMsPerSecond": 107.61112884892644,
+      "minActive": 77,
+      "maxActive": 79,
+      "stats": {
+        "time": 190,
+        "arrived": 7,
+        "active": 76,
+        "queued": 39,
+        "unreleased": 18,
+        "unreachable": 0,
+        "averageTravelTime": 105.75714285714285,
+        "averageWaitingTime": 55.90000000000016,
+        "averageDemandWait": 65.6221311475405,
+        "stopped": 69,
+        "meanSpeed": 0.398434024390493,
+        "totalWaitingTime": 8005.899999999941
+      },
+      "pedestrians": {
+        "arrived": 36,
+        "active": 23,
+        "queued": 0,
+        "unreleased": 1,
+        "waiting": 16,
+        "crossing": 0,
+        "averageWaitingTime": 24.352898018406687,
+        "averageTravelTime": 65.01666666666668
+      },
+      "display": {
+        "quality": "light",
+        "pixelRatio": 1,
+        "shadows": false,
+        "maxFPS": 30,
+        "width": 1280,
+        "height": 720
+      },
+      "drawCalls": 312,
+      "memory": {
+        "geometries": 366,
+        "textures": 0
+      },
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 (0x00001F55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 12
+    }
+  ]
+}

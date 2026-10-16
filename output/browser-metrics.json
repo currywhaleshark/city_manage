@@ -1,25 +1,25 @@
 {
   "before": {
     "time": 420,
-    "arrived": 28,
-    "active": 66,
-    "queued": 46,
+    "arrived": 46,
+    "active": 86,
+    "queued": 8,
     "unreleased": 0,
     "unreachable": 0,
-    "averageTravelTime": 183.28571428571428,
-    "averageWaitingTime": 121.49285714285466,
-    "averageDemandWait": 242.44928571428426,
-    "stopped": 62,
-    "meanSpeed": 0.2156999557540006,
-    "totalWaitingTime": 33942.8999999998,
+    "averageTravelTime": 147.8804347826087,
+    "averageWaitingTime": 72.89999999999894,
+    "averageDemandWait": 195.33357142856818,
+    "stopped": 83,
+    "meanSpeed": 0.19894630123833865,
+    "totalWaitingTime": 27346.699999999546,
     "roads": [
       {
         "id": "n0-0_n0-1",
         "name": "햇살 주택길",
-        "count": 6,
-        "stopped": 6,
-        "meanSpeed": 0,
-        "congestion": 0.7604411764705883
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
       },
       {
         "id": "n0-0_n1-0",
@@ -32,10 +32,10 @@
       {
         "id": "n0-1_n0-2",
         "name": "햇살 주택길",
-        "count": 6,
+        "count": 7,
         "stopped": 6,
-        "meanSpeed": 0,
-        "congestion": 0.7604411764705883
+        "meanSpeed": 0.9044935987048895,
+        "congestion": 0.7333307709713918
       },
       {
         "id": "n0-1_n1-1",
@@ -48,26 +48,26 @@
       {
         "id": "n0-2_n0-3",
         "name": "햇살 주택길",
-        "count": 7,
+        "count": 6,
         "stopped": 6,
-        "meanSpeed": 0.8849986369986208,
-        "congestion": 0.7346710495886978
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
       },
       {
         "id": "n0-2_n1-2",
         "name": "학교 가는 길",
-        "count": 8,
+        "count": 7,
         "stopped": 6,
-        "meanSpeed": 0.47334535043610304,
-        "congestion": 0.8016615749896892
+        "meanSpeed": 0.9319261283254324,
+        "congestion": 0.7385636647069098
       },
       {
         "id": "n0-3_n0-4",
         "name": "햇살 주택길",
-        "count": 4,
-        "stopped": 4,
+        "count": 6,
+        "stopped": 6,
         "meanSpeed": 0,
-        "congestion": 0.6902941176470588
+        "congestion": 0.7604411764705883
       },
       {
         "id": "n0-3_n1-3",
@@ -78,6 +78,14 @@
         "congestion": 0
       },
       {
+        "id": "n0-4_n0-5",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
         "id": "n0-4_n1-4",
         "name": "남쪽 둘레길",
         "count": 0,
@@ -86,12 +94,68 @@
         "congestion": 0
       },
       {
+        "id": "n0-5_n0-6",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-5_n1-5",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-6_n0-7",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-6_n1-6",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-7_n0-8",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-7_n1-7",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-8_n1-8",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
         "id": "n1-0_n1-1",
         "name": "햇살 주택길",
-        "count": 4,
-        "stopped": 4,
+        "count": 2,
+        "stopped": 2,
         "meanSpeed": 0,
-        "congestion": 0.6902941176470588
+        "congestion": 0.6201470588235295
       },
       {
         "id": "n1-0_n2-0",
@@ -150,8 +214,72 @@
         "congestion": 0
       },
       {
+        "id": "n1-4_n1-5",
+        "name": "햇살 주택길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
         "id": "n1-4_n2-4",
         "name": "남쪽 둘레길",
+        "count": 6,
+        "stopped": 6,
+        "meanSpeed": 0,
+        "congestion": 0.7604411764705883
+      },
+      {
+        "id": "n1-5_n1-6",
+        "name": "남쪽 주거지구 길",
+        "count": 3,
+        "stopped": 3,
+        "meanSpeed": 0,
+        "congestion": 0.6552205882352942
+      },
+      {
+        "id": "n1-5_n2-5",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-6_n1-7",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-6_n2-6",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-7_n1-8",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-7_n2-7",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-8_n2-8",
+        "name": "남쪽 주거지구 길",
         "count": 0,
         "stopped": 0,
         "meanSpeed": 8,
@@ -184,10 +312,10 @@
       {
         "id": "n2-2_n3-2",
         "name": "학교 가는 길",
-        "count": 6,
-        "stopped": 6,
+        "count": 4,
+        "stopped": 4,
         "meanSpeed": 0,
-        "congestion": 0.7604411764705883
+        "congestion": 0.6902941176470588
       },
       {
         "id": "n2-3_n2-4",
@@ -198,8 +326,72 @@
         "congestion": 0
       },
       {
+        "id": "n2-4_n2-5",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
         "id": "n2-4_n3-4",
         "name": "남쪽 둘레길",
+        "count": 3,
+        "stopped": 3,
+        "meanSpeed": 0,
+        "congestion": 0.6552205882352942
+      },
+      {
+        "id": "n2-5_n2-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-5_n3-5",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-6_n2-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-6_n3-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-7_n2-8",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-7_n3-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-8_n3-8",
+        "name": "남쪽 상업지구 길",
         "count": 0,
         "stopped": 0,
         "meanSpeed": 8,
@@ -270,8 +462,72 @@
         "congestion": 0
       },
       {
+        "id": "n3-4_n3-5",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
         "id": "n3-4_n4-4",
         "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-5_n3-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-5_n4-5",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-6_n3-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-6_n4-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-7_n3-8",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-7_n4-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-8_n4-8",
+        "name": "남쪽 상업지구 길",
         "count": 0,
         "stopped": 0,
         "meanSpeed": 8,
@@ -294,6 +550,14 @@
         "congestion": 0
       },
       {
+        "id": "n4-1_n5-1",
+        "name": "새봄천 상류 다리",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
         "id": "n4-2_n4-3",
         "name": "상가 연결길",
         "count": 0,
@@ -308,30 +572,630 @@
         "stopped": 0,
         "meanSpeed": 8,
         "congestion": 0
+      },
+      {
+        "id": "n4-4_n4-5",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-4_n5-4",
+        "name": "새봄천 중앙 다리",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-5_n4-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-6_n4-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-7_n4-8",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-7_n5-7",
+        "name": "새봄천 하류 다리",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-0_n5-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-0_n6-0",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-1_n5-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-1_n6-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-2_n5-3",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-2_n6-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "n5-3_n5-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-3_n6-3",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-4_n5-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-4_n6-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-5_n5-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-5_n6-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-6_n5-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-6_n6-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-7_n5-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-7_n6-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-8_n6-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-0_n6-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-0_n7-0",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-1_n6-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-1_n7-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-2_n6-3",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-2_n7-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "n6-3_n6-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-3_n7-3",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-4_n6-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-4_n7-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-5_n6-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-5_n7-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-6_n6-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-6_n7-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-7_n6-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-7_n7-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-8_n7-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-0_n7-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-0_n8-0",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-1_n7-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-1_n8-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-2_n7-3",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-2_n8-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "n7-3_n7-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-3_n8-3",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-4_n7-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-4_n8-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-5_n7-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-5_n8-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-6_n7-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-6_n8-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-7_n7-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-7_n8-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-8_n8-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-0_n8-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-1_n8-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-2_n8-3",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-3_n8-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-4_n8-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-5_n8-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-6_n8-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-7_n8-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-out",
+        "name": "강빛마을 연결도로",
+        "count": 5,
+        "stopped": 5,
+        "meanSpeed": 0,
+        "congestion": 0.7629464285714286
+      },
+      {
+        "id": "external-west-approach-out",
+        "name": "강빛마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-supply",
+        "name": "강빛마을 물류 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-approach-in",
+        "name": "강빛마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-in",
+        "name": "강빛마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-out",
+        "name": "들녘마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-approach-out",
+        "name": "들녘마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-supply",
+        "name": "들녘마을 물류 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-approach-in",
+        "name": "들녘마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-in",
+        "name": "들녘마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
       }
     ]
   },
   "after": {
     "time": 420,
-    "arrived": 51,
-    "active": 64,
-    "queued": 25,
+    "arrived": 78,
+    "active": 62,
+    "queued": 0,
     "unreleased": 0,
     "unreachable": 0,
-    "averageTravelTime": 160.6882352941177,
-    "averageWaitingTime": 111.47647058823303,
-    "averageDemandWait": 201.26928571428274,
-    "stopped": 63,
-    "meanSpeed": 0.10866126548605416,
-    "totalWaitingTime": 28177.699999999582,
+    "averageTravelTime": 156.7705128205128,
+    "averageWaitingTime": 85.3192307692291,
+    "averageDemandWait": 146.32499999999652,
+    "stopped": 57,
+    "meanSpeed": 0.4588270641327869,
+    "totalWaitingTime": 20485.499999999513,
     "roads": [
       {
         "id": "n0-0_n0-1",
         "name": "햇살 주택길",
-        "count": 3,
-        "stopped": 3,
-        "meanSpeed": 0,
-        "congestion": 0.6552205882352942
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
       },
       {
         "id": "n0-0_n1-0",
@@ -376,10 +1240,10 @@
       {
         "id": "n0-3_n0-4",
         "name": "햇살 주택길",
-        "count": 3,
-        "stopped": 3,
+        "count": 6,
+        "stopped": 6,
         "meanSpeed": 0,
-        "congestion": 0.6552205882352942
+        "congestion": 0.7604411764705883
       },
       {
         "id": "n0-3_n1-3",
@@ -390,6 +1254,14 @@
         "congestion": 0
       },
       {
+        "id": "n0-4_n0-5",
+        "name": "햇살 주택길",
+        "count": 4,
+        "stopped": 4,
+        "meanSpeed": 0,
+        "congestion": 0.6902941176470588
+      },
+      {
         "id": "n0-4_n1-4",
         "name": "남쪽 둘레길",
         "count": 0,
@@ -398,12 +1270,68 @@
         "congestion": 0
       },
       {
+        "id": "n0-5_n0-6",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-5_n1-5",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-6_n0-7",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-6_n1-6",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-7_n0-8",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-7_n1-7",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n0-8_n1-8",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
         "id": "n1-0_n1-1",
         "name": "햇살 주택길",
-        "count": 3,
-        "stopped": 3,
-        "meanSpeed": 0,
-        "congestion": 0.6552205882352942
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
       },
       {
         "id": "n1-0_n2-0",
@@ -424,10 +1352,10 @@
       {
         "id": "n1-1_n2-1",
         "name": "동네 가로길",
-        "count": 5,
-        "stopped": 5,
+        "count": 1,
+        "stopped": 1,
         "meanSpeed": 0,
-        "congestion": 0.7253676470588235
+        "congestion": 0.5850735294117647
       },
       {
         "id": "n1-2_n1-3",
@@ -440,30 +1368,94 @@
       {
         "id": "n1-2_n2-2",
         "name": "학교 가는 길",
-        "count": 6,
-        "stopped": 6,
+        "count": 5,
+        "stopped": 5,
         "meanSpeed": 0,
-        "congestion": 0.7604411764705883
+        "congestion": 0.7253676470588235
       },
       {
         "id": "n1-3_n1-4",
         "name": "햇살 주택길",
-        "count": 6,
-        "stopped": 6,
-        "meanSpeed": 0,
-        "congestion": 0.7604411764705883
+        "count": 3,
+        "stopped": 3,
+        "meanSpeed": 0.002170330875341362,
+        "congestion": 0.6550713779876144
       },
       {
         "id": "n1-3_n2-3",
         "name": "동네 가로길",
+        "count": 1,
+        "stopped": 0,
+        "meanSpeed": 4.87573452311978,
+        "congestion": 0.24986678094727985
+      },
+      {
+        "id": "n1-4_n1-5",
+        "name": "햇살 주택길",
+        "count": 5,
+        "stopped": 5,
+        "meanSpeed": 0.0013307389520436567,
+        "congestion": 0.7252761587558705
+      },
+      {
+        "id": "n1-4_n2-4",
+        "name": "남쪽 둘레길",
         "count": 0,
         "stopped": 0,
         "meanSpeed": 8,
         "congestion": 0
       },
       {
-        "id": "n1-4_n2-4",
-        "name": "남쪽 둘레길",
+        "id": "n1-5_n1-6",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-5_n2-5",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-6_n1-7",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-6_n2-6",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-7_n1-8",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-7_n2-7",
+        "name": "남쪽 주거지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n1-8_n2-8",
+        "name": "남쪽 주거지구 길",
         "count": 0,
         "stopped": 0,
         "meanSpeed": 8,
@@ -488,18 +1480,18 @@
       {
         "id": "n2-2_n2-3",
         "name": "상가 연결길",
-        "count": 1,
-        "stopped": 1,
-        "meanSpeed": 0,
-        "congestion": 0.5850735294117647
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
       },
       {
         "id": "n2-2_n3-2",
         "name": "학교 가는 길",
         "count": 5,
-        "stopped": 4,
-        "meanSpeed": 1.380709098419389,
-        "congestion": 0.6409909799331942
+        "stopped": 2,
+        "meanSpeed": 3.337327207620851,
+        "congestion": 0.5214198732597715
       },
       {
         "id": "n2-3_n2-4",
@@ -510,8 +1502,72 @@
         "congestion": 0
       },
       {
+        "id": "n2-4_n2-5",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
         "id": "n2-4_n3-4",
         "name": "남쪽 둘레길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-5_n2-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-5_n3-5",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-6_n2-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-6_n3-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-7_n2-8",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-7_n3-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n2-8_n3-8",
+        "name": "남쪽 상업지구 길",
         "count": 0,
         "stopped": 0,
         "meanSpeed": 8,
@@ -544,10 +1600,10 @@
       {
         "id": "n3-1_n4-1",
         "name": "동네 가로길",
-        "count": 1,
-        "stopped": 1,
-        "meanSpeed": 0.027500850255482136,
-        "congestion": 0.5831828459567003
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
       },
       {
         "id": "n3-2_n3-3",
@@ -560,10 +1616,10 @@
       {
         "id": "n3-2_n4-2",
         "name": "학교 가는 길",
-        "count": 0,
+        "count": 1,
         "stopped": 0,
-        "meanSpeed": 9,
-        "congestion": 0
+        "meanSpeed": 6.77667522098053,
+        "congestion": 0.17094337701851012
       },
       {
         "id": "n3-3_n3-4",
@@ -582,6 +1638,14 @@
         "congestion": 0
       },
       {
+        "id": "n3-4_n3-5",
+        "name": "학교 앞 세로길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
         "id": "n3-4_n4-4",
         "name": "남쪽 둘레길",
         "count": 0,
@@ -590,16 +1654,80 @@
         "congestion": 0
       },
       {
+        "id": "n3-5_n3-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-5_n4-5",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-6_n3-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-6_n4-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-7_n3-8",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-7_n4-7",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n3-8_n4-8",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
         "id": "n4-0_n4-1",
         "name": "상가 연결길",
-        "count": 1,
-        "stopped": 1,
-        "meanSpeed": 0.023274648755039932,
-        "congestion": 0.5834733973098557
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
       },
       {
         "id": "n4-1_n4-2",
         "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-1_n5-1",
+        "name": "새봄천 상류 다리",
         "count": 0,
         "stopped": 0,
         "meanSpeed": 8,
@@ -622,6 +1750,606 @@
         "congestion": 0
       },
       {
+        "id": "n4-4_n4-5",
+        "name": "상가 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-4_n5-4",
+        "name": "새봄천 중앙 다리",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-5_n4-6",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-6_n4-7",
+        "name": "남쪽 상업지구 길",
+        "count": 1,
+        "stopped": 1,
+        "meanSpeed": 0.09506750664198682,
+        "congestion": 0.5785376383301281
+      },
+      {
+        "id": "n4-7_n4-8",
+        "name": "남쪽 상업지구 길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n4-7_n5-7",
+        "name": "새봄천 하류 다리",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-0_n5-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-0_n6-0",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-1_n5-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-1_n6-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-2_n5-3",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-2_n6-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "n5-3_n5-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-3_n6-3",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-4_n5-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-4_n6-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-5_n5-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-5_n6-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-6_n5-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-6_n6-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-7_n5-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-7_n6-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n5-8_n6-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-0_n6-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-0_n7-0",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-1_n6-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-1_n7-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-2_n6-3",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-2_n7-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "n6-3_n6-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-3_n7-3",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-4_n6-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-4_n7-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-5_n6-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-5_n7-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-6_n6-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-6_n7-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-7_n6-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-7_n7-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n6-8_n7-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-0_n7-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-0_n8-0",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-1_n7-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-1_n8-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-2_n7-3",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-2_n8-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "n7-3_n7-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-3_n8-3",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-4_n7-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-4_n8-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-5_n7-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-5_n8-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-6_n7-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-6_n8-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-7_n7-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-7_n8-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n7-8_n8-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-0_n8-1",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-1_n8-2",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-2_n8-3",
+        "name": "강너머 상업길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-3_n8-4",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-4_n8-5",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-5_n8-6",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-6_n8-7",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "n8-7_n8-8",
+        "name": "산업지구 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 8,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-out",
+        "name": "강빛마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-approach-out",
+        "name": "강빛마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-supply",
+        "name": "강빛마을 물류 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-approach-in",
+        "name": "강빛마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-west-in",
+        "name": "강빛마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-out",
+        "name": "들녘마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-approach-out",
+        "name": "들녘마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-supply",
+        "name": "들녘마을 물류 연결길",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-approach-in",
+        "name": "들녘마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
+        "id": "external-east-in",
+        "name": "들녘마을 연결도로",
+        "count": 0,
+        "stopped": 0,
+        "meanSpeed": 9,
+        "congestion": 0
+      },
+      {
         "id": "n2-1_n3-1",
         "name": "새로운 우회도로",
         "count": 0,
@@ -631,6 +2359,6 @@
       }
     ]
   },
-  "drawCalls": 264,
+  "drawCalls": 271,
   "consoleErrors": []
 }

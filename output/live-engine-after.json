@@ -1,0 +1,40 @@
+{
+  "stages": [
+    {
+      "until": 300,
+      "ms": 1553.3033,
+      "vehicles": 56,
+      "pending": 9,
+      "packets": 1593,
+      "serviceHistory": [
+        0,
+        1
+      ]
+    },
+    {
+      "until": 900,
+      "ms": 3475.873,
+      "vehicles": 116,
+      "pending": 58,
+      "packets": 2427,
+      "serviceHistory": [
+        2,
+        1
+      ]
+    },
+    {
+      "until": 1800,
+      "ms": 7219.924099999999,
+      "vehicles": 132,
+      "pending": 198,
+      "packets": 2427,
+      "serviceHistory": [
+        2,
+        1
+      ]
+    }
+  ],
+  "restoreMs": 14532.2595,
+  "captureMs": 20.59100000000035,
+  "checkpointRestoreMs": 76.96349999999802
+}

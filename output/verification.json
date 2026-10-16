@@ -38,7 +38,7 @@
         "averageWaitingTime": 27.869706182889992,
         "averageTravelTime": 67.94166666666666
       },
-      "cpuMs": 2371,
+      "cpuMs": 3794,
       "peakStopped": 76,
       "allArrivedAt": 2883.5,
       "allArrived": true
@@ -76,7 +76,7 @@
         "averageWaitingTime": 25.890733155252555,
         "averageTravelTime": 65.96333333333332
       },
-      "cpuMs": 1725,
+      "cpuMs": 2596,
       "peakStopped": 67,
       "allArrivedAt": 1146.1000000000001,
       "allArrived": true
@@ -114,7 +114,7 @@
         "averageWaitingTime": 27.83970618288999,
         "averageTravelTime": 67.91166666666666
       },
-      "cpuMs": 1761,
+      "cpuMs": 2417,
       "peakStopped": 74,
       "allArrivedAt": 2635.5,
       "allArrived": true
@@ -152,7 +152,7 @@
         "averageWaitingTime": 27.793039516223317,
         "averageTravelTime": 67.86499999999998
       },
-      "cpuMs": 2248,
+      "cpuMs": 3277,
       "peakStopped": 85,
       "allArrivedAt": 3038.5,
       "allArrived": true
@@ -190,7 +190,7 @@
         "averageWaitingTime": 25.90739982191922,
         "averageTravelTime": 65.97999999999999
       },
-      "cpuMs": 1981,
+      "cpuMs": 2369,
       "peakStopped": 78,
       "allArrivedAt": 1168.5,
       "allArrived": true
@@ -198,7 +198,7 @@
   ],
   "stress": {
     "count": 300,
-    "cpuMs": 2796,
+    "cpuMs": 3142,
     "arrived": 96,
     "active": 71,
     "queued": 133

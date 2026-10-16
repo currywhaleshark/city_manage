@@ -1,0 +1,6009 @@
+{
+  "modelVersion": "development-environment-v1",
+  "note": "Educational burden proxy; not measured pollution, noise or health risk. Same 140 background trips and 60 pedestrians per comparison; development generates additional demand.",
+  "observations": [
+    {
+      "seed": 2404,
+      "policies": [],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 28,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.410080301562491,
+      "highBurdenPlaces": 1,
+      "cost": 0,
+      "remainingBudget": 100,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.365945156498718,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 7.055799943505853,
+          "meanBurden": 6.78581759024632,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 5.47567237725344
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.679167097027037,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 10.975803870833557,
+          "meanBurden": 10.526448403037325,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 8.823085176843856
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.443858491602525,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.964960127613747,
+          "meanBurden": 10.107030814726764,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.628132450737962
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.168423389189222,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 5.6777683390323,
+          "meanBurden": 8.81982049871986,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.329165448562967
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.325377907733664,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 11.233762006322294,
+          "meanBurden": 11.176110332066667,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 9.084494430655287
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 12.906432639232571,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 9.415777589075649,
+          "meanBurden": 11.48808467686833,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 7.997429626711436
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.412675998694693,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 7.145102302549569,
+          "meanBurden": 8.10965632555953,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 5.842082629414383
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 10.223192176347094,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 6.148950438003953,
+          "meanBurden": 9.117164227171596,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 5.04292248882848
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.411628781132926,
+          "facilityBurden": 40,
+          "trafficBurden": 2.411628781132925,
+          "meanBurden": 42.342119112076034,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.3421191120760327
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.333827312892655,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.168970079119055,
+          "meanBurden": 5.62855103515248,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.4636938013789025
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "industry"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 48,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 48,
+      "backgroundArrived": 26,
+      "addedArrived": 21,
+      "industryArrived": 21,
+      "industryTrips": 48,
+      "meanBurden": 15.373179045839013,
+      "highBurdenPlaces": 1,
+      "cost": 40,
+      "remainingBudget": 60,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.771043283793789,
+          "facilityBurden": 2.11046536709388,
+          "trafficBurden": 7.660577916699909,
+          "meanBurden": 8.499148101756619,
+          "meanFacilityBurden": 2.1104653670938682,
+          "meanTrafficBurden": 6.388682734662751
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 14.001264679769307,
+          "facilityBurden": 2.7550176117345764,
+          "trafficBurden": 11.24624706803473,
+          "meanBurden": 12.282121602737954,
+          "meanFacilityBurden": 2.7550176117345817,
+          "meanTrafficBurden": 9.527103991003372
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.993564151979484,
+          "facilityBurden": 3.8801341407099708,
+          "trafficBurden": 9.113430011269514,
+          "meanBurden": 12.06966188652005,
+          "meanFacilityBurden": 3.8801341407099703,
+          "meanTrafficBurden": 8.18952774581008
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.758488725266988,
+          "facilityBurden": 5.256947599208418,
+          "trafficBurden": 5.501541126058569,
+          "meanBurden": 10.925401490253916,
+          "meanFacilityBurden": 5.256947599208415,
+          "meanTrafficBurden": 5.668453891045502
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.95061098986781,
+          "facilityBurden": 3.4470122006782713,
+          "trafficBurden": 11.503598789189539,
+          "meanBurden": 13.088013761038505,
+          "meanFacilityBurden": 3.4470122006782726,
+          "meanTrafficBurden": 9.641001560360234
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 15.019556479096453,
+          "facilityBurden": 5.530782083590939,
+          "trafficBurden": 9.488774395505514,
+          "meanBurden": 14.030823120194794,
+          "meanFacilityBurden": 5.53078208359098,
+          "meanTrafficBurden": 8.500041036603815
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 11.640118356608498,
+          "facilityBurden": 3.891216621475325,
+          "trafficBurden": 7.748901735133174,
+          "meanBurden": 10.359540026328025,
+          "meanFacilityBurden": 3.8912166214752935,
+          "meanTrafficBurden": 6.4683234048527325
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.161429770331075,
+          "facilityBurden": 6.865481274505456,
+          "trafficBurden": 6.29594849582562,
+          "meanBurden": 12.495160164687556,
+          "meanFacilityBurden": 6.86548127450545,
+          "meanTrafficBurden": 5.629678890182107
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 51.60399144792672,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 2.344732188667459,
+          "meanBurden": 52.10457243953701,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 2.845313180277874
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 8.438270908692813,
+          "facilityBurden": 3.865537505882444,
+          "trafficBurden": 4.5727334028103686,
+          "meanBurden": 7.87734786533567,
+          "meanFacilityBurden": 3.8655375058824566,
+          "meanTrafficBurden": 4.011810359453214
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "housing"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 48,
+      "backgroundTrips": 140,
+      "addedTrips": 24,
+      "backgroundArrived": 26,
+      "addedArrived": 2,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.612112431533912,
+      "highBurdenPlaces": 1,
+      "cost": 30,
+      "remainingBudget": 70,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.158754028218599,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 6.848608815225735,
+          "meanBurden": 6.842205025111922,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 5.5320598121190425
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.678465547907315,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 10.975102321713836,
+          "meanBurden": 10.707241571909039,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 9.003878345715572
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.464334217081122,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.985435853092344,
+          "meanBurden": 10.21031874264412,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.731420378655318
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.190476510199211,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 5.699821460042289,
+          "meanBurden": 8.877352870448686,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.386697820291793
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.516346533199709,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 11.42473063178834,
+          "meanBurden": 11.514773053323925,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 9.423157151912545
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 13.007544355015781,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 9.516889304858859,
+          "meanBurden": 11.64627978763464,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 8.155624737477748
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.991837320502576,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 7.724263624357451,
+          "meanBurden": 8.659846757585537,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 6.392273061440391
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 10.391801009125093,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 6.31755927078195,
+          "meanBurden": 9.303850720137916,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 5.229608981794799
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.45060653955179,
+          "facilityBurden": 40,
+          "trafficBurden": 2.4506065395517918,
+          "meanBurden": 42.39141854553239,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.3914185455323844
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.725736160652769,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.560878926879169,
+          "meanBurden": 5.967837241010954,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.8029800072373763
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "industry",
+        "housing"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 384,
+      "greenArea": 376,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 48,
+      "housingCapacity": 48,
+      "backgroundTrips": 140,
+      "addedTrips": 72,
+      "backgroundArrived": 24,
+      "addedArrived": 22,
+      "industryArrived": 20,
+      "industryTrips": 48,
+      "meanBurden": 15.508160299370914,
+      "highBurdenPlaces": 1,
+      "cost": 70,
+      "remainingBudget": 30,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.771042481299116,
+          "facilityBurden": 2.11046536709388,
+          "trafficBurden": 7.660577114205236,
+          "meanBurden": 8.533508742975423,
+          "meanFacilityBurden": 2.1104653670938682,
+          "meanTrafficBurden": 6.423043375881554
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 14.001258617303794,
+          "facilityBurden": 2.7550176117345764,
+          "trafficBurden": 11.246241005569217,
+          "meanBurden": 12.386705642098816,
+          "meanFacilityBurden": 2.7550176117345817,
+          "meanTrafficBurden": 9.631688030364234
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.99355059842275,
+          "facilityBurden": 3.8801341407099708,
+          "trafficBurden": 9.11341645771278,
+          "meanBurden": 12.14295433165437,
+          "meanFacilityBurden": 3.8801341407099703,
+          "meanTrafficBurden": 8.2628201909444
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.758475981958181,
+          "facilityBurden": 5.256947599208418,
+          "trafficBurden": 5.501528382749763,
+          "meanBurden": 10.975696873029223,
+          "meanFacilityBurden": 5.256947599208415,
+          "meanTrafficBurden": 5.718749273820807
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.950579925986643,
+          "facilityBurden": 3.4470122006782713,
+          "trafficBurden": 11.503567725308372,
+          "meanBurden": 13.320538753616367,
+          "meanFacilityBurden": 3.4470122006782726,
+          "meanTrafficBurden": 9.873526552938094
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 15.0195350943999,
+          "facilityBurden": 5.530782083590939,
+          "trafficBurden": 9.488753010808962,
+          "meanBurden": 14.143367782946985,
+          "meanFacilityBurden": 5.53078208359098,
+          "meanTrafficBurden": 8.612585699356007
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 11.640078820277042,
+          "facilityBurden": 3.891216621475325,
+          "trafficBurden": 7.748862198801717,
+          "meanBurden": 10.727406997515988,
+          "meanFacilityBurden": 3.8912166214752935,
+          "meanTrafficBurden": 6.836190376040696
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.161423299296489,
+          "facilityBurden": 6.865481274505456,
+          "trafficBurden": 6.295942024791033,
+          "meanBurden": 12.621574829060016,
+          "meanFacilityBurden": 6.86548127450545,
+          "meanTrafficBurden": 5.756093554554567
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 51.60398891626094,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 2.3447296570016816,
+          "meanBurden": 52.13300440362569,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 2.8737451443665476
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 8.438330697514331,
+          "facilityBurden": 3.865537505882444,
+          "trafficBurden": 4.572793191631886,
+          "meanBurden": 8.096844637186239,
+          "meanFacilityBurden": 3.8655375058824566,
+          "meanTrafficBurden": 4.231307131303781
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "industry",
+        "buffer"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 184,
+      "workCapacity": 48,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 48,
+      "backgroundArrived": 26,
+      "addedArrived": 21,
+      "industryArrived": 21,
+      "industryTrips": 48,
+      "meanBurden": 14.509660229906649,
+      "highBurdenPlaces": 1,
+      "cost": 60,
+      "remainingBudget": 40,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.312492459246286,
+          "facilityBurden": 1.6519145425463777,
+          "trafficBurden": 7.660577916699909,
+          "meanBurden": 8.040597277209118,
+          "meanFacilityBurden": 1.6519145425463675,
+          "meanTrafficBurden": 6.388682734662751
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.40508755060159,
+          "facilityBurden": 2.158840482566859,
+          "trafficBurden": 11.24624706803473,
+          "meanBurden": 11.685944473570206,
+          "meanFacilityBurden": 2.1588404825668346,
+          "meanTrafficBurden": 9.527103991003372
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.125949724583414,
+          "facilityBurden": 3.012519713313899,
+          "trafficBurden": 9.113430011269514,
+          "meanBurden": 11.202047459123952,
+          "meanFacilityBurden": 3.012519713313872,
+          "meanTrafficBurden": 8.18952774581008
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.140286333098963,
+          "facilityBurden": 4.638745207040395,
+          "trafficBurden": 5.501541126058569,
+          "meanBurden": 10.30719909808586,
+          "meanFacilityBurden": 4.638745207040358,
+          "meanTrafficBurden": 5.668453891045502
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.218545424373831,
+          "facilityBurden": 2.7149466351842917,
+          "trafficBurden": 11.503598789189539,
+          "meanBurden": 12.355948195544547,
+          "meanFacilityBurden": 2.7149466351843126,
+          "meanTrafficBurden": 9.641001560360234
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 13.79782721154153,
+          "facilityBurden": 4.309052816036016,
+          "trafficBurden": 9.488774395505514,
+          "meanBurden": 12.809093852639819,
+          "meanFacilityBurden": 4.309052816036004,
+          "meanTrafficBurden": 8.500041036603815
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.278192539092135,
+          "facilityBurden": 2.529290803958961,
+          "trafficBurden": 7.748901735133174,
+          "meanBurden": 8.997614208811681,
+          "meanFacilityBurden": 2.5292908039589497,
+          "meanTrafficBurden": 6.4683234048527325
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.735445161910976,
+          "facilityBurden": 5.439496666085356,
+          "trafficBurden": 6.29594849582562,
+          "meanBurden": 11.069175556267492,
+          "meanFacilityBurden": 5.439496666085387,
+          "meanTrafficBurden": 5.629678890182107
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 51.60399144792672,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 2.344732188667459,
+          "meanBurden": 52.10457243953701,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 2.845313180277874
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 7.085332781633957,
+          "facilityBurden": 2.5125993788235887,
+          "trafficBurden": 4.5727334028103686,
+          "meanBurden": 6.5244097382767885,
+          "meanFacilityBurden": 2.512599378823574,
+          "meanTrafficBurden": 4.011810359453214
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "industry",
+        "conserve"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 192,
+          "capacity": 24
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 96,
+      "greenArea": 664,
+      "protectedArea": 384,
+      "bufferArea": 0,
+      "workCapacity": 24,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 24,
+      "backgroundArrived": 26,
+      "addedArrived": 12,
+      "industryArrived": 12,
+      "industryTrips": 24,
+      "meanBurden": 14.061619084325233,
+      "highBurdenPlaces": 1,
+      "cost": 55,
+      "remainingBudget": 45,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.37088319268176,
+          "facilityBurden": 1.7103052900433724,
+          "trafficBurden": 7.660577902638386,
+          "meanBurden": 8.028673208886909,
+          "meanFacilityBurden": 1.7103052900433786,
+          "meanTrafficBurden": 6.318367918843531
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.475437495652564,
+          "facilityBurden": 2.229190418964028,
+          "trafficBurden": 11.246247076688537,
+          "meanBurden": 11.691686239938544,
+          "meanFacilityBurden": 2.22919041896401,
+          "meanTrafficBurden": 9.462495820974535
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.292946270086663,
+          "facilityBurden": 3.1795162523493743,
+          "trafficBurden": 9.113430017737288,
+          "meanBurden": 11.300397344584256,
+          "meanFacilityBurden": 3.179516252349387,
+          "meanTrafficBurden": 8.12088109223487
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.875342452502029,
+          "facilityBurden": 4.37380132468267,
+          "trafficBurden": 5.501541127819357,
+          "meanBurden": 9.977902044026882,
+          "meanFacilityBurden": 4.373801324682694,
+          "meanTrafficBurden": 5.604100719344187
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.272912842894272,
+          "facilityBurden": 2.7693140510448204,
+          "trafficBurden": 11.503598791849452,
+          "meanBurden": 12.319172557685036,
+          "meanFacilityBurden": 2.7693140510448284,
+          "meanTrafficBurden": 9.549858506640206
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 13.999492964629074,
+          "facilityBurden": 4.510718566873931,
+          "trafficBurden": 9.488774397755142,
+          "meanBurden": 12.905576624958623,
+          "meanFacilityBurden": 4.510718566873944,
+          "meanTrafficBurden": 8.39485805808468
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.828296894941817,
+          "facilityBurden": 3.079395158810225,
+          "trafficBurden": 7.748901736131592,
+          "meanBurden": 9.384517584830233,
+          "meanFacilityBurden": 3.07939515881024,
+          "meanTrafficBurden": 6.305122426019993
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.765810003198002,
+          "facilityBurden": 5.469861506424299,
+          "trafficBurden": 6.295948496773703,
+          "meanBurden": 10.893819234675933,
+          "meanFacilityBurden": 5.4698615064242695,
+          "meanTrafficBurden": 5.423957728251663
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 46.97436181868113,
+          "facilityBurden": 44.62962962962963,
+          "trafficBurden": 2.344732189051495,
+          "meanBurden": 47.270472268643694,
+          "meanFacilityBurden": 44.6296296296298,
+          "meanTrafficBurden": 2.6408426390138944
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 7.587930773193216,
+          "facilityBurden": 3.015197369828022,
+          "trafficBurden": 4.572733403365194,
+          "meanBurden": 6.843973735022226,
+          "meanFacilityBurden": 3.0151973698280066,
+          "meanTrafficBurden": 3.8287763651942193
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "industry",
+        "housing",
+        "small"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 0,
+          "capacity": 24
+        },
+        {
+          "id": "housing",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 0,
+          "capacity": 24
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 24,
+      "housingCapacity": 24,
+      "backgroundTrips": 140,
+      "addedTrips": 36,
+      "backgroundArrived": 24,
+      "addedArrived": 13,
+      "industryArrived": 11,
+      "industryTrips": 24,
+      "meanBurden": 14.19391200811828,
+      "highBurdenPlaces": 1,
+      "cost": 80,
+      "remainingBudget": 20,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.370882414887287,
+          "facilityBurden": 1.7103052900433724,
+          "trafficBurden": 7.660577124843915,
+          "meanBurden": 8.053253387260854,
+          "meanFacilityBurden": 1.7103052900433786,
+          "meanTrafficBurden": 6.342948097217475
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.475431434470028,
+          "facilityBurden": 2.229190418964028,
+          "trafficBurden": 11.246241015506,
+          "meanBurden": 11.790956401895013,
+          "meanFacilityBurden": 2.22919041896401,
+          "meanTrafficBurden": 9.561765982931002
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.292932718238923,
+          "facilityBurden": 3.1795162523493743,
+          "trafficBurden": 9.113416465889548,
+          "meanBurden": 11.371052043329062,
+          "meanFacilityBurden": 3.179516252349387,
+          "meanTrafficBurden": 8.191535790979675
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.87532970980656,
+          "facilityBurden": 4.37380132468267,
+          "trafficBurden": 5.5015283851238905,
+          "meanBurden": 10.026785526420236,
+          "meanFacilityBurden": 4.373801324682694,
+          "meanTrafficBurden": 5.652984201737541
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.272881779645328,
+          "facilityBurden": 2.7693140510448204,
+          "trafficBurden": 11.503567728600506,
+          "meanBurden": 12.549385960907014,
+          "meanFacilityBurden": 2.7693140510448284,
+          "meanTrafficBurden": 9.780071909862185
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 13.999471580649697,
+          "facilityBurden": 4.510718566873931,
+          "trafficBurden": 9.488753013775765,
+          "meanBurden": 13.016451557398124,
+          "meanFacilityBurden": 4.510718566873944,
+          "meanTrafficBurden": 8.505732990524178
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.828257359025212,
+          "facilityBurden": 3.079395158810225,
+          "trafficBurden": 7.748862200214987,
+          "meanBurden": 9.75113509381447,
+          "meanFacilityBurden": 3.07939515881024,
+          "meanTrafficBurden": 6.671739935004231
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.765803532546965,
+          "facilityBurden": 5.469861506424299,
+          "trafficBurden": 6.295942026122665,
+          "meanBurden": 11.019186006063387,
+          "meanFacilityBurden": 5.4698615064242695,
+          "meanTrafficBurden": 5.54932449963912
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 46.97435928720233,
+          "facilityBurden": 44.62962962962963,
+          "trafficBurden": 2.3447296575727026,
+          "meanBurden": 47.29830918104593,
+          "meanFacilityBurden": 44.6296296296298,
+          "meanTrafficBurden": 2.6686795514161323
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 7.58799056230599,
+          "facilityBurden": 3.015197369828022,
+          "trafficBurden": 4.572793192477968,
+          "meanBurden": 7.062604923048695,
+          "meanFacilityBurden": 3.0151973698280066,
+          "meanTrafficBurden": 4.047407553220689
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "conserve"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 384,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 28,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.410080301562491,
+      "highBurdenPlaces": 1,
+      "cost": 15,
+      "remainingBudget": 85,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.365945156498718,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 7.055799943505853,
+          "meanBurden": 6.78581759024632,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 5.47567237725344
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.679167097027037,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 10.975803870833557,
+          "meanBurden": 10.526448403037325,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 8.823085176843856
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.443858491602525,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.964960127613747,
+          "meanBurden": 10.107030814726764,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.628132450737962
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.168423389189222,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 5.6777683390323,
+          "meanBurden": 8.81982049871986,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.329165448562967
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.325377907733664,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 11.233762006322294,
+          "meanBurden": 11.176110332066667,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 9.084494430655287
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 12.906432639232571,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 9.415777589075649,
+          "meanBurden": 11.48808467686833,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 7.997429626711436
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.412675998694693,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 7.145102302549569,
+          "meanBurden": 8.10965632555953,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 5.842082629414383
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 10.223192176347094,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 6.148950438003953,
+          "meanBurden": 9.117164227171596,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 5.04292248882848
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.411628781132926,
+          "facilityBurden": 40,
+          "trafficBurden": 2.411628781132925,
+          "meanBurden": 42.342119112076034,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.3421191120760327
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.333827312892655,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.168970079119055,
+          "meanBurden": 5.62855103515248,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.4636938013789025
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2404,
+      "policies": [
+        "buffer"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 0,
+      "bufferArea": 184,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 28,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 11.724733036757307,
+      "highBurdenPlaces": 1,
+      "cost": 20,
+      "remainingBudget": 80,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 7.907394331951215,
+          "facilityBurden": 0.851594388445362,
+          "trafficBurden": 7.055799943505853,
+          "meanBurden": 6.327266765698795,
+          "meanFacilityBurden": 0.8515943884453552,
+          "meanTrafficBurden": 5.47567237725344
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.08298996785932,
+          "facilityBurden": 1.1071860970257614,
+          "trafficBurden": 10.975803870833557,
+          "meanBurden": 9.930271273869616,
+          "meanFacilityBurden": 1.1071860970257605,
+          "meanTrafficBurden": 8.823085176843856
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 10.576244064206453,
+          "facilityBurden": 1.6112839365927054,
+          "trafficBurden": 8.964960127613747,
+          "meanBurden": 9.239416387330673,
+          "meanFacilityBurden": 1.6112839365927107,
+          "meanTrafficBurden": 7.628132450737962
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.168423389189222,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 5.6777683390323,
+          "meanBurden": 8.81982049871986,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.329165448562967
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.593312342239685,
+          "facilityBurden": 1.3595503359173902,
+          "trafficBurden": 11.233762006322294,
+          "meanBurden": 10.44404476657267,
+          "meanFacilityBurden": 1.3595503359173844,
+          "meanTrafficBurden": 9.084494430655287
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 11.68470337167765,
+          "facilityBurden": 2.2689257826019995,
+          "trafficBurden": 9.415777589075649,
+          "meanBurden": 10.266355409313428,
+          "meanFacilityBurden": 2.2689257826019915,
+          "meanTrafficBurden": 7.997429626711436
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.6190252050439,
+          "facilityBurden": 1.4739229024943312,
+          "trafficBurden": 7.145102302549569,
+          "meanBurden": 7.3160055319087185,
+          "meanFacilityBurden": 1.473922902494336,
+          "meanTrafficBurden": 5.842082629414383
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 8.797207567926996,
+          "facilityBurden": 2.648257129923042,
+          "trafficBurden": 6.148950438003953,
+          "meanBurden": 7.691179618751531,
+          "meanFacilityBurden": 2.648257129923051,
+          "meanTrafficBurden": 5.04292248882848
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.411628781132926,
+          "facilityBurden": 40,
+          "trafficBurden": 2.411628781132925,
+          "meanBurden": 42.342119112076034,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.3421191120760327
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 5.576127281071896,
+          "facilityBurden": 1.4071572019528404,
+          "trafficBurden": 4.168970079119055,
+          "meanBurden": 4.870851003331733,
+          "meanFacilityBurden": 1.4071572019528304,
+          "meanTrafficBurden": 3.4636938013789025
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 29,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.267625300076322,
+      "highBurdenPlaces": 1,
+      "cost": 0,
+      "remainingBudget": 100,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 7.75607673672535,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 6.445931523732486,
+          "meanBurden": 6.854486238762821,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 5.544341025769941
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.678277455993083,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 9.974914229799603,
+          "meanBurden": 10.382561415173376,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 8.679198188979909
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 10.702777230143669,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.223878866154891,
+          "meanBurden": 9.888208543409307,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.409310179420504
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 8.22164934570273,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 4.730994295545806,
+          "meanBurden": 8.46231074271256,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 4.971655692555666
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.395692892338571,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 10.304076990927202,
+          "meanBurden": 11.072328830084714,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 8.980712928673334
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 12.114653297721949,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 8.623998247565027,
+          "meanBurden": 11.27856000025981,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 7.7879049501029165
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.26742674790996,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 6.999853051764835,
+          "meanBurden": 8.117814593612005,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 5.850240897466858
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 9.66538904152361,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 5.591147303180469,
+          "meanBurden": 8.91273860616402,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 4.838496867820902
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.13176467401484,
+          "facilityBurden": 40,
+          "trafficBurden": 2.131764674014842,
+          "meanBurden": 42.10339119044033,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.1033911904403286
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.2369566137894115,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.0720993800158105,
+          "meanBurden": 5.603852840144286,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.438995606370708
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "industry"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 48,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 48,
+      "backgroundArrived": 24,
+      "addedArrived": 21,
+      "industryArrived": 21,
+      "industryTrips": 48,
+      "meanBurden": 15.296690407108311,
+      "highBurdenPlaces": 1,
+      "cost": 40,
+      "remainingBudget": 60,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.451415180894667,
+          "facilityBurden": 2.11046536709388,
+          "trafficBurden": 7.340949813800786,
+          "meanBurden": 8.389413015421146,
+          "meanFacilityBurden": 2.1104653670938682,
+          "meanTrafficBurden": 6.278947648327278
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.18966150419405,
+          "facilityBurden": 2.7550176117345764,
+          "trafficBurden": 10.434643892459473,
+          "meanBurden": 12.130835173716784,
+          "meanFacilityBurden": 2.7550176117345817,
+          "meanTrafficBurden": 9.375817561982203
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.419537165078228,
+          "facilityBurden": 3.8801341407099708,
+          "trafficBurden": 8.539403024368257,
+          "meanBurden": 11.834535930091883,
+          "meanFacilityBurden": 3.8801341407099703,
+          "meanTrafficBurden": 7.954401789381914
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.25282530335123,
+          "facilityBurden": 5.256947599208418,
+          "trafficBurden": 4.995877704142813,
+          "meanBurden": 10.61648805905516,
+          "meanFacilityBurden": 5.256947599208415,
+          "meanTrafficBurden": 5.359540459846745
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.068049807626196,
+          "facilityBurden": 3.4470122006782713,
+          "trafficBurden": 10.621037606947924,
+          "meanBurden": 13.06770153777732,
+          "meanFacilityBurden": 3.4470122006782726,
+          "meanTrafficBurden": 9.620689337099046
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 14.454600366868315,
+          "facilityBurden": 5.530782083590939,
+          "trafficBurden": 8.923818283277376,
+          "meanBurden": 13.93036691076389,
+          "meanFacilityBurden": 5.53078208359098,
+          "meanTrafficBurden": 8.399584827172912
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 11.286180081450981,
+          "facilityBurden": 3.891216621475325,
+          "trafficBurden": 7.394963459975656,
+          "meanBurden": 10.52993631245518,
+          "meanFacilityBurden": 3.8912166214752935,
+          "meanTrafficBurden": 6.638719690979884
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.879647439870183,
+          "facilityBurden": 6.865481274505456,
+          "trafficBurden": 6.0141661653647285,
+          "meanBurden": 12.58250895346529,
+          "meanFacilityBurden": 6.86548127450545,
+          "meanTrafficBurden": 5.71702767895984
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 51.5918202700865,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 2.3325610108272383,
+          "meanBurden": 51.92430864952238,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 2.6650493902632424
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 8.235726275359934,
+          "facilityBurden": 3.865537505882444,
+          "trafficBurden": 4.37018876947749,
+          "meanBurden": 7.960809528814088,
+          "meanFacilityBurden": 3.8655375058824566,
+          "meanTrafficBurden": 4.095272022931632
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "housing"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 48,
+      "backgroundTrips": 140,
+      "addedTrips": 24,
+      "backgroundArrived": 29,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.442668190314544,
+      "highBurdenPlaces": 1,
+      "cost": 30,
+      "remainingBudget": 70,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.594889241478409,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 7.2847440284855445,
+          "meanBurden": 7.133630838519015,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 5.823485625526136
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.054850722906584,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 10.351487496713105,
+          "meanBurden": 10.590608296801777,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 8.887245070608309
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 10.913554895299782,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.434656531311004,
+          "meanBurden": 10.011395646306461,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.532497282317658
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 8.341053709913966,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 4.850398659757044,
+          "meanBurden": 8.53552725751808,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.044872207361186
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.569393930245132,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 10.477778028833763,
+          "meanBurden": 11.349840702104343,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 9.258224800692963
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 12.24631097181172,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 8.755655921654798,
+          "meanBurden": 11.410739237827535,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 7.920084187670641
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.365183303875218,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 7.097609607730094,
+          "meanBurden": 8.424283721567157,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 6.156710025422009
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 9.749180625724374,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 5.6749388873812325,
+          "meanBurden": 9.038676211588058,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 4.96443447324494
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.18179095982152,
+          "facilityBurden": 40,
+          "trafficBurden": 2.181790959821521,
+          "meanBurden": 42.14791882551929,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.147918825519287
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.306185943454274,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.141328709680673,
+          "meanBurden": 5.784061165393723,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.619203931620145
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "industry",
+        "housing"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 384,
+      "greenArea": 376,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 48,
+      "housingCapacity": 48,
+      "backgroundTrips": 140,
+      "addedTrips": 72,
+      "backgroundArrived": 24,
+      "addedArrived": 21,
+      "industryArrived": 21,
+      "industryTrips": 48,
+      "meanBurden": 15.401069095933954,
+      "highBurdenPlaces": 1,
+      "cost": 70,
+      "remainingBudget": 30,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.45139670817209,
+          "facilityBurden": 2.11046536709388,
+          "trafficBurden": 7.3409313410782095,
+          "meanBurden": 8.435583394367518,
+          "meanFacilityBurden": 2.1104653670938682,
+          "meanTrafficBurden": 6.325118027273649
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.189717583047377,
+          "facilityBurden": 2.7550176117345764,
+          "trafficBurden": 10.434699971312801,
+          "meanBurden": 12.221700704549281,
+          "meanFacilityBurden": 2.7550176117345817,
+          "meanTrafficBurden": 9.466683092814701
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.4195482881189,
+          "facilityBurden": 3.8801341407099708,
+          "trafficBurden": 8.539414147408928,
+          "meanBurden": 11.892948249403696,
+          "meanFacilityBurden": 3.8801341407099703,
+          "meanTrafficBurden": 8.012814108693725
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.252828349536324,
+          "facilityBurden": 5.256947599208418,
+          "trafficBurden": 4.995880750327906,
+          "meanBurden": 10.652838794163433,
+          "meanFacilityBurden": 5.256947599208415,
+          "meanTrafficBurden": 5.395891194955019
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.068097516633749,
+          "facilityBurden": 3.4470122006782713,
+          "trafficBurden": 10.621085315955478,
+          "meanBurden": 13.273109276688206,
+          "meanFacilityBurden": 3.4470122006782726,
+          "meanTrafficBurden": 9.826097076009933
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 14.454617110717217,
+          "facilityBurden": 5.530782083590939,
+          "trafficBurden": 8.923835027126279,
+          "meanBurden": 14.016661530626273,
+          "meanFacilityBurden": 5.53078208359098,
+          "meanTrafficBurden": 8.485879447035293
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 11.286207832030733,
+          "facilityBurden": 3.891216621475325,
+          "trafficBurden": 7.394991210555409,
+          "meanBurden": 10.784422690031501,
+          "meanFacilityBurden": 3.8912166214752935,
+          "meanTrafficBurden": 6.893206068556207
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.879660688515845,
+          "facilityBurden": 6.865481274505456,
+          "trafficBurden": 6.014179414010389,
+          "meanBurden": 12.67547002063603,
+          "meanFacilityBurden": 6.86548127450545,
+          "meanTrafficBurden": 5.80998874613058
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 51.59182341062808,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 2.3325641513688176,
+          "meanBurden": 51.95205123430304,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 2.6927919750439018
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 8.235740279567228,
+          "facilityBurden": 3.865537505882444,
+          "trafficBurden": 4.370202773684783,
+          "meanBurden": 8.105905064570589,
+          "meanFacilityBurden": 3.8655375058824566,
+          "meanTrafficBurden": 4.240367558688133
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "industry",
+        "buffer"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 184,
+      "workCapacity": 48,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 48,
+      "backgroundArrived": 24,
+      "addedArrived": 21,
+      "industryArrived": 21,
+      "industryTrips": 48,
+      "meanBurden": 14.433171591175949,
+      "highBurdenPlaces": 1,
+      "cost": 60,
+      "remainingBudget": 40,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.992864356347164,
+          "facilityBurden": 1.6519145425463777,
+          "trafficBurden": 7.340949813800786,
+          "meanBurden": 7.930862190873644,
+          "meanFacilityBurden": 1.6519145425463675,
+          "meanTrafficBurden": 6.278947648327278
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.593484375026332,
+          "facilityBurden": 2.158840482566859,
+          "trafficBurden": 10.434643892459473,
+          "meanBurden": 11.534658044549037,
+          "meanFacilityBurden": 2.1588404825668346,
+          "meanTrafficBurden": 9.375817561982203
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.551922737682155,
+          "facilityBurden": 3.012519713313899,
+          "trafficBurden": 8.539403024368257,
+          "meanBurden": 10.966921502695786,
+          "meanFacilityBurden": 3.012519713313872,
+          "meanTrafficBurden": 7.954401789381914
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.634622911183207,
+          "facilityBurden": 4.638745207040395,
+          "trafficBurden": 4.995877704142813,
+          "meanBurden": 9.998285666887103,
+          "meanFacilityBurden": 4.638745207040358,
+          "meanTrafficBurden": 5.359540459846745
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.335984242132216,
+          "facilityBurden": 2.7149466351842917,
+          "trafficBurden": 10.621037606947924,
+          "meanBurden": 12.33563597228336,
+          "meanFacilityBurden": 2.7149466351843126,
+          "meanTrafficBurden": 9.620689337099046
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 13.232871099313392,
+          "facilityBurden": 4.309052816036016,
+          "trafficBurden": 8.923818283277376,
+          "meanBurden": 12.708637643208915,
+          "meanFacilityBurden": 4.309052816036004,
+          "meanTrafficBurden": 8.399584827172912
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.924254263934618,
+          "facilityBurden": 2.529290803958961,
+          "trafficBurden": 7.394963459975656,
+          "meanBurden": 9.168010494938834,
+          "meanFacilityBurden": 2.5292908039589497,
+          "meanTrafficBurden": 6.638719690979884
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.453662831450085,
+          "facilityBurden": 5.439496666085356,
+          "trafficBurden": 6.0141661653647285,
+          "meanBurden": 11.156524345045227,
+          "meanFacilityBurden": 5.439496666085387,
+          "meanTrafficBurden": 5.71702767895984
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 51.5918202700865,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 2.3325610108272383,
+          "meanBurden": 51.92430864952238,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 2.6650493902632424
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.8827881483010795,
+          "facilityBurden": 2.5125993788235887,
+          "trafficBurden": 4.37018876947749,
+          "meanBurden": 6.607871401755206,
+          "meanFacilityBurden": 2.512599378823574,
+          "meanTrafficBurden": 4.095272022931632
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "industry",
+        "conserve"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 192,
+          "capacity": 24
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 96,
+      "greenArea": 664,
+      "protectedArea": 384,
+      "bufferArea": 0,
+      "workCapacity": 24,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 24,
+      "backgroundArrived": 24,
+      "addedArrived": 12,
+      "industryArrived": 12,
+      "industryTrips": 24,
+      "meanBurden": 13.930303493102272,
+      "highBurdenPlaces": 1,
+      "cost": 55,
+      "remainingBudget": 45,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.753891962605326,
+          "facilityBurden": 1.7103052900433724,
+          "trafficBurden": 7.043586672561954,
+          "meanBurden": 7.717246348260016,
+          "meanFacilityBurden": 1.7103052900433786,
+          "meanTrafficBurden": 6.006941058216637
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.54763228658867,
+          "facilityBurden": 2.229190418964028,
+          "trafficBurden": 10.318441867624642,
+          "meanBurden": 11.459969908220623,
+          "meanFacilityBurden": 2.22919041896401,
+          "meanTrafficBurden": 9.230779489256612
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.605537082225746,
+          "facilityBurden": 3.1795162523493743,
+          "trafficBurden": 8.426020829876371,
+          "meanBurden": 10.986145641696945,
+          "meanFacilityBurden": 3.179516252349387,
+          "meanTrafficBurden": 7.806629389347558
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.302768308499846,
+          "facilityBurden": 4.37380132468267,
+          "trafficBurden": 4.928966983817177,
+          "meanBurden": 9.623206708394275,
+          "meanFacilityBurden": 4.373801324682694,
+          "meanTrafficBurden": 5.249405383711579
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.336044933187498,
+          "facilityBurden": 2.7693140510448204,
+          "trafficBurden": 10.566730882142679,
+          "meanBurden": 12.262165271243264,
+          "meanFacilityBurden": 2.7693140510448284,
+          "meanTrafficBurden": 9.492851220198434
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 13.38075485062912,
+          "facilityBurden": 4.510718566873931,
+          "trafficBurden": 8.87003628375519,
+          "meanBurden": 12.768653696556209,
+          "meanFacilityBurden": 4.510718566873944,
+          "meanTrafficBurden": 8.257935129682265
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.443384942890518,
+          "facilityBurden": 3.079395158810225,
+          "trafficBurden": 7.363989784080293,
+          "meanBurden": 9.534628929520098,
+          "meanFacilityBurden": 3.07939515881024,
+          "meanTrafficBurden": 6.455233770709858
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.453211944888242,
+          "facilityBurden": 5.469861506424299,
+          "trafficBurden": 5.983350438463943,
+          "meanBurden": 10.961991645132422,
+          "meanFacilityBurden": 5.4698615064242695,
+          "meanTrafficBurden": 5.492130138708153
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 46.94106189809085,
+          "facilityBurden": 44.62962962962963,
+          "trafficBurden": 2.311432268461217,
+          "meanBurden": 47.076094291320054,
+          "meanFacilityBurden": 44.6296296296298,
+          "meanTrafficBurden": 2.446464661690253
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 7.36332205960391,
+          "facilityBurden": 3.015197369828022,
+          "trafficBurden": 4.348124689775888,
+          "meanBurden": 6.912932490678796,
+          "meanFacilityBurden": 3.0151973698280066,
+          "meanTrafficBurden": 3.8977351208507884
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "industry",
+        "housing",
+        "small"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 0,
+          "capacity": 24
+        },
+        {
+          "id": "housing",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 0,
+          "capacity": 24
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 24,
+      "housingCapacity": 24,
+      "backgroundTrips": 140,
+      "addedTrips": 36,
+      "backgroundArrived": 24,
+      "addedArrived": 12,
+      "industryArrived": 12,
+      "industryTrips": 24,
+      "meanBurden": 14.034682189589997,
+      "highBurdenPlaces": 1,
+      "cost": 80,
+      "remainingBudget": 20,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.753873757792405,
+          "facilityBurden": 1.7103052900433724,
+          "trafficBurden": 7.043568467749034,
+          "meanBurden": 7.763416756753114,
+          "meanFacilityBurden": 1.7103052900433786,
+          "meanTrafficBurden": 6.053111466709735
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.547688558905755,
+          "facilityBurden": 2.229190418964028,
+          "trafficBurden": 10.318498139941727,
+          "meanBurden": 11.550835459065146,
+          "meanFacilityBurden": 2.22919041896401,
+          "meanTrafficBurden": 9.321645040101137
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.605548264193612,
+          "facilityBurden": 3.1795162523493743,
+          "trafficBurden": 8.426032011844237,
+          "meanBurden": 11.044557967182627,
+          "meanFacilityBurden": 3.179516252349387,
+          "meanTrafficBurden": 7.86504171483324
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 9.302771372743388,
+          "facilityBurden": 4.37380132468267,
+          "trafficBurden": 4.928970048060718,
+          "meanBurden": 9.659557445403545,
+          "meanFacilityBurden": 4.373801324682694,
+          "meanTrafficBurden": 5.2857561207208485
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.336092709384598,
+          "facilityBurden": 2.7693140510448204,
+          "trafficBurden": 10.566778658339777,
+          "meanBurden": 12.467573017122799,
+          "meanFacilityBurden": 2.7693140510448284,
+          "meanTrafficBurden": 9.69825896607797
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 13.380771633015325,
+          "facilityBurden": 4.510718566873931,
+          "trafficBurden": 8.870053066141395,
+          "meanBurden": 12.854948320434652,
+          "meanFacilityBurden": 4.510718566873944,
+          "meanTrafficBurden": 8.344229753560708
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.443412723030832,
+          "facilityBurden": 3.079395158810225,
+          "trafficBurden": 7.364017564220607,
+          "meanBurden": 9.789115310170157,
+          "meanFacilityBurden": 3.07939515881024,
+          "meanTrafficBurden": 6.709720151359918
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.4532252152475,
+          "facilityBurden": 5.469861506424299,
+          "trafficBurden": 5.983363708823201,
+          "meanBurden": 11.05495271456547,
+          "meanFacilityBurden": 5.4698615064242695,
+          "meanTrafficBurden": 5.585091208141202
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 46.94106504631114,
+          "facilityBurden": 44.62962962962963,
+          "trafficBurden": 2.311435416681503,
+          "meanBurden": 47.103836876904175,
+          "meanFacilityBurden": 44.6296296296298,
+          "meanTrafficBurden": 2.474207247274375
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 7.363336081704588,
+          "facilityBurden": 3.015197369828022,
+          "trafficBurden": 4.348138711876566,
+          "meanBurden": 7.058028028298271,
+          "meanFacilityBurden": 3.0151973698280066,
+          "meanTrafficBurden": 4.042830658470264
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "conserve"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 384,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 29,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.267625300076322,
+      "highBurdenPlaces": 1,
+      "cost": 15,
+      "remainingBudget": 85,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 7.75607673672535,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 6.445931523732486,
+          "meanBurden": 6.854486238762821,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 5.544341025769941
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.678277455993083,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 9.974914229799603,
+          "meanBurden": 10.382561415173376,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 8.679198188979909
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 10.702777230143669,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.223878866154891,
+          "meanBurden": 9.888208543409307,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.409310179420504
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 8.22164934570273,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 4.730994295545806,
+          "meanBurden": 8.46231074271256,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 4.971655692555666
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.395692892338571,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 10.304076990927202,
+          "meanBurden": 11.072328830084714,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 8.980712928673334
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 12.114653297721949,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 8.623998247565027,
+          "meanBurden": 11.27856000025981,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 7.7879049501029165
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.26742674790996,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 6.999853051764835,
+          "meanBurden": 8.117814593612005,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 5.850240897466858
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 9.66538904152361,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 5.591147303180469,
+          "meanBurden": 8.91273860616402,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 4.838496867820902
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.13176467401484,
+          "facilityBurden": 40,
+          "trafficBurden": 2.131764674014842,
+          "meanBurden": 42.10339119044033,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.1033911904403286
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.2369566137894115,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.0720993800158105,
+          "meanBurden": 5.603852840144286,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.438995606370708
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2405,
+      "policies": [
+        "buffer"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 0,
+      "bufferArea": 184,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 29,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 11.582278035271138,
+      "highBurdenPlaces": 1,
+      "cost": 20,
+      "remainingBudget": 80,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 7.297525912177847,
+          "facilityBurden": 0.851594388445362,
+          "trafficBurden": 6.445931523732486,
+          "meanBurden": 6.395935414215296,
+          "meanFacilityBurden": 0.8515943884453552,
+          "meanTrafficBurden": 5.544341025769941
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.082100326825365,
+          "facilityBurden": 1.1071860970257614,
+          "trafficBurden": 9.974914229799603,
+          "meanBurden": 9.78638428600567,
+          "meanFacilityBurden": 1.1071860970257605,
+          "meanTrafficBurden": 8.679198188979909
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 9.835162802747597,
+          "facilityBurden": 1.6112839365927054,
+          "trafficBurden": 8.223878866154891,
+          "meanBurden": 9.020594116013214,
+          "meanFacilityBurden": 1.6112839365927107,
+          "meanTrafficBurden": 7.409310179420504
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 8.22164934570273,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 4.730994295545806,
+          "meanBurden": 8.46231074271256,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 4.971655692555666
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.663627326844592,
+          "facilityBurden": 1.3595503359173902,
+          "trafficBurden": 10.304076990927202,
+          "meanBurden": 10.34026326459072,
+          "meanFacilityBurden": 1.3595503359173844,
+          "meanTrafficBurden": 8.980712928673334
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.892924030167027,
+          "facilityBurden": 2.2689257826019995,
+          "trafficBurden": 8.623998247565027,
+          "meanBurden": 10.056830732704908,
+          "meanFacilityBurden": 2.2689257826019915,
+          "meanTrafficBurden": 7.7879049501029165
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.473775954259166,
+          "facilityBurden": 1.4739229024943312,
+          "trafficBurden": 6.999853051764835,
+          "meanBurden": 7.324163799961194,
+          "meanFacilityBurden": 1.473922902494336,
+          "meanTrafficBurden": 5.850240897466858
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 8.23940443310351,
+          "facilityBurden": 2.648257129923042,
+          "trafficBurden": 5.591147303180469,
+          "meanBurden": 7.486753997743953,
+          "meanFacilityBurden": 2.648257129923051,
+          "meanTrafficBurden": 4.838496867820902
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.13176467401484,
+          "facilityBurden": 40,
+          "trafficBurden": 2.131764674014842,
+          "meanBurden": 42.10339119044033,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.1033911904403286
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 5.4792565819686505,
+          "facilityBurden": 1.4071572019528404,
+          "trafficBurden": 4.0720993800158105,
+          "meanBurden": 4.846152808323539,
+          "meanFacilityBurden": 1.4071572019528304,
+          "meanTrafficBurden": 3.438995606370708
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 27,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.317331505426235,
+      "highBurdenPlaces": 1,
+      "cost": 0,
+      "remainingBudget": 100,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 7.324627470957224,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 6.014482257964359,
+          "meanBurden": 6.251083026666914,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 4.940937813674035
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.04813988206833,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 10.34477665587485,
+          "meanBurden": 10.198035132238115,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 8.494671906044646
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.214159885882497,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.735261521893719,
+          "meanBurden": 9.963396338281713,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.48449797429291
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.0131097113326,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 6.5224546611756775,
+          "meanBurden": 9.136678160215641,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.646023110058748
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.852837981403665,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 10.761222079992296,
+          "meanBurden": 10.998077956011228,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 8.906462054599846
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 12.988251926753952,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 9.49759687659703,
+          "meanBurden": 11.569123644860355,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 8.078468594703462
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.048820342852931,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 6.781246646707807,
+          "meanBurden": 7.8477487544785065,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 5.580175058333359
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 10.263746274034379,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 6.1895045356912375,
+          "meanBurden": 9.097820408835064,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 5.023578670491948
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.88640989733243,
+          "facilityBurden": 40,
+          "trafficBurden": 2.886409897332428,
+          "meanBurden": 42.62732031453367,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.627320314533671
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.171488910251446,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.006631676477845,
+          "meanBurden": 5.4840313181411515,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.3191740843675737
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "industry"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 48,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 48,
+      "backgroundArrived": 22,
+      "addedArrived": 22,
+      "industryArrived": 22,
+      "industryTrips": 48,
+      "meanBurden": 15.511090061659255,
+      "highBurdenPlaces": 1,
+      "cost": 40,
+      "remainingBudget": 60,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.68151497257251,
+          "facilityBurden": 2.11046536709388,
+          "trafficBurden": 7.571049605478629,
+          "meanBurden": 8.426474835077206,
+          "meanFacilityBurden": 2.1104653670938682,
+          "meanTrafficBurden": 6.316009467983338
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 14.027608027727938,
+          "facilityBurden": 2.7550176117345764,
+          "trafficBurden": 11.272590415993362,
+          "meanBurden": 12.31731019112807,
+          "meanFacilityBurden": 2.7550176117345817,
+          "meanTrafficBurden": 9.562292579393489
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.482968166673253,
+          "facilityBurden": 3.8801341407099708,
+          "trafficBurden": 9.602834025963281,
+          "meanBurden": 12.262236516104121,
+          "meanFacilityBurden": 3.8801341407099703,
+          "meanTrafficBurden": 8.382102375394151
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 12.226575458525275,
+          "facilityBurden": 5.256947599208418,
+          "trafficBurden": 6.969627859316858,
+          "meanBurden": 11.417241003921495,
+          "meanFacilityBurden": 5.256947599208415,
+          "meanTrafficBurden": 6.1602934047130775
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.822493554983847,
+          "facilityBurden": 3.4470122006782713,
+          "trafficBurden": 11.375481354305576,
+          "meanBurden": 13.161054660779936,
+          "meanFacilityBurden": 3.4470122006782726,
+          "meanTrafficBurden": 9.714042460101663
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 15.517021907370516,
+          "facilityBurden": 5.530782083590939,
+          "trafficBurden": 9.986239823779577,
+          "meanBurden": 14.283515696513362,
+          "meanFacilityBurden": 5.53078208359098,
+          "meanTrafficBurden": 8.752733612922382
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 11.485909077840766,
+          "facilityBurden": 3.891216621475325,
+          "trafficBurden": 7.594692456365441,
+          "meanBurden": 10.3266965134439,
+          "meanFacilityBurden": 3.8912166214752935,
+          "meanTrafficBurden": 6.435479891968608
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.43467979731874,
+          "facilityBurden": 6.865481274505456,
+          "trafficBurden": 6.569198522813283,
+          "meanBurden": 12.591064593465788,
+          "meanFacilityBurden": 6.86548127450545,
+          "meanTrafficBurden": 5.7255833189603385
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 52.31870222092966,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 3.0594429616704,
+          "meanBurden": 52.457966008257216,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 3.198706748998076
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 8.36983551331917,
+          "facilityBurden": 3.865537505882444,
+          "trafficBurden": 4.504298007436725,
+          "meanBurden": 7.867340597901449,
+          "meanFacilityBurden": 3.8655375058824566,
+          "meanTrafficBurden": 4.001803092018992
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "housing"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 48,
+      "backgroundTrips": 140,
+      "addedTrips": 24,
+      "backgroundArrived": 25,
+      "addedArrived": 2,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.622189214891083,
+      "highBurdenPlaces": 1,
+      "cost": 30,
+      "remainingBudget": 70,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 7.422957697283561,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 6.112812484290696,
+          "meanBurden": 6.4142969585169105,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 5.10415174552403
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.223735079245827,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 10.520371853052348,
+          "meanBurden": 10.506858390378559,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 8.80349516418509
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.348920145117072,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.870021781128294,
+          "meanBurden": 10.138623923455569,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.659725559466765
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.10607122710805,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 6.615416176951128,
+          "meanBurden": 9.242066248093543,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.75141119793665
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.240298570282228,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 11.148682668870858,
+          "meanBurden": 11.50265012051042,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 9.41103421909904
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 13.207837178178751,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 9.717182128021829,
+          "meanBurden": 11.809505936360479,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 8.318850886203585
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.975166108463396,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 7.707592412318272,
+          "meanBurden": 8.593489289937382,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 6.325915593792235
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 10.557290698429473,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 6.4830489600863315,
+          "meanBurden": 9.363933401026149,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 5.2896916626830315
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.96927159105464,
+          "facilityBurden": 40,
+          "trafficBurden": 2.969271591054641,
+          "meanBurden": 42.70688864168144,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.7068886416814397
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.759965025064837,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.595107791291237,
+          "meanBurden": 5.943579238950372,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.7787220051767942
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "industry",
+        "housing"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 384,
+      "greenArea": 376,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 48,
+      "housingCapacity": 48,
+      "backgroundTrips": 140,
+      "addedTrips": 72,
+      "backgroundArrived": 22,
+      "addedArrived": 22,
+      "industryArrived": 22,
+      "industryTrips": 48,
+      "meanBurden": 15.678430921086488,
+      "highBurdenPlaces": 1,
+      "cost": 70,
+      "remainingBudget": 30,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.712489306809825,
+          "facilityBurden": 2.11046536709388,
+          "trafficBurden": 7.602023939715945,
+          "meanBurden": 8.493258978721396,
+          "meanFacilityBurden": 2.1104653670938682,
+          "meanTrafficBurden": 6.382793611627529
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 14.081916420327714,
+          "facilityBurden": 2.7550176117345764,
+          "trafficBurden": 11.326898808593137,
+          "meanBurden": 12.442223642783349,
+          "meanFacilityBurden": 2.7550176117345817,
+          "meanTrafficBurden": 9.687206031048767
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.52548863616678,
+          "facilityBurden": 3.8801341407099708,
+          "trafficBurden": 9.645354495456811,
+          "meanBurden": 12.348747889637945,
+          "meanFacilityBurden": 3.8801341407099703,
+          "meanTrafficBurden": 8.468613748927975
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 12.256469090443716,
+          "facilityBurden": 5.256947599208418,
+          "trafficBurden": 6.999521491235297,
+          "meanBurden": 11.473168545196915,
+          "meanFacilityBurden": 5.256947599208415,
+          "meanTrafficBurden": 6.2162209459885
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.938701066066226,
+          "facilityBurden": 3.4470122006782713,
+          "trafficBurden": 11.491688865387955,
+          "meanBurden": 13.453035251941103,
+          "meanFacilityBurden": 3.4470122006782726,
+          "meanTrafficBurden": 10.00602305126283
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 15.58655483744202,
+          "facilityBurden": 5.530782083590939,
+          "trafficBurden": 10.05577275385108,
+          "meanBurden": 14.416342885973693,
+          "meanFacilityBurden": 5.53078208359098,
+          "meanTrafficBurden": 8.885560802382713
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 11.78326494092499,
+          "facilityBurden": 3.891216621475325,
+          "trafficBurden": 7.892048319449665,
+          "meanBurden": 10.771860392878066,
+          "meanFacilityBurden": 3.8912166214752935,
+          "meanTrafficBurden": 6.880643771402773
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.531844116915426,
+          "facilityBurden": 6.865481274505456,
+          "trafficBurden": 6.66636284240997,
+          "meanBurden": 12.745826752445586,
+          "meanFacilityBurden": 6.86548127450545,
+          "meanTrafficBurden": 5.880345477940134
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 52.34627916264169,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 3.087019903382437,
+          "meanBurden": 52.503198678998466,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 3.243939419739322
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 8.588385117036243,
+          "facilityBurden": 3.865537505882444,
+          "trafficBurden": 4.722847611153798,
+          "meanBurden": 8.136646192288376,
+          "meanFacilityBurden": 3.8655375058824566,
+          "meanTrafficBurden": 4.271108686405921
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "industry",
+        "buffer"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 192,
+          "greenArea": 96,
+          "protectedArea": 0,
+          "capacity": 48
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 184,
+      "workCapacity": 48,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 48,
+      "backgroundArrived": 22,
+      "addedArrived": 22,
+      "industryArrived": 22,
+      "industryTrips": 48,
+      "meanBurden": 14.64757124572689,
+      "highBurdenPlaces": 1,
+      "cost": 60,
+      "remainingBudget": 40,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.222964148025007,
+          "facilityBurden": 1.6519145425463777,
+          "trafficBurden": 7.571049605478629,
+          "meanBurden": 7.967924010529705,
+          "meanFacilityBurden": 1.6519145425463675,
+          "meanTrafficBurden": 6.316009467983338
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.43143089856022,
+          "facilityBurden": 2.158840482566859,
+          "trafficBurden": 11.272590415993362,
+          "meanBurden": 11.721133061960323,
+          "meanFacilityBurden": 2.1588404825668346,
+          "meanTrafficBurden": 9.562292579393489
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.615353739277179,
+          "facilityBurden": 3.012519713313899,
+          "trafficBurden": 9.602834025963281,
+          "meanBurden": 11.394622088708024,
+          "meanFacilityBurden": 3.012519713313872,
+          "meanTrafficBurden": 8.382102375394151
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 11.608373066357252,
+          "facilityBurden": 4.638745207040395,
+          "trafficBurden": 6.969627859316858,
+          "meanBurden": 10.799038611753435,
+          "meanFacilityBurden": 4.638745207040358,
+          "meanTrafficBurden": 6.1602934047130775
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.090427989489868,
+          "facilityBurden": 2.7149466351842917,
+          "trafficBurden": 11.375481354305576,
+          "meanBurden": 12.428989095285978,
+          "meanFacilityBurden": 2.7149466351843126,
+          "meanTrafficBurden": 9.714042460101663
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 14.295292639815592,
+          "facilityBurden": 4.309052816036016,
+          "trafficBurden": 9.986239823779577,
+          "meanBurden": 13.061786428958385,
+          "meanFacilityBurden": 4.309052816036004,
+          "meanTrafficBurden": 8.752733612922382
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.123983260324401,
+          "facilityBurden": 2.529290803958961,
+          "trafficBurden": 7.594692456365441,
+          "meanBurden": 8.964770695927559,
+          "meanFacilityBurden": 2.5292908039589497,
+          "meanTrafficBurden": 6.435479891968608
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.008695188898638,
+          "facilityBurden": 5.439496666085356,
+          "trafficBurden": 6.569198522813283,
+          "meanBurden": 11.165079985045724,
+          "meanFacilityBurden": 5.439496666085387,
+          "meanTrafficBurden": 5.7255833189603385
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 52.31870222092966,
+          "facilityBurden": 49.25925925925926,
+          "trafficBurden": 3.0594429616704,
+          "meanBurden": 52.457966008257216,
+          "meanFacilityBurden": 49.25925925925914,
+          "meanTrafficBurden": 3.198706748998076
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 7.016897386260315,
+          "facilityBurden": 2.5125993788235887,
+          "trafficBurden": 4.504298007436725,
+          "meanBurden": 6.514402470842567,
+          "meanFacilityBurden": 2.512599378823574,
+          "meanTrafficBurden": 4.001803092018992
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "industry",
+        "conserve"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 192,
+          "capacity": 24
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 96,
+      "greenArea": 664,
+      "protectedArea": 384,
+      "bufferArea": 0,
+      "workCapacity": 24,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 24,
+      "backgroundArrived": 22,
+      "addedArrived": 13,
+      "industryArrived": 13,
+      "industryTrips": 24,
+      "meanBurden": 14.053992003947315,
+      "highBurdenPlaces": 1,
+      "cost": 55,
+      "remainingBudget": 45,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.344928116217382,
+          "facilityBurden": 1.7103052900433724,
+          "trafficBurden": 6.6346228261740094,
+          "meanBurden": 7.436046311340687,
+          "meanFacilityBurden": 1.7103052900433786,
+          "meanTrafficBurden": 5.725741021297308
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.07154827562659,
+          "facilityBurden": 2.229190418964028,
+          "trafficBurden": 10.842357856662563,
+          "meanBurden": 11.492555925077113,
+          "meanFacilityBurden": 2.22919041896401,
+          "meanTrafficBurden": 9.263365506113104
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.365979016317974,
+          "facilityBurden": 3.1795162523493743,
+          "trafficBurden": 9.1864627639686,
+          "meanBurden": 11.264529379191263,
+          "meanFacilityBurden": 3.179516252349387,
+          "meanTrafficBurden": 8.085013126841876
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 11.12262895679751,
+          "facilityBurden": 4.37380132468267,
+          "trafficBurden": 6.748827632114839,
+          "meanBurden": 10.349292859091184,
+          "meanFacilityBurden": 4.373801324682694,
+          "meanTrafficBurden": 5.975491534408489
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 13.955514750809531,
+          "facilityBurden": 2.7693140510448204,
+          "trafficBurden": 11.186200699764711,
+          "meanBurden": 12.292273207972938,
+          "meanFacilityBurden": 2.7693140510448284,
+          "meanTrafficBurden": 9.52295915692811
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 14.309869135208352,
+          "facilityBurden": 4.510718566873931,
+          "trafficBurden": 9.79915056833442,
+          "meanBurden": 13.060754250505207,
+          "meanFacilityBurden": 4.510718566873944,
+          "meanTrafficBurden": 8.550035683631261
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.5700256494676,
+          "facilityBurden": 3.079395158810225,
+          "trafficBurden": 7.4906304906573755,
+          "meanBurden": 9.301378259904629,
+          "meanFacilityBurden": 3.07939515881024,
+          "meanTrafficBurden": 6.221983101094389
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.935602123987277,
+          "facilityBurden": 5.469861506424299,
+          "trafficBurden": 6.465740617562977,
+          "meanBurden": 10.949025766471374,
+          "meanFacilityBurden": 5.4698615064242695,
+          "meanTrafficBurden": 5.479164260047105
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 47.62096809307978,
+          "facilityBurden": 44.62962962962963,
+          "trafficBurden": 2.9913384634501488,
+          "meanBurden": 47.59266487701567,
+          "meanFacilityBurden": 44.6296296296298,
+          "meanTrafficBurden": 2.9630352473858763
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 7.446683346407333,
+          "facilityBurden": 3.015197369828022,
+          "trafficBurden": 4.431485976579311,
+          "meanBurden": 6.801399202903068,
+          "meanFacilityBurden": 3.0151973698280066,
+          "meanTrafficBurden": 3.7862018330750615
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "industry",
+        "housing",
+        "small"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 0,
+          "capacity": 24
+        },
+        {
+          "id": "housing",
+          "developedArea": 96,
+          "greenArea": 192,
+          "protectedArea": 0,
+          "capacity": 24
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 192,
+      "greenArea": 568,
+      "protectedArea": 0,
+      "bufferArea": 0,
+      "workCapacity": 24,
+      "housingCapacity": 24,
+      "backgroundTrips": 140,
+      "addedTrips": 36,
+      "backgroundArrived": 22,
+      "addedArrived": 13,
+      "industryArrived": 13,
+      "industryTrips": 24,
+      "meanBurden": 14.221332863374556,
+      "highBurdenPlaces": 1,
+      "cost": 80,
+      "remainingBudget": 20,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.375902450454698,
+          "facilityBurden": 1.7103052900433724,
+          "trafficBurden": 6.665597160411325,
+          "meanBurden": 7.50283045498488,
+          "meanFacilityBurden": 1.7103052900433786,
+          "meanTrafficBurden": 5.792525164941502
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 13.125856668226366,
+          "facilityBurden": 2.229190418964028,
+          "trafficBurden": 10.896666249262339,
+          "meanBurden": 11.61746937673241,
+          "meanFacilityBurden": 2.22919041896401,
+          "meanTrafficBurden": 9.3882789577684
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.408499485811502,
+          "facilityBurden": 3.1795162523493743,
+          "trafficBurden": 9.228983233462127,
+          "meanBurden": 11.351040752725083,
+          "meanFacilityBurden": 3.179516252349387,
+          "meanTrafficBurden": 8.171524500375696
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 11.15252258871595,
+          "facilityBurden": 4.37380132468267,
+          "trafficBurden": 6.778721264033279,
+          "meanBurden": 10.405220400366629,
+          "meanFacilityBurden": 4.373801324682694,
+          "meanTrafficBurden": 6.031419075683934
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 14.07172226189191,
+          "facilityBurden": 2.7693140510448204,
+          "trafficBurden": 11.30240821084709,
+          "meanBurden": 12.584253799134116,
+          "meanFacilityBurden": 2.7693140510448284,
+          "meanTrafficBurden": 9.814939748089289
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 14.379402065279855,
+          "facilityBurden": 4.510718566873931,
+          "trafficBurden": 9.868683498405925,
+          "meanBurden": 13.193581439965536,
+          "meanFacilityBurden": 4.510718566873944,
+          "meanTrafficBurden": 8.682862873091592
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 10.867381512551825,
+          "facilityBurden": 3.079395158810225,
+          "trafficBurden": 7.7879863537416,
+          "meanBurden": 9.746542139338795,
+          "meanFacilityBurden": 3.07939515881024,
+          "meanTrafficBurden": 6.667146980528554
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.032766443583961,
+          "facilityBurden": 5.469861506424299,
+          "trafficBurden": 6.562904937159662,
+          "meanBurden": 11.103787925451169,
+          "meanFacilityBurden": 5.4698615064242695,
+          "meanTrafficBurden": 5.6339264190269
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 47.648545034791816,
+          "facilityBurden": 44.62962962962963,
+          "trafficBurden": 3.018915405162186,
+          "meanBurden": 47.637897547756914,
+          "meanFacilityBurden": 44.6296296296298,
+          "meanTrafficBurden": 3.0082679181271206
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 7.665232950124405,
+          "facilityBurden": 3.015197369828022,
+          "trafficBurden": 4.650035580296383,
+          "meanBurden": 7.070704797289998,
+          "meanFacilityBurden": 3.0151973698280066,
+          "meanTrafficBurden": 4.0555074274619916
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "conserve"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 192,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 384,
+      "bufferArea": 0,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 27,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 12.317331505426235,
+      "highBurdenPlaces": 1,
+      "cost": 15,
+      "remainingBudget": 85,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 7.324627470957224,
+          "facilityBurden": 1.3101452129928646,
+          "trafficBurden": 6.014482257964359,
+          "meanBurden": 6.251083026666914,
+          "meanFacilityBurden": 1.3101452129928797,
+          "meanTrafficBurden": 4.940937813674035
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 12.04813988206833,
+          "facilityBurden": 1.703363226193479,
+          "trafficBurden": 10.34477665587485,
+          "meanBurden": 10.198035132238115,
+          "meanFacilityBurden": 1.7033632261934681,
+          "meanTrafficBurden": 8.494671906044646
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 11.214159885882497,
+          "facilityBurden": 2.4788983639887774,
+          "trafficBurden": 8.735261521893719,
+          "meanBurden": 9.963396338281713,
+          "meanFacilityBurden": 2.478898363988803,
+          "meanTrafficBurden": 7.48449797429291
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.0131097113326,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 6.5224546611756775,
+          "meanBurden": 9.136678160215641,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.646023110058748
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.852837981403665,
+          "facilityBurden": 2.0916159014113695,
+          "trafficBurden": 10.761222079992296,
+          "meanBurden": 10.998077956011228,
+          "meanFacilityBurden": 2.0916159014113807,
+          "meanTrafficBurden": 8.906462054599846
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 12.988251926753952,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 9.49759687659703,
+          "meanBurden": 11.569123644860355,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 8.078468594703462
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 9.048820342852931,
+          "facilityBurden": 2.2675736961451247,
+          "trafficBurden": 6.781246646707807,
+          "meanBurden": 7.8477487544785065,
+          "meanFacilityBurden": 2.2675736961451474,
+          "meanTrafficBurden": 5.580175058333359
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 10.263746274034379,
+          "facilityBurden": 4.074241738343142,
+          "trafficBurden": 6.1895045356912375,
+          "meanBurden": 9.097820408835064,
+          "meanFacilityBurden": 4.074241738343117,
+          "meanTrafficBurden": 5.023578670491948
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.88640989733243,
+          "facilityBurden": 40,
+          "trafficBurden": 2.886409897332428,
+          "meanBurden": 42.62732031453367,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.627320314533671
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 6.171488910251446,
+          "facilityBurden": 2.1648572337736005,
+          "trafficBurden": 4.006631676477845,
+          "meanBurden": 5.4840313181411515,
+          "meanFacilityBurden": 2.164857233773578,
+          "meanTrafficBurden": 3.3191740843675737
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    },
+    {
+      "seed": 2406,
+      "policies": [
+        "buffer"
+      ],
+      "time": 420,
+      "sampleCount": 420,
+      "model": "educational-proxy",
+      "parcels": [
+        {
+          "id": "industry",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        },
+        {
+          "id": "housing",
+          "developedArea": 0,
+          "greenArea": 288,
+          "protectedArea": 0,
+          "capacity": 0
+        }
+      ],
+      "managedArea": 760,
+      "developedArea": 0,
+      "greenArea": 760,
+      "protectedArea": 0,
+      "bufferArea": 184,
+      "workCapacity": 0,
+      "housingCapacity": 0,
+      "backgroundTrips": 140,
+      "addedTrips": 0,
+      "backgroundArrived": 27,
+      "addedArrived": 0,
+      "industryArrived": 0,
+      "industryTrips": 0,
+      "meanBurden": 11.631984240621051,
+      "highBurdenPlaces": 1,
+      "cost": 20,
+      "remainingBudget": 80,
+      "regions": [
+        {
+          "id": "b0",
+          "name": "북쪽 첫 마을",
+          "position": {
+            "x": -72,
+            "z": -72
+          },
+          "districtId": "nw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 6.866076646409721,
+          "facilityBurden": 0.851594388445362,
+          "trafficBurden": 6.014482257964359,
+          "meanBurden": 5.79253220211939,
+          "meanFacilityBurden": 0.8515943884453552,
+          "meanTrafficBurden": 4.940937813674035
+        },
+        {
+          "id": "b4",
+          "name": "학교 가는 길 서쪽",
+          "position": {
+            "x": -72,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 11.451962752900613,
+          "facilityBurden": 1.1071860970257614,
+          "trafficBurden": 10.34477665587485,
+          "meanBurden": 9.601858003070406,
+          "meanFacilityBurden": 1.1071860970257605,
+          "meanTrafficBurden": 8.494671906044646
+        },
+        {
+          "id": "b5",
+          "name": "학교 가는 길 안쪽",
+          "position": {
+            "x": -24,
+            "z": -24
+          },
+          "districtId": "nw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 10.346545458486425,
+          "facilityBurden": 1.6112839365927054,
+          "trafficBurden": 8.735261521893719,
+          "meanBurden": 9.09578191088562,
+          "meanFacilityBurden": 1.6112839365927107,
+          "meanTrafficBurden": 7.48449797429291
+        },
+        {
+          "id": "b6",
+          "name": "새봄초등학교",
+          "position": {
+            "x": 24,
+            "z": -24
+          },
+          "districtId": "ne",
+          "population": 0,
+          "use": "배움",
+          "currentBurden": 10.0131097113326,
+          "facilityBurden": 3.4906550501569225,
+          "trafficBurden": 6.5224546611756775,
+          "meanBurden": 9.136678160215641,
+          "meanFacilityBurden": 3.4906550501568936,
+          "meanTrafficBurden": 5.646023110058748
+        },
+        {
+          "id": "b8",
+          "name": "서쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 120,
+          "use": "주거",
+          "currentBurden": 12.120772415909686,
+          "facilityBurden": 1.3595503359173902,
+          "trafficBurden": 10.761222079992296,
+          "meanBurden": 10.266012390517231,
+          "meanFacilityBurden": 1.3595503359173844,
+          "meanTrafficBurden": 8.906462054599846
+        },
+        {
+          "id": "b9",
+          "name": "공원 건너 마을",
+          "position": {
+            "x": -24,
+            "z": 24
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 11.76652265919903,
+          "facilityBurden": 2.2689257826019995,
+          "trafficBurden": 9.49759687659703,
+          "meanBurden": 10.347394377305454,
+          "meanFacilityBurden": 2.2689257826019915,
+          "meanTrafficBurden": 8.078468594703462
+        },
+        {
+          "id": "b12",
+          "name": "남쪽 끝 마을",
+          "position": {
+            "x": -72,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 80,
+          "use": "주거",
+          "currentBurden": 8.255169549202138,
+          "facilityBurden": 1.4739229024943312,
+          "trafficBurden": 6.781246646707807,
+          "meanBurden": 7.054097960827695,
+          "meanFacilityBurden": 1.473922902494336,
+          "meanTrafficBurden": 5.580175058333359
+        },
+        {
+          "id": "b13",
+          "name": "남쪽 안쪽 마을",
+          "position": {
+            "x": -24,
+            "z": 72
+          },
+          "districtId": "sw",
+          "population": 100,
+          "use": "주거",
+          "currentBurden": 8.83776166561428,
+          "facilityBurden": 2.648257129923042,
+          "trafficBurden": 6.1895045356912375,
+          "meanBurden": 7.671835800414999,
+          "meanFacilityBurden": 2.648257129923051,
+          "meanTrafficBurden": 5.023578670491948
+        },
+        {
+          "id": "b15",
+          "name": "동네 공장",
+          "position": {
+            "x": 72,
+            "z": 72
+          },
+          "districtId": "se",
+          "population": 0,
+          "use": "생산",
+          "currentBurden": 42.88640989733243,
+          "facilityBurden": 40,
+          "trafficBurden": 2.886409897332428,
+          "meanBurden": 42.62732031453367,
+          "meanFacilityBurden": 40,
+          "meanTrafficBurden": 2.627320314533671
+        },
+        {
+          "id": "housing",
+          "name": "새 주거 부지",
+          "position": {
+            "x": -72,
+            "z": 108
+          },
+          "districtId": "sw",
+          "population": 0,
+          "use": "계획 부지",
+          "currentBurden": 5.413788878430685,
+          "facilityBurden": 1.4071572019528404,
+          "trafficBurden": 4.006631676477845,
+          "meanBurden": 4.726331286320404,
+          "meanFacilityBurden": 1.4071572019528304,
+          "meanTrafficBurden": 3.3191740843675737
+        }
+      ],
+      "rules": {
+        "sampleSeconds": 1,
+        "facilityDistanceScale": 45,
+        "trafficDistanceScale": 38,
+        "vehicleWeight": 0.8,
+        "bufferFactor": 0.65,
+        "highThreshold": 20
+      }
+    }
+  ]
+}

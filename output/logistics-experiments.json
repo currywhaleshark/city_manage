@@ -1,0 +1,2842 @@
+[
+  {
+    "seed": 2404,
+    "policies": [],
+    "time": 600,
+    "delivered": 64.85000000000046,
+    "stock": 6.977445810641866,
+    "sold": 92.87255418935732,
+    "unmet": 115.99399070272652,
+    "requested": 208.8665448920852,
+    "fulfillment": 44.46502154633796,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.91000000000008,
+    "externalDelivered": 28.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 60.5100000000008,
+    "trucks": 2,
+    "averageTravelTime": 63.166666666666664,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 40,
+    "cost": 0,
+    "remainingBudget": 100,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.07867892088058094,
+        "requested": 47.20735252834651,
+        "sold": 8,
+        "unmet": 39.207352528346725,
+        "delivered": 0,
+        "stockoutSeconds": 498.4000000000448,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09725305847047518,
+        "requested": 58.35183508228913,
+        "sold": 8,
+        "unmet": 50.35183508228836,
+        "delivered": 0,
+        "stockoutSeconds": 517.8000000000492,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09975701593793929,
+        "requested": 59.85420956276941,
+        "sold": 37.9400000000019,
+        "unmet": 21.914209562764825,
+        "delivered": 28.940000000000378,
+        "stockoutSeconds": 219.6999999999918,
+        "bySource": {
+          "east-region": 28.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 6.977445810641866,
+        "capacity": 60,
+        "demandRate": 0.07242191286447147,
+        "requested": 43.453147718680164,
+        "sold": 38.93255418935541,
+        "unmet": 4.5205935293266055,
+        "delivered": 35.91000000000008,
+        "stockoutSeconds": 62.50000000000062,
+        "bySource": {
+          "factory": 35.91000000000008
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 30,
+        "stock": 48.090000000002426,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.90999999999977
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 31.550000000002132,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 53.45000000000039
+      }
+    ]
+  },
+  {
+    "seed": 2404,
+    "policies": [
+      "shortcut"
+    ],
+    "time": 600,
+    "delivered": 64.85000000000046,
+    "stock": 6.977445810641866,
+    "sold": 92.87255418935732,
+    "unmet": 115.99399070272652,
+    "requested": 208.8665448920852,
+    "fulfillment": 44.46502154633796,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.91000000000008,
+    "externalDelivered": 28.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 60.5100000000008,
+    "trucks": 2,
+    "averageTravelTime": 63.166666666666664,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 49,
+    "cost": 35,
+    "remainingBudget": 65,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.07867892088058094,
+        "requested": 47.20735252834651,
+        "sold": 8,
+        "unmet": 39.207352528346725,
+        "delivered": 0,
+        "stockoutSeconds": 498.4000000000448,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09725305847047518,
+        "requested": 58.35183508228913,
+        "sold": 8,
+        "unmet": 50.35183508228836,
+        "delivered": 0,
+        "stockoutSeconds": 517.8000000000492,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09975701593793929,
+        "requested": 59.85420956276941,
+        "sold": 37.9400000000019,
+        "unmet": 21.914209562764825,
+        "delivered": 28.940000000000378,
+        "stockoutSeconds": 219.6999999999918,
+        "bySource": {
+          "east-region": 28.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 6.977445810641866,
+        "capacity": 60,
+        "demandRate": 0.07242191286447147,
+        "requested": 43.453147718680164,
+        "sold": 38.93255418935541,
+        "unmet": 4.5205935293266055,
+        "delivered": 35.91000000000008,
+        "stockoutSeconds": 62.50000000000062,
+        "bySource": {
+          "factory": 35.91000000000008
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 30,
+        "stock": 48.090000000002426,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.90999999999977
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 31.550000000002132,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 53.45000000000039
+      }
+    ]
+  },
+  {
+    "seed": 2404,
+    "policies": [
+      "cargoTruck"
+    ],
+    "time": 600,
+    "delivered": 64.85000000000046,
+    "stock": 6.977445810641866,
+    "sold": 92.87255418935732,
+    "unmet": 115.99399070272652,
+    "requested": 208.8665448920852,
+    "fulfillment": 44.46502154633796,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.91000000000008,
+    "externalDelivered": 28.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 62.94000000000158,
+    "trucks": 3,
+    "averageTravelTime": 60.614285714285714,
+    "unfinishedJourneys": 3,
+    "backgroundArrived": 27,
+    "cost": 35,
+    "remainingBudget": 65,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.07867892088058094,
+        "requested": 47.20735252834651,
+        "sold": 8,
+        "unmet": 39.207352528346725,
+        "delivered": 0,
+        "stockoutSeconds": 498.4000000000448,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09725305847047518,
+        "requested": 58.35183508228913,
+        "sold": 8,
+        "unmet": 50.35183508228836,
+        "delivered": 0,
+        "stockoutSeconds": 517.8000000000492,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09975701593793929,
+        "requested": 59.85420956276941,
+        "sold": 37.9400000000019,
+        "unmet": 21.914209562764825,
+        "delivered": 28.940000000000378,
+        "stockoutSeconds": 219.6999999999918,
+        "bySource": {
+          "east-region": 28.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 6.977445810641866,
+        "capacity": 60,
+        "demandRate": 0.07242191286447147,
+        "requested": 43.453147718680164,
+        "sold": 38.93255418935541,
+        "unmet": 4.5205935293266055,
+        "delivered": 35.91000000000008,
+        "stockoutSeconds": 62.50000000000062,
+        "bySource": {
+          "factory": 35.91000000000008
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 30,
+        "stock": 45.66000000000135,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 74.34000000000088
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 31.550000000002132,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 53.45000000000039
+      }
+    ]
+  },
+  {
+    "seed": 2404,
+    "policies": [
+      "handling"
+    ],
+    "time": 600,
+    "delivered": 64.85000000000046,
+    "stock": 6.977445810642491,
+    "sold": 92.87255418935715,
+    "unmet": 115.99399070272669,
+    "requested": 208.8665448920852,
+    "fulfillment": 44.46502154633787,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.91000000000008,
+    "externalDelivered": 28.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 52.15500000000079,
+    "trucks": 2,
+    "averageTravelTime": 53.20000000000001,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 40,
+    "cost": 20,
+    "remainingBudget": 80,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.07867892088058094,
+        "requested": 47.20735252834651,
+        "sold": 8,
+        "unmet": 39.207352528346725,
+        "delivered": 0,
+        "stockoutSeconds": 498.4000000000448,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09725305847047518,
+        "requested": 58.35183508228913,
+        "sold": 8,
+        "unmet": 50.35183508228836,
+        "delivered": 0,
+        "stockoutSeconds": 517.8000000000492,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09975701593793929,
+        "requested": 59.85420956276941,
+        "sold": 37.94000000000174,
+        "unmet": 21.914209562764988,
+        "delivered": 28.940000000000378,
+        "stockoutSeconds": 219.6999999999918,
+        "bySource": {
+          "east-region": 28.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 6.977445810642491,
+        "capacity": 60,
+        "demandRate": 0.07242191286447147,
+        "requested": 43.453147718680164,
+        "sold": 38.93255418935541,
+        "unmet": 4.5205935293266055,
+        "delivered": 35.91000000000008,
+        "stockoutSeconds": 62.50000000000062,
+        "bySource": {
+          "factory": 35.91000000000008
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 30,
+        "stock": 49.6650000000015,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 70.3350000000005
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 38.33000000000094,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 46.669999999999554
+      }
+    ]
+  },
+  {
+    "seed": 2404,
+    "policies": [
+      "diversify"
+    ],
+    "time": 600,
+    "delivered": 35.91000000000008,
+    "stock": 6.977445810641866,
+    "sold": 63.93255418935541,
+    "unmet": 144.9339907027297,
+    "requested": 208.8665448920852,
+    "fulfillment": 30.609284135181802,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.91000000000008,
+    "externalDelivered": 0,
+    "produced": 90.00000000000303,
+    "externalReceived": 119.99999999999326,
+    "inTrucks": 64.94000000000038,
+    "trucks": 2,
+    "averageTravelTime": 50.025000000000006,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 40,
+    "cost": 30,
+    "remainingBudget": 70,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.07867892088058094,
+        "requested": 47.20735252834651,
+        "sold": 8,
+        "unmet": 39.207352528346725,
+        "delivered": 0,
+        "stockoutSeconds": 498.4000000000448,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09725305847047518,
+        "requested": 58.35183508228913,
+        "sold": 8,
+        "unmet": 50.35183508228836,
+        "delivered": 0,
+        "stockoutSeconds": 517.8000000000492,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09975701593793929,
+        "requested": 59.85420956276941,
+        "sold": 9,
+        "unmet": 50.85420956276798,
+        "delivered": 0,
+        "stockoutSeconds": 509.8000000000474,
+        "bySource": {}
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 6.977445810641866,
+        "capacity": 60,
+        "demandRate": 0.07242191286447147,
+        "requested": 43.453147718680164,
+        "sold": 38.93255418935541,
+        "unmet": 4.5205935293266055,
+        "delivered": 35.91000000000008,
+        "stockoutSeconds": 62.50000000000062,
+        "bySource": {
+          "factory": 35.91000000000008
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 30,
+        "stock": 48.090000000002426,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.90999999999977
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 85.00000000000547,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 0
+      },
+      {
+        "id": "west-region",
+        "name": "이웃 강빛마을 · 서쪽 입구",
+        "origin": "n0-0",
+        "laneId": "n0-0_n0-1:n0-0:0",
+        "position": {
+          "x": -109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 56.059999999997416,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 28.94000000000038
+      }
+    ]
+  },
+  {
+    "seed": 2404,
+    "policies": [
+      "shortcut",
+      "cargoTruck",
+      "handling"
+    ],
+    "time": 600,
+    "delivered": 64.85000000000046,
+    "stock": 6.977445810642491,
+    "sold": 92.87255418935715,
+    "unmet": 115.99399070272669,
+    "requested": 208.8665448920852,
+    "fulfillment": 44.46502154633787,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.91000000000008,
+    "externalDelivered": 28.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 52.1550000000006,
+    "trucks": 3,
+    "averageTravelTime": 52.07142857142858,
+    "unfinishedJourneys": 3,
+    "backgroundArrived": 38,
+    "cost": 90,
+    "remainingBudget": 10,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.07867892088058094,
+        "requested": 47.20735252834651,
+        "sold": 8,
+        "unmet": 39.207352528346725,
+        "delivered": 0,
+        "stockoutSeconds": 498.4000000000448,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09725305847047518,
+        "requested": 58.35183508228913,
+        "sold": 8,
+        "unmet": 50.35183508228836,
+        "delivered": 0,
+        "stockoutSeconds": 517.8000000000492,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09975701593793929,
+        "requested": 59.85420956276941,
+        "sold": 37.94000000000174,
+        "unmet": 21.914209562764988,
+        "delivered": 28.940000000000378,
+        "stockoutSeconds": 219.6999999999918,
+        "bySource": {
+          "east-region": 28.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 6.977445810642491,
+        "capacity": 60,
+        "demandRate": 0.07242191286447147,
+        "requested": 43.453147718680164,
+        "sold": 38.93255418935541,
+        "unmet": 4.5205935293266055,
+        "delivered": 35.91000000000008,
+        "stockoutSeconds": 62.50000000000062,
+        "bySource": {
+          "factory": 35.91000000000008
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 30,
+        "stock": 49.6650000000015,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 70.3350000000006
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 38.33000000000094,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 46.669999999999554
+      }
+    ]
+  },
+  {
+    "seed": 2404,
+    "policies": [
+      "cargoTruck",
+      "handling",
+      "diversify"
+    ],
+    "time": 600,
+    "delivered": 41.92500000000005,
+    "stock": 6.977445810642491,
+    "sold": 69.94755418935486,
+    "unmet": 138.91899070272913,
+    "requested": 208.8665448920852,
+    "fulfillment": 33.489113455433746,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 41.92500000000005,
+    "externalDelivered": 0,
+    "produced": 90.00000000000303,
+    "externalReceived": 119.99999999999326,
+    "inTrucks": 57.35000000000105,
+    "trucks": 3,
+    "averageTravelTime": 116,
+    "unfinishedJourneys": 3,
+    "backgroundArrived": 27,
+    "cost": 85,
+    "remainingBudget": 15,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.07867892088058094,
+        "requested": 47.20735252834651,
+        "sold": 8,
+        "unmet": 39.207352528346725,
+        "delivered": 0,
+        "stockoutSeconds": 498.4000000000448,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09725305847047518,
+        "requested": 58.35183508228913,
+        "sold": 14.014999999999459,
+        "unmet": 44.336835082287806,
+        "delivered": 6.014999999999968,
+        "stockoutSeconds": 456.0000000000352,
+        "bySource": {
+          "factory": 6.014999999999968
+        }
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09975701593793929,
+        "requested": 59.85420956276941,
+        "sold": 9,
+        "unmet": 50.85420956276798,
+        "delivered": 0,
+        "stockoutSeconds": 509.8000000000474,
+        "bySource": {}
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 6.977445810642491,
+        "capacity": 60,
+        "demandRate": 0.07242191286447147,
+        "requested": 43.453147718680164,
+        "sold": 38.93255418935541,
+        "unmet": 4.5205935293266055,
+        "delivered": 35.91000000000008,
+        "stockoutSeconds": 62.50000000000062,
+        "bySource": {
+          "factory": 35.91000000000008
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 30,
+        "stock": 49.6650000000015,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 70.3350000000006
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 85.00000000000547,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 0
+      },
+      {
+        "id": "west-region",
+        "name": "이웃 강빛마을 · 서쪽 입구",
+        "origin": "n0-0",
+        "laneId": "n0-0_n0-1:n0-0:0",
+        "position": {
+          "x": -109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 25,
+        "stock": 56.059999999997416,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 28.94000000000038
+      }
+    ]
+  },
+  {
+    "seed": 2405,
+    "policies": [],
+    "time": 600,
+    "delivered": 66.93999999999997,
+    "stock": 4.426926690570375,
+    "sold": 96.51307330943146,
+    "unmet": 112.33068549529649,
+    "requested": 208.84375880472703,
+    "fulfillment": 46.21305125985262,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.99999999999959,
+    "externalDelivered": 30.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 60.5100000000008,
+    "trucks": 2,
+    "averageTravelTime": 62.73333333333334,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 37,
+    "cost": 0,
+    "remainingBudget": 100,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0959990206717824,
+        "requested": 57.59941240307571,
+        "sold": 8,
+        "unmet": 49.59941240307437,
+        "delivered": 0,
+        "stockoutSeconds": 516.7000000000489,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08226960986697425,
+        "requested": 49.361765920182364,
+        "sold": 8,
+        "unmet": 41.36176592018301,
+        "delivered": 0,
+        "stockoutSeconds": 502.8000000000458,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09077282818810394,
+        "requested": 54.46369691285771,
+        "sold": 38.93999999999861,
+        "unmet": 15.523696912862874,
+        "delivered": 30.940000000000378,
+        "stockoutSeconds": 171.09999999999457,
+        "bySource": {
+          "east-region": 30.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 4.426926690570375,
+        "capacity": 60,
+        "demandRate": 0.07903147261434545,
+        "requested": 47.418883568611236,
+        "sold": 41.57307330943285,
+        "unmet": 5.845810259176241,
+        "delivered": 35.99999999999959,
+        "stockoutSeconds": 74.00000000000007,
+        "bySource": {
+          "factory": 35.99999999999959
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 33,
+        "stock": 51.00000000000331,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.99999999999929
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 27,
+        "stock": 31.550000000002132,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 55.45000000000032
+      }
+    ]
+  },
+  {
+    "seed": 2405,
+    "policies": [
+      "shortcut"
+    ],
+    "time": 600,
+    "delivered": 66.93999999999997,
+    "stock": 4.426926690570375,
+    "sold": 96.51307330943146,
+    "unmet": 112.33068549529649,
+    "requested": 208.84375880472703,
+    "fulfillment": 46.21305125985262,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.99999999999959,
+    "externalDelivered": 30.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 60.5100000000008,
+    "trucks": 2,
+    "averageTravelTime": 62.73333333333334,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 44,
+    "cost": 35,
+    "remainingBudget": 65,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0959990206717824,
+        "requested": 57.59941240307571,
+        "sold": 8,
+        "unmet": 49.59941240307437,
+        "delivered": 0,
+        "stockoutSeconds": 516.7000000000489,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08226960986697425,
+        "requested": 49.361765920182364,
+        "sold": 8,
+        "unmet": 41.36176592018301,
+        "delivered": 0,
+        "stockoutSeconds": 502.8000000000458,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09077282818810394,
+        "requested": 54.46369691285771,
+        "sold": 38.93999999999861,
+        "unmet": 15.523696912862874,
+        "delivered": 30.940000000000378,
+        "stockoutSeconds": 171.09999999999457,
+        "bySource": {
+          "east-region": 30.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 4.426926690570375,
+        "capacity": 60,
+        "demandRate": 0.07903147261434545,
+        "requested": 47.418883568611236,
+        "sold": 41.57307330943285,
+        "unmet": 5.845810259176241,
+        "delivered": 35.99999999999959,
+        "stockoutSeconds": 74.00000000000007,
+        "bySource": {
+          "factory": 35.99999999999959
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 33,
+        "stock": 51.00000000000331,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.99999999999929
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 27,
+        "stock": 31.550000000002132,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 55.45000000000032
+      }
+    ]
+  },
+  {
+    "seed": 2405,
+    "policies": [
+      "cargoTruck"
+    ],
+    "time": 600,
+    "delivered": 147.5100000000014,
+    "stock": 44.69939773249464,
+    "sold": 136.8106022675018,
+    "unmet": 72.03315653722092,
+    "requested": 208.84375880472703,
+    "fulfillment": 65.50859027366116,
+    "stockoutShops": 3,
+    "emptyShops": 1,
+    "localDelivered": 77.34000000000091,
+    "externalDelivered": 70.1700000000005,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 45.080000000000844,
+    "trucks": 3,
+    "averageTravelTime": 89.86923076923077,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 35,
+    "cost": 35,
+    "remainingBudget": 65,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 16.56616795478839,
+        "capacity": 60,
+        "demandRate": 0.0959990206717824,
+        "requested": 57.59941240307571,
+        "sold": 24.4638320452118,
+        "unmet": 33.13558035786109,
+        "delivered": 33.03000000000124,
+        "stockoutSeconds": 345.20000000001,
+        "bySource": {
+          "factory": 33.03000000000124
+        }
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08226960986697425,
+        "requested": 49.361765920182364,
+        "sold": 16.309999999999427,
+        "unmet": 33.051765920183584,
+        "delivered": 8.310000000000086,
+        "stockoutSeconds": 401.80000000002286,
+        "bySource": {
+          "factory": 8.310000000000086
+        }
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 8,
+        "stock": 23.70630308713587,
+        "capacity": 60,
+        "demandRate": 0.09077282818810394,
+        "requested": 54.46369691285771,
+        "sold": 54.46369691285771,
+        "unmet": 0,
+        "delivered": 70.17000000000051,
+        "stockoutSeconds": 0,
+        "bySource": {
+          "east-region": 70.17000000000051
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 4.426926690570375,
+        "capacity": 60,
+        "demandRate": 0.07903147261434545,
+        "requested": 47.418883568611236,
+        "sold": 41.57307330943285,
+        "unmet": 5.845810259176241,
+        "delivered": 35.99999999999959,
+        "stockoutSeconds": 74.00000000000007,
+        "bySource": {
+          "factory": 35.99999999999959
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 33,
+        "stock": 9.660000000001382,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 113.34000000000239
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 27,
+        "stock": 7.749999999999879,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 79.25000000000175
+      }
+    ]
+  },
+  {
+    "seed": 2405,
+    "policies": [
+      "handling"
+    ],
+    "time": 600,
+    "delivered": 66.94000000000008,
+    "stock": 4.4269266905700695,
+    "sold": 96.51307330943104,
+    "unmet": 112.33068549529692,
+    "requested": 208.84375880472703,
+    "fulfillment": 46.21305125985241,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 36,
+    "externalDelivered": 30.940000000000083,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 53.73000000000026,
+    "trucks": 2,
+    "averageTravelTime": 52.96666666666667,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 37,
+    "cost": 20,
+    "remainingBudget": 80,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0959990206717824,
+        "requested": 57.59941240307571,
+        "sold": 8,
+        "unmet": 49.59941240307437,
+        "delivered": 0,
+        "stockoutSeconds": 516.7000000000489,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08226960986697425,
+        "requested": 49.361765920182364,
+        "sold": 8,
+        "unmet": 41.36176592018301,
+        "delivered": 0,
+        "stockoutSeconds": 502.8000000000458,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09077282818810394,
+        "requested": 54.46369691285771,
+        "sold": 38.93999999999818,
+        "unmet": 15.523696912863308,
+        "delivered": 30.940000000000083,
+        "stockoutSeconds": 171.09999999999457,
+        "bySource": {
+          "east-region": 30.940000000000083
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 4.4269266905700695,
+        "capacity": 60,
+        "demandRate": 0.07903147261434545,
+        "requested": 47.418883568611236,
+        "sold": 41.57307330943285,
+        "unmet": 5.845810259176241,
+        "delivered": 36,
+        "stockoutSeconds": 74.00000000000007,
+        "bySource": {
+          "factory": 36
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 33,
+        "stock": 51.00000000000261,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.99999999999969
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 27,
+        "stock": 38.33000000000094,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 48.66999999999949
+      }
+    ]
+  },
+  {
+    "seed": 2405,
+    "policies": [
+      "diversify"
+    ],
+    "time": 600,
+    "delivered": 35.99999999999959,
+    "stock": 4.426926690570375,
+    "sold": 65.57307330943286,
+    "unmet": 143.2706854952936,
+    "requested": 208.84375880472703,
+    "fulfillment": 31.39814839798251,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.99999999999959,
+    "externalDelivered": 0,
+    "produced": 90.00000000000303,
+    "externalReceived": 119.99999999999326,
+    "inTrucks": 67.94000000000038,
+    "trucks": 2,
+    "averageTravelTime": 50.00000000000001,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 35,
+    "cost": 30,
+    "remainingBudget": 70,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0959990206717824,
+        "requested": 57.59941240307571,
+        "sold": 8,
+        "unmet": 49.59941240307437,
+        "delivered": 0,
+        "stockoutSeconds": 516.7000000000489,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08226960986697425,
+        "requested": 49.361765920182364,
+        "sold": 8,
+        "unmet": 41.36176592018301,
+        "delivered": 0,
+        "stockoutSeconds": 502.8000000000458,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09077282818810394,
+        "requested": 54.46369691285771,
+        "sold": 8,
+        "unmet": 46.46369691286001,
+        "delivered": 0,
+        "stockoutSeconds": 511.9000000000479,
+        "bySource": {}
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 4.426926690570375,
+        "capacity": 60,
+        "demandRate": 0.07903147261434545,
+        "requested": 47.418883568611236,
+        "sold": 41.57307330943285,
+        "unmet": 5.845810259176241,
+        "delivered": 35.99999999999959,
+        "stockoutSeconds": 74.00000000000007,
+        "bySource": {
+          "factory": 35.99999999999959
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 33,
+        "stock": 51.00000000000331,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.99999999999929
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 27,
+        "stock": 87.00000000000618,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 0
+      },
+      {
+        "id": "west-region",
+        "name": "이웃 강빛마을 · 서쪽 입구",
+        "origin": "n0-0",
+        "laneId": "n0-0_n0-1:n0-0:0",
+        "position": {
+          "x": -109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 28,
+        "stock": 56.059999999997416,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 31.94000000000038
+      }
+    ]
+  },
+  {
+    "seed": 2405,
+    "policies": [
+      "shortcut",
+      "cargoTruck",
+      "handling"
+    ],
+    "time": 600,
+    "delivered": 142.40000000000134,
+    "stock": 33.06146432681089,
+    "sold": 143.33853567318403,
+    "unmet": 65.5052231315387,
+    "requested": 208.84375880472703,
+    "fulfillment": 68.63434008923788,
+    "stockoutShops": 3,
+    "emptyShops": 1,
+    "localDelivered": 73.35000000000078,
+    "externalDelivered": 69.05000000000057,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 42.36000000000001,
+    "trucks": 3,
+    "averageTravelTime": 83.79285714285713,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 42,
+    "cost": 90,
+    "remainingBudget": 10,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 6.048234549107226,
+        "capacity": 60,
+        "demandRate": 0.0959990206717824,
+        "requested": 57.59941240307571,
+        "sold": 30.991765450894032,
+        "unmet": 26.607646952178857,
+        "delivered": 29.040000000000692,
+        "stockoutSeconds": 277.19999999999453,
+        "bySource": {
+          "factory": 29.040000000000692
+        }
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08226960986697425,
+        "requested": 49.361765920182364,
+        "sold": 16.309999999999416,
+        "unmet": 33.0517659201836,
+        "delivered": 8.310000000000088,
+        "stockoutSeconds": 401.80000000002286,
+        "bySource": {
+          "factory": 8.310000000000088
+        }
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 8,
+        "stock": 22.586303087133594,
+        "capacity": 60,
+        "demandRate": 0.09077282818810394,
+        "requested": 54.46369691285771,
+        "sold": 54.46369691285771,
+        "unmet": 0,
+        "delivered": 69.05000000000058,
+        "stockoutSeconds": 0,
+        "bySource": {
+          "east-region": 69.05000000000058
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 4.4269266905700695,
+        "capacity": 60,
+        "demandRate": 0.07903147261434545,
+        "requested": 47.418883568611236,
+        "sold": 41.57307330943285,
+        "unmet": 5.845810259176241,
+        "delivered": 36,
+        "stockoutSeconds": 74.00000000000007,
+        "bySource": {
+          "factory": 36
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 33,
+        "stock": 13.65000000000104,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 109.3500000000021
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 27,
+        "stock": 11.589999999999955,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 75.41000000000021
+      }
+    ]
+  },
+  {
+    "seed": 2405,
+    "policies": [
+      "cargoTruck",
+      "handling",
+      "diversify"
+    ],
+    "time": 600,
+    "delivered": 73.35000000000078,
+    "stock": 17.00309464535832,
+    "sold": 90.34690535464406,
+    "unmet": 118.49685345008093,
+    "requested": 208.84375880472703,
+    "fulfillment": 43.26052445700337,
+    "stockoutShops": 4,
+    "emptyShops": 2,
+    "localDelivered": 73.35000000000078,
+    "externalDelivered": 0,
+    "produced": 90.00000000000303,
+    "externalReceived": 119.99999999999326,
+    "inTrucks": 67.94000000000038,
+    "trucks": 3,
+    "averageTravelTime": 100.9625,
+    "unfinishedJourneys": 3,
+    "backgroundArrived": 34,
+    "cost": 85,
+    "remainingBudget": 15,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 8,
+        "stock": 12.576167954788252,
+        "capacity": 60,
+        "demandRate": 0.0959990206717824,
+        "requested": 57.59941240307571,
+        "sold": 24.4638320452118,
+        "unmet": 33.13558035786109,
+        "delivered": 29.040000000000692,
+        "stockoutSeconds": 345.20000000001,
+        "bySource": {
+          "factory": 29.040000000000692
+        }
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08226960986697425,
+        "requested": 49.361765920182364,
+        "sold": 16.309999999999416,
+        "unmet": 33.0517659201836,
+        "delivered": 8.310000000000088,
+        "stockoutSeconds": 401.80000000002286,
+        "bySource": {
+          "factory": 8.310000000000088
+        }
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.09077282818810394,
+        "requested": 54.46369691285771,
+        "sold": 8,
+        "unmet": 46.46369691286001,
+        "delivered": 0,
+        "stockoutSeconds": 511.9000000000479,
+        "bySource": {}
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 10,
+        "stock": 4.4269266905700695,
+        "capacity": 60,
+        "demandRate": 0.07903147261434545,
+        "requested": 47.418883568611236,
+        "sold": 41.57307330943285,
+        "unmet": 5.845810259176241,
+        "delivered": 36,
+        "stockoutSeconds": 74.00000000000007,
+        "bySource": {
+          "factory": 36
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 33,
+        "stock": 13.650000000001482,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 109.3500000000021
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 27,
+        "stock": 87.00000000000618,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 0
+      },
+      {
+        "id": "west-region",
+        "name": "이웃 강빛마을 · 서쪽 입구",
+        "origin": "n0-0",
+        "laneId": "n0-0_n0-1:n0-0:0",
+        "position": {
+          "x": -109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 28,
+        "stock": 56.059999999997416,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 31.94000000000038
+      }
+    ]
+  },
+  {
+    "seed": 2406,
+    "policies": [],
+    "time": 600,
+    "delivered": 63.93999999999997,
+    "stock": 12.722177433222601,
+    "sold": 87.21782256677857,
+    "unmet": 122.11242588407323,
+    "requested": 209.33024845085703,
+    "fulfillment": 41.665178927666574,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.99999999999959,
+    "externalDelivered": 27.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 60.5100000000008,
+    "trucks": 2,
+    "averageTravelTime": 80.34999999999998,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 43,
+    "cost": 0,
+    "remainingBudget": 100,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0952044452385356,
+        "requested": 57.12266714311608,
+        "sold": 9,
+        "unmet": 48.122667143118704,
+        "delivered": 0,
+        "stockoutSeconds": 505.50000000004644,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0945687510461236,
+        "requested": 56.7412506276692,
+        "sold": 7.999999999999999,
+        "unmet": 48.741250627670134,
+        "delivered": 0,
+        "stockoutSeconds": 515.5000000000487,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 11,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08089206132572144,
+        "requested": 48.53523679543421,
+        "sold": 38.9400000000018,
+        "unmet": 9.595236795430244,
+        "delivered": 27.940000000000378,
+        "stockoutSeconds": 118.69999999999753,
+        "bySource": {
+          "east-region": 27.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 8,
+        "stock": 12.722177433222601,
+        "capacity": 60,
+        "demandRate": 0.07821848980771999,
+        "requested": 46.93109388463753,
+        "sold": 31.277822566776763,
+        "unmet": 15.65327131785415,
+        "delivered": 35.99999999999959,
+        "stockoutSeconds": 200.1999999999929,
+        "bySource": {
+          "factory": 35.99999999999959
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 31,
+        "stock": 49.00000000000365,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.99999999999929
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 31.550000000002132,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 52.450000000000415
+      }
+    ]
+  },
+  {
+    "seed": 2406,
+    "policies": [
+      "shortcut"
+    ],
+    "time": 600,
+    "delivered": 63.93999999999997,
+    "stock": 12.722177433222601,
+    "sold": 87.21782256677857,
+    "unmet": 122.11242588407323,
+    "requested": 209.33024845085703,
+    "fulfillment": 41.665178927666574,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.99999999999959,
+    "externalDelivered": 27.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 60.5100000000008,
+    "trucks": 2,
+    "averageTravelTime": 80.34999999999998,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 50,
+    "cost": 35,
+    "remainingBudget": 65,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0952044452385356,
+        "requested": 57.12266714311608,
+        "sold": 9,
+        "unmet": 48.122667143118704,
+        "delivered": 0,
+        "stockoutSeconds": 505.50000000004644,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0945687510461236,
+        "requested": 56.7412506276692,
+        "sold": 7.999999999999999,
+        "unmet": 48.741250627670134,
+        "delivered": 0,
+        "stockoutSeconds": 515.5000000000487,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 11,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08089206132572144,
+        "requested": 48.53523679543421,
+        "sold": 38.9400000000018,
+        "unmet": 9.595236795430244,
+        "delivered": 27.940000000000378,
+        "stockoutSeconds": 118.69999999999753,
+        "bySource": {
+          "east-region": 27.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 8,
+        "stock": 12.722177433222601,
+        "capacity": 60,
+        "demandRate": 0.07821848980771999,
+        "requested": 46.93109388463753,
+        "sold": 31.277822566776763,
+        "unmet": 15.65327131785415,
+        "delivered": 35.99999999999959,
+        "stockoutSeconds": 200.1999999999929,
+        "bySource": {
+          "factory": 35.99999999999959
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 31,
+        "stock": 49.00000000000365,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.99999999999929
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 31.550000000002132,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 52.450000000000415
+      }
+    ]
+  },
+  {
+    "seed": 2406,
+    "policies": [
+      "cargoTruck"
+    ],
+    "time": 600,
+    "delivered": 63.93999999999997,
+    "stock": 12.722177433222601,
+    "sold": 87.21782256677857,
+    "unmet": 122.11242588407323,
+    "requested": 209.33024845085703,
+    "fulfillment": 41.665178927666574,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 35.99999999999959,
+    "externalDelivered": 27.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 66.82000000000085,
+    "trucks": 3,
+    "averageTravelTime": 75.34285714285713,
+    "unfinishedJourneys": 3,
+    "backgroundArrived": 35,
+    "cost": 35,
+    "remainingBudget": 65,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0952044452385356,
+        "requested": 57.12266714311608,
+        "sold": 9,
+        "unmet": 48.122667143118704,
+        "delivered": 0,
+        "stockoutSeconds": 505.50000000004644,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0945687510461236,
+        "requested": 56.7412506276692,
+        "sold": 7.999999999999999,
+        "unmet": 48.741250627670134,
+        "delivered": 0,
+        "stockoutSeconds": 515.5000000000487,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 11,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08089206132572144,
+        "requested": 48.53523679543421,
+        "sold": 38.9400000000018,
+        "unmet": 9.595236795430244,
+        "delivered": 27.940000000000378,
+        "stockoutSeconds": 118.69999999999753,
+        "bySource": {
+          "east-region": 27.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 8,
+        "stock": 12.722177433222601,
+        "capacity": 60,
+        "demandRate": 0.07821848980771999,
+        "requested": 46.93109388463753,
+        "sold": 31.277822566776763,
+        "unmet": 15.65327131785415,
+        "delivered": 35.99999999999959,
+        "stockoutSeconds": 200.1999999999929,
+        "bySource": {
+          "factory": 35.99999999999959
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 31,
+        "stock": 42.690000000003174,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 78.30999999999986
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 31.550000000002132,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 52.450000000000415
+      }
+    ]
+  },
+  {
+    "seed": 2406,
+    "policies": [
+      "handling"
+    ],
+    "time": 600,
+    "delivered": 63.94000000000038,
+    "stock": 12.722177433222267,
+    "sold": 87.21782256677879,
+    "unmet": 122.112425884073,
+    "requested": 209.33024845085703,
+    "fulfillment": 41.66517892766668,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 36,
+    "externalDelivered": 27.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 53.72999999999996,
+    "trucks": 2,
+    "averageTravelTime": 70.3,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 43,
+    "cost": 20,
+    "remainingBudget": 80,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0952044452385356,
+        "requested": 57.12266714311608,
+        "sold": 9,
+        "unmet": 48.122667143118704,
+        "delivered": 0,
+        "stockoutSeconds": 505.50000000004644,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0945687510461236,
+        "requested": 56.7412506276692,
+        "sold": 7.999999999999999,
+        "unmet": 48.741250627670134,
+        "delivered": 0,
+        "stockoutSeconds": 515.5000000000487,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 11,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08089206132572144,
+        "requested": 48.53523679543421,
+        "sold": 38.94000000000203,
+        "unmet": 9.595236795430017,
+        "delivered": 27.940000000000378,
+        "stockoutSeconds": 118.69999999999753,
+        "bySource": {
+          "east-region": 27.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 8,
+        "stock": 12.722177433222267,
+        "capacity": 60,
+        "demandRate": 0.07821848980771999,
+        "requested": 46.93109388463753,
+        "sold": 31.277822566776763,
+        "unmet": 15.65327131785415,
+        "delivered": 36,
+        "stockoutSeconds": 200.1999999999929,
+        "bySource": {
+          "factory": 36
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 31,
+        "stock": 49.000000000003126,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.99999999999969
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 38.33000000000094,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 45.66999999999958
+      }
+    ]
+  },
+  {
+    "seed": 2406,
+    "policies": [
+      "diversify"
+    ],
+    "time": 600,
+    "delivered": 63.93999999999997,
+    "stock": 33.23846050650271,
+    "sold": 66.70153949349906,
+    "unmet": 142.62870895735355,
+    "requested": 209.33024845085703,
+    "fulfillment": 31.864262325737457,
+    "stockoutShops": 4,
+    "emptyShops": 2,
+    "localDelivered": 35.99999999999959,
+    "externalDelivered": 27.94000000000038,
+    "produced": 90.00000000000303,
+    "externalReceived": 119.99999999999326,
+    "inTrucks": 36,
+    "trucks": 2,
+    "averageTravelTime": 152.26000000000002,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 44,
+    "cost": 30,
+    "remainingBudget": 70,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0952044452385356,
+        "requested": 57.12266714311608,
+        "sold": 9,
+        "unmet": 48.122667143118704,
+        "delivered": 0,
+        "stockoutSeconds": 505.50000000004644,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0945687510461236,
+        "requested": 56.7412506276692,
+        "sold": 7.999999999999999,
+        "unmet": 48.741250627670134,
+        "delivered": 0,
+        "stockoutSeconds": 515.5000000000487,
+        "bySource": {}
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 11,
+        "stock": 25.076421029070048,
+        "capacity": 60,
+        "demandRate": 0.08089206132572144,
+        "requested": 48.53523679543421,
+        "sold": 13.863578970930615,
+        "unmet": 34.67165782450049,
+        "delivered": 27.940000000000378,
+        "stockoutSeconds": 428.700000000029,
+        "bySource": {
+          "west-region": 27.940000000000378
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 8,
+        "stock": 8.162039477432664,
+        "capacity": 60,
+        "demandRate": 0.07821848980771999,
+        "requested": 46.93109388463753,
+        "sold": 35.837960522568444,
+        "unmet": 11.093133362064213,
+        "delivered": 35.99999999999959,
+        "stockoutSeconds": 141.89999999999623,
+        "bySource": {
+          "factory": 35.99999999999959
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 31,
+        "stock": 49.00000000000344,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 71.99999999999929
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 84.00000000000512,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 0
+      },
+      {
+        "id": "west-region",
+        "name": "이웃 강빛마을 · 서쪽 입구",
+        "origin": "n0-0",
+        "laneId": "n0-0_n0-1:n0-0:0",
+        "position": {
+          "x": -109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 56.059999999997416,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 27.94000000000038
+      }
+    ]
+  },
+  {
+    "seed": 2406,
+    "policies": [
+      "shortcut",
+      "cargoTruck",
+      "handling"
+    ],
+    "time": 600,
+    "delivered": 87.98000000000042,
+    "stock": 21.489337038332216,
+    "sold": 102.49066296167138,
+    "unmet": 106.83958548918362,
+    "requested": 209.33024845085703,
+    "fulfillment": 48.96122931117257,
+    "stockoutShops": 4,
+    "emptyShops": 2,
+    "localDelivered": 42.310000000000045,
+    "externalDelivered": 45.67000000000037,
+    "produced": 90.00000000000303,
+    "externalReceived": 59.99999999999663,
+    "inTrucks": 42.36000000000001,
+    "trucks": 3,
+    "averageTravelTime": 123.42999999999998,
+    "unfinishedJourneys": 2,
+    "backgroundArrived": 42,
+    "cost": 90,
+    "remainingBudget": 10,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0952044452385356,
+        "requested": 57.12266714311608,
+        "sold": 9,
+        "unmet": 48.122667143118704,
+        "delivered": 0,
+        "stockoutSeconds": 505.50000000004644,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0945687510461236,
+        "requested": 56.7412506276692,
+        "sold": 14.310000000000448,
+        "unmet": 42.43125062767087,
+        "delivered": 6.310000000000045,
+        "stockoutSeconds": 448.80000000003355,
+        "bySource": {
+          "factory": 6.310000000000045
+        }
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 11,
+        "stock": 8.767159605109951,
+        "capacity": 60,
+        "demandRate": 0.08089206132572144,
+        "requested": 48.53523679543421,
+        "sold": 47.90284039489417,
+        "unmet": 0.6323964005398829,
+        "delivered": 45.67000000000038,
+        "stockoutSeconds": 7.899999999999988,
+        "bySource": {
+          "east-region": 45.67000000000038
+        }
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 8,
+        "stock": 12.722177433222267,
+        "capacity": 60,
+        "demandRate": 0.07821848980771999,
+        "requested": 46.93109388463753,
+        "sold": 31.277822566776763,
+        "unmet": 15.65327131785415,
+        "delivered": 36,
+        "stockoutSeconds": 200.1999999999929,
+        "bySource": {
+          "factory": 36
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 31,
+        "stock": 42.69000000000269,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 78.31000000000026
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 31.970000000001075,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 52.02999999999945
+      }
+    ]
+  },
+  {
+    "seed": 2406,
+    "policies": [
+      "cargoTruck",
+      "handling",
+      "diversify"
+    ],
+    "time": 600,
+    "delivered": 42.310000000000045,
+    "stock": 8.16203947743233,
+    "sold": 70.1479605225689,
+    "unmet": 139.18228792828552,
+    "requested": 209.33024845085703,
+    "fulfillment": 33.51066606078052,
+    "stockoutShops": 4,
+    "emptyShops": 3,
+    "localDelivered": 42.310000000000045,
+    "externalDelivered": 0,
+    "produced": 90.00000000000303,
+    "externalReceived": 119.99999999999326,
+    "inTrucks": 63.94000000000038,
+    "trucks": 3,
+    "averageTravelTime": 116.73333333333333,
+    "unfinishedJourneys": 3,
+    "backgroundArrived": 36,
+    "cost": 85,
+    "remainingBudget": 15,
+    "shops": [
+      {
+        "id": "north",
+        "name": "북쪽 골목 가게",
+        "facilityId": "b2",
+        "laneId": "n3-0_n3-1:n3-0:0",
+        "initial": 9,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0952044452385356,
+        "requested": 57.12266714311608,
+        "sold": 9,
+        "unmet": 48.122667143118704,
+        "delivered": 0,
+        "stockoutSeconds": 505.50000000004644,
+        "bySource": {}
+      },
+      {
+        "id": "east",
+        "name": "동쪽 다함께 시장",
+        "facilityId": "b7",
+        "laneId": "n4-1_n4-2:n4-1:0",
+        "initial": 8,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.0945687510461236,
+        "requested": 56.7412506276692,
+        "sold": 14.310000000000448,
+        "unmet": 42.43125062767087,
+        "delivered": 6.310000000000045,
+        "stockoutSeconds": 448.80000000003355,
+        "bySource": {
+          "factory": 6.310000000000045
+        }
+      },
+      {
+        "id": "park",
+        "name": "공원 옆 가게",
+        "facilityId": "b11",
+        "laneId": "n4-2_n4-3:n4-2:0",
+        "initial": 11,
+        "stock": 0,
+        "capacity": 60,
+        "demandRate": 0.08089206132572144,
+        "requested": 48.53523679543421,
+        "sold": 11,
+        "unmet": 37.535236795431736,
+        "delivered": 0,
+        "stockoutSeconds": 464.100000000037,
+        "bySource": {}
+      },
+      {
+        "id": "south",
+        "name": "남쪽 생활 가게",
+        "facilityId": "b14",
+        "laneId": "n2-4_n3-4:n2-4:0",
+        "initial": 8,
+        "stock": 8.16203947743233,
+        "capacity": 60,
+        "demandRate": 0.07821848980771999,
+        "requested": 46.93109388463753,
+        "sold": 35.837960522568444,
+        "unmet": 11.093133362064213,
+        "delivered": 36,
+        "stockoutSeconds": 141.89999999999623,
+        "bySource": {
+          "factory": 36
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "factory",
+        "name": "새봄 생활용품 공장",
+        "origin": "n3-4",
+        "laneId": "n3-4_n4-4:n3-4:0",
+        "position": {
+          "x": 82,
+          "z": 89
+        },
+        "external": false,
+        "initial": 31,
+        "stock": 42.69000000000221,
+        "rate": 0.15,
+        "generated": 90.00000000000303,
+        "loaded": 78.31000000000026
+      },
+      {
+        "id": "east-region",
+        "name": "이웃 들녘마을 · 동쪽 입구",
+        "origin": "n4-0",
+        "laneId": "n4-0_n4-1:n4-0:0",
+        "position": {
+          "x": 109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 84.00000000000512,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 0
+      },
+      {
+        "id": "west-region",
+        "name": "이웃 강빛마을 · 서쪽 입구",
+        "origin": "n0-0",
+        "laneId": "n0-0_n0-1:n0-0:0",
+        "position": {
+          "x": -109,
+          "z": -74
+        },
+        "external": true,
+        "initial": 24,
+        "stock": 56.059999999997416,
+        "rate": 0.1,
+        "generated": 59.99999999999663,
+        "loaded": 27.94000000000038
+      }
+    ]
+  }
+]

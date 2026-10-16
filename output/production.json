@@ -1,17 +1,137 @@
 {
   "productionBuild": true,
-  "modelVersion": "pedestrians-v4",
+  "livingCity": {
+    "defaultEntry": true,
+    "timePreserved": true,
+    "sharedPolicy": true,
+    "budget": 75,
+    "communityMeeting": true,
+    "participationOnMap": true,
+    "workerRestore": true,
+    "checkpointResume": true
+  },
+  "water": {
+    "modelVersion": "river-water-v1",
+    "downstreamBefore": 36.70789829165783,
+    "downstreamAfter": 26.177129060888245,
+    "treated": 247.38000000000187,
+    "outflow": 502.1867191375944,
+    "firstRoundDownstreamUnchanged": true,
+    "rounds": 3
+  },
+  "dumping": {
+    "modelVersion": "illegal-dumping-v1",
+    "illegalRemainingBefore": 121,
+    "illegalRemainingAfter": 76,
+    "repeatDumped": 10,
+    "overflow": 97.38364036760075,
+    "rounds": 3
+  },
+  "parking": {
+    "modelVersion": "parking-v1",
+    "illegalSecondsBefore": 1449.0000000000427,
+    "illegalSecondsAfter": 1206.0000000000496,
+    "inquiryEvidence": 1
+  },
+  "mapLayers": [
+    "traffic",
+    "waste",
+    "access",
+    "environment",
+    "stock",
+    "water"
+  ],
+  "residentMap": {
+    "scenarioCounts": [
+      2,
+      6,
+      12,
+      4,
+      5,
+      3,
+      3,
+      3
+    ],
+    "oneExpandedBubble": true
+  },
+  "appliedPolicyMap": [
+    {
+      "local": 1,
+      "shared": 0
+    },
+    {
+      "local": 0,
+      "shared": 1
+    },
+    {
+      "local": 1,
+      "shared": 0
+    },
+    {
+      "local": 2,
+      "shared": 0
+    },
+    {
+      "local": 2,
+      "shared": 1
+    },
+    {
+      "local": 2,
+      "shared": 0
+    },
+    {
+      "local": 1,
+      "shared": 0
+    },
+    {
+      "local": 2,
+      "shared": 0
+    }
+  ],
+  "logistics": {
+    "modelVersion": "goods-delivery-v2",
+    "deliveredBefore": 129.3299999999998,
+    "deliveredAfter": 83.9550000000009,
+    "unmetBefore": 98.07909318056772,
+    "unmetAfter": 122.26713453668444,
+    "trucks": 3,
+    "observationSeconds": 600
+  },
+  "environment": {
+    "modelVersion": "development-environment-v2",
+    "developedArea": 192,
+    "greenArea": 568,
+    "addedTrips": 48,
+    "meanBurdenBefore": 14.004015062549897,
+    "meanBurdenAfter": 15.58915339232,
+    "observationSeconds": 420
+  },
+  "facilities": {
+    "servedBefore": 270,
+    "servedAfter": 370,
+    "modelVersion": "facility-access-v2",
+    "timeUnit": "planning-round"
+  },
+  "waste": {
+    "schemaVersion": 5,
+    "collectionRateBefore": 30.13448686328771,
+    "collectionRateAfter": 49.880787960544126,
+    "trucks": 3,
+    "observationSeconds": 600
+  },
+  "modelVersion": "city-traffic-v5",
   "loadingView": true,
   "importFailureRecovery": true,
   "quality": "light",
   "debugEndpointAbsent": true,
-  "beforeArrived": 28,
-  "afterArrived": 65,
+  "beforeArrived": 46,
+  "afterArrived": 87,
   "observationSeconds": 420,
   "scriptPaths": [
-    "/assets/index-BAcyH4Lz.js",
-    "/assets/main-ruFGxeYt.js",
-    "/assets/three-Cezv4uga.js"
+    "/assets/index-DgOa2-_3.js",
+    "/assets/main-lyoZzkGI.js",
+    "/assets/map-layers-xQCikQfB.js",
+    "/assets/three-DJOFj4rQ.js"
   ],
   "errors": []
 }

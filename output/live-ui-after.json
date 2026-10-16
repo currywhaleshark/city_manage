@@ -1,0 +1,25 @@
+{
+  "initialLoadMs": 7577,
+  "reloadMs": 1953,
+  "measures": [
+    {
+      "layer": "normal",
+      "count": 700,
+      "elapsed": 5003.400000071526,
+      "p95": 7.100000000000364,
+      "taskMs": 2949.255,
+      "layoutCount": 55,
+      "layoutMs": 9.805
+    },
+    {
+      "layer": "water",
+      "count": 686,
+      "elapsed": 5006.899999976158,
+      "p95": 7.200000000000728,
+      "taskMs": 3376.3920000000003,
+      "layoutCount": 235,
+      "layoutMs": 37.136
+    }
+  ],
+  "errors": []
+}

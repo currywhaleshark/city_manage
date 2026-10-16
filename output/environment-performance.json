@@ -1,0 +1,142 @@
+{
+  "measuredAt": "2026-10-13T23:16:03.057Z",
+  "method": "Isolated renderer harness: 140 background + 72 development trips, 60 pedestrians, two developed parcels, buffer trees and 10 environment labels; CPU 4x is Chrome emulation, not school hardware.",
+  "measurements": [
+    {
+      "cpuSlowdownRate": 4,
+      "modelVersion": "pedestrians-v4",
+      "environment": {
+        "addedTrips": 72,
+        "sampleCount": 190
+      },
+      "scenarioId": "environment",
+      "serviceTrucks": 0,
+      "demandCount": 212,
+      "pedestrianCount": 60,
+      "pedestrianActive": 22,
+      "quality": "normal",
+      "measuredSeconds": 5.0023,
+      "speed": 2,
+      "simulationStart": 180,
+      "simulationSecondsAdvanced": 10,
+      "renderedFPS": 55.97425184415169,
+      "animationFrameRate": 70.3676308897907,
+      "frameP50Ms": 15.600000000000364,
+      "frameP95Ms": 23.700000000000273,
+      "framesOver50Ms": 0,
+      "frames": 280,
+      "renderCpuMsPerSecond": 793.9347898536162,
+      "simulationCpuMsPerSecond": 67.5689183929067,
+      "minActive": 85,
+      "maxActive": 87,
+      "stats": {
+        "time": 190,
+        "arrived": 17,
+        "active": 86,
+        "queued": 85,
+        "unreleased": 24,
+        "unreachable": 0,
+        "averageTravelTime": 73.21764705882352,
+        "averageWaitingTime": 28.75882352941191,
+        "averageDemandWait": 67.65212765957384,
+        "stopped": 74,
+        "meanSpeed": 0.5908072818743231,
+        "totalWaitingTime": 12718.599999999882
+      },
+      "pedestrians": {
+        "arrived": 37,
+        "active": 22,
+        "queued": 0,
+        "unreleased": 1,
+        "waiting": 16,
+        "crossing": 0,
+        "averageWaitingTime": 24.305460469245197,
+        "averageTravelTime": 65.43243243243244
+      },
+      "display": {
+        "quality": "normal",
+        "pixelRatio": 1.5,
+        "shadows": true,
+        "maxFPS": 60,
+        "width": 1920,
+        "height": 1080
+      },
+      "drawCalls": 311,
+      "memory": {
+        "geometries": 327,
+        "textures": 1
+      },
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 (0x00001F55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 12
+    },
+    {
+      "cpuSlowdownRate": 4,
+      "modelVersion": "pedestrians-v4",
+      "environment": {
+        "addedTrips": 72,
+        "sampleCount": 190
+      },
+      "scenarioId": "environment",
+      "serviceTrucks": 0,
+      "demandCount": 212,
+      "pedestrianCount": 60,
+      "pedestrianActive": 22,
+      "quality": "light",
+      "measuredSeconds": 5.0017,
+      "speed": 2,
+      "simulationStart": 180,
+      "simulationSecondsAdvanced": 10,
+      "renderedFPS": 29.989803466821282,
+      "animationFrameRate": 116.36043745126658,
+      "frameP50Ms": 31.199999999999818,
+      "frameP95Ms": 38.69999999999982,
+      "framesOver50Ms": 0,
+      "frames": 150,
+      "renderCpuMsPerSecond": 381.6302455162529,
+      "simulationCpuMsPerSecond": 70.35607861855718,
+      "minActive": 85,
+      "maxActive": 87,
+      "stats": {
+        "time": 190,
+        "arrived": 17,
+        "active": 86,
+        "queued": 85,
+        "unreleased": 24,
+        "unreachable": 0,
+        "averageTravelTime": 73.21764705882352,
+        "averageWaitingTime": 28.75882352941191,
+        "averageDemandWait": 67.65212765957384,
+        "stopped": 74,
+        "meanSpeed": 0.5908072818743231,
+        "totalWaitingTime": 12718.599999999882
+      },
+      "pedestrians": {
+        "arrived": 37,
+        "active": 22,
+        "queued": 0,
+        "unreleased": 1,
+        "waiting": 16,
+        "crossing": 0,
+        "averageWaitingTime": 24.305460469245197,
+        "averageTravelTime": 65.43243243243244
+      },
+      "display": {
+        "quality": "light",
+        "pixelRatio": 1,
+        "shadows": false,
+        "maxFPS": 30,
+        "width": 1280,
+        "height": 720
+      },
+      "drawCalls": 311,
+      "memory": {
+        "geometries": 327,
+        "textures": 0
+      },
+      "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 (0x00001F55) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 12
+    }
+  ]
+}
