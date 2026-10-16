@@ -1,7 +1,10 @@
-export type PanelName = "mission" | "policy" | "traffic" | "selection";
+export type PanelName =
+  "mission" | "policy" | "traffic" | "selection" | "residents" | "inquiry";
 
 /** One modeless tool panel at a time; the city remains interactive. */
-export function createPanels() {
+export function createPanels(
+  onChange: (name: PanelName | null) => void = () => {},
+) {
   let active: PanelName | null = null;
   let returnFocus: HTMLElement | null = null;
   const panels = document.querySelectorAll<HTMLElement>("[data-panel]");
@@ -13,6 +16,7 @@ export function createPanels() {
     triggers.forEach((button) => button.setAttribute("aria-expanded", "false"));
     document.body.removeAttribute("data-active-panel");
     active = null;
+    onChange(null);
     if (restoreFocus) returnFocus?.focus();
   }
 
@@ -33,6 +37,7 @@ export function createPanels() {
       `[data-panel="${name}"]`,
     )!;
     panel.hidden = false;
+    onChange(name);
     triggers.forEach((button) =>
       button.setAttribute(
         "aria-expanded",

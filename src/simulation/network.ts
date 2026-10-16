@@ -150,7 +150,9 @@ export function createArrival(network: Network, fromLaneId: string): Crossing {
   const lane = network.lanes.get(fromLaneId)!;
   const dx = (lane.end.x - lane.start.x) / lane.length;
   const dz = (lane.end.z - lane.start.z) / lane.length;
-  const length = CONFIG.junctionRadius + CONFIG.carLength;
+  const length =
+    CONFIG.junctionRadius +
+    (network.nodes.get(lane.to)?.boundary ? 0 : CONFIG.carLength);
   const points = [0, 1 / 3, 2 / 3, 1].map((t) => ({
     x: lane.end.x + dx * length * t,
     z: lane.end.z + dz * length * t,

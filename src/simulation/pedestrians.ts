@@ -27,6 +27,7 @@ export interface Pedestrian {
   crossing: boolean;
   pose: Pose;
   previousPose: Pose;
+  path?: WalkingRoute;
 }
 export const WALKING_GAP = 0.85;
 const definitions = [
@@ -113,8 +114,82 @@ export function walkingPose(route: WalkingRoute, distance: number): Pose {
   };
 }
 
+/** A short sidewalk diversion around a parked car, clear of the carriageway. */
+export function sidewalkDetour(
+  route: WalkingRoute,
+  network: Network,
+): WalkingRoute {
+  const a = route.points[0],
+    b = route.points[1];
+  const length = Math.hypot(b.x - a.x, b.z - a.z),
+    ux = (b.x - a.x) / length,
+    uz = (b.z - a.z) / length;
+  const node = network.nodes.get(route.nodeId)!.position;
+  const ox = Math.abs(ux) < 0.5 ? Math.sign(a.x - node.x) * 3 : 0;
+  const oz = Math.abs(uz) < 0.5 ? Math.sign(a.z - node.z) * 3 : 0;
+  const point = (d: number, outside = false) => ({
+    x: a.x + ux * d + (outside ? ox : 0),
+    z: a.z + uz * d + (outside ? oz : 0),
+  });
+  const points = [
+    a,
+    point(4),
+    point(4, true),
+    point(14, true),
+    point(14),
+    ...route.points.slice(1),
+  ];
+  const distances = [0];
+  for (let i = 1; i < points.length; i++)
+    distances.push(
+      distances[i - 1] +
+        Math.hypot(
+          points[i].x - points[i - 1].x,
+          points[i].z - points[i - 1].z,
+        ),
+    );
+  return {
+    ...route,
+    points,
+    distances,
+    crossingStart: route.crossingStart + 6,
+    crossingEnd: route.crossingEnd + 6,
+    length: route.length + 6,
+  };
+}
+const routeProgress = (
+  distance: number,
+  path: WalkingRoute,
+  base: WalkingRoute,
+) =>
+  path === base
+    ? distance
+    : distance <= 4
+      ? distance
+      : distance <= 7
+        ? 4
+        : distance <= 17
+          ? distance - 3
+          : distance <= 20
+            ? 14
+            : distance - 6;
+const pathDistance = (
+  progress: number,
+  path: WalkingRoute,
+  base: WalkingRoute,
+) =>
+  path === base
+    ? progress
+    : progress <= 4
+      ? progress
+      : progress <= 14
+        ? progress + 3
+        : progress + 6;
+
 /** Local sidewalk trips with a protected crossing phase. No rendering or random per-tick decisions. */
 export class PedestrianSystem {
+  readonly detours = new Map<string, WalkingRoute>();
+  detouredCount = 0;
   readonly routes: Map<string, WalkingRoute>;
   readonly active = new Map<number, Pedestrian>();
   readonly pending: PedestrianTrip[] = [];
@@ -122,6 +197,7 @@ export class PedestrianSystem {
     id: number;
     travelTime: number;
     waitingTime: number;
+    extraDistance?: number;
   }[] = [];
   readonly blockedNodes = new Set<string>();
   readonly events: {
@@ -135,7 +211,7 @@ export class PedestrianSystem {
   private time = 0;
   constructor(
     readonly network: Network,
-    readonly demand: readonly PedestrianTrip[],
+    public demand: readonly PedestrianTrip[],
   ) {
     const used = new Set(demand.map((t) => t.routeId));
     this.routes = new Map(
@@ -165,6 +241,12 @@ export class PedestrianSystem {
         walkClearance: 16,
       });
   }
+  scheduleDemand(trips: readonly PedestrianTrip[]) {
+    this.demand = [...this.demand.slice(this.released), ...trips].sort(
+      (a, b) => a.departAt - b.departAt,
+    );
+    this.released = 0;
+  }
   step(
     time: number,
     dt: number,
@@ -176,7 +258,7 @@ export class PedestrianSystem {
       this.demand[this.released].departAt <= time + 1e-9
     )
       this.pending.push(this.demand[this.released++]);
-    for (let i = 0; i < this.pending.length; ) {
+    for (let i = 0; i < this.pending.length;) {
       const trip = this.pending[i];
       if (
         [...this.active.values()].some(
@@ -186,7 +268,9 @@ export class PedestrianSystem {
         i++;
         continue;
       }
-      const pose = walkingPose(this.routes.get(trip.routeId)!, 0);
+      const path = this.detours.get(trip.routeId);
+      if (path) this.detouredCount++;
+      const pose = walkingPose(path ?? this.routes.get(trip.routeId)!, 0);
       this.active.set(trip.id, {
         trip,
         distance: 0,
@@ -195,6 +279,7 @@ export class PedestrianSystem {
         crossing: false,
         pose,
         previousPose: { ...pose },
+        ...(path ? { path } : {}),
       });
       this.pending.splice(i, 1);
     }
@@ -202,25 +287,31 @@ export class PedestrianSystem {
     for (const route of this.routes.values()) {
       const people = [...this.active.values()]
         .filter((p) => p.trip.routeId === route.id)
-        .sort((a, b) => b.distance - a.distance || a.trip.id - b.trip.id);
+        .sort(
+          (a, b) =>
+            routeProgress(b.distance, b.path ?? route, route) -
+              routeProgress(a.distance, a.path ?? route, route) ||
+            a.trip.id - b.trip.id,
+        );
       const phase = signalPhase(
         this.network.nodes.get(route.nodeId)!.signal,
         time,
       );
       let leaderDistance = Infinity;
       for (const person of people) {
+        const path = person.path ?? route;
         person.previousPose = { ...person.pose };
         person.previousDistance = person.distance;
         let next = Math.min(
-          route.length,
+          path.length,
           person.distance + person.trip.speed * dt,
-          leaderDistance - WALKING_GAP,
+          pathDistance(leaderDistance - WALKING_GAP, path, route),
         );
-        leaderDistance = person.distance;
+        leaderDistance = routeProgress(person.distance, path, route);
         if (
-          person.distance <= route.crossingStart &&
+          person.distance <= path.crossingStart &&
           !person.crossing &&
-          next > route.crossingStart
+          next > path.crossingStart
         ) {
           if (
             phase === "pedestrian-green" &&
@@ -234,21 +325,21 @@ export class PedestrianSystem {
               phase,
               type: "enter",
             });
-          } else next = route.crossingStart;
+          } else next = path.crossingStart;
         }
         next = Math.max(person.distance, next);
         // Count lost walking time, including queueing at the origin and behind other walkers.
         const walkingTime = Math.min(
           dt,
-          (route.length - person.distance) / person.trip.speed,
+          (path.length - person.distance) / person.trip.speed,
         );
         person.waitingTime += Math.max(
           0,
           walkingTime - (next - person.distance) / person.trip.speed,
         );
         person.distance = next;
-        person.pose = walkingPose(route, next);
-        if (person.crossing && next >= route.crossingEnd) {
+        person.pose = walkingPose(path, next);
+        if (person.crossing && next >= path.crossingEnd) {
           person.crossing = false;
           this.events.push({
             id: person.trip.id,
@@ -259,16 +350,28 @@ export class PedestrianSystem {
           });
         }
         if (person.crossing) this.blockedNodes.add(route.nodeId);
-        if (next >= route.length) {
+        if (next >= path.length) {
           this.completed.push({
             id: person.trip.id,
             travelTime: time - person.trip.departAt,
             waitingTime: person.waitingTime,
+            ...(person.path
+              ? { extraDistance: path.length - route.length }
+              : {}),
           });
           this.active.delete(person.trip.id);
         }
       }
     }
+  }
+  get extraWalkingDistance() {
+    return (
+      this.completed.reduce((n, p) => n + (p.extraDistance ?? 0), 0) +
+      [...this.active.values()].reduce((n, p) => {
+        const base = this.routes.get(p.trip.routeId)!;
+        return n + p.distance - routeProgress(p.distance, p.path ?? base, base);
+      }, 0)
+    );
   }
   get stats() {
     const active = [...this.active.values()];

@@ -1,3 +1,4 @@
+import { LiveCitySimulation } from "../simulation/live";
 // Procedural box buildings, cone trees, road strips and two-part cars adapted from
 // Sudoyan118/mini-traffic-city-sim src/main.ts (MIT). Rendering is now isolated,
 // static geometry is merged, and dynamic cars use persistent instanced meshes.
@@ -5,33 +6,117 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { BUILDINGS, CONFIG, SCHOOL_NODE, seededRandom } from "../scenario";
+import {
+  WORLD,
+  RIVER,
+  DISTRICT_AREAS,
+  BUILDABLE_PLOTS,
+  WASTE_DEPOT,
+  EXTERNAL_CONNECTIONS,
+  RIVERBANK_SEGMENTS,
+  inCityBounds,
+  visibleRoadSegment,
+} from "../city/world";
 import { signalPhase } from "../simulation/network";
 import type { TrafficSimulation } from "../simulation";
 import type { Lane, RoadMetric } from "../types";
 import { DISPLAY_PRESETS, type DisplayQuality } from "./quality";
 import { PedestrianRenderer } from "./pedestrians";
+import { WasteRenderer } from "./waste";
+import { DumpingRenderer } from "./dumping";
+import { WaterRenderer } from "./water";
+import { WaterSimulation, WATER_SITES } from "../simulation/water";
+import {
+  DumpingSimulation,
+  DUMPING_SITES,
+} from "../simulation/services/dumping";
+import { WasteSimulation } from "../simulation/services/waste";
+import { CITY_FACILITIES, districtName } from "../city/data";
+import type { MapLayer } from "../scenarios";
+import { FacilityRenderer } from "./facilities";
+import { EnvironmentRenderer } from "./environment";
+import { ResidentRenderer } from "./residents";
+import { PolicyRenderer } from "./policies";
+import { LogisticsSimulation } from "../simulation/economy";
+import { LogisticsRenderer } from "./logistics";
+import { stockBand } from "./map-data";
+import { BuildingColors } from "./building-colors";
+import { accessBand, wasteColor, cssColor } from "./map-data";
+import type { ResidentVoice } from "../simulation/residents";
+import {
+  EnvironmentSimulation,
+  DEVELOPMENT_SITES,
+} from "../simulation/environment";
+import {
+  FacilitySimulation,
+  FACILITY_SITES,
+  type ServiceKind,
+} from "../simulation/facilities";
 
 export interface Selection {
-  kind: "building" | "road" | "node";
+  kind:
+    | "building"
+    | "road"
+    | "node"
+    | "service"
+    | "civic"
+    | "plot"
+    | "development"
+    | "policy"
+    | "supply"
+    | "river"
+    | "parking"
+    | "dumping"
+    | "water";
   id: string;
   title: string;
   description: string;
 }
 export class CityRenderer {
+  private placementView?: PlacementRenderer;
+  private placementCamera?: {
+    position: THREE.Vector3;
+    target: THREE.Vector3;
+    zoom: number;
+  };
+  private choosePlacement: (id: string) => void = () => {};
   readonly renderer: THREE.WebGLRenderer;
   readonly scene = new THREE.Scene();
   readonly camera = new THREE.OrthographicCamera(-160, 160, 160, -160, 1, 1200);
   readonly controls: OrbitControls;
   private city = new THREE.Group();
+  private worldLabels: {
+    element: HTMLElement;
+    position: THREE.Vector3;
+    plotId?: string;
+  }[] = [];
   private walkers = new PedestrianRenderer();
+  private wasteView?: WasteRenderer;
+  private dumpingView?: DumpingRenderer;
+  private waterView?: WaterRenderer;
+  private logisticsView?: LogisticsRenderer;
+  private parkingView?: ParkingRenderer;
+  private facilityView?: FacilityRenderer;
+  private environmentView?: EnvironmentRenderer;
+  private residentView: ResidentRenderer;
+  private policyView: PolicyRenderer;
+  private mapLayer: MapLayer = "normal";
+  private accessService: ServiceKind = "library";
+  private buildingColors = new BuildingColors();
+  private facilityLabels: {
+    id: string;
+    element: HTMLElement;
+    position: THREE.Vector3;
+  }[] = [];
   private walkSignals: { nodeId: string; material: THREE.MeshBasicMaterial }[] =
     [];
   private roads = new THREE.Group();
   private signals: {
     id: string;
     axis: "ns" | "ew";
-    lamps: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>[];
+    lamps: number[];
   }[] = [];
+  private signalBulbs?: THREE.InstancedMesh;
   private roadMeshes = new Map<
     string,
     THREE.Mesh<THREE.BoxGeometry, THREE.MeshStandardMaterial>
@@ -67,6 +152,11 @@ export class CityRenderer {
   private labelElements: { element: HTMLElement; position: THREE.Vector3 }[] =
     [];
   onSelect: (selection: Selection) => void = () => {};
+  onResidentSelect: (
+    voice: ResidentVoice,
+    index: number,
+    count: number,
+  ) => void = () => {};
   constructor(
     private canvas: HTMLCanvasElement,
     private labels: HTMLElement,
@@ -87,16 +177,18 @@ export class CityRenderer {
     this.scene.background = new THREE.Color(0xe1e7dd);
     this.scene.add(new THREE.HemisphereLight(0xfffaf0, 0x7f9678, 2.3));
     const sun = this.sun;
-    sun.position.set(-100, 190, 95);
+    sun.position.set(-100, 350, 180);
+    sun.target.position.set(WORLD.center, 0, WORLD.center);
+    this.scene.add(sun.target);
     sun.castShadow = true;
     sun.shadow.mapSize.set(2048, 2048);
     Object.assign(sun.shadow.camera, {
-      left: -170,
-      right: 170,
-      top: 170,
-      bottom: -170,
+      left: -360,
+      right: 360,
+      top: 360,
+      bottom: -360,
       near: 10,
-      far: 450,
+      far: 850,
     });
     sun.shadow.normalBias = 0.5;
     this.scene.add(sun);
@@ -121,7 +213,7 @@ export class CityRenderer {
     this.controls.dampingFactor = 0.1;
     this.controls.minPolarAngle = 0.25;
     this.controls.maxPolarAngle = 1.22;
-    this.controls.minZoom = 0.65;
+    this.controls.minZoom = 0.35;
     this.controls.maxZoom = 3.8;
     this.controls.mouseButtons = {
       LEFT: THREE.MOUSE.ROTATE,
@@ -137,6 +229,36 @@ export class CityRenderer {
     this.ring.visible = false;
     this.scene.add(this.ring);
     this.staticCity();
+    this.residentView = new ResidentRenderer(labels.parentElement!);
+    this.scene.add(this.residentView);
+    this.policyView = new PolicyRenderer(labels.parentElement!);
+    this.scene.add(this.policyView);
+    this.policyView.onSelect = (place) =>
+      this.select({
+        kind: "policy",
+        id: place.id,
+        title: place.name,
+        description: `${place.scope} · 시행한 정책 ${place.policies.length}개`,
+      });
+    this.residentView.onChoose = (voice, index, count) => {
+      if (this.residentView.visible) this.ensureResidentVisible();
+      this.onResidentSelect(voice, index, count);
+    };
+    for (const facility of CITY_FACILITIES) {
+      const element = document.createElement("span");
+      element.className = "map-label facility-data";
+      element.hidden = true;
+      this.labels.append(element);
+      this.facilityLabels.push({
+        id: facility.id,
+        element,
+        position: new THREE.Vector3(
+          facility.position.x,
+          24,
+          facility.position.z,
+        ),
+      });
+    }
     this.resetCamera();
     let down = { x: 0, y: 0 };
     canvas.addEventListener("pointerdown", (e) => {
@@ -232,11 +354,176 @@ export class CityRenderer {
     this.city.add(top);
   }
   private staticCity() {
-    this.box(this.city, 0, -2.6, 0, 234, 5, 234, 0xb0bca1);
-    this.box(this.city, 0, -0.3, 0, 233, 0.6, 233, 0xc8d2b5);
+    this.box(
+      this.city,
+      WORLD.center,
+      -2.6,
+      WORLD.center,
+      WORLD.size,
+      5,
+      WORLD.size,
+      0xb0bca1,
+    );
+    this.box(
+      this.city,
+      WORLD.center,
+      -0.3,
+      WORLD.center,
+      WORLD.size - 1,
+      0.6,
+      WORLD.size - 1,
+      0xc8d2b5,
+    );
+    const worldLabel = (
+      text: string,
+      x: number,
+      z: number,
+      plotId?: string,
+    ) => {
+      const element = document.createElement("span");
+      element.className = `map-label ${plotId ? "plot-label" : "district-label"}`;
+      element.textContent = text;
+      this.labels.append(element);
+      this.worldLabels.push({
+        element,
+        position: new THREE.Vector3(x, plotId ? 5 : 1, z),
+        plotId,
+      });
+    };
+    for (const district of DISTRICT_AREAS) {
+      this.box(
+        this.city,
+        district.x,
+        0.02,
+        district.z,
+        district.width,
+        0.06,
+        district.depth,
+        district.color,
+      );
+      worldLabel(
+        district.name,
+        district.x,
+        district.z - district.depth / 2 - 14,
+      );
+    }
+    this.box(
+      this.city,
+      RIVER.x,
+      0.08,
+      WORLD.center,
+      RIVER.width,
+      0.18,
+      WORLD.size - 1,
+      0x76acb4,
+    );
+    for (const x of [RIVER.x - 14, RIVER.x + 14])
+      for (const bank of RIVERBANK_SEGMENTS)
+        this.box(
+          this.city,
+          x,
+          0.18,
+          (bank.minZ + bank.maxZ) / 2,
+          4,
+          0.4,
+          bank.maxZ - bank.minZ,
+          0xa6bb9c,
+        );
+    for (let z = WORLD.min + 22; z < WORLD.max; z += 44) {
+      this.box(this.city, RIVER.x, 0.21, z, 1.3, 0.08, 9, 0xb5d9d7);
+      const arrow = this.box(
+        this.city,
+        RIVER.x - 1.5,
+        0.21,
+        z + 4,
+        0.9,
+        0.08,
+        4,
+        0xb5d9d7,
+      );
+      arrow.rotation.y = -0.65;
+      const other = this.box(
+        this.city,
+        RIVER.x + 1.5,
+        0.21,
+        z + 4,
+        0.9,
+        0.08,
+        4,
+        0xb5d9d7,
+      );
+      other.rotation.y = 0.65;
+    }
+    worldLabel("새봄천 · 상류 → 하류", RIVER.x, 288);
+    const river = new THREE.Mesh(
+      new THREE.BoxGeometry(RIVER.width, 0.15, WORLD.size),
+      this.proxyMaterial,
+    );
+    river.position.set(RIVER.x, 0.2, WORLD.center);
+    river.userData.selection = {
+      kind: "river",
+      id: "river",
+      title: "새봄천",
+      description:
+        "주거·상업지구와 산업지구 사이를 흐르는 하천이에요. 북쪽 상류에서 남쪽 하류로 흘러요.",
+    };
+    this.scene.add(river);
+    this.selectable.push(river);
+    for (const plot of BUILDABLE_PLOTS) {
+      const { x, z } = plot.position;
+      this.box(this.city, x, 0.2, z, plot.width, 0.25, plot.depth, 0xdbc99e);
+      for (const side of [-1, 1]) {
+        this.box(
+          this.city,
+          x + (side * plot.width) / 2,
+          0.4,
+          z,
+          0.4,
+          0.25,
+          plot.depth,
+          0xb39b65,
+        );
+        this.box(
+          this.city,
+          x,
+          0.4,
+          z + (side * plot.depth) / 2,
+          plot.width,
+          0.25,
+          0.4,
+          0xb39b65,
+        );
+      }
+      const proxy = new THREE.Mesh(
+        new THREE.BoxGeometry(plot.width, 0.8, plot.depth),
+        this.proxyMaterial,
+      );
+      proxy.position.set(x, 0.6, z);
+      proxy.userData.selection = {
+        kind: "plot",
+        id: plot.id,
+        title: plot.name,
+        description: `${plot.district} · ${plot.width * plot.depth}㎡의 비어 있는 건설 부지예요.`,
+      };
+      this.scene.add(proxy);
+      this.selectable.push(proxy);
+      worldLabel(
+        `${plot.name.split(" · ")[0]} · ${plot.width * plot.depth}㎡`,
+        x,
+        z,
+        plot.id,
+      );
+    }
+    for (const entry of EXTERNAL_CONNECTIONS) {
+      worldLabel(
+        `${entry.name} ↔ 도시 밖`,
+        entry.edgeX + (entry.id === "west" ? 14 : -14),
+        24,
+      );
+    }
     const random = seededRandom(1337);
     for (const b of BUILDINGS) {
-      this.box(
+      const ground = this.box(
         this.city,
         b.x,
         0.08,
@@ -246,6 +533,7 @@ export class CityRenderer {
         35,
         b.kind === "park" ? 0x9fb793 : 0xd9d8c4,
       );
+      if (b.kind === "park") ground.userData.mapBuilding = b.id;
       const proxy = new THREE.Mesh(
         new THREE.BoxGeometry(33, 18, 33),
         this.proxyMaterial,
@@ -271,19 +559,97 @@ export class CityRenderer {
           this.tree(b.x + dx, b.z + dz, 1.05);
         this.box(this.city, b.x + 6, 1, b.z + 3, 4, 1, 1.4, 0xa4896c);
       } else if (b.kind === "school") {
-        this.box(this.city, b.x, 5.5, b.z - 7, 28, 11, 12, 0xf2dfb3);
-        this.box(this.city, b.x, 11.5, b.z - 7, 30, 1.5, 14, 0xaf725d);
-        this.box(this.city, b.x - 11, 3, b.z + 3, 6, 6, 10, 0xe3c697);
+        this.box(
+          this.city,
+          b.x,
+          5.5,
+          b.z - 7,
+          28,
+          11,
+          12,
+          0xf2dfb3,
+        ).userData.mapBuilding = b.id;
+        this.box(
+          this.city,
+          b.x,
+          11.5,
+          b.z - 7,
+          30,
+          1.5,
+          14,
+          0xaf725d,
+        ).userData.mapBuilding = b.id;
+        this.box(
+          this.city,
+          b.x - 11,
+          3,
+          b.z + 3,
+          6,
+          6,
+          10,
+          0xe3c697,
+        ).userData.mapBuilding = b.id;
         this.box(this.city, b.x + 5, 0.4, b.z + 9, 18, 0.4, 11, 0xcba880);
         for (let i = -10; i <= 10; i += 5) {
           this.box(this.city, b.x + i, 7, b.z - 0.85, 2.5, 3, 0.2, 0x769ca6);
           this.box(this.city, b.x + i, 3, b.z - 0.85, 2.5, 2.5, 0.2, 0x769ca6);
         }
         this.box(this.city, b.x, 2, b.z - 0.6, 3, 4, 0.3, 0x705e50);
+      } else if (b.kind === "waste") {
+        this.box(
+          this.city,
+          b.x,
+          3,
+          b.z,
+          28,
+          6,
+          22,
+          0x79938b,
+        ).userData.mapBuilding = b.id;
+        this.box(
+          this.city,
+          b.x,
+          6.3,
+          b.z,
+          29,
+          0.8,
+          23,
+          0x456e69,
+        ).userData.mapBuilding = b.id;
+        for (const dx of [-8, 0, 8])
+          this.box(this.city, b.x + dx, 2, b.z + 12, 5, 4, 5, 0xbdab77);
+        worldLabel("자원순환센터", b.x, b.z - 18);
       } else if (b.kind === "factory") {
-        this.box(this.city, b.x, 4, b.z, 27, 8, 21, 0xbbbdaf);
-        this.box(this.city, b.x, 8.5, b.z, 28, 1, 22, 0x738a8a);
-        this.box(this.city, b.x + 10, 12, b.z - 8, 3, 13, 3, 0xb5957e);
+        this.box(
+          this.city,
+          b.x,
+          4,
+          b.z,
+          27,
+          8,
+          21,
+          0xbbbdaf,
+        ).userData.mapBuilding = b.id;
+        this.box(
+          this.city,
+          b.x,
+          8.5,
+          b.z,
+          28,
+          1,
+          22,
+          0x738a8a,
+        ).userData.mapBuilding = b.id;
+        this.box(
+          this.city,
+          b.x + 10,
+          12,
+          b.z - 8,
+          3,
+          13,
+          3,
+          0xb5957e,
+        ).userData.mapBuilding = b.id;
         for (let i = -9; i <= 9; i += 6)
           this.box(this.city, b.x + i, 4, b.z + 10.6, 4, 3, 0.2, 0x7d9598);
       } else {
@@ -295,7 +661,16 @@ export class CityRenderer {
           const x = b.x + (j % 2 ? 8 : -8),
             z = b.z + (j < 2 ? -8 : 8),
             h = (b.kind === "office" ? 12 : 7) + Math.floor(random() * 6);
-          this.box(this.city, x, h / 2, z, 11, h, 11, palette[j % 3]);
+          this.box(
+            this.city,
+            x,
+            h / 2,
+            z,
+            11,
+            h,
+            11,
+            palette[j % 3],
+          ).userData.mapBuilding = b.id;
           this.box(
             this.city,
             x,
@@ -305,8 +680,17 @@ export class CityRenderer {
             1.1,
             12,
             b.kind === "home" ? 0x889c8c : 0x82999b,
-          );
-          this.box(this.city, x + 2, h + 1.2, z, 3, 1, 3, 0xa4b3ad);
+          ).userData.mapBuilding = b.id;
+          this.box(
+            this.city,
+            x + 2,
+            h + 1.2,
+            z,
+            3,
+            1,
+            3,
+            0xa4b3ad,
+          ).userData.mapBuilding = b.id;
           for (let y = 3; y < h - 1; y += 3.3)
             for (let q = -3; q <= 3; q += 3) {
               this.box(this.city, x + q, y, z + 5.55, 1.3, 1.6, 0.15, 0x718c97);
@@ -317,16 +701,26 @@ export class CityRenderer {
       this.tree(b.x - 17, b.z + 12, 0.65);
       this.tree(b.x + 17, b.z - 12, 0.65);
     }
-    for (let i = -100; i <= 100; i += 14) {
-      this.tree(i, -109, 0.85);
-      this.tree(-109, i, 0.9);
-      if (i < 40) this.tree(i, 109, 0.8);
+    for (let i = WORLD.min + 18; i <= WORLD.max - 18; i += 24) {
+      if (Math.abs(i - RIVER.x) > 22) {
+        this.tree(i, WORLD.min + 8, 0.85);
+        this.tree(i, WORLD.max - 8, 0.85);
+      }
+      if (i < -10 || i > 60) {
+        this.tree(WORLD.min + 8, i, 0.9);
+        this.tree(WORLD.max - 8, i, 0.9);
+      }
     }
     // One draw call per static material, instead of a draw call per window/tree.
     this.city.updateMatrixWorld(true);
     const groups = new Map<THREE.Material, THREE.BufferGeometry[]>();
     for (const object of [...this.city.children])
       if (object instanceof THREE.Mesh) {
+        if (object.userData.mapBuilding) {
+          this.buildingColors.capture(object, object.userData.mapBuilding);
+          object.geometry.dispose();
+          continue;
+        }
         const material = object.material as THREE.Material;
         if (!groups.has(material)) groups.set(material, []);
         const geometry = object.geometry
@@ -336,6 +730,7 @@ export class CityRenderer {
         object.geometry.dispose();
       }
     this.city.clear();
+    this.city.add(this.buildingColors.build());
     for (const [material, geometries] of groups) {
       const merged = mergeGeometries(geometries);
       if (merged) {
@@ -364,7 +759,48 @@ export class CityRenderer {
     this.labelElements.push({ element, position: new THREE.Vector3(x, y, z) });
   }
   setSimulation(sim: TrafficSimulation) {
+    const water =
+      sim instanceof LiveCitySimulation
+        ? sim.water
+        : sim instanceof WaterSimulation
+          ? sim
+          : undefined;
+    const parking =
+      sim instanceof LiveCitySimulation
+        ? sim.parking
+        : sim instanceof ParkingSimulation
+          ? sim
+          : undefined;
+    const logistics =
+      sim instanceof LiveCitySimulation
+        ? sim.logistics
+        : sim instanceof LogisticsSimulation
+          ? sim
+          : undefined;
+    const facilities =
+      sim instanceof LiveCitySimulation
+        ? sim.facilities
+        : sim instanceof FacilitySimulation
+          ? sim
+          : undefined;
+
+    this.clearPlacement();
     this.current = sim;
+    this.waterView?.dispose();
+    this.waterView = undefined;
+    this.dumpingView?.dispose();
+    this.dumpingView = undefined;
+    this.parkingView?.dispose();
+    this.parkingView = undefined;
+    this.logisticsView?.dispose();
+    this.logisticsView = undefined;
+    this.policyView.setSimulation(sim);
+    this.environmentView?.dispose();
+    this.environmentView = undefined;
+    this.facilityView?.dispose();
+    this.facilityView = undefined;
+    this.wasteView?.dispose();
+    this.wasteView = undefined;
     for (const child of this.roads.children)
       child.traverse((obj) => {
         if (obj instanceof THREE.Mesh) {
@@ -376,19 +812,92 @@ export class CityRenderer {
     this.roadMeshes.clear();
     this.signals = [];
     this.walkSignals = [];
-    this.selectable = this.selectable.filter(
-      (o) => o.userData.selection?.kind === "building",
+    this.selectable = this.scene.children.filter(
+      (o) =>
+        ["building", "river", "plot"].includes(o.userData.selection?.kind) &&
+        !(
+          o.userData.selection.kind === "plot" &&
+          (sim instanceof LiveCitySimulation
+            ? sim.parcels
+            : facilities?.plan.buildings
+          )?.some((b) => b.siteId === o.userData.selection.id)
+        ),
     );
+    if (sim instanceof WasteSimulation) {
+      // Service views own their selectable meshes.
+      this.wasteView = new WasteRenderer(sim);
+      this.scene.add(this.wasteView);
+      this.selectable.push(...this.wasteView.selectable);
+    }
+    if (water) {
+      this.waterView = new WaterRenderer(
+        water,
+        this.labels.parentElement!,
+        (id) => this.focusWater(id),
+      );
+      this.scene.add(this.waterView);
+      this.selectable.push(...this.waterView.selectable);
+    }
+    if (sim instanceof DumpingSimulation) {
+      this.dumpingView = new DumpingRenderer(
+        sim,
+        this.labels.parentElement!,
+        (id) => this.focusDumping(id),
+      );
+      this.scene.add(this.dumpingView);
+      this.selectable.push(...this.dumpingView.selectable);
+    }
+    if (logistics) {
+      this.logisticsView = new LogisticsRenderer(logistics, this.labels);
+      this.scene.add(this.logisticsView);
+      this.selectable.push(...this.logisticsView.selectable);
+    }
+    if (parking) {
+      this.parkingView = new ParkingRenderer(parking, this.labels, (id) =>
+        this.focusParking(id),
+      );
+      this.scene.add(this.parkingView);
+      this.selectable.push(...this.parkingView.selectable);
+    }
+    if (facilities) {
+      this.facilityView = new FacilityRenderer(
+        facilities,
+        this.labels,
+        sim instanceof LiveCitySimulation
+          ? sim.parcels.map((p) => p.siteId)
+          : [],
+      );
+      this.scene.add(this.facilityView);
+      this.selectable.push(...this.facilityView.selectable);
+    }
+    if (sim instanceof EnvironmentSimulation) {
+      this.environmentView = new EnvironmentRenderer(sim, this.labels);
+      this.scene.add(this.environmentView);
+      this.selectable.push(...this.environmentView.selectable);
+    }
     for (const road of sim.network.roads.values()) {
-      const a = sim.network.nodes.get(road.startNodeId)!.position,
-        b = sim.network.nodes.get(road.endNodeId)!.position;
+      const segment = visibleRoadSegment(
+        sim.network.nodes.get(road.startNodeId)!.position,
+        sim.network.nodes.get(road.endNodeId)!.position,
+      );
+      if (!segment) continue;
+      const { a, b } = segment;
+      const visibleLength = Math.hypot(b.x - a.x, b.z - a.z);
       const group = new THREE.Group();
       group.position.set((a.x + b.x) / 2, 0, (a.z + b.z) / 2);
       group.rotation.y = Math.atan2(b.x - a.x, b.z - a.z);
       this.roads.add(group);
-      this.box(group, 0, 0.04, 0, 10.5, 0.3, road.length, 0xbfc5ba);
+      this.box(group, 0, 0.04, 0, 10.5, 0.3, visibleLength, 0xbfc5ba);
+      if (
+        Math.min(a.x, b.x) < RIVER.x &&
+        Math.max(a.x, b.x) > RIVER.x &&
+        a.z === b.z
+      ) {
+        for (const side of [-1, 1])
+          this.box(group, side * 5.2, 1, 0, 0.4, 1.2, visibleLength, 0x97aaa3);
+      }
       const mesh = new THREE.Mesh(
-        new THREE.BoxGeometry(7.4, 0.17, road.length),
+        new THREE.BoxGeometry(7.4, 0.17, visibleLength),
         new THREE.MeshStandardMaterial({ color: 0x778580, roughness: 1 }),
       );
       mesh.position.y = 0.23;
@@ -406,13 +915,22 @@ export class CityRenderer {
             : "양방향 도로 · 방향마다 1차로",
       };
       this.selectable.push(mesh);
-      for (let z = -16; z <= 16; z += 7)
+      for (let z = -visibleLength / 2 + 8; z <= visibleLength / 2 - 8; z += 7)
         this.box(group, 0, 0.34, z, 0.14, 0.025, 3.2, 0xe9dcc0);
       if (road.laneCount > 1)
         for (const lane of sim.network.lanes.values())
           if (lane.roadId === road.id) this.laneArrows(lane);
     }
+    this.signalBulbs = new THREE.InstancedMesh(
+      new THREE.SphereGeometry(0.31, 8, 6),
+      new THREE.MeshBasicMaterial({ color: 0xffffff }),
+      sim.network.nodes.size * 6,
+    );
+    this.signalBulbs.userData.ownedMaterial = true;
+    this.roads.add(this.signalBulbs);
+    let bulbIndex = 0;
     for (const node of sim.network.nodes.values()) {
+      if (node.boundary || !inCityBounds(node.position)) continue;
       const group = new THREE.Group();
       group.position.set(node.position.x, 0, node.position.z);
       this.roads.add(group);
@@ -442,18 +960,21 @@ export class CityRenderer {
         this.box(group, x, 4.8, z, 1, 2.8, 0.8, 0x3e5049);
         const lamps = [];
         for (let i = 0; i < 3; i++) {
-          const bulb = new THREE.Mesh(
-            new THREE.SphereGeometry(0.31, 8, 6),
-            new THREE.MeshBasicMaterial({ color: 0x33443c }),
+          this.signalBulbs.setMatrixAt(
+            bulbIndex,
+            new THREE.Matrix4().makeTranslation(
+              node.position.x + x,
+              5.65 - i * 0.8,
+              node.position.z + z + 0.44,
+            ),
           );
-          bulb.position.set(x, 5.65 - i * 0.8, z + 0.44);
-          bulb.userData.ownedMaterial = true;
-          group.add(bulb);
-          lamps.push(bulb);
+          this.signalBulbs.setColorAt(bulbIndex, new THREE.Color(0x33443c));
+          lamps.push(bulbIndex++);
         }
         this.signals.push({ id: node.id, axis, lamps });
       }
     }
+    this.signalBulbs.count = bulbIndex;
     for (const route of sim.pedestrians.routes.values()) {
       const a = route.points[2],
         b = route.points[3];
@@ -550,11 +1071,19 @@ export class CityRenderer {
     const chosen =
       this.selected?.kind === "road"
         ? (this.roadMeshes.get(this.selected.id)?.userData.selection as
-            | Selection
-            | undefined)
+            Selection | undefined)
         : this.selected;
     this.select(
-      chosen && (chosen.kind !== "road" || sim.network.roads.has(chosen.id))
+      chosen &&
+        (chosen.kind !== "policy" || !!this.appliedPolicy(chosen.id)) &&
+        (chosen.kind !== "road" || sim.network.roads.has(chosen.id)) &&
+        (chosen.kind !== "supply" ||
+          (sim instanceof LogisticsSimulation &&
+            sim.sources.some((s) => s.id === chosen.id))) &&
+        (chosen.kind !== "development" ||
+          sim instanceof EnvironmentSimulation) &&
+        (!["civic", "plot"].includes(chosen.kind) ||
+          sim instanceof FacilitySimulation)
         ? chosen
         : {
             kind: "node",
@@ -606,15 +1135,59 @@ export class CityRenderer {
   }
   select(selection: Selection) {
     this.selected = selection;
+    this.facilityView?.selectNeighborhood(
+      selection.kind === "building" ? selection.id : undefined,
+    );
     this.ring.visible = true;
-    if (selection.kind === "building") {
+    if (selection.kind === "policy" || selection.kind === "river") {
+      this.ring.visible = false;
+    } else if (selection.kind === "water") {
+      const s = WATER_SITES.find((s) => s.id === selection.id)!;
+      this.ring.position.set(s.position.x - 8, 0.6, s.position.z);
+      this.ring.scale.setScalar(0.6);
+    } else if (selection.kind === "dumping") {
+      const s = DUMPING_SITES.find((s) => s.id === selection.id)!;
+      this.ring.position.set(s.position.x, 0.6, s.position.z);
+      this.ring.scale.setScalar(0.6);
+    } else if (selection.kind === "parking") {
+      const s = PARKING_SITES.find((s) => s.id === selection.id)!;
+      this.ring.position.set(s.position.x, 0.6, s.position.z);
+      this.ring.scale.setScalar(0.7);
+    } else if (selection.kind === "building") {
       const b = BUILDINGS.find((b) => b.id === selection.id)!;
       this.ring.position.set(b.x, 0.6, b.z);
       this.ring.scale.set(2.3, 2.3, 2.3);
+    } else if (selection.kind === "development") {
+      const site = DEVELOPMENT_SITES.find((s) => s.id === selection.id);
+      if (site) this.ring.position.set(site.position.x, 0.6, site.position.z);
+      this.ring.scale.setScalar(1.3);
+    } else if (selection.kind === "plot" || selection.kind === "civic") {
+      const target =
+        selection.kind === "plot"
+          ? FACILITY_SITES.find((s) => s.id === selection.id)
+          : this.current instanceof FacilitySimulation
+            ? this.current.facilities.find((f) => f.id === selection.id)
+            : undefined;
+      if (target)
+        this.ring.position.set(target.position.x, 0.6, target.position.z);
+      this.ring.scale.setScalar(selection.kind === "plot" ? 1.8 : 1);
+    } else if (selection.kind === "supply") {
+      const source =
+        this.current instanceof LogisticsSimulation
+          ? this.current.sources.find((s) => s.id === selection.id)
+          : undefined;
+      this.ring.visible = !!source;
+      if (source)
+        this.ring.position.set(source.position.x, 0.6, source.position.z);
+      this.ring.scale.setScalar(0.7);
     } else if (selection.kind === "node") {
       const n = this.current?.network.nodes.get(selection.id);
       if (n) this.ring.position.set(n.position.x, 0.6, n.position.z);
       this.ring.scale.setScalar(1);
+    } else if (selection.kind === "service") {
+      const car = this.current?.vehicles.get(Number(selection.id));
+      if (car) this.ring.position.set(car.pose.x, 0.6, car.pose.z);
+      this.ring.scale.setScalar(0.45);
     } else {
       const road = this.current?.network.roads.get(selection.id);
       if (road) {
@@ -639,20 +1212,254 @@ export class CityRenderer {
       description: "가로길과 세로길의 신호를 비교해 보세요.",
     });
   }
-  resetCamera() {
-    this.camera.position.set(240, 245, 275);
-    this.controls.target.set(0, 0, 0);
-    this.camera.zoom = 1.16;
+  focusParking(id: string) {
+    const s = PARKING_SITES.find((s) => s.id === id);
+    if (!s) return;
+    this.controls.target.set(s.position.x, 0, s.position.z);
+    this.camera.position.set(s.position.x + 120, 150, s.position.z + 140);
+    this.camera.zoom = 2.6;
     this.camera.updateProjectionMatrix();
     this.controls.update();
+    this.select({
+      kind: "parking",
+      id: s.id,
+      title: s.name,
+      description: s.reason,
+    });
+  }
+  focusSupply(id: string) {
+    const source =
+      this.current instanceof LogisticsSimulation
+        ? this.current.sources.find((s) => s.id === id)
+        : undefined;
+    if (!source) return;
+    this.controls.target.set(source.position.x, 0, source.position.z);
+    this.camera.position.set(
+      source.position.x + 175,
+      200,
+      source.position.z + 210,
+    );
+    this.camera.zoom = 1.6;
+    this.camera.updateProjectionMatrix();
+    this.select({
+      kind: "supply",
+      id,
+      title: source.name,
+      description: "상점으로 보내기 전에 물자를 준비하는 곳이에요.",
+    });
+  }
+  resetCamera() {
+    if (this.current instanceof WaterSimulation) {
+      this.controls.target.set(RIVER.x, 0, WORLD.center);
+      this.camera.position.set(RIVER.x + 120, 520, WORLD.center + 200);
+      this.camera.zoom = this.width < 600 ? 1.03 : 0.66;
+      this.camera.updateProjectionMatrix();
+      this.controls.update();
+      return;
+    }
+    this.camera.position.set(WORLD.center + 480, 490, WORLD.center + 550);
+    this.controls.target.set(WORLD.center, 0, WORLD.center);
+    this.camera.zoom = 0.58;
+    this.camera.updateProjectionMatrix();
+    this.controls.update();
+  }
+  focusDumping(id: string) {
+    const s = DUMPING_SITES.find((s) => s.id === id);
+    if (!s) return;
+    this.controls.target.set(s.position.x, 0, s.position.z);
+    this.camera.position.set(s.position.x + 175, 200, s.position.z + 210);
+    this.camera.zoom = 2.3;
+    this.camera.updateProjectionMatrix();
+    this.select({
+      kind: "dumping",
+      id,
+      title: s.name,
+      description: "지정된 곳 밖의 투기물을 조사해요.",
+    });
+  }
+  focusWater(id: string) {
+    const s = WATER_SITES.find((s) => s.id === id);
+    if (!s) return;
+    this.controls.target.set(s.position.x, 0, s.position.z);
+    this.camera.position.set(s.position.x + 175, 200, s.position.z + 210);
+    this.camera.zoom = 1.8;
+    this.camera.updateProjectionMatrix();
+    this.select({
+      kind: "water",
+      id,
+      title: s.name,
+      description: "물의 흐름을 따라 상류와 하류의 자료를 비교해요.",
+    });
+  }
+  showPlacement(
+    title: string,
+    targets: readonly PlacementTarget[],
+    selectedId: string | undefined,
+    onChoose: (id: string) => void,
+    onCancel: () => void,
+  ) {
+    this.clearPlacement();
+    this.placementCamera = {
+      position: this.camera.position.clone(),
+      target: this.controls.target.clone(),
+      zoom: this.camera.zoom,
+    };
+    this.choosePlacement = onChoose;
+    this.placementView = new PlacementRenderer(
+      this.labels.parentElement!,
+      title,
+      targets,
+      selectedId,
+      onChoose,
+      onCancel,
+    );
+    this.scene.add(this.placementView);
+    document.body.setAttribute("data-placing-policy", "");
+    this.ring.visible = false;
+    const x = targets.reduce((n, t) => n + t.position.x, 0) / targets.length,
+      z = targets.reduce((n, t) => n + t.position.z, 0) / targets.length;
+    this.controls.target.set(x, 0, z);
+    this.camera.position.set(x + 200, 300, z + 280);
+    this.camera.zoom = 1;
+    this.camera.updateProjectionMatrix();
+    this.controls.update();
+    this.camera.updateMatrixWorld();
+    const corners = targets.flatMap((t) =>
+      [-1, 1].flatMap((dx) =>
+        [-1, 1].map((dz) =>
+          new THREE.Vector3(
+            t.position.x + (dx * t.width) / 2,
+            0,
+            t.position.z + (dz * t.depth) / 2,
+          ).project(this.camera),
+        ),
+      ),
+    );
+    this.camera.zoom = Math.min(
+      1.65,
+      0.82 / Math.max(...corners.map((p) => Math.abs(p.x))),
+      0.52 / Math.max(...corners.map((p) => Math.abs(p.y))),
+    );
+    this.camera.updateProjectionMatrix();
+  }
+  clearPlacement() {
+    this.placementView?.dispose();
+    this.placementView = undefined;
+    document.body.removeAttribute("data-placing-policy");
+    if (this.placementCamera) {
+      this.camera.position.copy(this.placementCamera.position);
+      this.camera.zoom = this.placementCamera.zoom;
+      this.controls.target.copy(this.placementCamera.target);
+      this.camera.updateProjectionMatrix();
+      this.controls.update();
+      this.placementCamera = undefined;
+    }
   }
   zoom(factor: number) {
     this.camera.zoom = THREE.MathUtils.clamp(
       this.camera.zoom * factor,
-      0.65,
+      0.35,
       3.8,
     );
     this.camera.updateProjectionMatrix();
+  }
+  setMapLayer(layer: MapLayer) {
+    this.mapLayer = layer;
+  }
+  setResidentVoices(voices: ResidentVoice[]) {
+    this.residentView.setVoices(voices);
+  }
+  appliedPolicy(id: string) {
+    return [
+      ...this.policyView.data.places,
+      ...this.policyView.data.shared,
+    ].find((place) => place.id === id);
+  }
+  setResidentMode(open: boolean) {
+    this.residentView.setOpen(open);
+    this.ring.visible =
+      !open && !!this.selected && this.selected.kind !== "policy";
+    if (open) this.resetCamera();
+  }
+  nextResident(direction: number) {
+    this.residentView.step(direction);
+  }
+  private ensureResidentVisible() {
+    const position = this.residentView.activePosition;
+    if (!position) return;
+    const projected = position.clone().project(this.camera);
+    if (Math.abs(projected.x) < 0.8 && Math.abs(projected.y) < 0.65) return;
+    const delta = new THREE.Vector3(position.x, 0, position.z).sub(
+      this.controls.target,
+    );
+    this.controls.target.add(delta);
+    this.camera.position.add(delta);
+    this.controls.update();
+  }
+  focusDevelopment(id: string) {
+    const site = DEVELOPMENT_SITES.find((s) => s.id === id);
+    if (!site || !(this.current instanceof EnvironmentSimulation)) return;
+    this.controls.target.set(site.position.x, 0, site.position.z);
+    this.camera.position.set(site.position.x + 175, 200, site.position.z + 210);
+    this.camera.zoom = 2;
+    this.camera.updateProjectionMatrix();
+    this.select({
+      kind: "development",
+      id,
+      title: site.name,
+      description: "개발과 녹지 보전을 비교하는 지정 부지예요.",
+    });
+  }
+  setAccessService(kind: ServiceKind) {
+    this.accessService = kind;
+    this.facilityView?.setService(kind);
+  }
+  get mapVisualization() {
+    return {
+      buildings: this.buildingColors.snapshot,
+      coverage: this.facilityView?.coverageSnapshot,
+    };
+  }
+  focusCivic(id: string, plot = false) {
+    const target = plot
+      ? FACILITY_SITES.find((s) => s.id === id)
+      : this.current instanceof FacilitySimulation
+        ? this.current.facilities.find((f) => f.id === id)
+        : undefined;
+    if (!target) return;
+    this.controls.target.set(target.position.x, 0, target.position.z);
+    this.camera.position.set(
+      target.position.x + 175,
+      200,
+      target.position.z + 210,
+    );
+    this.camera.zoom = 2;
+    this.camera.updateProjectionMatrix();
+    this.select({
+      kind: plot ? "plot" : "civic",
+      id,
+      title: target.name,
+      description: plot
+        ? "면적과 예산을 살펴 시설을 지을 수 있는 공터예요."
+        : "시설의 위치와 이용 자리를 살펴봐요.",
+    });
+  }
+  focusFacility(id: string) {
+    const facility = CITY_FACILITIES.find((f) => f.id === id)!;
+    this.controls.target.set(facility.position.x, 0, facility.position.z);
+    this.camera.position.set(
+      facility.position.x + 175,
+      200,
+      facility.position.z + 210,
+    );
+    this.camera.zoom = 2;
+    this.camera.updateProjectionMatrix();
+    this.select({
+      kind: "building",
+      id,
+      title: facility.name,
+      description: `${districtName(facility.districtId)} · ${facility.purpose}`,
+    });
   }
   private pick(event: PointerEvent) {
     const rect = this.canvas.getBoundingClientRect(),
@@ -662,7 +1469,19 @@ export class CityRenderer {
       );
     const ray = new THREE.Raycaster();
     ray.setFromCamera(pointer, this.camera);
-    const hit = ray.intersectObjects(this.selectable, false)[0];
+    if (this.placementView) {
+      const hit = ray.intersectObjects(this.placementView.selectable, false)[0];
+      if (hit) this.choosePlacement(hit.object.userData.placementId);
+      return;
+    }
+    const hits = ray.intersectObjects(this.selectable, false);
+    // Civic props are inside broad legacy building hit boxes; prefer their exact mesh when hit.
+    const hit =
+      this.current instanceof FacilitySimulation
+        ? (hits.find((h) =>
+            ["civic", "plot"].includes(h.object.userData.selection?.kind),
+          ) ?? hits[0])
+        : hits[0];
     if (hit) this.select(hit.object.userData.selection);
   }
   private resize() {
@@ -671,7 +1490,7 @@ export class CityRenderer {
     this.height = rect.height;
     this.renderer.setSize(rect.width, rect.height, false);
     const aspect = rect.width / rect.height;
-    const size = aspect < 1 ? 180 / aspect : 164;
+    const size = aspect < 1 ? 214 / aspect : 164;
     this.camera.left = -size * aspect;
     this.camera.right = size * aspect;
     this.camera.top = size;
@@ -684,7 +1503,67 @@ export class CityRenderer {
     roadMetrics: RoadMetric[],
     paused = false,
   ) {
+    const water =
+      sim instanceof LiveCitySimulation
+        ? sim.water
+        : sim instanceof WaterSimulation
+          ? sim
+          : undefined;
+    const parking =
+      sim instanceof LiveCitySimulation
+        ? sim.parking
+        : sim instanceof ParkingSimulation
+          ? sim
+          : undefined;
+    const logistics =
+      sim instanceof LiveCitySimulation
+        ? sim.logistics
+        : sim instanceof LogisticsSimulation
+          ? sim
+          : undefined;
+    const facilities =
+      sim instanceof LiveCitySimulation
+        ? sim.facilities
+        : sim instanceof FacilitySimulation
+          ? sim
+          : undefined;
+
     this.controls.update();
+    const colors = new Map<string, number>();
+    if (this.mapLayer === "stock" && logistics)
+      for (const shop of logistics.shops)
+        colors.set(shop.facilityId, stockBand(shop.stock).color);
+    if (this.mapLayer === "waste" && sim instanceof WasteSimulation)
+      for (const site of sim.sites.filter((s) => !s.kind))
+        colors.set(site.facilityId, wasteColor(site.remaining));
+    if (this.mapLayer === "access" && facilities)
+      for (const row of facilities.access)
+        colors.set(
+          row.id,
+          accessBand(
+            row.services[this.accessService].nearest?.route.seconds ?? null,
+          ).color,
+        );
+    this.buildingColors.update(colors);
+    for (const label of this.worldLabels) {
+      const p = label.position.clone().project(this.camera);
+      const occupied =
+        label.plotId &&
+        (sim instanceof LiveCitySimulation
+          ? sim.parcels
+          : facilities?.plan.buildings
+        )?.some((b) => b.siteId === label.plotId);
+      label.element.hidden =
+        !!occupied ||
+        p.z > 1 ||
+        (label.plotId
+          ? this.mapLayer !== "land" &&
+            !(sim instanceof FacilitySimulation && this.mapLayer === "normal")
+          : this.mapLayer !== "normal" && this.mapLayer !== "land");
+      label.element.style.left = `${((p.x + 1) / 2) * this.width}px`;
+      label.element.style.top = `${((1 - p.y) / 2) * this.height}px`;
+    }
+    this.residentView.update(this.camera, this.width, this.height);
     let index = 0;
     if (this.compass) {
       const north = new THREE.Vector3(0, 0, -10).project(this.camera);
@@ -696,6 +1575,53 @@ export class CityRenderer {
       this.compass.style.transform = `rotate(${angle}rad)`;
     }
     const alpha = paused ? 1 : sim.alpha;
+    this.wasteView?.update(alpha);
+    this.logisticsView?.update(
+      this.camera,
+      this.width,
+      this.height,
+      this.mapLayer,
+      alpha,
+    );
+    this.policyView.update(this.camera, this.width, this.height);
+    this.parkingView?.update(
+      this.camera,
+      this.width,
+      this.height,
+      alpha,
+      !(sim instanceof LiveCitySimulation),
+    );
+    this.dumpingView?.update(
+      this.camera,
+      this.width,
+      this.height,
+      !(sim instanceof LiveCitySimulation) || this.mapLayer === "waste",
+    );
+    this.waterView?.update(
+      this.camera,
+      this.width,
+      this.height,
+      this.mapLayer === "water",
+      !(sim instanceof LiveCitySimulation) || this.mapLayer === "water",
+    );
+    this.placementView?.update(this.camera, this.width, this.height);
+    this.environmentView?.update(
+      this.camera,
+      this.width,
+      this.height,
+      this.mapLayer,
+    );
+    this.facilityView?.update(
+      this.camera,
+      this.width,
+      this.height,
+      this.mapLayer,
+    );
+    if (this.selected?.kind === "service") {
+      const v = sim.vehicles.get(Number(this.selected.id));
+      this.ring.visible = !!v && inCityBounds(v.pose);
+      if (v) this.ring.position.set(v.pose.x, 0.6, v.pose.z);
+    }
     this.walkers.update(sim, alpha);
     for (const signal of this.walkSignals) {
       const phase = signalPhase(
@@ -716,11 +1642,13 @@ export class CityRenderer {
       );
     }
     for (const v of sim.vehicles.values()) {
+      if (sim.serviceJourneys.has(v.id)) continue;
       if (index >= 1500) break;
       const p = v.pose,
         q = v.previousPose,
         x = q.x + (p.x - q.x) * alpha,
         z = q.z + (p.z - q.z) * alpha;
+      if (!inCityBounds({ x, z })) continue;
       const angle =
         q.angle +
         Math.atan2(Math.sin(p.angle - q.angle), Math.cos(p.angle - q.angle)) *
@@ -756,11 +1684,16 @@ export class CityRenderer {
         active = phase.startsWith(signal.axis);
       const lit = active ? (phase.endsWith("green") ? 2 : 1) : 0;
       signal.lamps.forEach((lamp, i) =>
-        lamp.material.color.setHex(
-          i === lit ? [0xe46652, 0xf3c857, 0x83d496][i] : 0x354a40,
+        this.signalBulbs!.setColorAt(
+          lamp,
+          this.carColor.setHex(
+            i === lit ? [0xe46652, 0xf3c857, 0x83d496][i] : 0x354a40,
+          ),
         ),
       );
     }
+    if (this.signalBulbs?.instanceColor)
+      this.signalBulbs.instanceColor.needsUpdate = true;
     for (const road of roadMetrics) {
       this.roadMeshes
         .get(road.id)
@@ -778,11 +1711,56 @@ export class CityRenderer {
       const p = label.position.clone().project(this.camera);
       label.element.style.left = `${((p.x + 1) / 2) * this.width}px`;
       label.element.style.top = `${((1 - p.y) / 2) * this.height}px`;
-      label.element.hidden = p.z > 1;
+      label.element.hidden =
+        p.z > 1 ||
+        this.mapLayer === "land" ||
+        this.camera.zoom < 0.8 ||
+        this.mapLayer === "waste" ||
+        this.mapLayer === "access" ||
+        this.mapLayer === "stock" ||
+        this.mapLayer === "water";
     }
+    for (const label of this.facilityLabels) {
+      const facility = CITY_FACILITIES.find((f) => f.id === label.id)!;
+      const site =
+        sim instanceof WasteSimulation
+          ? sim.sites.find((s) => s.facilityId === label.id)
+          : undefined;
+      const visible =
+        this.mapLayer === "population" || (this.mapLayer === "waste" && !!site);
+      label.element.hidden = !visible;
+      if (!visible) continue;
+      label.element.textContent =
+        this.mapLayer === "waste"
+          ? `${this.width > 600 ? site!.name + " · " : ""}${site!.remaining.toFixed(1)}봉투`
+          : `${facility.purpose} · ${facility.population ? `거주 ${facility.population}` : `이용 ${facility.users}`}명`;
+      label.element.dataset.level =
+        site && this.mapLayer === "waste"
+          ? site.remaining > 30
+            ? "high"
+            : site.remaining > 10
+              ? "middle"
+              : "low"
+          : "population";
+      label.element.dataset.layer = this.mapLayer;
+      label.element.dataset.building = label.id;
+      if (site && this.mapLayer === "waste") {
+        label.element.style.setProperty(
+          "--waste-color",
+          cssColor(wasteColor(site.remaining)),
+        );
+      }
+      const p = label.position.clone().project(this.camera);
+      label.element.style.left = `${((p.x + 1) / 2) * this.width}px`;
+      label.element.style.top = `${((1 - p.y) / 2) * this.height}px`;
+    }
+    if (this.residentView.visible) this.ring.visible = false;
     this.renderer.render(this.scene, this.camera);
   }
   get drawCalls() {
     return this.renderer.info.render.calls;
   }
 }
+import { ParkingSimulation, PARKING_SITES } from "../simulation/parking";
+import { ParkingRenderer } from "./parking";
+import { PlacementRenderer, type PlacementTarget } from "./placement";

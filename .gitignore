@@ -8,8 +8,10 @@ dist
 output/playwright/*.png
 output/playwright/*.webm
 output/playwright/*.zip
+output/playwright/*.pdf
 output/browser-tests/
 output/performance-tests/
 output/design-qa/
 output/reference/
+output/*.cpuprofile
 playwright-report/

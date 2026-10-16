@@ -9,7 +9,7 @@ test("complete classroom flow: observe, budget, policies, fair comparison, expor
   page.on("console", (m) => {
     if (m.type() === "error") errors.push(m.text());
   });
-  await page.goto("/");
+  await page.goto("/?mode=lab");
   await expect(
     page.getByRole("heading", { name: "우리 동네 시장님", exact: true }),
   ).toBeVisible();
@@ -167,9 +167,9 @@ test("complete classroom flow: observe, budget, policies, fair comparison, expor
     exported.before.averageDemandWait,
   );
   expect(exported.analysis.matched.count).toBeGreaterThan(0);
-  expect(exported.modelVersion).toBe("pedestrians-v4");
+  expect(exported.modelVersion).toBe("city-traffic-v5");
   expect(Array.isArray(exported.laneChangesAfter)).toBe(true);
-  expect(exported.schemaVersion).toBe(3);
+  expect(exported.schemaVersion).toBe(5);
   expect(exported.pedestrianDemand).toHaveLength(60);
   expect(exported.pedestriansAfter.arrived).toBe(60);
   expect(exported.reflection).toContain("반대 방향");
@@ -213,7 +213,7 @@ test("responsive layout has no horizontal overflow and keeps the city and polici
     { width: 390, height: 844 },
   ]) {
     await page.setViewportSize(viewport);
-    await page.goto("/");
+    await page.goto("/?mode=lab");
     await expect(page.locator("#city-canvas")).toBeVisible();
     expect(
       await page.evaluate(
@@ -267,7 +267,7 @@ test("responsive layout has no horizontal overflow and keeps the city and polici
 test("new mornings and observation windows clear the previous baseline and remain fair on mobile", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/?mode=lab");
   let previousDemand = "";
   for (const [seed, duration] of [
     [2405, 180],
@@ -304,7 +304,7 @@ test("new mornings and observation windows clear the previous baseline and remai
     await expect(page.locator("#results-dialog")).toBeVisible({
       timeout: 60000,
     });
-    await expect(page.locator(".dialog-intro")).toContainText(
+    await expect(page.locator("#results-dialog .dialog-intro")).toContainText(
       `${duration / 60}분 동안`,
     );
     expect(

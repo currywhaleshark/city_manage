@@ -10,7 +10,7 @@ test("display quality changes drawing only, persists, and restores shadows", asy
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(message.text());
   });
-  await page.goto("/");
+  await page.goto("/?mode=lab");
   await page.locator("#finish").click();
   await expect(page.locator("#mode-label")).toHaveText("시행 전 · 관찰 완료", {
     timeout: 60000,
@@ -95,7 +95,7 @@ test("blocked preference storage does not prevent drawing or quality changes", a
       },
     }),
   );
-  await page.goto("/");
+  await page.goto("/?mode=lab");
   await page.locator("#help").click();
   await page.getByText("화면이 느릴 때", { exact: true }).click();
   await page.getByLabel("화면 품질", { exact: true }).selectOption("light");

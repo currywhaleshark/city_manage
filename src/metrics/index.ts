@@ -2,14 +2,15 @@ import { CONFIG } from "../scenario";
 import type { TrafficSimulation } from "../simulation";
 import type { SimulationStats } from "../types";
 export function collectMetrics(sim: TrafficSimulation): SimulationStats {
-  const cars = [...sim.vehicles.values()],
+  const allVehicles = [...sim.vehicles.values()];
+  const cars = allVehicles.filter((v) => !sim.serviceJourneys.has(v.id)),
     completed = sim.completed;
   const totalWaitingTime =
     completed.reduce((s, v) => s + v.waitingTime, 0) +
     cars.reduce((s, v) => s + v.waitingTime, 0) +
     sim.pending.reduce((s, t) => s + sim.time - t.departAt, 0);
   const roads = [...sim.network.roads.values()].map((road) => {
-    const vehicles = cars.filter(
+    const vehicles = allVehicles.filter(
       (v) => sim.network.lanes.get(v.laneId)!.roadId === road.id,
     );
     const stopped = vehicles.filter((v) => v.speed < 0.3).length;

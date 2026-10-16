@@ -1,4 +1,14 @@
 import type { Network, PolicySelection, Trip, Vec2, Turn } from "../types";
+import {
+  WORLD,
+  RIVER,
+  FACTORY,
+  WASTE_DEPOT,
+  BUILDABLE_PLOTS,
+  DEVELOPMENT_PLOTS,
+  EXTERNAL_CONNECTIONS,
+  boundaryNode,
+} from "../city/world";
 
 export const CONFIG = {
   seed: 2404,
@@ -43,16 +53,37 @@ export function createDemand(
   const colors = [0xe6ac46, 0xf6eee2, 0x5a8db9, 0xc57463, 0x558978, 0x8496a2];
   const trips: Trip[] = [];
   for (let id = 0; id < count; id++) {
-    const reverse = random() < 0.13;
-    const school = random() < 0.64;
-    const origin = reverse
-      ? nodeId(4, 1 + Math.floor(random() * 3))
-      : nodeId(Math.floor(random() * 2), Math.floor(random() * 5));
-    const destination = reverse
-      ? nodeId(0, 1 + Math.floor(random() * 3))
-      : school
-        ? SCHOOL_NODE
-        : nodeId(4, Math.floor(random() * 3));
+    // Half the demand remains school traffic. Work/home trips use the expanded
+    // districts, with explicit inbound/outbound cohorts at both city borders.
+    const cohort = id % 20;
+    const home = nodeId(Math.floor(random() * 2), Math.floor(random() * 8));
+    const workplace = nodeId(
+      6 + Math.floor(random() * 3),
+      id % 2 === 0 ? 4 + Math.floor(random() * 4) : Math.floor(random() * 3),
+    );
+    const origin =
+      cohort === 0
+        ? boundaryNode("west", 0)
+        : cohort === 1
+          ? boundaryNode("east", 0)
+          : [3, 8, 9].includes(cohort)
+            ? workplace
+            : home;
+    const destination =
+      cohort === 2
+        ? boundaryNode("west", 1)
+        : cohort === 3
+          ? boundaryNode("east", 1)
+          : [1, 8, 9].includes(cohort)
+            ? home
+            : cohort < 10
+              ? workplace
+              : SCHOOL_NODE;
+    const purpose = [1, 3, 8, 9].includes(cohort)
+      ? "home"
+      : cohort < 10
+        ? "work"
+        : "school";
     trips.push(
       Object.freeze({
         id,
@@ -62,7 +93,7 @@ export function createDemand(
           ) / 10,
         origin,
         destination,
-        purpose: reverse ? "home" : school ? "school" : "work",
+        purpose,
         targetSpeed: 7.5 + random() * 2,
         color: colors[Math.floor(random() * colors.length)],
       }),
@@ -81,8 +112,8 @@ export function createNetwork(
     lanes: new Map(),
     outgoing: new Map(),
   };
-  for (let x = 0; x < 5; x++)
-    for (let z = 0; z < 5; z++) {
+  for (let x = 0; x <= WORLD.gridMax; x++)
+    for (let z = 0; z <= WORLD.gridMax; z++) {
       const id = nodeId(x, z);
       network.nodes.set(id, {
         id,
@@ -111,17 +142,31 @@ export function createNetwork(
     const oneWay = policy.oneWay && x === 1 && z === 2 && dx === 1;
     const name = bypass
       ? "새로운 우회도로"
-      : dx
-        ? z === 2
-          ? "학교 가는 길"
+      : dx && x === 4
+        ? z === 1
+          ? "새봄천 상류 다리"
           : z === 4
-            ? "남쪽 둘레길"
-            : "동네 가로길"
-        : x < 2
-          ? "햇살 주택길"
-          : x === 3
-            ? "학교 앞 세로길"
-            : "상가 연결길";
+            ? "새봄천 중앙 다리"
+            : "새봄천 하류 다리"
+        : x >= 5
+          ? z >= 3
+            ? "산업지구 연결길"
+            : "강너머 상업길"
+          : z > 4
+            ? x < 2
+              ? "남쪽 주거지구 길"
+              : "남쪽 상업지구 길"
+            : dx
+              ? z === 2
+                ? "학교 가는 길"
+                : z === 4
+                  ? "남쪽 둘레길"
+                  : "동네 가로길"
+              : x < 2
+                ? "햇살 주택길"
+                : x === 3
+                  ? "학교 앞 세로길"
+                  : "상가 연결길";
     network.roads.set(id, {
       id,
       name,
@@ -136,11 +181,64 @@ export function createNetwork(
     network.nodes.get(startNodeId)!.connectedRoadIds.push(id);
     network.nodes.get(endNodeId)!.connectedRoadIds.push(id);
   };
-  for (let x = 0; x < 5; x++)
-    for (let z = 0; z < 5; z++) {
-      if (z < 4) add(x, z, 0, 1);
-      if (x < 4 && !(x === 2 && z !== 2 && z !== 4)) add(x, z, 1, 0);
+  for (let x = 0; x <= WORLD.gridMax; x++)
+    for (let z = 0; z <= WORLD.gridMax; z++) {
+      if (z < WORLD.gridMax) add(x, z, 0, 1);
+      if (
+        x < WORLD.gridMax &&
+        !(x === 2 && z < 4 && z !== 2) &&
+        !(x === 4 && !(RIVER.bridges as readonly number[]).includes(z))
+      )
+        add(x, z, 1, 0);
     }
+  for (const connection of EXTERNAL_CONNECTIONS) {
+    const outside = [0, 1].map((i) => `outside-${connection.id}-${i}`);
+    const gates = [
+      boundaryNode(connection.id, 0),
+      boundaryNode(connection.id, 1),
+    ];
+    gates.forEach((id, i) =>
+      network.nodes.set(id, {
+        id,
+        position: { x: connection.edgeX, z: i * 48 },
+        connectedRoadIds: [],
+        boundary: true,
+        signal: { ns: 0, ew: 1, yellow: 0, clearance: 0, offset: 0 },
+      }),
+    );
+    outside.forEach((id, i) => {
+      network.nodes.set(id, {
+        id,
+        position: { x: connection.x, z: i * 48 },
+        connectedRoadIds: [],
+        signal: { ns: 14, ew: 14, yellow: 2, clearance: 1, offset: 0 },
+      });
+    });
+    const links = [
+      [nodeId(connection.cityX, 2), gates[0], "out"],
+      [gates[0], outside[0], "approach-out"],
+      [outside[0], outside[1], "supply"],
+      [outside[1], gates[1], "approach-in"],
+      [gates[1], nodeId(connection.cityX, 3), "in"],
+    ];
+    for (const [startNodeId, endNodeId, part] of links) {
+      const a = network.nodes.get(startNodeId)!.position,
+        b = network.nodes.get(endNodeId)!.position;
+      const id = `external-${connection.id}-${part}`;
+      network.roads.set(id, {
+        id,
+        startNodeId,
+        endNodeId,
+        name: `${connection.name} ${part === "supply" ? "물류 연결길" : "연결도로"}`,
+        direction: "two-way",
+        laneCount: 1,
+        speedLimit: 9,
+        length: Math.hypot(a.x - b.x, a.z - b.z),
+      });
+      network.nodes.get(startNodeId)!.connectedRoadIds.push(id);
+      network.nodes.get(endNodeId)!.connectedRoadIds.push(id);
+    }
+  }
   if (policy.bypass) add(2, 1, 1, 0, true);
   network.nodes.get(SCHOOL_NODE)!.signal = {
     ns: policy.signal ? 10 : 25,
@@ -201,7 +299,7 @@ export function rebuildLanes(network: Network) {
       }
   }
 }
-export const BUILDINGS = Array.from({ length: 16 }, (_, i) => {
+const coreBuildings = Array.from({ length: 16 }, (_, i) => {
   const x = i % 4,
     z = Math.floor(i / 4);
   const kind =
@@ -216,8 +314,8 @@ export const BUILDINGS = Array.from({ length: 16 }, (_, i) => {
             : "office";
   return {
     id: `b${i}`,
-    x: (x - 1.5) * 48,
-    z: (z - 1.5) * 48,
+    x: kind === "factory" ? FACTORY.x : (x - 1.5) * 48,
+    z: kind === "factory" ? FACTORY.z : (z - 1.5) * 48,
     kind,
     name:
       kind === "school"
@@ -237,7 +335,54 @@ export const BUILDINGS = Array.from({ length: 16 }, (_, i) => {
           : kind === "park"
             ? "주민들이 산책하고 쉬는 공간이에요."
             : kind === "factory"
-              ? "물건을 만드는 일터예요. 산업 교통은 다음 단계에서 추가해요."
+              ? "산업지구에서 물건을 만들고 화물차로 상점에 보내요."
               : "출근 차량이 향하는 상가와 업무지역이에요.",
   };
 });
+const extension = [] as typeof coreBuildings;
+for (let z = 0; z < 8; z++)
+  for (let x = 0; x < 8; x++) {
+    if ((x < 4 && z < 4) || x === 4) continue;
+    const position = { x: (x - 1.5) * 48, z: (z - 1.5) * 48 };
+    if (
+      [
+        ...BUILDABLE_PLOTS.map((p) => p.position),
+        ...Object.values(DEVELOPMENT_PLOTS),
+        FACTORY,
+        WASTE_DEPOT,
+        { x: 72, z: 120 },
+      ].some((p) => p.x === position.x && p.z === position.z)
+    )
+      continue;
+    const kind = x < 2 ? "home" : x >= 5 && z >= 3 ? "factory" : "office";
+    extension.push({
+      id: `block-${x}-${z}`,
+      ...position,
+      kind,
+      name:
+        kind === "home"
+          ? `남쪽 주거단지 ${z - 3}`
+          : kind === "factory"
+            ? "강너머 산업단지"
+            : "중앙 생활 상가",
+      description:
+        kind === "home"
+          ? "주민이 살고 있는 주거지구예요. 공원과 도서관까지의 길을 살펴보세요."
+          : kind === "factory"
+            ? "하천 동쪽 산업지구예요. 생산과 주변 환경을 함께 고려해요."
+            : "장보기와 일자리를 위한 상업지구예요.",
+    });
+  }
+export const BUILDINGS = [
+  ...coreBuildings,
+  ...extension,
+  {
+    id: WASTE_DEPOT.id,
+    x: WASTE_DEPOT.x,
+    z: WASTE_DEPOT.z,
+    kind: "waste",
+    name: "새봄 자원순환센터",
+    description:
+      "산업지구의 쓰레기 처리장이에요. 수거차가 실제로 돌아와 쓰레기를 내려놓아요. 하천과 주변 생활환경도 살펴봐요.",
+  },
+];

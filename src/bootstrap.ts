@@ -1,7 +1,11 @@
 import "./styles.css";
 
 // Keep the loading view usable while the independently cached 3D code loads.
-void import("./main").catch((error: unknown) => {
+void (
+  new URLSearchParams(location.search).get("mode") === "lab"
+    ? import("./main")
+    : import("./live")
+).catch((error: unknown) => {
   console.error(error);
   if (document.querySelector(".webgl-error")) return;
   document.querySelector("#app")!.innerHTML =

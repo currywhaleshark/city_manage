@@ -26,6 +26,8 @@ export interface IntersectionNode {
   position: Vec2;
   connectedRoadIds: string[];
   signal: TrafficSignal;
+  /** Open city border: straight traffic passes freely and ordinary trips start/end here. */
+  boundary?: boolean;
 }
 export interface RoadSegment {
   id: string;

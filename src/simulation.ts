@@ -42,11 +42,17 @@ import {
   PedestrianSystem,
   type PedestrianTrip,
 } from "./simulation/pedestrians";
-export const MODEL_VERSION = "pedestrians-v4";
+export const MODEL_VERSION = "city-traffic-v5";
 export class TrafficSimulation {
+  /** Transport-only service journeys; loading and mission decisions live outside this engine. */
+  readonly serviceJourneys = new Map<
+    number,
+    { stopLaneId: string; route: string[]; arrived: boolean }
+  >();
+  readonly servicePending: Trip[] = [];
   readonly pedestrians: PedestrianSystem;
   readonly network: Network;
-  readonly demand: readonly Trip[];
+  demand: readonly Trip[];
   readonly policy: PolicySelection;
   readonly vehicles = new Map<number, Vehicle>();
   readonly completed: CompletedTrip[] = [];
@@ -84,15 +90,27 @@ export class TrafficSimulation {
     demand: readonly Trip[] = createDemand(),
     network?: Network,
     pedestrianDemand: readonly PedestrianTrip[] = [],
+    readonly transport?: TrafficSimulation,
   ) {
     validatePolicy(policy);
     this.policy = { ...policy };
     this.demand = demand;
-    this.network = network ?? createNetwork(policy);
-    this.pedestrians = new PedestrianSystem(this.network, pedestrianDemand);
+    this.network = transport?.network ?? network ?? createNetwork(policy);
+    this.pedestrians =
+      transport?.pedestrians ??
+      new PedestrianSystem(this.network, pedestrianDemand);
+    // Domain services share the world's transport state. Only its owner advances physics.
+    if (transport) {
+      this.vehicles = transport.vehicles;
+      this.serviceJourneys = transport.serviceJourneys;
+      this.servicePending = transport.servicePending;
+      this.nodeLocks = transport.nodeLocks;
+      this.laneReservations = transport.laneReservations;
+      this.movementReservations = transport.movementReservations;
+    }
   }
-  get time() {
-    return this.ticks * CONFIG.dt;
+  get time(): number {
+    return this.transport ? this.transport.time : this.ticks * CONFIG.dt;
   }
   get stats() {
     return collectMetrics(this);
@@ -103,6 +121,12 @@ export class TrafficSimulation {
   get releasedCount() {
     return this.released;
   }
+  scheduleDemand(trips: readonly Trip[]) {
+    this.demand = [...this.demand.slice(this.released), ...trips].sort(
+      (a, b) => a.departAt - b.departAt,
+    );
+    this.released = 0;
+  }
   route(origin: string, destination: string) {
     const key = `${origin}>${destination}`;
     if (!this.routeCache.has(key))
@@ -112,7 +136,62 @@ export class TrafficSimulation {
   invalidateRoutes() {
     this.routeCache.clear();
   }
+  dispatchService(
+    id: number,
+    origin: string,
+    stopLaneId: string,
+    color = 0xda963c,
+  ) {
+    const stop = this.network.lanes.get(stopLaneId);
+    if (!stop) throw new Error("수거 지점으로 들어가는 도로가 없어요.");
+    const car = this.vehicles.get(id);
+    if (car && !this.serviceJourneys.get(id)?.arrived)
+      throw new Error("운행 중인 서비스 차량의 임무를 바꿀 수 없어요.");
+    if (
+      !car &&
+      (this.demand.some((t) => t.id === id) || this.serviceJourneys.has(id))
+    )
+      throw new Error("서비스 차량 ID가 겹쳐요.");
+    const current = car && this.network.lanes.get(car.laneId)!;
+    const start = current?.to ?? origin;
+    const prefix = findRoute(this.network, start, stop.from, (road) =>
+      road === stop.roadId || road === current?.roadId ? Infinity : 0,
+    );
+    if (start !== stop.from && !prefix.length) return false;
+    const route = [
+      ...(current ? [current.roadId] : []),
+      ...prefix,
+      stop.roadId,
+    ];
+    const trip: Trip = {
+      id,
+      origin: current?.from ?? origin,
+      destination: stop.to,
+      departAt: this.time,
+      purpose: "work",
+      targetSpeed: 6.5,
+      color,
+    };
+    this.serviceJourneys.set(id, { stopLaneId, route, arrived: false });
+    if (car) {
+      car.trip = trip;
+      car.route = route;
+      car.routeIndex = 0;
+      this.releaseReservation(id);
+    } else this.servicePending.push(trip);
+    return true;
+  }
+  retireService(id: number) {
+    if (!this.serviceJourneys.get(id)?.arrived)
+      throw new Error("도착한 서비스 차량만 운행을 마칠 수 있어요.");
+    this.releaseReservation(id);
+    this.vehicles.delete(id);
+    this.serviceJourneys.delete(id);
+    this.laneCache.clear();
+  }
   advance(seconds: number) {
+    if (this.transport)
+      throw new Error("공유 서비스는 도시의 시계로 진행해야 해요.");
     if (!Number.isFinite(seconds) || seconds < 0) return;
     this.accumulated += seconds;
     while (this.accumulated + 1e-9 >= CONFIG.dt) {
@@ -122,9 +201,23 @@ export class TrafficSimulation {
     if (this.accumulated < 0) this.accumulated = 0;
   }
   runUntil(seconds: number) {
+    if (this.transport)
+      throw new Error("공유 서비스는 도시의 시계로 진행해야 해요.");
     while (this.time + 1e-9 < seconds) this.step();
   }
   private laneCars(laneId: string) {
+    if (!this.laneCache.size) {
+      // Index occupied lanes once per step, instead of scanning every car for every road.
+      for (const id of this.network.lanes.keys()) this.laneCache.set(id, []);
+      for (const car of this.vehicles.values()) {
+        if (car.crossing) continue;
+        this.laneCache.get(car.laneId)!.push(car);
+        if (car.laneChange && car.laneChange.toLaneId !== car.laneId)
+          this.laneCache.get(car.laneChange.toLaneId)!.push(car);
+      }
+      for (const cars of this.laneCache.values())
+        cars.sort((a, b) => b.s - a.s || a.id - b.id);
+    }
     const cached = this.laneCache.get(laneId);
     if (cached) return cached;
     const cars = [...this.vehicles.values()]
@@ -182,38 +275,65 @@ export class TrafficSimulation {
       this.demand[this.released].departAt <= this.time + 1e-9
     )
       this.pending.push(this.demand[this.released++]);
-    for (let i = 0; i < this.pending.length; ) {
-      const trip = this.pending[i],
-        route = this.route(trip.origin, trip.destination);
-      const lane = route.length
-        ? this.availableLane(route[0], trip.origin, route[1])
-        : undefined;
-      if (!lane) {
-        i++;
-        continue;
+    const blocked = new Set<string>();
+    for (const queue of [this.pending, this.servicePending])
+      for (let i = 0; i < queue.length;) {
+        const trip = queue[i],
+          route =
+            this.serviceJourneys.get(trip.id)?.route ??
+            this.route(trip.origin, trip.destination);
+        const entrance = `${trip.origin}|${route[0]}|${route[1]}`;
+        // Spawning only occupies space during this phase. A closed identical entrance
+        // cannot reopen until the next physics step; keep all demand queued, in order.
+        if (blocked.has(entrance)) {
+          i++;
+          continue;
+        }
+        const lane = route.length
+          ? this.availableLane(route[0], trip.origin, route[1])
+          : undefined;
+        if (!lane) {
+          blocked.add(entrance);
+          i++;
+          continue;
+        }
+        const startS = this.network.nodes.get(trip.origin)?.boundary
+          ? -CONFIG.junctionRadius
+          : 0;
+        const pose = this.lanePose(lane, startS);
+        if (
+          startS < 0 &&
+          (this.nodeLocks.get(trip.origin)?.size ||
+            [...this.vehicles.values()].some(
+              (v) =>
+                Math.hypot(v.pose.x - pose.x, v.pose.z - pose.z) <
+                CLEAR_DISTANCE + 3,
+            ))
+        ) {
+          i++;
+          continue;
+        }
+        this.vehicles.set(trip.id, {
+          id: trip.id,
+          trip,
+          laneId: lane.id,
+          route: [...route],
+          routeIndex: 0,
+          s: startS,
+          speed: 0,
+          acceleration: 0,
+          maxAccel: 1.8,
+          comfortBrake: 2.8,
+          safetyGap: CONFIG.minimumGap,
+          headway: 1.1,
+          waitingTime: this.time - trip.departAt,
+          enteredAt: this.time,
+          pose,
+          previousPose: { ...pose },
+        });
+        queue.splice(i, 1);
+        this.laneCache.delete(lane.id);
       }
-      const pose = this.lanePose(lane, 0);
-      this.vehicles.set(trip.id, {
-        id: trip.id,
-        trip,
-        laneId: lane.id,
-        route: [...route],
-        routeIndex: 0,
-        s: 0,
-        speed: 0,
-        acceleration: 0,
-        maxAccel: 1.8,
-        comfortBrake: 2.8,
-        safetyGap: CONFIG.minimumGap,
-        headway: 1.1,
-        waitingTime: this.time - trip.departAt,
-        enteredAt: this.time,
-        pose,
-        previousPose: { ...pose },
-      });
-      this.pending.splice(i, 1);
-      this.laneCache.delete(lane.id);
-    }
   }
   lanePose(lane: Lane, s: number): Pose {
     const t = s / lane.length;
@@ -380,6 +500,7 @@ export class TrafficSimulation {
       for (const [rank, lead] of this.laneCars(lane.id).entries()) {
         if (
           !lead ||
+          this.serviceJourneys.get(lead.id)?.stopLaneId === lane.id ||
           lead.laneChange ||
           this.movementReservations.has(lead.id) ||
           !permitsRoute(this.network, lane, lead.route[lead.routeIndex + 1])
@@ -405,7 +526,7 @@ export class TrafficSimulation {
     for (const { car } of candidates) {
       const lane = this.network.lanes.get(car.laneId)!;
       const out =
-        lane.to === car.trip.destination
+        !this.serviceJourneys.has(car.id) && lane.to === car.trip.destination
           ? undefined
           : this.availableLane(
               car.route[car.routeIndex + 1],
@@ -413,7 +534,12 @@ export class TrafficSimulation {
               car.route[car.routeIndex + 2],
               lane.id,
             );
-      if (lane.to !== car.trip.destination && !out) continue;
+      if (
+        (this.serviceJourneys.has(car.id) ||
+          lane.to !== car.trip.destination) &&
+        !out
+      )
+        continue;
       const plan = this.movement(lane.id, out?.id ?? "");
       const before = neighbours(this.laneCars(lane.id), car).leader;
       const beforePlan = before && this.movementReservations.get(before.id);
@@ -463,6 +589,7 @@ export class TrafficSimulation {
     this.releaseReservation(v.id);
   }
   step() {
+    if (this.transport) return;
     const dt = CONFIG.dt;
     this.laneCache.clear();
     this.ticks++;
@@ -538,6 +665,11 @@ export class TrafficSimulation {
       for (let index = 0; index < cars.length; index++) {
         const v = cars[index];
         if (transferred.has(v.id) || v.laneId !== lane.id) continue;
+        const service = this.serviceJourneys.get(v.id);
+        if (service?.arrived) {
+          next.set(v.id, { s: v.s, speed: 0 });
+          continue;
+        }
         let leader = cars[index - 1];
         if (v.laneChange) {
           const adjacent = neighbours(
@@ -562,10 +694,12 @@ export class TrafficSimulation {
         const plan = this.movementReservations.get(v.id);
         const permitted = plan?.fromLaneId === lane.id;
         const stopAt =
-          !v.laneChange &&
-          !permitsRoute(this.network, lane, v.route[v.routeIndex + 1])
-            ? lane.length - LANE_CHANGE.junctionMargin - LANE_CHANGE.distance
-            : lane.length;
+          service?.stopLaneId === lane.id
+            ? lane.length - 7
+            : !v.laneChange &&
+                !permitsRoute(this.network, lane, v.route[v.routeIndex + 1])
+              ? lane.length - LANE_CHANGE.junctionMargin - LANE_CHANGE.distance
+              : lane.length;
         if (!permitted) {
           const stopGap = stopAt - v.s + v.safetyGap;
           if (stopGap < gap) {
@@ -632,6 +766,17 @@ export class TrafficSimulation {
           v.lastLaneChangeAt = this.time;
         }
       } else v.pose = this.lanePose(lane, v.s);
+      const service = this.serviceJourneys.get(id);
+      if (
+        service?.stopLaneId === v.laneId &&
+        !service.arrived &&
+        lane.length - 7 - v.s < 0.08 &&
+        v.speed < 0.15
+      ) {
+        service.arrived = true;
+        v.speed = 0;
+        this.releaseReservation(id);
+      }
     }
     entrants.sort((a, b) => a.trip.departAt - b.trip.departAt || a.id - b.id);
     for (const v of entrants) {

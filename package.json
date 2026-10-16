@@ -12,18 +12,24 @@
     "verify:report": "tsx tests/report.ts",
     "verify:experiments": "tsx tests/experiments-report.ts",
     "verify:capacity": "tsx tests/capacity-report.ts",
+    "verify:waste": "tsx tests/waste-report.ts",
+    "verify:facilities": "tsx tests/facilities-report.ts",
+    "verify:environment": "tsx tests/environment-report.ts",
+    "verify:logistics": "tsx tests/logistics-report.ts",
     "verify:performance": "playwright test --config playwright.performance.config.ts",
     "verify:production": "tsx tests/production-smoke.ts"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": "^22.15.0 || >=24.0.0"
   },
   "dependencies": {
     "three": "^0.165.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.0",
+    "@types/jsdom": "^30.0.0",
     "@types/three": "^0.184.1",
+    "jsdom": "^29.1.1",
     "tsx": "^4.20.0",
     "typescript": "^5.4.5",
     "vite": "^8.3.4"

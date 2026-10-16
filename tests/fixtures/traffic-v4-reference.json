@@ -1,0 +1,1307 @@
+[
+  {
+    "seed": 2404,
+    "duration": 180,
+    "policy": "baseline",
+    "stats": {
+      "time": 180,
+      "arrived": 6,
+      "active": 74,
+      "queued": 34,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 107.08333333333333,
+      "averageWaitingTime": 56.06666666666678,
+      "averageDemandWait": 60.80877192982424,
+      "stopped": 65,
+      "meanSpeed": 0.40641764930997937,
+      "totalWaitingTime": 6932.199999999963
+    },
+    "pedestrians": {
+      "arrived": 33,
+      "active": 23,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 12,
+      "crossing": 2,
+      "averageWaitingTime": 23.10406854541478,
+      "averageTravelTime": 62.68181818181818
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 180,
+    "policy": "signal",
+    "stats": {
+      "time": 180,
+      "arrived": 20,
+      "active": 66,
+      "queued": 28,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 104.475,
+      "averageWaitingTime": 53.35500000000013,
+      "averageDemandWait": 52.12631578947354,
+      "stopped": 54,
+      "meanSpeed": 0.6167309726446953,
+      "totalWaitingTime": 5942.399999999983
+    },
+    "pedestrians": {
+      "arrived": 36,
+      "active": 20,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 11,
+      "crossing": 5,
+      "averageWaitingTime": 20.924397196204925,
+      "averageTravelTime": 60.64444444444444
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 180,
+    "policy": "bypass",
+    "stats": {
+      "time": 180,
+      "arrived": 10,
+      "active": 75,
+      "queued": 29,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 94.31,
+      "averageWaitingTime": 47.52000000000019,
+      "averageDemandWait": 57.345614035087415,
+      "stopped": 62,
+      "meanSpeed": 0.7670508680980194,
+      "totalWaitingTime": 6537.399999999965
+    },
+    "pedestrians": {
+      "arrived": 33,
+      "active": 23,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 12,
+      "crossing": 2,
+      "averageWaitingTime": 23.071925688271925,
+      "averageTravelTime": 62.627272727272725
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 180,
+    "policy": "oneWay",
+    "stats": {
+      "time": 180,
+      "arrived": 4,
+      "active": 77,
+      "queued": 33,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 117.125,
+      "averageWaitingTime": 66.52500000000006,
+      "averageDemandWait": 64.82719298245557,
+      "stopped": 72,
+      "meanSpeed": 0.1519632250566729,
+      "totalWaitingTime": 7390.299999999936
+    },
+    "pedestrians": {
+      "arrived": 33,
+      "active": 23,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 12,
+      "crossing": 1,
+      "averageWaitingTime": 23.023389602667105,
+      "averageTravelTime": 62.627272727272725
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 180,
+    "policy": "combined",
+    "stats": {
+      "time": 180,
+      "arrived": 21,
+      "active": 76,
+      "queued": 17,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 94.37619047619049,
+      "averageWaitingTime": 49.39999999999996,
+      "averageDemandWait": 51.72982456140327,
+      "stopped": 59,
+      "meanSpeed": 0.7135418962567182,
+      "totalWaitingTime": 5897.1999999999725
+    },
+    "pedestrians": {
+      "arrived": 36,
+      "active": 20,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 11,
+      "crossing": 5,
+      "averageWaitingTime": 20.942254339062064,
+      "averageTravelTime": 60.67222222222223
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 420,
+    "policy": "baseline",
+    "stats": {
+      "time": 420,
+      "arrived": 28,
+      "active": 66,
+      "queued": 46,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 183.28571428571428,
+      "averageWaitingTime": 121.49285714285466,
+      "averageDemandWait": 242.44928571428426,
+      "stopped": 62,
+      "meanSpeed": 0.2156999557540006,
+      "totalWaitingTime": 33942.8999999998
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.869706182889992,
+      "averageTravelTime": 67.94166666666666
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 420,
+    "policy": "signal",
+    "stats": {
+      "time": 420,
+      "arrived": 65,
+      "active": 51,
+      "queued": 24,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 165.81538461538463,
+      "averageWaitingTime": 108.94153846153627,
+      "averageDemandWait": 188.9714285714258,
+      "stopped": 47,
+      "meanSpeed": 0.27577806401567373,
+      "totalWaitingTime": 26455.99999999961
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 25.890733155252555,
+      "averageTravelTime": 65.96333333333332
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 420,
+    "policy": "bypass",
+    "stats": {
+      "time": 420,
+      "arrived": 38,
+      "active": 61,
+      "queued": 41,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 166.9657894736842,
+      "averageWaitingTime": 110.47368421052425,
+      "averageDemandWait": 225.8942857142842,
+      "stopped": 57,
+      "meanSpeed": 0.2684949498337883,
+      "totalWaitingTime": 31625.199999999786
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.83970618288999,
+      "averageTravelTime": 67.91166666666666
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 420,
+    "policy": "oneWay",
+    "stats": {
+      "time": 420,
+      "arrived": 18,
+      "active": 83,
+      "queued": 39,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 206.79444444444445,
+      "averageWaitingTime": 149.09999999999732,
+      "averageDemandWait": 258.63785714285655,
+      "stopped": 81,
+      "meanSpeed": 0.07509971498104143,
+      "totalWaitingTime": 36209.299999999916
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.793039516223317,
+      "averageTravelTime": 67.86499999999998
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 420,
+    "policy": "combined",
+    "stats": {
+      "time": 420,
+      "arrived": 51,
+      "active": 64,
+      "queued": 25,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 160.6882352941177,
+      "averageWaitingTime": 111.47647058823303,
+      "averageDemandWait": 201.26928571428274,
+      "stopped": 63,
+      "meanSpeed": 0.10866126548605416,
+      "totalWaitingTime": 28177.699999999582
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 25.90739982191922,
+      "averageTravelTime": 65.97999999999999
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 600,
+    "policy": "baseline",
+    "stats": {
+      "time": 600,
+      "arrived": 40,
+      "active": 61,
+      "queued": 39,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 241.385,
+      "averageWaitingTime": 176.08500000000063,
+      "averageDemandWait": 372.2614285714434,
+      "stopped": 54,
+      "meanSpeed": 0.2439410611064805,
+      "totalWaitingTime": 52116.60000000207
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.869706182889992,
+      "averageTravelTime": 67.94166666666666
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 600,
+    "policy": "signal",
+    "stats": {
+      "time": 600,
+      "arrived": 82,
+      "active": 45,
+      "queued": 13,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 211.8341463414634,
+      "averageWaitingTime": 153.77317073170684,
+      "averageDemandWait": 263.7000000000082,
+      "stopped": 41,
+      "meanSpeed": 0.1517367322558408,
+      "totalWaitingTime": 36918.00000000114
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 25.890733155252555,
+      "averageTravelTime": 65.96333333333332
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 600,
+    "policy": "bypass",
+    "stats": {
+      "time": 600,
+      "arrived": 49,
+      "active": 58,
+      "queued": 33,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 215.24897959183676,
+      "averageWaitingTime": 155.25714285714344,
+      "averageDemandWait": 344.15142857144247,
+      "stopped": 50,
+      "meanSpeed": 0.3297145409567539,
+      "totalWaitingTime": 48181.20000000195
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.83970618288999,
+      "averageTravelTime": 67.91166666666666
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 600,
+    "policy": "oneWay",
+    "stats": {
+      "time": 600,
+      "arrived": 31,
+      "active": 76,
+      "queued": 33,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 297.8967741935484,
+      "averageWaitingTime": 238.38387096774767,
+      "averageDemandWait": 402.4392857143062,
+      "stopped": 72,
+      "meanSpeed": 0.2264977679109117,
+      "totalWaitingTime": 56341.50000000287
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.793039516223317,
+      "averageTravelTime": 67.86499999999998
+    }
+  },
+  {
+    "seed": 2404,
+    "duration": 600,
+    "policy": "combined",
+    "stats": {
+      "time": 600,
+      "arrived": 73,
+      "active": 52,
+      "queued": 15,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 230.73150684931508,
+      "averageWaitingTime": 176.2150684931517,
+      "averageDemandWait": 293.6321428571524,
+      "stopped": 47,
+      "meanSpeed": 0.2200796645005253,
+      "totalWaitingTime": 41108.50000000134
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 25.90739982191922,
+      "averageTravelTime": 65.97999999999999
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 180,
+    "policy": "baseline",
+    "stats": {
+      "time": 180,
+      "arrived": 9,
+      "active": 68,
+      "queued": 37,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 102.6,
+      "averageWaitingTime": 59.28888888888855,
+      "averageDemandWait": 58.683333333333074,
+      "stopped": 65,
+      "meanSpeed": 0.2688333380276987,
+      "totalWaitingTime": 6689.8999999999705
+    },
+    "pedestrians": {
+      "arrived": 36,
+      "active": 21,
+      "queued": 0,
+      "unreleased": 3,
+      "waiting": 7,
+      "crossing": 5,
+      "averageWaitingTime": 20.544536064627817,
+      "averageTravelTime": 62.65833333333335
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 180,
+    "policy": "signal",
+    "stats": {
+      "time": 180,
+      "arrived": 20,
+      "active": 66,
+      "queued": 28,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 77.615,
+      "averageWaitingTime": 33.50000000000019,
+      "averageDemandWait": 47.742105263157825,
+      "stopped": 60,
+      "meanSpeed": 0.368139295897304,
+      "totalWaitingTime": 5442.599999999992
+    },
+    "pedestrians": {
+      "arrived": 37,
+      "active": 20,
+      "queued": 0,
+      "unreleased": 3,
+      "waiting": 7,
+      "crossing": 7,
+      "averageWaitingTime": 21.220512053045066,
+      "averageTravelTime": 62.22162162162163
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 180,
+    "policy": "bypass",
+    "stats": {
+      "time": 180,
+      "arrived": 12,
+      "active": 69,
+      "queued": 33,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 94.51666666666667,
+      "averageWaitingTime": 50.974999999999774,
+      "averageDemandWait": 56.491228070175204,
+      "stopped": 62,
+      "meanSpeed": 0.6163954139585468,
+      "totalWaitingTime": 6439.999999999974
+    },
+    "pedestrians": {
+      "arrived": 36,
+      "active": 21,
+      "queued": 0,
+      "unreleased": 3,
+      "waiting": 7,
+      "crossing": 5,
+      "averageWaitingTime": 20.544536064627817,
+      "averageTravelTime": 62.65833333333335
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 180,
+    "policy": "oneWay",
+    "stats": {
+      "time": 180,
+      "arrived": 7,
+      "active": 73,
+      "queued": 34,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 93.07142857142857,
+      "averageWaitingTime": 53.5571428571425,
+      "averageDemandWait": 60.71666666666631,
+      "stopped": 73,
+      "meanSpeed": 0,
+      "totalWaitingTime": 6921.69999999996
+    },
+    "pedestrians": {
+      "arrived": 36,
+      "active": 21,
+      "queued": 0,
+      "unreleased": 3,
+      "waiting": 7,
+      "crossing": 5,
+      "averageWaitingTime": 20.544536064627817,
+      "averageTravelTime": 62.65833333333335
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 180,
+    "policy": "combined",
+    "stats": {
+      "time": 180,
+      "arrived": 20,
+      "active": 67,
+      "queued": 27,
+      "unreleased": 26,
+      "unreachable": 0,
+      "averageTravelTime": 84.84,
+      "averageWaitingTime": 44.10500000000004,
+      "averageDemandWait": 52.05438596491209,
+      "stopped": 60,
+      "meanSpeed": 0.5065467986024034,
+      "totalWaitingTime": 5934.199999999979
+    },
+    "pedestrians": {
+      "arrived": 37,
+      "active": 20,
+      "queued": 0,
+      "unreleased": 3,
+      "waiting": 7,
+      "crossing": 7,
+      "averageWaitingTime": 21.220512053045066,
+      "averageTravelTime": 62.22162162162163
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 420,
+    "policy": "baseline",
+    "stats": {
+      "time": 420,
+      "arrived": 29,
+      "active": 60,
+      "queued": 51,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 169.13448275862066,
+      "averageWaitingTime": 112.67931034482578,
+      "averageDemandWait": 241.42428571428505,
+      "stopped": 59,
+      "meanSpeed": 0.071457126440575,
+      "totalWaitingTime": 33799.39999999991
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 23.962160042638704,
+      "averageTravelTime": 63.65666666666669
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 420,
+    "policy": "signal",
+    "stats": {
+      "time": 420,
+      "arrived": 58,
+      "active": 53,
+      "queued": 29,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 156.31206896551723,
+      "averageWaitingTime": 100.91379310344612,
+      "averageDemandWait": 191.63571428571169,
+      "stopped": 48,
+      "meanSpeed": 0.2631056570843876,
+      "totalWaitingTime": 26828.999999999636
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 25.336125845176294,
+      "averageTravelTime": 65.02833333333335
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 420,
+    "policy": "bypass",
+    "stats": {
+      "time": 420,
+      "arrived": 36,
+      "active": 58,
+      "queued": 46,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 148.12222222222223,
+      "averageWaitingTime": 94.70277777777639,
+      "averageDemandWait": 227.90928571428492,
+      "stopped": 57,
+      "meanSpeed": 0.07392116528335345,
+      "totalWaitingTime": 31907.29999999989
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 23.962160042638704,
+      "averageTravelTime": 63.65666666666669
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 420,
+    "policy": "oneWay",
+    "stats": {
+      "time": 420,
+      "arrived": 20,
+      "active": 77,
+      "queued": 43,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 166.26999999999998,
+      "averageWaitingTime": 113.49499999999728,
+      "averageDemandWait": 252.5228571428565,
+      "stopped": 74,
+      "meanSpeed": 0.10137582020711962,
+      "totalWaitingTime": 35353.19999999991
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 23.962160042638704,
+      "averageTravelTime": 63.65666666666669
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 420,
+    "policy": "combined",
+    "stats": {
+      "time": 420,
+      "arrived": 54,
+      "active": 54,
+      "queued": 32,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 157.55185185185184,
+      "averageWaitingTime": 109.01111111110842,
+      "averageDemandWait": 204.82928571428394,
+      "stopped": 47,
+      "meanSpeed": 0.5264854848977495,
+      "totalWaitingTime": 28676.09999999975
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 25.336125845176294,
+      "averageTravelTime": 65.02833333333335
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 600,
+    "policy": "baseline",
+    "stats": {
+      "time": 600,
+      "arrived": 37,
+      "active": 61,
+      "queued": 42,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 235.4648648648649,
+      "averageWaitingTime": 173.88918918919245,
+      "averageDemandWait": 376.0442857143015,
+      "stopped": 53,
+      "meanSpeed": 0.48376497623101866,
+      "totalWaitingTime": 52646.20000000221
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 23.962160042638704,
+      "averageTravelTime": 63.65666666666669
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 600,
+    "policy": "signal",
+    "stats": {
+      "time": 600,
+      "arrived": 77,
+      "active": 49,
+      "queued": 14,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 213.61168831168828,
+      "averageWaitingTime": 155.72987012987,
+      "averageDemandWait": 274.460000000009,
+      "stopped": 49,
+      "meanSpeed": 0,
+      "totalWaitingTime": 38424.40000000126
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 25.336125845176294,
+      "averageTravelTime": 65.02833333333335
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 600,
+    "policy": "bypass",
+    "stats": {
+      "time": 600,
+      "arrived": 44,
+      "active": 59,
+      "queued": 37,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 207.7204545454546,
+      "averageWaitingTime": 149.4431818181846,
+      "averageDemandWait": 353.52928571430067,
+      "stopped": 51,
+      "meanSpeed": 0.5001637889846126,
+      "totalWaitingTime": 49494.100000002094
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 23.962160042638704,
+      "averageTravelTime": 63.65666666666669
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 600,
+    "policy": "oneWay",
+    "stats": {
+      "time": 600,
+      "arrived": 30,
+      "active": 67,
+      "queued": 43,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 248.44666666666672,
+      "averageWaitingTime": 192.60333333333537,
+      "averageDemandWait": 397.7121428571618,
+      "stopped": 62,
+      "meanSpeed": 0.3676088685282186,
+      "totalWaitingTime": 55679.700000002646
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 23.962160042638704,
+      "averageTravelTime": 63.65666666666669
+    }
+  },
+  {
+    "seed": 2405,
+    "duration": 600,
+    "policy": "combined",
+    "stats": {
+      "time": 600,
+      "arrived": 70,
+      "active": 52,
+      "queued": 18,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 214.89857142857142,
+      "averageWaitingTime": 163.4114285714295,
+      "averageDemandWait": 296.9535714285821,
+      "stopped": 47,
+      "meanSpeed": 0.2616404232364038,
+      "totalWaitingTime": 41573.5000000015
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 25.336125845176294,
+      "averageTravelTime": 65.02833333333335
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 180,
+    "policy": "baseline",
+    "stats": {
+      "time": 180,
+      "arrived": 6,
+      "active": 73,
+      "queued": 36,
+      "unreleased": 25,
+      "unreachable": 0,
+      "averageTravelTime": 103.76666666666667,
+      "averageWaitingTime": 58.683333333333444,
+      "averageDemandWait": 59.84608695652143,
+      "stopped": 68,
+      "meanSpeed": 0.3338924815187775,
+      "totalWaitingTime": 6882.299999999965
+    },
+    "pedestrians": {
+      "arrived": 34,
+      "active": 22,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 11,
+      "crossing": 3,
+      "averageWaitingTime": 23.00402046055517,
+      "averageTravelTime": 64.25588235294119
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 180,
+    "policy": "signal",
+    "stats": {
+      "time": 180,
+      "arrived": 24,
+      "active": 69,
+      "queued": 22,
+      "unreleased": 25,
+      "unreachable": 0,
+      "averageTravelTime": 92.36666666666667,
+      "averageWaitingTime": 44.74583333333353,
+      "averageDemandWait": 46.56956521739131,
+      "stopped": 56,
+      "meanSpeed": 0.5157732886079452,
+      "totalWaitingTime": 5355.5
+    },
+    "pedestrians": {
+      "arrived": 36,
+      "active": 20,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 8,
+      "crossing": 8,
+      "averageWaitingTime": 23.691421646510086,
+      "averageTravelTime": 65.275
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 180,
+    "policy": "bypass",
+    "stats": {
+      "time": 180,
+      "arrived": 7,
+      "active": 73,
+      "queued": 35,
+      "unreleased": 25,
+      "unreachable": 0,
+      "averageTravelTime": 104.42857142857143,
+      "averageWaitingTime": 56.428571428571566,
+      "averageDemandWait": 58.751304347825794,
+      "stopped": 67,
+      "meanSpeed": 0.4028940724338671,
+      "totalWaitingTime": 6756.399999999966
+    },
+    "pedestrians": {
+      "arrived": 34,
+      "active": 22,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 11,
+      "crossing": 3,
+      "averageWaitingTime": 23.00402046055517,
+      "averageTravelTime": 64.25588235294119
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 180,
+    "policy": "oneWay",
+    "stats": {
+      "time": 180,
+      "arrived": 5,
+      "active": 77,
+      "queued": 33,
+      "unreleased": 25,
+      "unreachable": 0,
+      "averageTravelTime": 97.08000000000001,
+      "averageWaitingTime": 53.30000000000017,
+      "averageDemandWait": 61.19739130434745,
+      "stopped": 74,
+      "meanSpeed": 0.10833981869702532,
+      "totalWaitingTime": 7037.699999999956
+    },
+    "pedestrians": {
+      "arrived": 34,
+      "active": 22,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 11,
+      "crossing": 3,
+      "averageWaitingTime": 23.056272829396402,
+      "averageTravelTime": 64.25588235294119
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 180,
+    "policy": "combined",
+    "stats": {
+      "time": 180,
+      "arrived": 15,
+      "active": 79,
+      "queued": 21,
+      "unreleased": 25,
+      "unreachable": 0,
+      "averageTravelTime": 91.18,
+      "averageWaitingTime": 46.10000000000012,
+      "averageDemandWait": 52.60521739130419,
+      "stopped": 59,
+      "meanSpeed": 0.7819316478455732,
+      "totalWaitingTime": 6049.599999999981
+    },
+    "pedestrians": {
+      "arrived": 36,
+      "active": 20,
+      "queued": 0,
+      "unreleased": 4,
+      "waiting": 8,
+      "crossing": 8,
+      "averageWaitingTime": 23.684278789367227,
+      "averageTravelTime": 65.2638888888889
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 420,
+    "policy": "baseline",
+    "stats": {
+      "time": 420,
+      "arrived": 27,
+      "active": 67,
+      "queued": 46,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 199.3111111111111,
+      "averageWaitingTime": 140.0962962962932,
+      "averageDemandWait": 243.9507142857124,
+      "stopped": 63,
+      "meanSpeed": 0.14670929103908179,
+      "totalWaitingTime": 34153.09999999974
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.461775925693836,
+      "averageTravelTime": 67.10666666666667
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 420,
+    "policy": "signal",
+    "stats": {
+      "time": 420,
+      "arrived": 70,
+      "active": 48,
+      "queued": 22,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 154.83999999999997,
+      "averageWaitingTime": 99.7357142857126,
+      "averageDemandWait": 175.0007142857115,
+      "stopped": 43,
+      "meanSpeed": 0.29011436384720124,
+      "totalWaitingTime": 24500.09999999961
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 26.254920400775358,
+      "averageTravelTime": 65.9
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 420,
+    "policy": "bypass",
+    "stats": {
+      "time": 420,
+      "arrived": 34,
+      "active": 66,
+      "queued": 40,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 179.20294117647057,
+      "averageWaitingTime": 122.41176470587979,
+      "averageDemandWait": 233.6049999999981,
+      "stopped": 63,
+      "meanSpeed": 0.18820260560224147,
+      "totalWaitingTime": 32704.699999999735
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.461775925693836,
+      "averageTravelTime": 67.10666666666667
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 420,
+    "policy": "oneWay",
+    "stats": {
+      "time": 420,
+      "arrived": 20,
+      "active": 85,
+      "queued": 35,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 200.35,
+      "averageWaitingTime": 145.5499999999965,
+      "averageDemandWait": 253.59999999999854,
+      "stopped": 83,
+      "meanSpeed": 0.028059741036854626,
+      "totalWaitingTime": 35503.999999999796
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.51510925902718,
+      "averageTravelTime": 67.16
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 420,
+    "policy": "combined",
+    "stats": {
+      "time": 420,
+      "arrived": 45,
+      "active": 72,
+      "queued": 23,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 169.0111111111111,
+      "averageWaitingTime": 118.3133333333303,
+      "averageDemandWait": 218.46285714285483,
+      "stopped": 70,
+      "meanSpeed": 0.15037244506087263,
+      "totalWaitingTime": 30584.799999999675
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 26.24825373410869,
+      "averageTravelTime": 65.89333333333335
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 600,
+    "policy": "baseline",
+    "stats": {
+      "time": 600,
+      "arrived": 44,
+      "active": 57,
+      "queued": 39,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 279.5181818181818,
+      "averageWaitingTime": 215.05227272727433,
+      "averageDemandWait": 372.4250000000137,
+      "stopped": 48,
+      "meanSpeed": 0.47416851513000924,
+      "totalWaitingTime": 52139.50000000192
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.461775925693836,
+      "averageTravelTime": 67.10666666666667
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 600,
+    "policy": "signal",
+    "stats": {
+      "time": 600,
+      "arrived": 89,
+      "active": 40,
+      "queued": 11,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 202.3011235955056,
+      "averageWaitingTime": 144.980898876404,
+      "averageDemandWait": 243.1778571428635,
+      "stopped": 40,
+      "meanSpeed": 0,
+      "totalWaitingTime": 34044.90000000089
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 26.254920400775358,
+      "averageTravelTime": 65.9
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 600,
+    "policy": "bypass",
+    "stats": {
+      "time": 600,
+      "arrived": 49,
+      "active": 57,
+      "queued": 34,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 247.24489795918367,
+      "averageWaitingTime": 185.99183673469466,
+      "averageDemandWait": 353.73071428572774,
+      "stopped": 48,
+      "meanSpeed": 0.3816584048198649,
+      "totalWaitingTime": 49522.30000000189
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.461775925693836,
+      "averageTravelTime": 67.10666666666667
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 600,
+    "policy": "oneWay",
+    "stats": {
+      "time": 600,
+      "arrived": 30,
+      "active": 80,
+      "queued": 30,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 277.15,
+      "averageWaitingTime": 218.13333333333622,
+      "averageDemandWait": 395.8492857143062,
+      "stopped": 73,
+      "meanSpeed": 0.358755730861189,
+      "totalWaitingTime": 55418.90000000286
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 27.51510925902718,
+      "averageTravelTime": 67.16
+    }
+  },
+  {
+    "seed": 2406,
+    "duration": 600,
+    "policy": "combined",
+    "stats": {
+      "time": 600,
+      "arrived": 64,
+      "active": 63,
+      "queued": 13,
+      "unreleased": 0,
+      "unreachable": 0,
+      "averageTravelTime": 247.60625,
+      "averageWaitingTime": 194.0187500000033,
+      "averageDemandWait": 319.8092857142991,
+      "stopped": 52,
+      "meanSpeed": 0.2366340759935718,
+      "totalWaitingTime": 44773.30000000187
+    },
+    "pedestrians": {
+      "arrived": 60,
+      "active": 0,
+      "queued": 0,
+      "unreleased": 0,
+      "waiting": 0,
+      "crossing": 0,
+      "averageWaitingTime": 26.24825373410869,
+      "averageTravelTime": 65.89333333333335
+    }
+  }
+]

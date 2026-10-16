@@ -4,6 +4,10 @@ import { CityRenderer } from "../../src/renderer/city";
 import { RenderClock, type DisplayQuality } from "../../src/renderer/quality";
 import { TrafficSimulation, MODEL_VERSION } from "../../src/simulation";
 import { createDemand, DEFAULT_POLICY } from "../../src/scenario";
+import { WasteSimulation } from "../../src/simulation/services/waste";
+import { FacilitySimulation } from "../../src/simulation/facilities";
+import { EnvironmentSimulation } from "../../src/simulation/environment";
+import { LogisticsSimulation } from "../../src/simulation/economy";
 
 const nextFrame = () =>
   new Promise<number>((resolve) => requestAnimationFrame(resolve));
@@ -15,21 +19,53 @@ let city: CityRenderer, sim: TrafficSimulation, quality: DisplayQuality;
 
 Object.assign(window, {
   __performance: {
-    async prepare(count: number, chosenQuality: DisplayQuality) {
+    async prepare(
+      count: number,
+      chosenQuality: DisplayQuality,
+      scenario = "traffic",
+    ) {
       quality = chosenQuality;
-      sim = new TrafficSimulation(
-        { ...DEFAULT_POLICY, signal: true, bypass: true, oneWay: true },
-        createDemand(2404, count),
-        undefined,
-        createPedestrianDemand(),
-      );
-      sim.runUntil(180);
+      sim =
+        scenario === "logistics"
+          ? new LogisticsSimulation(2404, [
+              "cargoTruck",
+              "handling",
+              "diversify",
+            ])
+          : scenario === "environment"
+            ? new EnvironmentSimulation(2404, ["industry", "housing", "buffer"])
+            : scenario === "facilities"
+              ? new FacilitySimulation(2404, ["library", "expand"], {
+                  siteId: "north",
+                })
+              : scenario === "waste"
+                ? new WasteSimulation(
+                    2404,
+                    ["extraTruck", "route", "reduce"],
+                    undefined,
+                    count,
+                  )
+                : new TrafficSimulation(
+                    {
+                      ...DEFAULT_POLICY,
+                      signal: true,
+                      bypass: true,
+                      oneWay: true,
+                    },
+                    createDemand(2404, count),
+                    undefined,
+                    createPedestrianDemand(),
+                  );
+      if (!(sim instanceof FacilitySimulation)) sim.runUntil(180);
       city = new CityRenderer(
         document.querySelector("canvas")!,
         document.querySelector("#map-labels")!,
         quality,
       );
       city.setSimulation(sim);
+      if (sim instanceof LogisticsSimulation) city.setMapLayer("stock");
+      if (sim instanceof FacilitySimulation) city.setMapLayer("access");
+      if (sim instanceof EnvironmentSimulation) city.setMapLayer("environment");
       const metrics = sim.stats;
       const warmup = performance.now();
       while (performance.now() - warmup < 1500) {
@@ -58,7 +94,8 @@ Object.assign(window, {
         const now = await nextFrame();
         animationFrames++;
         const cpuStart = performance.now();
-        sim.advance(Math.min((now - previous) / 1000, 0.25) * 2);
+        if (!(sim instanceof FacilitySimulation))
+          sim.advance(Math.min((now - previous) / 1000, 0.25) * 2);
         if (now - lastMetrics >= 250) {
           metrics = sim.stats;
           lastMetrics = now;
@@ -80,12 +117,48 @@ Object.assign(window, {
       const { roads, ...stats } = sim.stats;
       return {
         modelVersion: MODEL_VERSION,
+        logistics:
+          sim instanceof LogisticsSimulation
+            ? {
+                trucks: sim.trucks.length,
+                delivered: sim.logisticsStats.delivered,
+                inTrucks: sim.logisticsStats.inTrucks,
+                stockLabels: document.querySelectorAll(".stock-label").length,
+              }
+            : undefined,
+        environment:
+          sim instanceof EnvironmentSimulation
+            ? {
+                addedTrips: sim.addedDemand.length,
+                sampleCount: sim.environmentStats.sampleCount,
+              }
+            : undefined,
+        scenarioId:
+          sim instanceof LogisticsSimulation
+            ? "logistics"
+            : sim instanceof EnvironmentSimulation
+              ? "environment"
+              : sim instanceof FacilitySimulation
+                ? "facilities"
+                : sim instanceof WasteSimulation
+                  ? "waste"
+                  : "traffic",
+        facilities:
+          sim instanceof FacilitySimulation
+            ? sim.facilityStats.facilities.length
+            : undefined,
+        accessLabels:
+          sim instanceof FacilitySimulation
+            ? document.querySelectorAll(".civic-label[data-level]").length
+            : undefined,
+        serviceTrucks: sim instanceof WasteSimulation ? sim.trucks.length : 0,
+        waste: sim instanceof WasteSimulation ? sim.wasteStats : undefined,
         demandCount: sim.demand.length,
         pedestrianCount: sim.pedestrians.demand.length,
         pedestrianActive: sim.pedestrians.active.size,
         quality,
         measuredSeconds: elapsed,
-        speed: 2,
+        speed: sim instanceof FacilitySimulation ? 0 : 2,
         simulationStart: startTime,
         simulationSecondsAdvanced: sim.time - startTime,
         renderedFPS: frameCount / elapsed,
