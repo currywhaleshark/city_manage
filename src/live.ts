@@ -21,6 +21,7 @@ import {
   policyComparisonMarkup,
 } from "./ui/live-notebook";
 import { mapTools } from "./ui/map-layers";
+import { bindMapScrollHint } from "./ui/map-scroll-hint";
 import {
   policyAvailability,
   policyListMarkup,
@@ -85,6 +86,7 @@ $("#app").innerHTML = `<main class="workspace">
 $('[data-map-layer="environment"]').remove();
 for (const button of document.querySelectorAll<HTMLElement>("[data-map-layer]"))
   button.setAttribute("aria-label", button.textContent!.trim() + " 보기");
+bindMapScrollHint($(".map-tools"));
 let sim = new LiveCitySimulation(),
   paused = false,
   layer: MapLayer = "normal",

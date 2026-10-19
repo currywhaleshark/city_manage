@@ -5,6 +5,11 @@
 .living-city .toolbelt {
   height: 76px;
 }
+.living-city .tools .tool {
+  min-height: 44px;
+  font-size: 12px;
+  line-height: 1.2;
+}
 .living-city .statusbar {
   height: 56px;
 }
@@ -34,6 +39,19 @@
   display: flex;
   flex-direction: column;
   gap: 17px;
+}
+.living-city #live-panel :is(button, select) {
+  min-height: 44px;
+}
+.living-city #close-panel {
+  width: 44px;
+}
+.living-city .layer-picker {
+  font-size: 14px;
+}
+.living-city .layer-picker select {
+  min-width: 0;
+  font-size: 16px;
 }
 .live-story-actions {
   display: flex;
@@ -155,7 +173,23 @@
   width: 100%;
   max-height: inherit;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
   scrollbar-width: thin;
+}
+.living-city .map-scroll-hint {
+  position: absolute;
+  top: -22px;
+  left: 0;
+  width: 100%;
+  height: 18px;
+  border-radius: 3px;
+  background: #f5f8ef;
+  color: #3f5848;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
 }
 .living-city .map-layer {
   flex: 0 0 44px;
@@ -431,6 +465,21 @@
   .living-city .toolbelt {
     height: 70px;
   }
+  .living-city .tools {
+    flex: 1;
+    min-width: 0;
+    gap: 0;
+  }
+  .living-city .tools .tool {
+    flex: 1;
+    min-width: 0;
+    padding: 5px 2px;
+    gap: 3px;
+  }
+  .living-city .tool-icon {
+    width: 28px;
+    height: 24px;
+  }
   .living-city #live-panel {
     width: calc(100% - 24px);
     left: 12px;
@@ -514,5 +563,26 @@
   .living-city[data-wide-policies] .map-tools {
     --rail-top: max(145px, var(--map-tools-top, 238px));
     top: var(--rail-top);
+  }
+}
+/* A short landscape viewport needs a reading pane above the command deck. */
+@media (max-height: 600px) and (orientation: landscape) {
+  .living-city #live-panel {
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+    left: auto;
+    width: min(460px, calc(100vw - 24px));
+    max-height: calc(100dvh - 24px);
+    transform: none;
+    animation: none;
+    z-index: 30;
+  }
+  .living-city #live-panel .panel-heading {
+    padding: 10px 16px;
+  }
+  .living-city #live-panel .panel-body {
+    padding: 12px 16px;
+    gap: 12px;
   }
 }
