@@ -245,6 +245,47 @@ test("live UI keeps a read story, carries its context into policy selection, and
     tick();
     assert.equal(state().actions.length, 0);
     assert.equal(el("#resident-bubble").hidden, true);
+
+    // Unavailable policies explain why before selection. A grant updates the
+    // open list in place, and the same button then leads to a real placement.
+    click('[data-panel-open="policy"]');
+    change("#policy-topic", "parking");
+    click('[data-live-policy="signal"]');
+    click("[data-placement-target]");
+    click("#apply-live-policy");
+    click('[data-panel-open="policy"]');
+    change("#policy-topic", "waste");
+    click('[data-live-policy="extraTruck"]');
+    click("#apply-live-policy");
+    assert.equal(state().budget, 40);
+    click('[data-panel-open="policy"]');
+    change("#policy-topic", "access");
+    const library = el<HTMLButtonElement>('[data-live-policy="library"]');
+    const caveat = el<HTMLDetailsElement>(".live-policy-details");
+    assert.equal(caveat.open, false);
+    click(".live-policy-details summary");
+    library.focus();
+    assert.equal(library.getAttribute("aria-disabled"), "true");
+    assert.equal(el("#policy-status-library").textContent, "예산 15 부족");
+    library.click();
+    assert.equal(document.querySelector("#placement-title"), null);
+    assert.equal(document.body.dataset.livePanel, "policy");
+    assert.equal(state().paused, false);
+    while (state().time < 300) tick(1);
+    tick();
+    assert.equal(el("#policy-budget").textContent, "60");
+    assert.equal(library.getAttribute("aria-disabled"), "false");
+    assert.equal(document.activeElement, library);
+    assert.equal(caveat.open, true);
+    library.click();
+    click('[data-placement-target="north"]');
+    assert.match(
+      el(".tradeoff").textContent!,
+      /공터는 다른 시설에 쓸 수 없어요/,
+    );
+    click("#apply-live-policy");
+    assert.equal(state().actions.at(-1).id, "library");
+    assert.equal(state().budget, 5);
   } finally {
     hook.deregister();
     dom.window.close();

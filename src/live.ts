@@ -21,6 +21,11 @@ import {
   policyComparisonMarkup,
 } from "./ui/live-notebook";
 import { mapTools } from "./ui/map-layers";
+import {
+  policyAvailability,
+  policyListMarkup,
+  updatePolicyAvailability,
+} from "./ui/live-policies";
 import { icon } from "./ui/icons";
 import type { MapLayer } from "./scenarios";
 import {
@@ -250,34 +255,18 @@ function policies() {
       )
       .join(
         "",
-      )}</select></label><p class="metric-note">예산 <b>${sim.budget}</b> · 현재 도시에서 바로 시작해요.<br>5분마다 운영 예산 20이 들어와요.</p><div class="live-policy-list">${LIVE_POLICIES.filter(
-      (p) => p.topic === topic,
-    )
-      .map(
-        (p) =>
-          `<button class="live-policy" data-live-policy="${p.id}" ${sim.has(p.id) && !["cleanup", "library", "park"].includes(p.id) ? "disabled" : ""}><strong>${p.title}<em>${p.cost}</em></strong><span>${p.description}</span><small>${sim.has(p.id) && !["cleanup", "library", "park"].includes(p.id) ? "시행 중" : p.tradeoff}</small></button>`,
-      )
-      .join(
-        "",
-      )}</div><button class="secondary wide" data-panel-open="community">남은 문제를 주민과 의논하기</button>`,
+      )}</select></label><p class="metric-note">예산 <b id="policy-budget">${sim.budget}</b> · 현재 도시에서 바로 시작해요.<br>도시 시간 5분마다 운영 예산 20이 들어와요.</p><div class="live-policy-list policy-options">${policyListMarkup(sim, topic)}</div><button class="secondary wide" data-panel-open="community">남은 문제를 주민과 의논하기</button>`,
   );
 }
 function beginPolicy(id: LivePolicyId) {
   const p = LIVE_POLICIES.find((p) => p.id === id)!;
-  if (sim.budget < p.cost) {
-    toast(
-      "예산이 부족해요. 다음 운영 예산은 " +
-        stamp(300 - (sim.time % 300)) +
-        " 뒤에 들어와요.",
-    );
+  const status = policyAvailability(sim, id);
+  if (!status.available) {
+    updatePolicyAvailability($("#live-panel-body"), sim);
+    toast(status.label);
     return;
   }
-  const targets = sim.targets(id),
-    global = ["extraTruck", "reduce", "handling"].includes(id);
-  if (!global && !targets.length) {
-    toast("지금 지을 수 있는 공터가 없어요. 면적과 이미 쓰는 공간을 확인해요.");
-    return;
-  }
+  const { targets, global } = status;
   pending = { id, target: "", wasPaused: paused };
   paused = true;
   if (global) {
@@ -934,6 +923,8 @@ function frame(now: number) {
     renderStory();
     if (panel === "observe") renderReadings();
     if (panel === "news") renderNews();
+    if (panel === "policy")
+      updatePolicyAvailability($("#live-panel-body"), sim);
     const communityProgress = document.querySelector("#community-status");
     if (communityProgress) communityProgress.textContent = communityStatus(sim);
     if (panel === "community")

@@ -94,7 +94,7 @@ export class ResidentRenderer extends THREE.Group {
     this.bubble.id = "resident-bubble";
     this.bubble.className = "resident-bubble";
     this.bubble.setAttribute("aria-labelledby", "resident-speaker");
-    this.bubble.innerHTML = `<div class="resident-speaker"><span class="resident-avatar">${icon("residents", 23)}</span><div><h3 id="resident-speaker"></h3><p id="resident-place"></p></div></div><blockquote id="resident-quote"></blockquote><details id="resident-evidence"><summary>관찰한 사실과 자세한 의견 ${icon("plus", 16)}</summary><div class="resident-evidence-body"><h4>관찰한 사실</h4><p id="resident-fact"></p><h4>바라는 점</h4><p id="resident-opinion"></p><p id="resident-change"></p></div></details>`;
+    this.bubble.innerHTML = `<div class="resident-speaker"><span class="resident-avatar">${icon("residents", 23)}</span><div><h3 id="resident-speaker"></h3><p id="resident-place"></p></div></div><blockquote id="resident-quote"></blockquote><details id="resident-evidence"><summary><span id="resident-evidence-label">관찰한 사실과 자세한 의견</span>${icon("plus", 16)}</summary><div class="resident-evidence-body"><h4>관찰한 사실</h4><p id="resident-fact"></p><div id="resident-opinion-section"><h4>바라는 점</h4><p id="resident-opinion"></p></div><p id="resident-change"></p></div></details>`;
     this.root.append(this.svg, this.bubble);
     // Separate from #map-labels, which is aria-hidden because its other labels are decorative.
     container.append(this.root);
@@ -222,6 +222,12 @@ export class ResidentRenderer extends THREE.Group {
       "resident-fact": voice.fact,
       "resident-opinion": voice.opinion,
       "resident-change": voice.change ?? "",
+      "resident-evidence-label":
+        voice.opinion.trim() && voice.opinion.trim() !== voice.summary.trim()
+          ? "관찰한 사실과 자세한 의견"
+          : voice.change
+            ? "관찰한 사실과 변화"
+            : "관찰한 사실",
     };
     for (const [id, value] of Object.entries(values)) {
       const element = this.bubble.querySelector<HTMLElement>(`#${id}`)!;
@@ -229,6 +235,10 @@ export class ResidentRenderer extends THREE.Group {
     }
     this.bubble.querySelector<HTMLElement>("#resident-change")!.hidden =
       !voice.change;
+    this.bubble.querySelector<HTMLElement>(
+      "#resident-opinion-section",
+    )!.hidden =
+      !voice.opinion.trim() || voice.opinion.trim() === voice.summary.trim();
   }
 
   update(camera: THREE.Camera, width: number, height: number) {

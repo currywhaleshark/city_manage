@@ -259,3 +259,37 @@ test("closing and reopening resident mode hides the old connector until it is pl
   f.update(750, 500);
   assert.notEqual(line.style.display, "none");
 });
+
+test("resident evidence omits a repeated quote but preserves a distinct opinion and change", (t) => {
+  const f = fixture(t);
+  const voice = {
+    ...f.voice(),
+    summary: "길을 비워 주세요",
+    opinion: "길을 비워 주세요",
+    change: "정차 차량이 줄었어요",
+  };
+  f.renderer.setVoices([voice]);
+  const opinion = f.document.querySelector<HTMLElement>(
+    "#resident-opinion-section",
+  )!;
+  const label = f.document.querySelector("#resident-evidence-label")!;
+  const details = f.bubble.querySelector<HTMLDetailsElement>("details")!;
+  assert.equal(opinion.hidden, true);
+  assert.equal(label.textContent, "관찰한 사실과 변화");
+  assert.equal(
+    f.document.querySelector<HTMLElement>("#resident-change")!.hidden,
+    false,
+  );
+  details.open = true;
+  f.renderer.setVoices([
+    { ...voice, opinion: "대신 물건 내릴 자리를 정해 주세요" },
+  ]);
+  assert.equal(opinion.hidden, false);
+  assert.match(opinion.textContent!, /물건 내릴 자리/);
+  assert.equal(label.textContent, "관찰한 사실과 자세한 의견");
+  assert.equal(
+    details.open,
+    true,
+    "evidence remains open when the content updates",
+  );
+});
