@@ -420,29 +420,33 @@ export class CityRenderer {
           0xa6bb9c,
         );
     for (let z = WORLD.min + 22; z < WORLD.max; z += 44) {
+      // Keep the entire arrow clear of bridge decks instead of showing fragments.
+      if (RIVER.bridges.some((row) => Math.abs(z - (row - 2) * 48) < 11))
+        continue;
       this.box(this.city, RIVER.x, 0.21, z, 1.3, 0.08, 9, 0xb5d9d7);
+      // Both wings meet the shaft's downstream (+z) tip at z + 4.5.
       const arrow = this.box(
         this.city,
         RIVER.x - 1.5,
         0.21,
-        z + 4,
+        z + 3,
         0.9,
         0.08,
-        4,
+        3 * Math.SQRT2,
         0xb5d9d7,
       );
-      arrow.rotation.y = -0.65;
+      arrow.rotation.y = Math.PI / 4;
       const other = this.box(
         this.city,
         RIVER.x + 1.5,
         0.21,
-        z + 4,
+        z + 3,
         0.9,
         0.08,
-        4,
+        3 * Math.SQRT2,
         0xb5d9d7,
       );
-      other.rotation.y = 0.65;
+      other.rotation.y = -Math.PI / 4;
     }
     worldLabel("새봄천 · 상류 → 하류", RIVER.x, 288);
     const river = new THREE.Mesh(
