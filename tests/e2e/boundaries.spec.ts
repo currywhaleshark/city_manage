@@ -44,11 +44,7 @@ test("rendered external roads end exactly at the city edge and riverbanks leave 
       }
     });
     (window as any).__boundaryQA = { city, sim };
-    city.controls.target.set(RIVER.x, 0, 96);
-    city.camera.position.set(RIVER.x + 175, 220, 96 + 205);
-    city.camera.zoom = 1.8;
-    city.camera.updateProjectionMatrix();
-    city.controls.update();
+    city.focusPosition({ x: RIVER.x, z: 96 }, 180);
     city.render(sim, false, sim.stats.roads, true);
     await new Promise(requestAnimationFrame);
     city.render(sim, false, sim.stats.roads, true);
@@ -90,11 +86,7 @@ test("rendered external roads end exactly at the city edge and riverbanks leave 
   });
   await page.evaluate(() => {
     const { city, sim } = (window as any).__boundaryQA;
-    city.controls.target.set(-117, 0, 24);
-    city.camera.position.set(28, 190, 220);
-    city.camera.zoom = 2;
-    city.camera.updateProjectionMatrix();
-    city.controls.update();
+    city.focusPosition({ x: -117, z: 24 }, 140);
     city.render(sim, false, sim.stats.roads, true);
   });
   await page.screenshot({ path: "output/playwright/boundary-west-edge.png" });

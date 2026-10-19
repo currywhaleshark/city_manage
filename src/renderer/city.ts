@@ -3,7 +3,8 @@ import { LiveCitySimulation } from "../simulation/live";
 // Sudoyan118/mini-traffic-city-sim src/main.ts (MIT). Rendering is now isolated,
 // static geometry is merged, and dynamic cars use persistent instanced meshes.
 import * as THREE from "three";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import type { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { CityCamera, type CameraSnapshot } from "./camera";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { BUILDINGS, CONFIG, SCHOOL_NODE, seededRandom } from "../scenario";
 import {
@@ -74,15 +75,12 @@ export interface Selection {
 }
 export class CityRenderer {
   private placementView?: PlacementRenderer;
-  private placementCamera?: {
-    position: THREE.Vector3;
-    target: THREE.Vector3;
-    zoom: number;
-  };
+  private placementCamera?: CameraSnapshot;
   private choosePlacement: (id: string) => void = () => {};
   readonly renderer: THREE.WebGLRenderer;
   readonly scene = new THREE.Scene();
-  readonly camera = new THREE.OrthographicCamera(-160, 160, 160, -160, 1, 1200);
+  private cameraView: CityCamera;
+  readonly camera: THREE.PerspectiveCamera;
   readonly controls: OrbitControls;
   private city = new THREE.Group();
   private worldLabels: {
@@ -208,18 +206,9 @@ export class CityRenderer {
     this.carBody.frustumCulled = false;
     this.carCabin.frustumCulled = false;
     this.carLights.frustumCulled = false;
-    this.controls = new OrbitControls(this.camera, canvas);
-    this.controls.enableDamping = true;
-    this.controls.dampingFactor = 0.1;
-    this.controls.minPolarAngle = 0.25;
-    this.controls.maxPolarAngle = 1.22;
-    this.controls.minZoom = 0.35;
-    this.controls.maxZoom = 3.8;
-    this.controls.mouseButtons = {
-      LEFT: THREE.MOUSE.ROTATE,
-      MIDDLE: THREE.MOUSE.DOLLY,
-      RIGHT: THREE.MOUSE.PAN,
-    };
+    this.cameraView = new CityCamera(canvas);
+    this.camera = this.cameraView.camera;
+    this.controls = this.cameraView.controls;
     this.ring = new THREE.Mesh(
       new THREE.RingGeometry(8, 8.7, 48),
       new THREE.MeshBasicMaterial({ color: 0xf3be53, side: THREE.DoubleSide }),
@@ -259,6 +248,7 @@ export class CityRenderer {
         ),
       });
     }
+    this.resize();
     this.resetCamera();
     let down = { x: 0, y: 0 };
     canvas.addEventListener("pointerdown", (e) => {
@@ -1200,11 +1190,7 @@ export class CityRenderer {
     this.onSelect(selection);
   }
   focusSchool() {
-    this.controls.target.set(35, 0, -2);
-    this.camera.position.set(210, 200, 220);
-    this.camera.zoom = 1.65;
-    this.camera.updateProjectionMatrix();
-    this.controls.update();
+    this.focusPosition({ x: 35, z: -2 });
     this.select({
       kind: "node",
       id: SCHOOL_NODE,
@@ -1215,11 +1201,7 @@ export class CityRenderer {
   focusParking(id: string) {
     const s = PARKING_SITES.find((s) => s.id === id);
     if (!s) return;
-    this.controls.target.set(s.position.x, 0, s.position.z);
-    this.camera.position.set(s.position.x + 120, 150, s.position.z + 140);
-    this.camera.zoom = 2.6;
-    this.camera.updateProjectionMatrix();
-    this.controls.update();
+    this.focusPosition(s.position, 110);
     this.select({
       kind: "parking",
       id: s.id,
@@ -1233,14 +1215,7 @@ export class CityRenderer {
         ? this.current.sources.find((s) => s.id === id)
         : undefined;
     if (!source) return;
-    this.controls.target.set(source.position.x, 0, source.position.z);
-    this.camera.position.set(
-      source.position.x + 175,
-      200,
-      source.position.z + 210,
-    );
-    this.camera.zoom = 1.6;
-    this.camera.updateProjectionMatrix();
+    this.focusPosition(source.position);
     this.select({
       kind: "supply",
       id,
@@ -1249,27 +1224,15 @@ export class CityRenderer {
     });
   }
   resetCamera() {
-    if (this.current instanceof WaterSimulation) {
-      this.controls.target.set(RIVER.x, 0, WORLD.center);
-      this.camera.position.set(RIVER.x + 120, 520, WORLD.center + 200);
-      this.camera.zoom = this.width < 600 ? 1.03 : 0.66;
-      this.camera.updateProjectionMatrix();
-      this.controls.update();
-      return;
-    }
-    this.camera.position.set(WORLD.center + 480, 490, WORLD.center + 550);
-    this.controls.target.set(WORLD.center, 0, WORLD.center);
-    this.camera.zoom = 0.58;
-    this.camera.updateProjectionMatrix();
-    this.controls.update();
+    this.cameraView.overview(this.current instanceof WaterSimulation);
+  }
+  focusPosition(position: { x: number; z: number }, span = 180) {
+    this.cameraView.focus(position, span);
   }
   focusDumping(id: string) {
     const s = DUMPING_SITES.find((s) => s.id === id);
     if (!s) return;
-    this.controls.target.set(s.position.x, 0, s.position.z);
-    this.camera.position.set(s.position.x + 175, 200, s.position.z + 210);
-    this.camera.zoom = 2.3;
-    this.camera.updateProjectionMatrix();
+    this.focusPosition(s.position, 120);
     this.select({
       kind: "dumping",
       id,
@@ -1280,10 +1243,7 @@ export class CityRenderer {
   focusWater(id: string) {
     const s = WATER_SITES.find((s) => s.id === id);
     if (!s) return;
-    this.controls.target.set(s.position.x, 0, s.position.z);
-    this.camera.position.set(s.position.x + 175, 200, s.position.z + 210);
-    this.camera.zoom = 1.8;
-    this.camera.updateProjectionMatrix();
+    this.focusPosition(s.position, 160);
     this.select({
       kind: "water",
       id,
@@ -1299,11 +1259,7 @@ export class CityRenderer {
     onCancel: () => void,
   ) {
     this.clearPlacement();
-    this.placementCamera = {
-      position: this.camera.position.clone(),
-      target: this.controls.target.clone(),
-      zoom: this.camera.zoom,
-    };
+    this.placementCamera = this.cameraView.snapshot();
     this.choosePlacement = onChoose;
     this.placementView = new PlacementRenderer(
       this.labels.parentElement!,
@@ -1318,50 +1274,34 @@ export class CityRenderer {
     this.ring.visible = false;
     const x = targets.reduce((n, t) => n + t.position.x, 0) / targets.length,
       z = targets.reduce((n, t) => n + t.position.z, 0) / targets.length;
-    this.controls.target.set(x, 0, z);
-    this.camera.position.set(x + 200, 300, z + 280);
-    this.camera.zoom = 1;
-    this.camera.updateProjectionMatrix();
-    this.controls.update();
-    this.camera.updateMatrixWorld();
     const corners = targets.flatMap((t) =>
       [-1, 1].flatMap((dx) =>
-        [-1, 1].map((dz) =>
-          new THREE.Vector3(
-            t.position.x + (dx * t.width) / 2,
-            0,
-            t.position.z + (dz * t.depth) / 2,
-          ).project(this.camera),
+        [-1, 1].map(
+          (dz) =>
+            new THREE.Vector3(
+              t.position.x + (dx * t.width) / 2,
+              0,
+              t.position.z + (dz * t.depth) / 2,
+            ),
         ),
       ),
     );
-    this.camera.zoom = Math.min(
-      1.65,
-      0.82 / Math.max(...corners.map((p) => Math.abs(p.x))),
-      0.52 / Math.max(...corners.map((p) => Math.abs(p.y))),
-    );
-    this.camera.updateProjectionMatrix();
+    this.cameraView.frame(new THREE.Vector3(x, 0, z), corners, {
+      x: 0.82,
+      y: 0.52,
+    });
   }
   clearPlacement() {
     this.placementView?.dispose();
     this.placementView = undefined;
     document.body.removeAttribute("data-placing-policy");
     if (this.placementCamera) {
-      this.camera.position.copy(this.placementCamera.position);
-      this.camera.zoom = this.placementCamera.zoom;
-      this.controls.target.copy(this.placementCamera.target);
-      this.camera.updateProjectionMatrix();
-      this.controls.update();
+      this.cameraView.restore(this.placementCamera);
       this.placementCamera = undefined;
     }
   }
   zoom(factor: number) {
-    this.camera.zoom = THREE.MathUtils.clamp(
-      this.camera.zoom * factor,
-      0.35,
-      3.8,
-    );
-    this.camera.updateProjectionMatrix();
+    this.cameraView.zoom(factor);
   }
   setMapLayer(layer: MapLayer) {
     this.mapLayer = layer;
@@ -1379,7 +1319,7 @@ export class CityRenderer {
     this.residentView.setOpen(open);
     this.ring.visible =
       !open && !!this.selected && this.selected.kind !== "policy";
-    if (open) this.resetCamera();
+    if (open) this.ensureResidentVisible();
   }
   nextResident(direction: number) {
     this.residentView.step(direction);
@@ -1388,21 +1328,19 @@ export class CityRenderer {
     const position = this.residentView.activePosition;
     if (!position) return;
     const projected = position.clone().project(this.camera);
-    if (Math.abs(projected.x) < 0.8 && Math.abs(projected.y) < 0.65) return;
-    const delta = new THREE.Vector3(position.x, 0, position.z).sub(
-      this.controls.target,
-    );
-    this.controls.target.add(delta);
-    this.camera.position.add(delta);
-    this.controls.update();
+    if (
+      projected.z > -1 &&
+      projected.z < 1 &&
+      Math.abs(projected.x) < 0.8 &&
+      Math.abs(projected.y) < 0.65
+    )
+      return;
+    this.cameraView.center(position);
   }
   focusDevelopment(id: string) {
     const site = DEVELOPMENT_SITES.find((s) => s.id === id);
     if (!site || !(this.current instanceof EnvironmentSimulation)) return;
-    this.controls.target.set(site.position.x, 0, site.position.z);
-    this.camera.position.set(site.position.x + 175, 200, site.position.z + 210);
-    this.camera.zoom = 2;
-    this.camera.updateProjectionMatrix();
+    this.focusPosition(site.position, 140);
     this.select({
       kind: "development",
       id,
@@ -1427,14 +1365,7 @@ export class CityRenderer {
         ? this.current.facilities.find((f) => f.id === id)
         : undefined;
     if (!target) return;
-    this.controls.target.set(target.position.x, 0, target.position.z);
-    this.camera.position.set(
-      target.position.x + 175,
-      200,
-      target.position.z + 210,
-    );
-    this.camera.zoom = 2;
-    this.camera.updateProjectionMatrix();
+    this.focusPosition(target.position, 140);
     this.select({
       kind: plot ? "plot" : "civic",
       id,
@@ -1446,14 +1377,7 @@ export class CityRenderer {
   }
   focusFacility(id: string) {
     const facility = CITY_FACILITIES.find((f) => f.id === id)!;
-    this.controls.target.set(facility.position.x, 0, facility.position.z);
-    this.camera.position.set(
-      facility.position.x + 175,
-      200,
-      facility.position.z + 210,
-    );
-    this.camera.zoom = 2;
-    this.camera.updateProjectionMatrix();
+    this.focusPosition(facility.position, 140);
     this.select({
       kind: "building",
       id,
@@ -1489,13 +1413,7 @@ export class CityRenderer {
     this.width = rect.width;
     this.height = rect.height;
     this.renderer.setSize(rect.width, rect.height, false);
-    const aspect = rect.width / rect.height;
-    const size = aspect < 1 ? 214 / aspect : 164;
-    this.camera.left = -size * aspect;
-    this.camera.right = size * aspect;
-    this.camera.top = size;
-    this.camera.bottom = -size;
-    this.camera.updateProjectionMatrix();
+    this.cameraView.resize(rect.width, rect.height);
   }
   render(
     sim: TrafficSimulation,
@@ -1529,6 +1447,7 @@ export class CityRenderer {
           : undefined;
 
     this.controls.update();
+    this.camera.updateMatrixWorld();
     const colors = new Map<string, number>();
     if (this.mapLayer === "stock" && logistics)
       for (const shop of logistics.shops)
@@ -1555,6 +1474,7 @@ export class CityRenderer {
         )?.some((b) => b.siteId === label.plotId);
       label.element.hidden =
         !!occupied ||
+        p.z < -1 ||
         p.z > 1 ||
         (label.plotId
           ? this.mapLayer !== "land" &&
@@ -1712,9 +1632,10 @@ export class CityRenderer {
       label.element.style.left = `${((p.x + 1) / 2) * this.width}px`;
       label.element.style.top = `${((1 - p.y) / 2) * this.height}px`;
       label.element.hidden =
+        p.z < -1 ||
         p.z > 1 ||
         this.mapLayer === "land" ||
-        this.camera.zoom < 0.8 ||
+        !this.cameraView.showDetailLabels ||
         this.mapLayer === "waste" ||
         this.mapLayer === "access" ||
         this.mapLayer === "stock" ||

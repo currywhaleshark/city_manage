@@ -136,14 +136,7 @@ function renderStory() {
 }
 function focusStory(event: CityEvent) {
   if (!event.position) return;
-  const dx = event.position.x - city.controls.target.x,
-    dz = event.position.z - city.controls.target.z;
-  city.camera.position.x += dx;
-  city.camera.position.z += dz;
-  city.controls.target.set(event.position.x, 0, event.position.z);
-  city.camera.zoom = 1.6;
-  city.camera.updateProjectionMatrix();
-  city.controls.update();
+  city.focusPosition(event.position);
 }
 function readStory(event: CityEvent) {
   reader.hold(event);
