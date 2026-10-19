@@ -22,6 +22,7 @@ import {
 } from "./ui/live-notebook";
 import { mapTools } from "./ui/map-layers";
 import { bindMapScrollHint } from "./ui/map-scroll-hint";
+import { PlaceInspector } from "./ui/place-inspector";
 import {
   policyAvailability,
   policyListMarkup,
@@ -113,13 +114,22 @@ const city = new CityRenderer(
   displayQuality,
 );
 const reader = new StoryReader();
+const inspector = new PlaceInspector($(".city-view"), city, () => {
+  paused = !paused;
+  inspector.update(sim.time, paused);
+});
+let inspectionLayer: MapLayer | undefined;
+inspector.onClose = () => {
+  if (inspectionLayer !== undefined) setLayer(inspectionLayer);
+  inspectionLayer = undefined;
+};
 let studyContext: CityEvent | undefined;
 let comparison: ObservationComparison | undefined;
 let panelReturnFocus: HTMLElement | undefined;
 const storyActions = document.createElement("div");
 storyActions.className = "live-story-actions";
 storyActions.innerHTML =
-  '<button id="investigate-story">이 문제 살펴보기</button><button id="finish-story">읽기 마치기</button>';
+  '<button id="inspect-story">이 장소 확대 보기</button><button id="investigate-story">이 문제 살펴보기</button><button id="finish-story">읽기 마치기</button>';
 $("#resident-bubble").append(storyActions);
 bindStoryReading($("#resident-map"), reader, () => {
   if (reader.current) {
@@ -133,10 +143,19 @@ function renderStory() {
   city.setResidentVoices(event ? [storyVoice(event)] : []);
   $(".live-resident-nav").hidden = !event;
   $("#voice-count").textContent = reader.reading ? "읽는 중" : "주민 이야기";
+  $("#inspect-story").hidden = !event?.position;
 }
 function focusStory(event: CityEvent) {
   if (!event.position) return;
   city.focusPosition(event.position);
+}
+function inspectPlace(event: CityEvent) {
+  if (!event.position || inspector.isOpen) return;
+  reader.hold(event);
+  inspectionLayer = layer;
+  setLayer(topicLayer[event.topic]);
+  inspector.open(event.title, event.position);
+  inspector.update(sim.time, paused);
 }
 function readStory(event: CityEvent) {
   reader.hold(event);
@@ -154,7 +173,7 @@ function readStory(event: CityEvent) {
 }
 function studyMarkup() {
   return studyContext
-    ? `<div class="study-context"><strong>살펴보는 문제 · ${escape(studyContext.title)}</strong><p>${escape(studyContext.text)}</p><small>도시 시간 ${stamp(studyContext.time)}의 소식 · 지도는 현재 상태예요.</small><button id="return-to-story">이 장소 다시 보기</button></div>`
+    ? `<div class="study-context"><strong>살펴보는 문제 · ${escape(studyContext.title)}</strong><p>${escape(studyContext.text)}</p><small>도시 시간 ${stamp(studyContext.time)}의 소식 · 지도는 현재 상태예요.</small>${studyContext.position ? '<button id="return-to-story">이 장소 다시 보기</button>' : ""}</div>`
     : "";
 }
 const audio = new Audio(`${import.meta.env.BASE_URL}audio/policy-confirm.wav`);
@@ -551,8 +570,8 @@ document.addEventListener("click", (e) => {
   if (b.dataset.reviewPolicy !== undefined) {
     const result = sim.policyComparisons[Number(b.dataset.reviewPolicy)];
     if (!result) return;
-    close();
     if (!result.position) {
+      close();
       reader.finish();
       studyContext = undefined;
       topic = result.topic;
@@ -572,8 +591,7 @@ document.addEventListener("click", (e) => {
       position: result.position,
       evidence: `${result.scope} · ${result.measurement}: 시행 전 ${result.before.toFixed(1)} → 관찰 때 ${result.now.toFixed(1)}. 다른 정책과 생활 변화도 함께 반영돼요.`,
     };
-    readStory(event);
-    setLayer(topicLayer[result.topic]);
+    inspectPlace(event);
     return;
   }
   switch (b.id) {
@@ -660,10 +678,10 @@ document.addEventListener("click", (e) => {
       }
       break;
     case "return-to-story":
-      if (studyContext) {
-        close();
-        readStory(studyContext);
-      }
+      if (studyContext) inspectPlace(studyContext);
+      break;
+    case "inspect-story":
+      if (reader.current) inspectPlace(reader.current);
       break;
     case "finish-story":
       reader.finish();
@@ -779,6 +797,7 @@ document.addEventListener("change", (e) => {
   }
 });
 document.addEventListener("keydown", (e) => {
+  if (inspector.isOpen) return;
   if (resetDraft || resetting) {
     if (e.key === "Escape") cancelReset();
     return;
@@ -799,7 +818,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 city.onSelect = (s) => {
-  if (busy || rebuilding || meeting || pending || resetDraft) return;
+  if (busy || rebuilding || meeting || pending || resetDraft || inspector.isOpen) return;
   studyContext = undefined;
   const applied = s.kind === "policy" ? city.appliedPolicy(s.id) : undefined;
   show(
@@ -897,6 +916,7 @@ function frame(now: number) {
     lastUI = Math.floor(now / 500);
     stats = sim.stats;
     $("#clock").textContent = stamp(sim.time);
+    inspector.update(sim.time, paused);
     $("#live-budget").textContent = String(sim.budget);
     $("#mobile-budget").textContent = String(sim.budget);
     $("#issue-count").textContent = String(sim.activeIssues.length);

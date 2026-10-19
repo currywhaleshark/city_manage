@@ -22,6 +22,23 @@ const clamp = (n: number, low: number, high: number) =>
 const svg = <K extends keyof SVGElementTagNameMap>(tag: K) =>
   document.createElementNS("http://www.w3.org/2000/svg", tag);
 
+export function groupPolicyPlaces(places: PolicyPlace[]): PolicyPlace[] {
+  const grouped = new Map<string, PolicyPlace>();
+  for (const place of places) {
+    const key = `${place.position!.x},${place.position!.z}`;
+    const previous = grouped.get(key);
+    if (previous) {
+      previous.policies.push(...place.policies);
+      previous.outlines.push(...place.outlines);
+      if (place.note && place.note !== previous.note)
+        previous.note = [previous.note, place.note].filter(Boolean).join(" · ");
+    } else grouped.set(key, {
+      ...place, policies: [...place.policies], outlines: [...place.outlines],
+    });
+  }
+  return [...grouped.values()];
+}
+
 export class PolicyRenderer extends THREE.Group {
   private labelClock = new LabelClock();
   data: AppliedPolicyMap = { places: [], shared: [] };
@@ -39,26 +56,45 @@ export class PolicyRenderer extends THREE.Group {
     position: THREE.Vector3;
     line: SVGLineElement;
     dot: SVGCircleElement;
+    layout?: { rect: Rect; x: number; y: number };
   }[] = [];
   onSelect: (place: PolicyPlace) => void = () => {};
 
-  constructor(container: HTMLElement) {
+  constructor(container: HTMLElement, private compact = false) {
     super();
     this.root.id = "applied-policy-map";
     this.root.setAttribute("aria-label", "위치별 시행 정책");
     this.root.hidden = true;
+    this.root.classList.toggle("compact-policies", compact);
     this.connectors.classList.add("policy-connectors");
     this.connectors.setAttribute("aria-hidden", "true");
     this.root.append(this.connectors);
     container.append(this.root);
     this.shared.id = "applied-shared";
     this.shared.hidden = true;
+    this.shared.classList.toggle("compact-policies", compact);
     this.shared.setAttribute("aria-label", "공통으로 시행한 정책");
     container.parentElement!.append(this.shared);
+    document.addEventListener("pointerdown", (event) => {
+      if (!this.shared.contains(event.target as Node)) this.collapseShared();
+    });
+    this.shared.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.stopPropagation();
+        this.collapseShared();
+        this.shared.querySelector("summary")?.focus();
+      }
+    });
+  }
+
+  private collapseShared() {
+    const disclosure = this.shared.querySelector("details");
+    if (disclosure) disclosure.open = false;
   }
 
   setSimulation(sim: TrafficSimulation) {
     this.data = appliedPolicyMap(sim);
+    if (this.compact) this.data.places = groupPolicyPlaces(this.data.places);
     this.pins.forEach((p) => p.button.remove());
     this.pins = [];
     this.connectors.replaceChildren();
@@ -68,6 +104,13 @@ export class PolicyRenderer extends THREE.Group {
     for (const place of this.data.places) {
       const button = this.button(place);
       button.className = "applied-policy-pin";
+      if (this.compact) {
+        const label = document.createElement("span");
+        label.className = "applied-policy-mini";
+        label.textContent = `정책 ${place.policies.length}`;
+        label.setAttribute("aria-hidden", "true");
+        button.append(label);
+      }
       button.dataset.policyPlace = place.id;
       button.dataset.worldX = String(place.position!.x);
       button.dataset.worldZ = String(place.position!.z);
@@ -90,11 +133,12 @@ export class PolicyRenderer extends THREE.Group {
         this.add(new THREE.LineLoop(geometry, this.material));
       }
     }
+    const expanded = this.shared.querySelector("details")?.open ?? false;
     this.shared.replaceChildren();
     this.shared.hidden = !this.data.shared.length;
     document.body.toggleAttribute(
       "data-wide-policies",
-      this.data.shared.length > 0,
+      !this.compact && this.data.shared.length > 0,
     );
     if (this.data.shared.length) {
       const heading = document.createElement("p");
@@ -108,7 +152,14 @@ export class PolicyRenderer extends THREE.Group {
         button.dataset.sharedPolicy = place.policies[0].id;
         list.append(button);
       }
-      this.shared.append(heading, list);
+      if (this.compact) {
+        const disclosure = document.createElement("details");
+        const summary = document.createElement("summary");
+        summary.textContent = `도시 전체 정책 ${this.data.shared.reduce((n, p) => n + p.policies.length, 0)}개`;
+        disclosure.open = expanded;
+        disclosure.append(summary, list);
+        this.shared.append(disclosure);
+      } else this.shared.append(heading, list);
     }
   }
 
@@ -155,13 +206,21 @@ export class PolicyRenderer extends THREE.Group {
       count.textContent = String(place.policies.length);
       button.append(count);
     }
-    button.addEventListener("click", () => this.onSelect(place));
+    button.addEventListener("click", () => {
+      this.collapseShared();
+      this.onSelect(place);
+    });
     return button;
   }
 
   update(camera: THREE.Camera, width: number, height: number) {
+    const inspecting = document.body.hasAttribute("data-inspecting-place");
+    if (inspecting) {
+      this.root.hidden = true;
+      return;
+    }
     if (!this.labelClock.due(camera, width, height)) return;
-    if (width <= 600 && !this.shared.hidden) {
+    if (!this.compact && width <= 600 && !this.shared.hidden) {
       const top = this.shared.offsetTop + this.shared.offsetHeight + 8;
       if (top !== this.toolbarTop) {
         this.toolbarTop = top;
@@ -230,6 +289,12 @@ export class PolicyRenderer extends THREE.Group {
             if (cost(candidate) < cost(best)) best = candidate;
           }
       }
+      if (pin.layout) {
+        const retained = fit(pin.layout.rect.x + x - pin.layout.x,
+          pin.layout.rect.y + y - pin.layout.y);
+        if (cost(retained) <= cost(best) + 40) best = retained;
+      }
+      pin.layout = { rect: best, x, y };
       pin.button.style.left = `${best.x}px`;
       pin.button.style.top = `${best.y}px`;
       pin.button.dataset.anchorX = x.toFixed(2);

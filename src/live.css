@@ -59,6 +59,9 @@
   gap: 8px;
   margin: 12px 0;
 }
+.live-story-actions #inspect-story {
+  flex-basis: 100%;
+}
 .living-city .live-story-actions button {
   min-height: 44px;
   flex: 1;
@@ -70,6 +73,152 @@
 }
 .living-city .live-story-actions button:hover {
   background: #e4ebd8;
+}
+.living-city #applied-policy-map.compact-policies .applied-policy-pin {
+  width: 52px;
+  min-height: 44px;
+  height: 44px;
+  padding: 4px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  border-radius: 8px;
+}
+.compact-policies .applied-policy-pin .applied-policy-names,
+.compact-policies .applied-policy-pin .applied-policy-count {
+  display: none;
+}
+.applied-policy-mini {
+  font-size: 11px;
+  line-height: 14px;
+  white-space: nowrap;
+}
+.living-city #applied-shared.compact-policies {
+  top: 88px;
+  left: auto;
+  right: 78px;
+  width: 224px;
+  max-width: calc(100vw - 120px);
+  padding: 0;
+}
+#applied-shared.compact-policies summary {
+  min-height: 44px;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 13px;
+}
+#applied-shared.compact-policies .shared-policy-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  max-height: min(260px, 35dvh);
+  padding: 0 8px 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+#applied-shared.compact-policies details:not([open]) .shared-policy-list {
+  display: none;
+}
+#applied-shared.compact-policies .shared-policy-list button {
+  flex-shrink: 0;
+  width: 100%;
+}
+#place-inspector {
+  width: min(1000px, calc(100vw - 48px));
+  height: min(760px, calc(100dvh - 48px));
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #718176;
+  border-radius: 12px;
+  color: #edf3f3;
+  background: var(--surface);
+  box-shadow: 0 16px 60px #101c244d;
+}
+#place-inspector[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+#place-inspector::backdrop {
+  background: #13252bc2;
+}
+.inspection-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+}
+.inspection-heading small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.inspection-heading h2 {
+  margin-top: 4px;
+  font-size: 18px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+#place-inspector button {
+  min-height: 44px;
+  min-width: 44px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.inspection-viewport {
+  position: relative;
+  min-height: 0;
+  background: #e1e7dd;
+}
+.inspection-viewport .city-view > :not(canvas) {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+.inspection-footer {
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
+}
+.inspection-footer p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.inspection-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+#inspection-status {
+  margin-right: auto;
+  font-size: 13px;
+}
+@media (max-width: 700px) {
+  .living-city #applied-shared.compact-policies {
+    top: 138px;
+    right: 12px;
+    width: 194px;
+  }
+  #place-inspector {
+    width: calc(100vw - 16px);
+    height: calc(100dvh - 16px);
+    border-radius: 8px;
+  }
+  .inspection-heading, .inspection-footer {
+    padding: 8px 12px;
+  }
+  .inspection-heading h2 { font-size: 16px; }
+  #inspection-status { flex-basis: 100%; }
+  .inspection-controls { gap: 6px; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  #place-inspector { height: calc(100dvh - 16px); }
+  .inspection-heading { padding: 6px 12px; }
+  .inspection-heading small, .inspection-footer p { display: none; }
+  .inspection-footer { padding: 6px 12px; }
+  #inspection-status { flex-basis: auto; }
 }
 .study-context {
   border-left: 3px solid var(--accent);

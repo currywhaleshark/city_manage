@@ -13,6 +13,12 @@ test("live UI keeps a read story, carries its context into policy selection, and
     pretendToBeVisual: true,
   });
   const document = dom.window.document;
+  dom.window.HTMLDialogElement.prototype.showModal = function () {
+    this.open = true;
+  };
+  dom.window.HTMLDialogElement.prototype.close = function () {
+    this.open = false;
+  };
   const globals = [
     "window",
     "document",
@@ -125,6 +131,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
             this.camera = { position: new Vector3(), zoom: 1, updateProjectionMatrix() {} };
           }
           setSimulation() {} setMapLayer() {} render() {} resetCamera() {} focusPosition() {} zoom() {} setQuality() {}
+          beginInspection() {} endInspection() {} recenterInspection() {}
           setResidentVoices(voices) { this.residents.setVoices(voices); }
           setResidentMode(open) { this.residents.setOpen(open); }
           showPlacement(title, targets, selected, choose, cancel) {
@@ -181,10 +188,35 @@ test("live UI keeps a read story, carries its context into policy selection, and
       el("#resident-fact").textContent!,
       new RegExp(news.evidence.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
     );
+    const canvas = el("#city-canvas");
+    const inspectionEvidence = el("#resident-fact").textContent;
+    click("#inspect-story");
+    assert.equal(el<HTMLDialogElement>("#place-inspector").open, true);
+    assert.ok(el("#inspection-title").textContent!.includes(news.title));
+    assert.equal(el(".inspection-viewport #city-canvas"), canvas);
+    const inspectionTime = state().time;
+    tick(6);
+    assert.ok(state().time > inspectionTime, "the enlarged scene keeps the live simulation running");
+    click("#inspection-pause");
+    const pausedTime = state().time;
+    tick(6);
+    assert.equal(state().time, pausedTime);
+    click("#inspection-pause");
+    click("#close-inspection");
+    assert.equal(el(".workspace .city-view #city-canvas"), canvas);
+    assert.equal(el("#resident-fact").textContent, inspectionEvidence);
     click("#investigate-story");
     assert.equal(el<HTMLSelectElement>("#policy-topic").value, "waste");
     assert.equal(document.body.dataset.liveLayer, "waste");
     assert.ok(el(".study-context").textContent!.includes(news.title));
+    const policyPanel = el("#live-panel-body");
+    el("#return-to-story").focus();
+    click("#return-to-story");
+    assert.equal(el<HTMLDialogElement>("#place-inspector").open, true);
+    el("#place-inspector").dispatchEvent(new dom.window.Event("cancel", { cancelable: true }));
+    assert.equal(document.body.dataset.livePanel, "policy");
+    assert.equal(el("#live-panel-body"), policyPanel);
+    assert.equal(document.activeElement, el("#return-to-story"));
     click('[data-live-policy="cleanup"]');
     assert.ok(el("#placement-title").textContent!.includes(news.title));
     assert.equal(state().paused, true);
@@ -200,6 +232,10 @@ test("live UI keeps a read story, carries its context into policy selection, and
     );
     assert.match(el(".study-comparison").textContent!, /시행 전.*관찰 때/);
     assert.ok(el(".study-remaining").textContent!.length);
+    click("[data-review-policy]");
+    assert.equal(el<HTMLDialogElement>("#place-inspector").open, true);
+    click("#close-inspection");
+    assert.equal(document.body.dataset.livePanel, "notebook");
     click("#capture-observation");
     const comparison = el<HTMLDetailsElement>("details.observation-comparison");
     assert.equal(

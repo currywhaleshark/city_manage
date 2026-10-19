@@ -80,6 +80,15 @@ export class CityRenderer {
   readonly renderer: THREE.WebGLRenderer;
   readonly scene = new THREE.Scene();
   private cameraView: CityCamera;
+  private inspection?: {
+    camera: CameraSnapshot;
+    position: { x: number; z: number };
+    ringVisible: boolean;
+  };
+  private inspectionRing = new THREE.Mesh(
+    new THREE.RingGeometry(9, 9.8, 48),
+    new THREE.MeshBasicMaterial({ color: 0xf3be53, side: THREE.DoubleSide }),
+  );
   readonly camera: THREE.PerspectiveCamera;
   readonly controls: OrbitControls;
   private city = new THREE.Group();
@@ -217,10 +226,15 @@ export class CityRenderer {
     this.ring.position.y = 0.65;
     this.ring.visible = false;
     this.scene.add(this.ring);
+    this.inspectionRing.rotation.x = -Math.PI / 2;
+    this.inspectionRing.visible = false;
+    this.scene.add(this.inspectionRing);
     this.staticCity();
     this.residentView = new ResidentRenderer(labels.parentElement!);
     this.scene.add(this.residentView);
-    this.policyView = new PolicyRenderer(labels.parentElement!);
+    this.policyView = new PolicyRenderer(
+      labels.parentElement!, document.body.classList.contains("living-city"),
+    );
     this.scene.add(this.policyView);
     this.policyView.onSelect = (place) =>
       this.select({
@@ -1233,6 +1247,33 @@ export class CityRenderer {
   focusPosition(position: { x: number; z: number }, span = 180) {
     this.cameraView.focus(position, span);
   }
+  beginInspection(position: { x: number; z: number }) {
+    if (this.inspection) return;
+    this.inspection = {
+      camera: this.cameraView.snapshot(),
+      position: { ...position },
+      ringVisible: this.ring.visible,
+    };
+    this.resize();
+    this.recenterInspection();
+    this.ring.visible = false;
+    this.inspectionRing.position.set(position.x, 0.8, position.z);
+    this.inspectionRing.visible = true;
+    this.policyView.visible = false;
+  }
+  recenterInspection() {
+    if (this.inspection) this.cameraView.focus(this.inspection.position, 90);
+  }
+  endInspection() {
+    if (!this.inspection) return;
+    const previous = this.inspection;
+    this.inspection = undefined;
+    this.inspectionRing.visible = false;
+    this.policyView.visible = true;
+    this.ring.visible = previous.ringVisible;
+    this.resize();
+    this.cameraView.restore(previous.camera);
+  }
   focusDumping(id: string) {
     const s = DUMPING_SITES.find((s) => s.id === id);
     if (!s) return;
@@ -1329,6 +1370,7 @@ export class CityRenderer {
     this.residentView.step(direction);
   }
   private ensureResidentVisible() {
+    if (this.inspection) return;
     const position = this.residentView.activePosition;
     if (!position) return;
     const projected = position.clone().project(this.camera);
@@ -1390,6 +1432,7 @@ export class CityRenderer {
     });
   }
   private pick(event: PointerEvent) {
+    if (this.inspection) return;
     const rect = this.canvas.getBoundingClientRect(),
       pointer = new THREE.Vector2(
         ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -1541,7 +1584,8 @@ export class CityRenderer {
       this.height,
       this.mapLayer,
     );
-    if (this.selected?.kind === "service") {
+    if (this.inspection) this.ring.visible = false;
+    if (!this.inspection && this.selected?.kind === "service") {
       const v = sim.vehicles.get(Number(this.selected.id));
       this.ring.visible = !!v && inCityBounds(v.pose);
       if (v) this.ring.position.set(v.pose.x, 0.6, v.pose.z);
