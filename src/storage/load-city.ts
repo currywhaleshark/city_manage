@@ -1,6 +1,6 @@
 import {
   restoreLiveCity,
-  validateLiveSave,
+  prepareLiveSave,
   type LiveSave,
 } from "../simulation/live";
 import {
@@ -14,7 +14,7 @@ export async function loadSavedCity(
   progress: (n: number) => void,
   signal: AbortSignal,
 ) {
-  validateLiveSave(save);
+  save = prepareLiveSave(save);
   // A denied/blocked cache must not prevent loading the portable record.
   const checkpoint = await Promise.race([
     readCheckpoint().catch(() => undefined),

@@ -1,0 +1,167 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { createCityDemand } from "../src/simulation/city-demand";
+import { createDemand, createNetwork, SCHOOL_NODE } from "../src/scenario";
+import { RIVER, boundaryNode } from "../src/city/world";
+import { findRoute } from "../src/simulation/network";
+import { LiveCitySimulation, prepareLiveSave, restoreLiveCity, validateLiveSave } from "../src/simulation/live";
+import { captureLiveCheckpoint, restoreLiveCheckpoint } from "../src/simulation/checkpoint";
+import type { Trip } from "../src/types";
+
+test("city traffic covers local activity on both banks, bridges and all four gateways", () => {
+  const network = createNetwork();
+  for (const seed of [2404, 2405, 2406]) {
+    const demand = createCityDemand(seed);
+    assert.deepEqual(demand, createCityDemand(seed));
+    assert.equal(demand.length, 90);
+    assert.equal(new Set(demand.map(t => t.id)).size, 90);
+    assert.equal(demand.filter(t => t.destination === SCHOOL_NODE).length, 5);
+    assert.equal(demand.filter(t => t.origin === SCHOOL_NODE).length, 5);
+    assert.equal(demand.filter(t => t.id % 18 >= 12 && t.id % 18 < 16).length, 20);
+    for (const side of ["west", "east"] as const) for (const row of [0, 1] as const) {
+      assert.ok(demand.some(t => t.origin === boundaryNode(side, row)));
+      assert.ok(demand.some(t => t.destination === boundaryNode(side, row)));
+    }
+    const bridges = new Set<number>();
+    for (const trip of demand) {
+      assert.ok(trip.departAt >= 5 && trip.departAt < 300);
+      assert.notEqual(trip.origin, trip.destination);
+      const route = findRoute(network, trip.origin, trip.destination);
+      assert.ok(route.length > 0);
+      for (const id of route) {
+        const road = network.roads.get(id)!;
+        const a = network.nodes.get(road.startNodeId)!.position;
+        const b = network.nodes.get(road.endNodeId)!.position;
+        if ((a.x - RIVER.x) * (b.x - RIVER.x) < 0) bridges.add(a.z);
+      }
+    }
+    assert.deepEqual([...bridges].sort((a,b) => a-b), [-48, 96, 240]);
+  }
+  assert.equal(createDemand().filter(t => t.purpose === "school").length, 70,
+    "the separate school experiment retains its original comparison cohort");
+});
+
+test("production adds only industrial journeys and leaves every base journey unchanged", () => {
+  const network = createNetwork();
+  const base = createCityDemand(2405), more = createCityDemand(2405, true);
+  assert.deepEqual(more.filter(t => t.id < 90), base);
+  const extra = more.filter(t => t.id >= 90);
+  assert.equal(extra.length, 20);
+  for (const t of extra) {
+    const factory = network.nodes.get(t.id % 2 === 0 ? t.destination : t.origin)!.position;
+    assert.ok(factory.x > 132 && factory.z >= 48);
+    assert.ok(findRoute(network, t.origin, t.destination).length);
+    assert.notEqual(t.purpose, "school");
+  }
+  const city = new LiveCitySimulation();
+  city.apply("production", "factory");
+  city.runUntil(300);
+  assert.equal(city.demand.length, 110);
+  assert.deepEqual(city.demand.map(t => ({...t, id: t.id - 1001000, departAt: +(t.departAt - 300).toFixed(1)})), more);
+});
+
+test("recurring vehicles really travel on both banks and all bridges, with no dropped trips", () => {
+  const city = new LiveCitySimulation();
+  const trips = new Map<number, Trip>();
+  const bridges = new Map([-48, 96, 240].map(z => [z, new Set<number>()]));
+  let west = 0, east = 0;
+  for (let time = 0; time <= 900; time++) {
+    city.runUntil(time);
+    for (const trip of city.demand) trips.set(trip.id, trip);
+    for (const v of city.vehicles.values()) {
+      if (city.serviceJourneys.has(v.id)) continue;
+      if (v.pose.x < 108) west++;
+      else if (v.pose.x > 132) east++;
+      else for (const [z, crossed] of bridges) if (Math.abs(v.pose.z - z) < 5) crossed.add(v.id);
+    }
+  }
+  assert.ok(east / (west + east) > 0.2, "east-bank activity persists between departure waves");
+  assert.ok(west / 900 < 50, "west-bank traffic no longer grows like the school-heavy baseline");
+  for (const crossed of bridges.values()) assert.ok(crossed.size >= 5);
+  const localEast = city.completed.filter(done => {
+    const t = trips.get(done.id)!;
+    return city.network.nodes.get(t.origin)!.position.x > 132 &&
+      city.network.nodes.get(t.destination)!.position.x > 132;
+  });
+  assert.ok(localEast.length >= 40, "east activity completes real local trips");
+  const active = [...city.vehicles.values()].filter(v => !city.serviceJourneys.has(v.id));
+  assert.equal(city.completed.length + active.length + city.pending.length +
+    city.demand.length - city.releasedCount, trips.size);
+  assert.equal(trips.size, 360);
+  assert.equal(city.stats.unreachable, 0);
+});
+
+test("legacy JSON and v2 checkpoints preserve the city and switch only at the next cycle", async () => {
+  const old = new LiveCitySimulation(2404, Infinity);
+  old.apply("outreach", "river");
+  old.runUntil(325.4);
+  old.observe();
+  old.notes = "기존 조사 기록";
+  const save = old.save();
+  assert.equal(save.cityTrafficFrom, undefined);
+  const checkpoint = captureLiveCheckpoint(old);
+  (checkpoint as any).version = "living-state-2";
+  delete checkpoint.state.world.cityTrafficFrom;
+  const copy = restoreLiveCheckpoint(checkpoint, save);
+  assert.equal(copy.cityTrafficFrom, 600);
+  assert.deepEqual([...copy.vehicles], [...old.vehicles]);
+  assert.deepEqual(copy.demand, old.demand);
+  assert.deepEqual(copy.news, old.news);
+  assert.deepEqual(copy.save(), {...save, cityTrafficFrom: 600});
+  const replayed = await restoreLiveCity(save);
+  assert.deepEqual([...copy.vehicles], [...replayed.vehicles]);
+  assert.deepEqual(copy.news, replayed.news);
+  old.cityTrafficFrom = 600;
+  for (const city of [old, copy, replayed]) city.runUntil(650);
+  assert.deepEqual([...copy.vehicles], [...old.vehicles]);
+  assert.deepEqual([...copy.vehicles], [...replayed.vehicles]);
+  assert.deepEqual(copy.demand, old.demand);
+  assert.deepEqual(copy.demand.map(t => t.origin), createCityDemand(2406).map(t => t.origin));
+  assert.equal(copy.notes, "기존 조사 기록");
+  assert.deepEqual(copy.observations, save.observations);
+  assert.equal(save.cityTrafficFrom, undefined, "never mutate imported source data");
+  const viaOldCache = await restoreLiveCity(copy.save(), undefined, {
+    initialCity: restoreLiveCheckpoint(checkpoint, copy.save()),
+  });
+  const viaJson = await restoreLiveCity(copy.save());
+  for (const restored of [viaOldCache, viaJson]) {
+    assert.deepEqual([...restored.vehicles], [...copy.vehicles]);
+    assert.deepEqual(restored.news, copy.news);
+    assert.deepEqual(restored.save(), copy.save());
+  }
+});
+
+test("clearing a blocked residential road improves real trips without removing demand", () => {
+  const base = new LiveCitySimulation(), policy = new LiveCitySimulation();
+  base.runUntil(300);
+  policy.runUntil(300);
+  policy.apply("signal", "n3-2");
+  policy.apply("patrol", "homes");
+  let baseStopped = 0, policyStopped = 0;
+  const stopped = (city: LiveCitySimulation) => [...city.vehicles.values()]
+    .filter(v => !city.serviceJourneys.has(v.id) && v.speed < 0.5).length;
+  for (let time = 301; time <= 900; time++) {
+    base.runUntil(time);
+    policy.runUntil(time);
+    baseStopped += stopped(base);
+    policyStopped += stopped(policy);
+  }
+  assert.ok(policyStopped < baseStopped * 0.85);
+  assert.ok(policy.completed.length > base.completed.length);
+  assert.deepEqual(policy.demand, base.demand, "policy changes road conditions, not trip generation");
+  assert.equal(policy.parking.parkingStats.sites.find(s => s.id === "homes")!.illegal, 0);
+  assert.ok(policy.parking.parkingStats.sites.some(s => s.id !== "homes" && s.illegal > 0),
+    "a local policy does not magically clear every other problem");
+});
+
+test("traffic transition records reject incompatible caches and malformed transition times", () => {
+  const city = new LiveCitySimulation(), save = city.save();
+  for (const time of [-300, 1, 600, Infinity, NaN])
+    assert.throws(() => validateLiveSave({...save, cityTrafficFrom: time}));
+  assert.throws(() => restoreLiveCheckpoint(captureLiveCheckpoint(city), {...save, cityTrafficFrom: 300}));
+  const old = new LiveCitySimulation(2404, Infinity);
+  old.runUntil(301);
+  assert.throws(() => restoreLiveCheckpoint(captureLiveCheckpoint(old), {...old.save(), cityTrafficFrom: 300}));
+  assert.equal(prepareLiveSave({...save, time: 300, cityTrafficFrom: undefined}).cityTrafficFrom, 600);
+  assert.equal(prepareLiveSave({...save, time: 0.3, cityTrafficFrom: undefined}).cityTrafficFrom, 300);
+});

@@ -1,8 +1,8 @@
-import { restoreLiveCity, validateLiveSave } from "./live";
+import { restoreLiveCity, prepareLiveSave } from "./live";
 import { captureLiveCheckpoint, restoreLiveCheckpoint } from "./checkpoint";
 self.onmessage = async ({ data }) => {
   try {
-    const save = validateLiveSave(data.save);
+    const save = prepareLiveSave(data.save);
     let initialCity;
     if (data.checkpoint) {
       try {

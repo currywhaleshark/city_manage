@@ -4,6 +4,7 @@ import { DUMPING_SITES } from "./services/dumping";
 import { WATER_SOURCES } from "./water";
 import type { PlacementTarget } from "../renderer/placement";
 import type { AppliedPolicyMap } from "../policies/map";
+import { cityChangeText } from "./change-messages";
 
 export const COMMUNITY_PROJECTS = [
   {
@@ -274,16 +275,20 @@ export class ResidentsCouncil {
           time: this.city.time,
           after: this.measure(r.project, r.target),
         };
-        const text =
+        const direction =
           r.result.after < r.before - 0.1
-            ? "불편이 줄었어요. 다른 정책과 수거·교통 변화도 함께 살펴봐요."
+            ? "less"
             : r.result.after > r.before + 0.1
-              ? "전체 수치가 높아졌어요. 주민이 실천한 일과 다른 오염원·교통 변화도 함께 살펴봐요."
-              : "전후 수치가 비슷해요. 주민이 실천한 일과 앞으로 필요한 도움을 함께 살펴봐요.";
+              ? "more"
+              : "same";
+        const text = cityChangeText(
+          communityProject(r.project).topic,
+          direction,
+        );
         this.announce(
           r,
           "주민 활동을 돌아봐요",
-          `${text} 다음 약속을 함께 정해요.`,
+          `${text} 다른 정책과 생활 변화도 함께 살피며 다음 약속을 정해요.`,
         );
         this.city.revision++;
       }

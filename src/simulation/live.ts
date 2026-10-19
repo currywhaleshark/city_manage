@@ -16,10 +16,16 @@ import { FacilitySimulation, type PlannedFacility } from "./facilities";
 import { BUILDABLE_PLOTS } from "../city/world";
 import { validateParcelUses, type ParcelUse } from "../city/parcels";
 import { createDemand, SCHOOL_NODE } from "../scenario";
+import {
+  createCityDemand,
+  CITY_TRAFFIC_INTERVAL,
+  CITY_TRAFFIC_COUNT,
+} from "./city-demand";
 import { createPedestrianDemand } from "./pedestrians";
 import type { ResidentVoice } from "./residents";
 import type { PlacementTarget } from "../renderer/placement";
 import type { AppliedPolicyMap } from "../policies/map";
+import { cityChangeText } from "./change-messages";
 import {
   ResidentsCouncil,
   COMMUNITY_PROJECTS,
@@ -215,6 +221,8 @@ export interface LiveSave {
   notes: string;
   observations: { time: number; values: Record<Topic, number> }[];
   council?: CommunityDecision[];
+  /** First city-wide traffic cycle; absent in saves from the school-heavy model. */
+  cityTrafficFrom?: number;
 }
 
 /** One transport engine and one clock. Domain services never advance their own traffic. */
@@ -253,8 +261,9 @@ export class LiveCitySimulation extends DumpingSimulation {
     at: number;
     done?: boolean;
   }[] = [];
-  constructor(readonly seed = 2404) {
-    super(seed, [], undefined, undefined, 90);
+  constructor(readonly seed = 2404, public cityTrafficFrom = 0) {
+    super(seed, [], undefined, undefined, CITY_TRAFFIC_COUNT);
+    if (cityTrafficFrom === 0) this.demand = createCityDemand(seed);
     this.parking = new ParkingSimulation(seed, [], undefined, [], [], this);
     this.logistics = new LogisticsSimulation(seed, [], undefined, 0, this);
     this.water = new WaterSimulation(seed, [], undefined, 0, this);
@@ -353,12 +362,19 @@ export class LiveCitySimulation extends DumpingSimulation {
       this.removedFromBoom += this.water.captured;
       this.water.captured = 0;
     }
-    if (second % 300 === 0) {
+    if (second % CITY_TRAFFIC_INTERVAL === 0) {
       this.budget += 20;
       const w = this.trafficWave++,
-        count = this.has("production") ? 110 : 90;
+        production = this.has("production"),
+        demand =
+          this.time >= this.cityTrafficFrom
+            ? createCityDemand(this.seed + w, production)
+            : createDemand(
+                this.seed + w,
+                CITY_TRAFFIC_COUNT + (production ? 20 : 0),
+              );
       this.scheduleDemand(
-        createDemand(this.seed + w, count).map((t) => ({
+        demand.map((t) => ({
           ...t,
           id: 1000000 + w * 1000 + t.id,
           departAt: this.time + t.departAt,
@@ -401,24 +417,10 @@ export class LiveCitySimulation extends DumpingSimulation {
         const p = LIVE_POLICIES.find((p) => p.id === f.action.id)!;
         const after = this.measure(p.topic, f.action.target),
           delta = after - f.before;
-        const better: Record<Topic, string> = {
-          parking:
-            "길을 막던 차가 줄었어요. 다시 막히지 않는지도 함께 봐 주세요.",
-          waste:
-            "길가 봉투가 줄었어요. 수거된 것인지 물로 흘러간 것인지도 살펴봐요.",
-          water:
-            "하류의 오염도가 내려갔어요. 떠 있는 쓰레기도 함께 살펴봐 주세요.",
-          supply:
-            "물건이 부족하던 가게가 줄었어요. 배송차가 오는 길도 잘 부탁해요.",
-          access:
-            "시설을 이용할 수 있는 주민이 늘었어요. 아직 먼 집도 살펴봐 주세요.",
-        };
-        const text =
-          Math.abs(delta) < 0.5
-            ? "아직 눈에 띄는 변화는 없어요. 시간이 더 필요한지, 다른 원인이 있는지 살펴봐 주세요."
-            : delta < 0
-              ? better[p.topic]
-              : "아직 불편이 늘고 있어요. 새로 생긴 문제와 다른 원인도 함께 살펴봐 주세요.";
+        const text = cityChangeText(
+          f.action.id === "signal" ? "traffic" : p.topic,
+          Math.abs(delta) < 0.5 ? "same" : delta < 0 ? "less" : "more",
+        );
         const target = this.targetsForHistory(f.action);
         const measurement =
           f.action.id === "signal"
@@ -836,6 +838,12 @@ export class LiveCitySimulation extends DumpingSimulation {
         ...this.place("access"),
       },
     ];
+    const measurement = (c: (typeof conditions)[number]) =>
+      c.key === "traffic"
+        ? "도로 위 정차 차량"
+        : c.key.startsWith("collection-")
+          ? "수거장에 남은 봉투"
+          : this.unit(c.topic);
     for (const c of conditions) {
       if (!this.issues.has(c.key) && c.value >= c.high) {
         if (!this.pendingIssues.has(c.key))
@@ -843,14 +851,22 @@ export class LiveCitySimulation extends DumpingSimulation {
       } else this.pendingIssues.delete(c.key);
       if (c.value <= c.low && this.issues.has(c.key)) {
         this.issues.delete(c.key);
-        this.emit(
+        const event = this.emit(
           "improved",
           c.topic,
           `${c.title}의 변화`,
-          "불편을 나타내던 수치가 줄었어요. 다시 생기지 않는지 계속 살펴봐 주세요.",
+          cityChangeText(
+            c.key === "traffic"
+              ? "traffic"
+              : c.key.startsWith("collection-")
+                ? "collection"
+                : c.topic,
+            "less",
+          ),
           c.facilityId,
           c.position,
         );
+        event.evidence = `변화 확인 시점 ${event.time.toFixed(0)}초 · ${c.title} · ${measurement(c)} ${c.value.toFixed(1)}`;
       }
     }
     if (this.time < this.nextIssueAt) return;
@@ -874,13 +890,7 @@ export class LiveCitySimulation extends DumpingSimulation {
       c.facilityId,
       c.position,
     );
-    const measurement =
-      c.key === "traffic"
-        ? "도로 위 정차 차량"
-        : c.key.startsWith("collection-")
-          ? "수거장에 남은 봉투"
-          : this.unit(c.topic);
-    issue.evidence = `발견 시점 ${issue.time.toFixed(0)}초 · ${c.title} · ${measurement} ${c.value.toFixed(1)}`;
+    issue.evidence = `발견 시점 ${issue.time.toFixed(0)}초 · ${c.title} · ${measurement(c)} ${c.value.toFixed(1)}`;
     this.issues.set(c.key, issue);
     this.pendingIssues.delete(c.key);
     this.nextIssueAt = this.time + CITY_PACING.interval;
@@ -996,6 +1006,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       notes: this.notes,
       observations: structuredClone(this.observations),
       council: this.council.save(),
+      ...(Number.isFinite(this.cityTrafficFrom)
+        ? { cityTrafficFrom: this.cityTrafficFrom }
+        : {}),
     };
   }
 }
@@ -1018,6 +1031,14 @@ export function validateLiveSave(value: unknown): LiveSave {
     s.observations.length > 100
   )
     throw new Error("도시 저장 내용을 확인할 수 없어요.");
+  if (
+    s.cityTrafficFrom !== undefined &&
+    (!Number.isSafeInteger(s.cityTrafficFrom) ||
+      s.cityTrafficFrom < 0 ||
+      s.cityTrafficFrom % CITY_TRAFFIC_INTERVAL !== 0 ||
+      s.cityTrafficFrom > nextCityTrafficCycle(s.time))
+  )
+    throw new Error("도시 교통 기록을 확인할 수 없어요.");
   let previous = 0;
   for (const a of s.actions) {
     if (
@@ -1079,6 +1100,17 @@ export function validateLiveSave(value: unknown): LiveSave {
   }
   return s;
 }
+const nextCityTrafficCycle = (time: number) =>
+  (Math.floor(time / CITY_TRAFFIC_INTERVAL) + 1) * CITY_TRAFFIC_INTERVAL;
+
+export function prepareLiveSave(value: unknown): LiveSave {
+  const save = validateLiveSave(value);
+  // Replay the old city exactly, then change only future departures. Existing
+  // vehicles, policies and observations are retained without resetting a city.
+  return save.cityTrafficFrom === undefined
+    ? { ...save, cityTrafficFrom: nextCityTrafficCycle(save.time) }
+    : save;
+}
 export async function restoreLiveCity(
   value: unknown,
   onProgress: (n: number) => void = () => {},
@@ -1088,13 +1120,17 @@ export async function restoreLiveCity(
     signal?: AbortSignal;
   } = {},
 ) {
-  const save = validateLiveSave(value),
-    city = options.initialCity ?? new LiveCitySimulation(save.seed);
+  const save = prepareLiveSave(value),
+    city = options.initialCity ??
+      new LiveCitySimulation(save.seed, save.cityTrafficFrom);
   if (
     city.seed !== save.seed ||
-    Math.round(city.time * 10) > Math.round(save.time * 10)
+    Math.round(city.time * 10) > Math.round(save.time * 10) ||
+    (city.cityTrafficFrom !== save.cityTrafficFrom &&
+      !(city.cityTrafficFrom === Infinity && save.cityTrafficFrom! > city.time))
   )
     throw new Error("이어 불러올 도시가 맞지 않아요.");
+  city.cityTrafficFrom = save.cityTrafficFrom!;
   const previousActions = city.actions.length,
     previousMeetings = city.council.records.length;
   const commands = [

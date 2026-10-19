@@ -1,9 +1,14 @@
-import { LiveCitySimulation, validateLiveSave, type LiveSave } from "./live";
+import {
+  LiveCitySimulation,
+  prepareLiveSave,
+  validateLiveSave,
+  type LiveSave,
+} from "./live";
 import { FacilitySimulation, type PlannedFacility } from "./facilities";
 
 // This is an internal structured-clone cache, never accepted from imported JSON.
 // Bump when engine state/semantics change. The portable command log remains authoritative.
-export const CHECKPOINT_VERSION = "living-state-2";
+export const CHECKPOINT_VERSION = "living-state-3";
 const shared = [
   "network",
   "pedestrians",
@@ -102,13 +107,17 @@ export function restoreLiveCheckpoint(
   checkpoint: LiveCheckpoint,
   requested: LiveSave,
 ): LiveCitySimulation {
-  validateLiveSave(requested);
+  requested = prepareLiveSave(requested);
   const legacy = (checkpoint?.version as string) === "living-state-1";
-  if (checkpoint?.version !== CHECKPOINT_VERSION && !legacy)
+  const previous = legacy || (checkpoint?.version as string) === "living-state-2";
+  if (checkpoint?.version !== CHECKPOINT_VERSION && !previous)
     throw new Error("도시 저장 형식이 바뀌었어요.");
   const saved = validateLiveSave(checkpoint.save);
   if (
     saved.seed !== requested.seed ||
+    (saved.cityTrafficFrom !== requested.cityTrafficFrom &&
+      !(saved.cityTrafficFrom === undefined &&
+        requested.cityTrafficFrom! > saved.time)) ||
     Math.round(saved.time * 10) > Math.round(requested.time * 10) ||
     JSON.stringify(saved.actions) !==
       JSON.stringify(requested.actions.slice(0, saved.actions.length)) ||
@@ -128,7 +137,9 @@ export function restoreLiveCheckpoint(
   )
     throw new Error("다른 도시의 저장 상태예요.");
   const state = structuredClone(checkpoint.state),
-    city = new LiveCitySimulation(saved.seed);
+    city = new LiveCitySimulation(saved.seed, saved.cityTrafficFrom ?? Infinity);
+  if (previous && !("cityTrafficFrom" in state.world))
+    state.world.cityTrafficFrom = saved.cityTrafficFrom ?? Infinity;
   if (legacy) {
     // Only presentation state changed. Keep the physical city and avoid a full replay.
     Object.assign(state.world, {
@@ -183,5 +194,6 @@ export function restoreLiveCheckpoint(
     JSON.stringify(city.save()) !== JSON.stringify(saved)
   )
     throw new Error("도시 기록과 저장 상태가 맞지 않아요.");
+  city.cityTrafficFrom = requested.cityTrafficFrom!;
   return city;
 }
