@@ -17,7 +17,7 @@ for (const viewport of [
     ).toBe(0);
     await expect(page.locator(".resident-pin:visible")).toHaveCount(0);
     await expect(page.locator(".resident-bubble")).toBeHidden();
-    await expect(page.locator(".live-resident-nav")).toBeHidden();
+    await expect(page.locator(".live-resident-nav")).toHaveCount(0);
     await expect(page.locator("#news-peek")).toBeHidden();
 
     const buttons = await page.locator(".map-layer").evaluateAll((elements) =>
@@ -105,9 +105,22 @@ for (const width of [1440, 390])
     await page.screenshot({
       path: `output/playwright/live-story-${width}.png`,
     });
+    const preview = await page.locator(".resident-bubble").boundingBox();
+    expect(preview!.height).toBeLessThan(190);
+    await expect(page.locator("#resident-bubble .live-story-actions")).toHaveCount(0);
+    await page.locator("#read-story").focus();
+    await page.locator("#read-story").press("Enter");
+    await expect(page.locator(".live-story-detail")).toBeVisible();
+    await expect(page.locator("#live-panel-title")).toBeFocused();
+    await expect(page.locator(".resident-bubble")).toBeHidden();
+    await page.locator("#close-panel").click();
+    await expect(page.locator("#read-story")).toBeFocused();
+    await page.getByRole("button", { name: "말풍선 닫기", exact: true }).click();
+    await expect(page.locator(".resident-bubble")).toBeHidden();
+    await expect(page.locator("#live-panel")).toBeHidden();
     await page.getByRole("button", { name: "동네 소식", exact: true }).click();
     await expect(page.locator(".live-news")).toHaveCount(1);
     await page.locator(".live-news").click();
-    await expect(page.locator(".resident-bubble")).toBeVisible();
+    await expect(page.locator(".live-story-detail")).toBeVisible();
     expect(errors).toEqual([]);
   });

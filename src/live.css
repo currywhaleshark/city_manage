@@ -55,12 +55,9 @@
 }
 .live-story-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
-  margin: 12px 0;
-}
-.live-story-actions #inspect-story {
-  flex-basis: 100%;
+  margin: 0;
 }
 .living-city .live-story-actions button {
   min-height: 44px;
@@ -73,6 +70,22 @@
 }
 .living-city .live-story-actions button:hover {
   background: #e4ebd8;
+}
+.live-story-detail blockquote {
+  margin: 8px 0 18px;
+  font-size: 16px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+.live-story-detail h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+.live-story-detail p {
+  line-height: 1.7;
+}
+.live-story-detail .metric-note {
+  margin-top: 8px;
 }
 .living-city #applied-policy-map.compact-policies .applied-policy-pin {
   width: 52px;
@@ -352,8 +365,7 @@
   bottom: auto;
   width: min(248px, calc(100vw - 170px));
 }
-.living-city .mission-peek[hidden],
-.living-city .live-resident-nav[hidden] {
+.living-city .mission-peek[hidden] {
   display: none;
 }
 .living-city .live-policy-list {
@@ -490,21 +502,6 @@
 .live-help li {
   margin-bottom: 12px;
 }
-.live-resident-nav {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(var(--deck-height) + 14px);
-  z-index: 12;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px;
-  border-radius: 8px;
-  background: var(--surface);
-  box-shadow: 0 4px 16px #17242b33;
-  white-space: nowrap;
-}
 .living-city .parking-map {
   display: none;
 }
@@ -513,7 +510,92 @@
   display: block;
 }
 .living-city .resident-bubble {
-  max-width: 320px;
+  width: min(260px, calc(100% - 16px));
+  padding: 12px 14px 28px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.living-city .resident-speaker {
+  padding-right: 28px;
+  gap: 7px;
+}
+.living-city .resident-avatar {
+  width: 28px;
+  height: 28px;
+}
+.living-city .resident-avatar svg {
+  width: 18px;
+  height: 18px;
+}
+.living-city .resident-speaker > div {
+  min-width: 0;
+}
+.living-city .resident-speaker h3,
+.living-city .resident-speaker p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.living-city .resident-speaker h3 {
+  font-size: 12px;
+}
+.living-city .resident-speaker p {
+  margin-top: 2px;
+}
+.living-city #resident-quote {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.living-city .live-story-open {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #54654e;
+  text-align: left;
+}
+.live-story-open > span {
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+}
+.living-city .live-story-open:hover {
+  background: #54654e08;
+}
+.living-city .live-story-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 0 8px 0 8px;
+  background: transparent;
+  color: #54654e;
+}
+.living-city .live-story-close:hover {
+  background: #ecebdc;
+}
+.live-story-open:focus-visible,
+.live-story-close:focus-visible {
+  outline: 2px solid #315846;
+  outline-offset: -3px;
 }
 .living-city[data-live-panel]:not([data-live-panel=""]) .resident-bubble {
   display: none;
@@ -521,10 +603,6 @@
 .living-city[data-live-panel]:not([data-live-panel=""]) #resident-map {
   visibility: hidden;
 }
-.living-city[data-live-panel]:not([data-live-panel=""]) .live-resident-nav {
-  visibility: hidden;
-}
-.living-city[data-placing-policy] .live-resident-nav,
 .living-city[data-placing-policy] #resident-map {
   visibility: hidden;
 }
@@ -688,20 +766,13 @@
   .living-city #footer-status {
     display: none;
   }
-  .living-city .live-resident-nav {
-    gap: 4px;
-    font-size: 11px;
-  }
-  .living-city .live-resident-nav button {
-    padding: 0 9px;
-  }
   .living-city .statusbar {
     justify-content: space-between;
     padding: 0 10px;
     gap: 8px;
   }
   .living-city .resident-bubble {
-    max-width: 250px;
+    width: min(230px, calc(100% - 16px));
   }
   .living-city .map-tools {
     --rail-top: 145px;

@@ -275,15 +275,9 @@ export class ResidentRenderer extends THREE.Group {
           ? shared.getBoundingClientRect().bottom
           : 0,
       ) + 10;
-    const nav = document.querySelector<HTMLElement>(".live-resident-nav");
-    const navigation =
-      nav && !nav.hidden && nav.getClientRects().length
-        ? nav.getBoundingClientRect()
-        : undefined;
-    const bottom = navigation
-      ? Math.min(height - 10, navigation.top - 12)
-      : height - 10;
-    this.bubble.style.maxHeight = `${Math.max(100, Math.min(330, bottom - top - 52))}px`;
+    const bottom = height - 10;
+    // The compact live preview needs no reserved row for the removed footer.
+    this.bubble.style.maxHeight = `${Math.max(100, Math.min(living ? 180 : 330, bottom - top - (living ? 0 : 52)))}px`;
     const bw = this.bubble.offsetWidth,
       bh = this.bubble.offsetHeight;
     const keepInside = (x: number, y: number, w: number, h: number): Box => ({
@@ -325,7 +319,7 @@ export class ResidentRenderer extends THREE.Group {
       });
     }
     for (const el of document.querySelectorAll<HTMLElement>(
-      ".living-city .map-tools, .living-city .mission-peek, .living-city #overlay-legend, .living-city .live-resident-nav",
+      ".living-city .map-tools, .living-city .mission-peek, .living-city #overlay-legend",
     )) {
       if (el.hidden || !el.getClientRects().length) continue;
       const r = el.getBoundingClientRect();

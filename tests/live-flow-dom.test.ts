@@ -173,10 +173,25 @@ test("live UI keeps a read story, carries its context into policy selection, and
     while (state().time < 330) tick(1);
     assert.equal(el("#resident-bubble").dataset.resident, firstId);
     assert.equal(el("#resident-fact").textContent, original);
-    assert.equal(el("#voice-count").textContent, "읽는 중");
     assert.ok(state().time >= 330, "reading never freezes the living city");
 
-    click("#finish-story");
+    assert.equal(document.querySelector(".live-resident-nav"), null);
+    assert.equal(el("#resident-evidence").hidden, true);
+    assert.equal(el("#resident-bubble").querySelector(".live-story-actions"), null);
+    assert.equal(el("#read-story").tagName, "BUTTON", "the whole preview supports native keyboard activation");
+    el("#read-story").focus();
+    click("#read-story");
+    assert.equal(document.body.dataset.livePanel, "story");
+    assert.ok(el(".live-story-detail").textContent!.includes(original!));
+    assert.equal(document.activeElement, el("#live-panel-title"));
+    const heldStory = el(".live-story-detail").textContent;
+    tick(30);
+    assert.equal(el(".live-story-detail").textContent, heldStory, "new events do not replace an open story");
+    click("#close-panel");
+    click("#close-story");
+    assert.equal(document.body.dataset.livePanel, "", "the X closes without opening the content panel");
+    assert.equal(document.activeElement, el("#city-canvas"));
+    assert.notEqual(el("#resident-bubble").dataset.resident === firstId && !el("#resident-bubble").hidden, true);
     while (state().time < 630) tick(1);
     click('[data-panel-open="news"]');
     const news = state().news.find(
@@ -184,12 +199,13 @@ test("live UI keeps a read story, carries its context into policy selection, and
     );
     assert.ok(news, "a waste problem is available to inspect");
     click(`[data-news="${news.id}"]`);
+    assert.equal(document.body.dataset.livePanel, "story", "history opens the full story directly");
     assert.match(
-      el("#resident-fact").textContent!,
+      el(".live-story-detail").textContent!,
       new RegExp(news.evidence.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
     );
     const canvas = el("#city-canvas");
-    const inspectionEvidence = el("#resident-fact").textContent;
+    const inspectionEvidence = el(".live-story-detail").textContent;
     click("#inspect-story");
     assert.equal(el<HTMLDialogElement>("#place-inspector").open, true);
     assert.ok(el("#inspection-title").textContent!.includes(news.title));
@@ -204,7 +220,8 @@ test("live UI keeps a read story, carries its context into policy selection, and
     click("#inspection-pause");
     click("#close-inspection");
     assert.equal(el(".workspace .city-view #city-canvas"), canvas);
-    assert.equal(el("#resident-fact").textContent, inspectionEvidence);
+    assert.equal(document.body.dataset.livePanel, "story");
+    assert.equal(el(".live-story-detail").textContent, inspectionEvidence);
     click("#investigate-story");
     assert.equal(el<HTMLSelectElement>("#policy-topic").value, "waste");
     assert.equal(document.body.dataset.liveLayer, "waste");

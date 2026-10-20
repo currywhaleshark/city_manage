@@ -81,7 +81,6 @@ $("#app").innerHTML = `<main class="workspace">
   <div class="compass"><span>북</span><svg width="25" height="35" viewBox="0 0 25 35"><path d="M12 2 5 24l7-5 7 5Z" fill="#384e48"/></svg></div>
   <div class="map-controls"><button id="zoom-in" aria-label="지도 확대">${icon("plus")}</button><button id="zoom-out" aria-label="지도 축소">${icon("minus")}</button><button id="camera-reset" aria-label="전체 도시 보기">${icon("home")}</button></div>
   <section id="live-panel" class="floating-panel" hidden aria-labelledby="live-panel-title"><div class="panel-heading"><div><span class="eyebrow" id="live-eyebrow">새봄동</span><h2 id="live-panel-title" tabindex="-1"></h2></div><button id="close-panel" class="square" aria-label="패널 닫기">${icon("close", 18)}</button></div><div class="panel-body" id="live-panel-body"></div></section>
-  <div class="live-resident-nav" hidden><span id="voice-count">주민 이야기</span><button id="toggle-voices" aria-pressed="true">말풍선 접기</button></div>
 </main>
 <footer class="command-deck"><div class="toolbelt"><div class="town-badge"><span>${icon("city", 30)}</span><div><strong>새봄동</strong><small>문제도, 변화도 이어져요</small></div></div><nav class="tools" aria-label="도시 관리">${tool("news", "동네 소식", "residents")}${tool("policy", "정책 만들기", "bypass")}${tool("observe", "도시 살펴보기", "layers")}${tool("notebook", "조사 기록", "chart")}</nav><div class="compact-metrics"><div>${icon("coin", 20)}<span><small>남은 예산</small><strong id="live-budget">100</strong></span></div></div></div>
 <div class="statusbar"><div class="time-controls"><button id="pause" class="square" aria-label="일시정지">${icon("pause", 18)}</button><span id="clock">0:00</span><select id="speed" aria-label="시뮬레이션 속도"><option value="1">1배속</option><option value="2">2배속</option><option value="4" selected>4배속</option><option value="8">8배속</option></select></div><p id="footer-status">정책을 바꿔도 도시의 시간은 이어져요.</p><span id="next-grant">운영 예산 +20까지 5:00</span><button id="save-city">도시 저장</button></div></footer>
@@ -96,7 +95,6 @@ let sim = new LiveCitySimulation(),
   panel = "",
   topic: Topic = "parking",
   revision = -1,
-  voicesOpen = true,
   busy = false;
 let pending:
   { id: LivePolicyId; target: string; wasPaused: boolean } | undefined;
@@ -128,24 +126,36 @@ inspector.onClose = () => {
 let studyContext: CityEvent | undefined;
 let comparison: ObservationComparison | undefined;
 let panelReturnFocus: HTMLElement | undefined;
-const storyActions = document.createElement("div");
-storyActions.className = "live-story-actions";
-storyActions.innerHTML =
-  '<button id="inspect-story">이 장소 확대 보기</button><button id="investigate-story">이 문제 살펴보기</button><button id="finish-story">읽기 마치기</button>';
-$("#resident-bubble").append(storyActions);
+const storyPreview = document.createElement("button");
+storyPreview.type = "button";
+storyPreview.id = "read-story";
+storyPreview.className = "live-story-open";
+storyPreview.setAttribute("aria-label", "주민 이야기 내용 보기");
+storyPreview.setAttribute("aria-controls", "live-panel");
+storyPreview.innerHTML = `<span aria-hidden="true">내용 보기 ${icon("arrow", 13)}</span>`;
+const closeStory = document.createElement("button");
+closeStory.type = "button";
+closeStory.id = "close-story";
+closeStory.className = "live-story-close";
+closeStory.setAttribute("aria-label", "말풍선 닫기");
+closeStory.title = "말풍선 닫기";
+closeStory.innerHTML = icon("close", 16);
+$("#resident-bubble").append(storyPreview, closeStory);
+// The map keeps a short preview; the full evidence is available in the story panel.
+$("#resident-evidence").hidden = true;
 bindStoryReading($("#resident-map"), reader, () => {
   if (reader.current) {
     topic = reader.current.topic;
     studyContext = reader.current;
   }
-  $("#voice-count").textContent = "읽는 중";
 });
 function renderStory() {
   const event = reader.sync(sim.currentStory);
   city.setResidentVoices(event ? [storyVoice(event)] : []);
-  $(".live-resident-nav").hidden = !event;
-  $("#voice-count").textContent = reader.reading ? "읽는 중" : "주민 이야기";
-  $("#inspect-story").hidden = !event?.position;
+  storyPreview.setAttribute(
+    "aria-label",
+    event ? `${event.title} · 주민 이야기 내용 보기` : "주민 이야기 내용 보기",
+  );
 }
 function focusStory(event: CityEvent) {
   if (!event.position) return;
@@ -163,15 +173,14 @@ function readStory(event: CityEvent) {
   reader.hold(event);
   studyContext = reader.current;
   topic = event.topic;
-  if (!voicesOpen) {
-    voicesOpen = true;
-    city.setResidentMode(true);
-    $("#toggle-voices").textContent = "말풍선 접기";
-    $("#toggle-voices").setAttribute("aria-pressed", "true");
-  }
   renderStory();
   focusStory(event);
-  $("#resident-evidence summary").focus({ preventScroll: true });
+  const voice = storyVoice(reader.current!);
+  show(
+    "story",
+    event.title,
+    `<div class="live-story-detail"><p class="metric-note">${escape(voice.group)}</p><blockquote>${escape(voice.summary)}</blockquote><h3>관찰한 사실</h3><p>${escape(voice.fact)}</p>${voice.change ? `<p class="metric-note">${escape(voice.change)}</p>` : ""}</div><div class="live-story-actions">${event.position ? '<button id="inspect-story">이 장소 확대 보기</button>' : ""}<button id="investigate-story">이 문제 살펴보기</button></div>`,
+  );
 }
 function studyMarkup() {
   return studyContext
@@ -600,6 +609,9 @@ document.addEventListener("click", (e) => {
     return;
   }
   switch (b.id) {
+    case "read-story":
+      if (reader.current) readStory(reader.current);
+      break;
     case "close-panel":
     case "cancel-policy":
     case "cancel-meeting":
@@ -710,17 +722,10 @@ document.addEventListener("click", (e) => {
     case "inspect-story":
       if (reader.current) inspectPlace(reader.current);
       break;
-    case "finish-story":
+    case "close-story":
       reader.finish();
       renderStory();
       $("#city-canvas").focus({ preventScroll: true });
-      break;
-    case "toggle-voices":
-      voicesOpen = !voicesOpen;
-      if (!voicesOpen) reader.finish();
-      city.setResidentMode(voicesOpen);
-      b.textContent = voicesOpen ? "말풍선 접기" : "말풍선 보기";
-      b.setAttribute("aria-pressed", String(voicesOpen));
       break;
     case "toggle-sound":
       sound = !sound;
@@ -858,9 +863,6 @@ city.onSelect = (s) => {
   else if (s.kind === "water" || s.kind === "river") topic = "water";
   else if (s.kind === "plot" || s.kind === "civic") topic = "access";
   else if (s.kind === "supply") topic = "supply";
-};
-city.onResidentSelect = () => {
-  $("#voice-count").textContent = "주민 이야기";
 };
 let rebuilding = false,
   lastUI = -1,
