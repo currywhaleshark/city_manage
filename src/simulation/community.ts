@@ -123,6 +123,12 @@ export const COMMUNITY_METHODS = [
 ] as const;
 export type CommunityMethodId = (typeof COMMUNITY_METHODS)[number]["id"];
 export const COMMUNITY_DURATION = 600;
+export const COMMUNITY_HABIT_DURATION = 1200;
+/** Full practice during the activity, followed by a gradual loss of the learned habit. */
+export function communityHabitStrength(record: CommunityRecord, time: number) {
+  if (time + 1e-7 < record.startsAt) return 0;
+  return Math.max(0, Math.min(1, 1 - (time - record.endsAt) / COMMUNITY_HABIT_DURATION));
+}
 export interface CommunityDecision {
   time: number;
   /** Interleave with policies at the same simulation tick, including old v1 saves. */
@@ -259,14 +265,16 @@ export class ResidentsCouncil {
   get current() {
     return this.records.find((r) => this.city.time < r.endsAt - 1e-7);
   }
-  private active(project: CommunityProjectId, target: string) {
-    const r = this.current;
-    return r &&
-      r.project === project &&
-      r.target === target &&
-      this.city.time + 1e-7 >= r.startsAt
-      ? r
-      : undefined;
+  private influence(project: CommunityProjectId, target: string) {
+    let strongest: { record: CommunityRecord; participation: number } | undefined;
+    for (const record of this.records) {
+      if (record.project !== project || record.target !== target) continue;
+      const participation = communityMethod(record.method).participation *
+        communityHabitStrength(record, this.city.time);
+      // Meetings refresh practice; repeating one never stacks unlimited bonuses.
+      if (participation > (strongest?.participation ?? 0)) strongest = { record, participation };
+    }
+    return strongest;
   }
   private measure(project: CommunityProjectId, target: string) {
     return project === "walking"
@@ -391,7 +399,7 @@ export class ResidentsCouncil {
         this.announce(
           r,
           "주민 활동을 돌아봐요",
-          `${text} 다른 정책과 생활 변화도 함께 살피며 다음 약속을 정해요.`,
+          `${text} 익힌 습관은 이후 20분 동안 서서히 약해져요. 다른 정책과 생활 변화도 살피며 다음 약속을 정해요.`,
         );
         this.city.revision++;
       }
@@ -411,7 +419,7 @@ export class ResidentsCouncil {
     );
   }
   chooseWalking(request: ParkingRequest) {
-    const r = this.active("walking", request.siteId);
+    const influence = this.influence("walking", request.siteId);
     if (
       this.city.parking.episodes.some(
         (e) =>
@@ -425,7 +433,7 @@ export class ResidentsCouncil {
     const willingness =
       ((Math.imul(request.id ^ this.city.seed, 2654435761) >>> 0) % 1000) /
       1000;
-    if (!r || willingness >= communityMethod(r.method).participation)
+    if (!influence || willingness >= influence.participation)
       return false;
     const site = PARKING_SITES.find((s) => s.id === request.siteId)!;
     this.city.pedestrians.scheduleDemand([
@@ -437,24 +445,22 @@ export class ResidentsCouncil {
         color: request.color,
       },
     ]);
-    r.walkingTrips++;
+    influence.record.walkingTrips++;
     return true;
   }
   awarenessBoost(target: string) {
-    const r = this.active("sorting", target);
-    return r ? 0.3 * communityMethod(r.method).participation : 0;
+    return 0.5 * (this.influence("sorting", target)?.participation ?? 0);
   }
   waterFactor(target: string) {
-    const r = this.active("waterCare", target);
-    return r ? 1 - 0.3 * communityMethod(r.method).participation : 1;
+    return 1 - 0.3 * (this.influence("waterCare", target)?.participation ?? 0);
   }
   recordDisposal(target: string, amount: number) {
-    const r = this.active("sorting", target);
-    if (r) r.guidedBags += amount;
+    const influence = this.influence("sorting", target);
+    if (influence) influence.record.guidedBags += amount;
   }
   recordPrevention(target: string, amount: number) {
-    const r = this.active("waterCare", target);
-    if (r) r.preventedPollution += amount;
+    const influence = this.influence("waterCare", target);
+    if (influence) influence.record.preventedPollution += amount;
   }
   addMapMarkers(map: AppliedPolicyMap) {
     const r = this.current;

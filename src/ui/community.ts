@@ -7,6 +7,8 @@ import {
   communityProposals,
   communityProposal,
   communityVoters,
+  communityHabitStrength,
+  COMMUNITY_HABIT_DURATION,
   type CommunityProjectId,
   type CommunityVote,
   type CommunityRecord,
@@ -38,7 +40,9 @@ export function communityStatus(sim: LiveCitySimulation) {
   const r = sim.council.current;
   return r
     ? `${r.vote ? communityProposal(r.project, r.method).title : communityProject(r.project).title} · ${sim.time < r.startsAt ? "준비" : "실천"} ${stamp((sim.time < r.startsAt ? r.startsAt : r.endsAt) - sim.time)} 남음`
-    : "다음 문제를 함께 의논할 수 있어요.";
+    : sim.council.records.some(record => communityHabitStrength(record, sim.time) > 0)
+      ? "익힌 습관을 이어가고 있어요. 다음 문제도 함께 의논할 수 있어요."
+      : "다음 문제를 함께 의논할 수 있어요.";
 }
 export function communityOverview(sim: LiveCitySimulation) {
   const records = sim.council.records;
@@ -65,6 +69,7 @@ export function communityPlan(d: MeetingDraft, budget: number) {
     eligible = proposals.filter(m => m.cost <= budget).length;
   return `<span class="live-target">${communityTargets(d.project).find(t => t.id === d.target)!.name}</span><p class="community-step">2. 제안 비교 · 현재 예산 ${budget}</p>
     <div class="community-proposals">${proposals.map(m => `<article class="community-proposal"><small>${m.proposer.name}의 제안</small><h3>${m.title}</h3><p>${m.text}</p><p class="metric-note">예산 ${m.cost} · 준비 ${m.preparation}초 · 실천 10분${budget < m.cost ? "<br>현재 예산 부족 · 이번 투표에서 제외" : ""}</p><p class="tradeoff">${m.concern}</p></article>`).join("")}</div>
+    <p class="metric-note">함께 익힌 습관은 활동 뒤에도 이어지며 20분 동안 서서히 약해져요. 다시 의논하고 실천하면 습관을 되살릴 수 있어요.</p>
     <p class="metric-note">예산으로 가능한 제안에 주민들이 한 표씩 투표해요. 가장 많은 표를 얻은 방법을 실천하며, 동점이면 해당 방법끼리 다시 투표해요.</p>
     ${eligible < 2 ? '<p role="status">두 가지 이상을 비교하려면 예산 8이 필요해요. 회의를 미루고 다음 운영 예산을 기다려요.</p>' : ""}
     <details><summary>시청과 주민이 맡을 일</summary><p>${p.roles}</p><p>${p.limit}</p></details>
@@ -91,7 +96,7 @@ export function communityResult(d: MeetingDraft) {
     <p class="tradeoff">다른 의견도 살펴요: ${winner.concern}</p><details><summary>함께 남겨 둘 다른 제안</summary>${communityProposals(d.project).filter(p => p.id !== winner.id).map(p => `<p><b>${p.title}</b><br>${p.text}</p>`).join("")}</details>
     <label class="decision-reason">시장으로서 도울 일 <small>말로 나누고 넘어가도 돼요</small><textarea id="community-reason" maxlength="400" rows="2" placeholder="주민의 결정을 어떻게 도울까요?">${escape(d.reason)}</textarea></label>
     <label class="decision-reason">소수 의견과 참여하기 어려운 이웃 살피기<textarea id="community-concern" maxlength="400" rows="2" placeholder="다른 방법을 원했던 이웃에게 무엇이 필요할까요?">${escape(d.concern)}</textarea></label>
-    <p class="metric-note">준비 예산 ${vote.budget} → ${vote.budget - winner.cost} · ${winner.preparation}초 준비 뒤 10분간 실천해요.<br>활동을 마치면 남은 문제를 다시 의논해요.</p><button class="primary wide" id="start-community">투표로 정한 활동 지원하기</button>`}
+    <p class="metric-note">준비 예산 ${vote.budget} → ${vote.budget - winner.cost} · ${winner.preparation}초 준비 뒤 10분간 실천해요.<br>익힌 습관은 이후 20분 동안 서서히 약해져요. 남은 문제는 다시 의논해요.</p><button class="primary wide" id="start-community">투표로 정한 활동 지원하기</button>`}
     <button class="secondary wide" id="cancel-meeting">지금은 시행하지 않고 회의 닫기</button>`;
 }
 export function communityRecord(sim: LiveCitySimulation, index: number) {
@@ -102,7 +107,9 @@ export function communityRecord(sim: LiveCitySimulation, index: number) {
     <p class="community-step">${r.result ? "5. 결과를 다시 살펴보기" : "4. 주민이 함께 실천하기"}</p>
     ${r.vote ? `<p class="community-status">주민투표로 정한 방법: ${communityProposal(r.project, r.method).title}</p><details><summary>주민투표 기록 · 11명 참여${r.vote.rounds.length > 1 ? " · 결선 포함" : ""}</summary>${r.vote.rounds.map((_, i) => `<p>${i ? "결선투표" : "첫 투표"}</p>${tally(r.project, r.vote!, i)}`).join("")}<p class="metric-note">가상 주민의 학습용 투표예요. 다른 제안과 사정도 다음 회의에서 다시 살펴요.</p></details>` : '<p class="metric-note">이전 방식의 주민회의 기록이에요. 당시 투표 기록은 없어요.</p>'}
     ${r.result ? `<div class="community-comparison"><span>${sim.unit(p.topic)}</span><strong>${r.before.toFixed(1)} → ${r.result.after.toFixed(1)}</strong><small>${stamp(r.time)} 회의 때 → ${stamp(r.result.time)} 활동 뒤</small></div><p class="metric-note">수치는 이 기간의 실제 변화예요. 수거·교통·다른 정책도 함께 바뀌었으니 주민 활동만의 효과로 단정하지 않아요.</p>` : `<p class="community-status" id="community-status">${communityStatus(sim)}</p><p class="metric-note">활동이 끝나면 이곳에 당시 결과가 남아요.</p>`}
-    ${!r.result ? `<button class="secondary wide" data-community-record="${index}">활동 결과 확인</button>` : ""}<div class="community-contribution"><strong>주민이 함께 바꾼 일</strong><p>${r.project === "walking" ? `새로 걷기를 선택한 이동 ${r.walkingTrips}건` : r.project === "sorting" ? `배출 안내로 지정 장소에 향한 쓰레기 ${r.guidedBags.toFixed(1)}봉투` : `선택한 유입구에서 새로 생길 오염을 ${r.preventedPollution.toFixed(1)}만큼 줄였어요. (가상 단위)`}</p></div><p class="intro">${p.limit}</p>
+    ${!r.result ? `<button class="secondary wide" data-community-record="${index}">활동 결과 확인</button>` : ""}<div class="community-contribution"><strong>주민이 함께 바꾼 일</strong><p>${r.project === "walking" ? `새로 걷기를 선택한 이동 ${r.walkingTrips}건` : r.project === "sorting" ? `배출 안내로 지정 장소에 향한 쓰레기 ${r.guidedBags.toFixed(1)}봉투` : `선택한 유입구에서 새로 생길 오염을 ${r.preventedPollution.toFixed(1)}만큼 줄였어요. (가상 단위)`}</p><small>함께 한 활동과 이후 이어진 습관의 기여를 합한 기록이에요.</small></div>
+    ${r.result && communityHabitStrength(r, sim.time) > 0 ? `<p class="community-status">익힌 습관을 이어가요 · ${stamp(r.endsAt + COMMUNITY_HABIT_DURATION - sim.time)} 동안 서서히 약해져요. 다른 활동을 의논해도 이 습관은 이어져요.</p>` : ""}
+    <p class="intro">${p.limit}</p>
     <details><summary>회의에서 나눈 이야기</summary><p>${r.vote ? communityProposal(r.project, r.method).title : m.title} · 준비 예산 ${m.cost}</p>${r.vote ? communityProposals(r.project).map(proposal => `<p><b>${proposal.proposer.name} · ${proposal.title}</b><br>${proposal.text}<br>${proposal.concern}</p>`).join("") : p.voices.map((v) => `<p><b>${v.name}</b><br>${v.text}</p>`).join("")}<p>${r.vote ? "시장으로서 도울 일" : "고른 까닭"}: ${escape(r.reason || "말로 의견을 나눴어요.")}</p><p>함께 살필 의견: ${escape(r.concern || "글로 남긴 의견은 없어요.")}</p><p>${p.roles}</p></details>
     <label class="decision-reason">잘된 점과 다음에 바꿀 점<textarea data-community-reflection="${index}" maxlength="400" rows="3" placeholder="불편이 남은 이웃에게 무엇이 더 필요할까요?">${escape(r.reflection)}</textarea></label>
     <div class="live-actions"><button data-panel-open="policy">필요한 정책 살펴보기</button><button data-panel-open="community">다음 주민 회의</button></div>`;

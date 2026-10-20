@@ -156,9 +156,11 @@ test("production has real benefits and wastewater costs, and parcel/budget valid
   assert.equal(s.parcels.length, 2);
   const signal = new LiveCitySimulation();
   signal.runUntil(5);
+  const previousSignal = { ...signal.network.nodes.get("n3-2")!.signal };
   signal.apply("signal", "n3-2");
   assert.equal(signal.time, 5);
-  assert.equal(signal.network.nodes.get("n3-2")!.signal.ew, 26);
+  assert.deepEqual(signal.network.nodes.get("n3-2")!.signal, previousSignal,
+    "a new signal policy waits for the existing cycle to finish");
 });
 
 test("saved continuous cities replay actions at their original time and reject malformed records", async () => {

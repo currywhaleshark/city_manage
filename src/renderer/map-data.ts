@@ -1,5 +1,7 @@
 import { WALK_LIMIT_SECONDS } from "../simulation/facilities";
 
+export const SERVICE_VEHICLE_COLORS = { waste: 0x208572, stock: 0x356cbc };
+
 /** Fixed scales allow comparison across runs; a new maximum never recolors other places. */
 export const WASTE_COLOR_STOPS = [0xffffff, 0xd9bea0, 0xa66a3f, 0x542c18];
 export const WASTE_COLOR_MAX = 60;

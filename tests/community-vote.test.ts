@@ -122,7 +122,7 @@ test("problems remain visible without policy, policy mitigates locally, and the 
         city.runUntil(second);
         illegalSeconds += city.parking.parkingStats.sites.find(s => s.id === "homes")!.illegal;
       }
-      const metric = topic === "parking" ? illegalSeconds : topic === "waste" ? city.disposalEvents.filter(e => e.source === "alley" && e.kind === "illegal").reduce((n, e) => n + e.amount, 0) : city.water.sources.find(s => s.id === "homes")!.entered;
+      const metric = topic === "parking" ? illegalSeconds : topic === "waste" ? city.illegal("alley").remaining : city.water.sources.find(s => s.id === "homes")!.entered;
       results.push(metric);
       assert.ok(metric > 0, "participation never guarantees disappearance of the problem");
       assert.ok(city.news.some(n => n.type === "problem"), "problems are still observable after routing fixes");

@@ -3,6 +3,7 @@ import {
   ACCESS_BANDS,
   WASTE_COLOR_STOPS,
   STOCK_BANDS,
+  SERVICE_VEHICLE_COLORS,
   cssColor,
 } from "../renderer/map-data";
 
@@ -19,6 +20,8 @@ export const layerNames = {
 };
 const swatch = (color: number, label: string) =>
   `<span><i style="background:${cssColor(color)}"></i>${label}</span>`;
+const vehicleKey = (layer: "waste" | "stock", label: string) =>
+  `<span class="vehicle-marker-key"><i aria-hidden="true" style="border-color:${cssColor(SERVICE_VEHICLE_COLORS[layer])}"></i>${label} 위치</span>`;
 export const mapTools = `<div class="map-tools" aria-label="지도 보기">
   <div class="map-layer-buttons" role="group" aria-label="한 가지 지도 자료 보기">
     ${(
@@ -49,9 +52,9 @@ export const mapTools = `<div class="map-tools" aria-label="지도 보기">
       .map((b) => swatch(b.color, b.label))
       .join(
         "",
-      )}</div><p>상점 4곳의 재고예요.<br>차에 실린 물건은 아직 포함하지 않아요.<br>입구의 숫자: 배송을 기다리는 물자</p></div>
+      )}</div><p>상점 4곳의 재고예요.<br>차에 실린 물건은 아직 포함하지 않아요.<br>입구의 숫자: 배송을 기다리는 물자<br>${vehicleKey("stock", "화물차")}</p></div>
     <div data-layer-legend="traffic" hidden><strong>도로 혼잡도</strong><div class="legend-swatches">${swatch(0x659e88, "원활")}${swatch(0xceb66d, "느림")}${swatch(0xc87763, "막힘")}</div></div>
-    <div data-layer-legend="waste" hidden><strong>남은 쓰레기 <small>봉투</small></strong><div class="waste-gradient" style="background:linear-gradient(90deg,${WASTE_COLOR_STOPS.map(cssColor).join(",")})"></div><div class="gradient-ticks"><span>0</span><span>20</span><span>40</span><span>60+</span></div><p>진할수록 많이 쌓였어요.<br>수거하는 6곳만 색이 바뀌어요.</p></div>
+    <div data-layer-legend="waste" hidden><strong>남은 쓰레기 <small>봉투</small></strong><div class="waste-gradient" style="background:linear-gradient(90deg,${WASTE_COLOR_STOPS.map(cssColor).join(",")})"></div><div class="gradient-ticks"><span>0</span><span>20</span><span>40</span><span>60+</span></div><p>진할수록 많이 쌓였어요.<br>수거하는 6곳만 색이 바뀌어요.<br>${vehicleKey("waste", "수거차")}</p></div>
     <div data-layer-legend="access" hidden>
       <div class="access-service-tabs" role="group" aria-label="접근성을 볼 시설"><button data-access-service="library" aria-pressed="true">${icon("library", 16)}도서관</button><button data-access-service="park" aria-pressed="false">${icon("park", 16)}공원</button></div>
       <strong>걸어서 얼마나 걸릴까요?</strong><div class="legend-swatches access-swatches">${ACCESS_BANDS.map((b) => swatch(b.color, b.label)).join("")}</div>

@@ -26,6 +26,7 @@ import type { ResidentVoice } from "./residents";
 import type { PlacementTarget } from "../renderer/placement";
 import type { AppliedPolicyMap } from "../policies/map";
 import { cityChangeText } from "./change-messages";
+import { updateResponsiveSignals, RESPONSIVE_SIGNAL_NODES, RESPONSIVE_SIGNAL_OUTLINE } from "./responsive-signals";
 import {
   ResidentsCouncil,
   COMMUNITY_PROJECTS,
@@ -56,9 +57,9 @@ export const LIVE_POLICIES = [
     topic: "parking",
     title: "초록불 시간 조절",
     cost: 15,
-    description: "학교 앞 동서 방향 초록불을 7초에서 26초로 늘려요.",
+    description: "학교·주거지 교차로에서 기다리는 차를 보고 초록불 시간을 나눠요.",
     tradeoff:
-      "남북 방향 초록불은 25초에서 10초로 줄어요. 다른 방향의 대기도 살펴봐요.",
+      "다음 신호 주기부터 조절해요. 보행 시간은 지키며, 강 건너와 다른 지역의 정체는 남을 수 있어요.",
   },
   {
     id: "patrol",
@@ -99,7 +100,7 @@ export const LIVE_POLICIES = [
     topic: "waste",
     title: "지정 배출 장소",
     cost: 45,
-    description: "16봉투를 담을 배출함을 만들고 수거 경로에 넣어요.",
+    description: "16봉투 배출함을 놓고, 주변 투기물과 배출함을 수거 경로에 넣어요.",
     tradeoff:
       "가득 차면 새 배출이 다른 곳으로 향할 수 있어요. 수거도 함께 살펴요.",
   },
@@ -313,16 +314,12 @@ export class LiveCitySimulation extends DumpingSimulation {
     event.evidence = evidence;
   }
   override nearestDropoff(id: DumpingSiteId) {
-    const nearest = super.nearestDropoff(id);
-    const site = this.sites.find((s) => s.id === nearest.id)!;
+    const candidates = this.dropoffCandidates(id);
     // A full legal container stays legal waste. Only NEW disposal decisions change.
-    return {
-      ...nearest,
-      distance:
-        site.remaining >= (site.capacity ?? Infinity)
-          ? Infinity
-          : nearest.distance,
-    };
+    return candidates.find(candidate => {
+      const site = this.sites.find(s => s.id === candidate.id)!;
+      return site.remaining < (site.capacity ?? Infinity);
+    }) ?? { ...candidates[0], distance: Infinity };
   }
   override get wasteStats() {
     const s = super.wasteStats;
@@ -333,6 +330,7 @@ export class LiveCitySimulation extends DumpingSimulation {
     };
   }
   override step() {
+    updateResponsiveSignals(this);
     this.parking.step();
     super.step();
     this.logistics.step();
@@ -485,11 +483,11 @@ export class LiveCitySimulation extends DumpingSimulation {
       return [
         {
           id: SCHOOL_NODE,
-          name: "학교 앞 교차로",
-          position: { x: 48, z: 0 },
-          width: 20,
-          depth: 20,
-          detail: "동서 26초 · 남북 10초",
+          name: "학교·주거지 연결 교차로",
+          position: { x: 0, z: 0 },
+          width: 212,
+          depth: 212,
+          detail: "표시한 생활권의 25개 교차로 · 기다리는 차에 맞춰 조절",
         },
       ];
     if (id === "patrol" || id === "loadingBay")
@@ -567,11 +565,7 @@ export class LiveCitySimulation extends DumpingSimulation {
       }
     }
     if (id === "signal") {
-      Object.assign(this.network.nodes.get(SCHOOL_NODE)!.signal, {
-        ns: 10,
-        ew: 26,
-        offset: -this.time,
-      });
+      // The current cycle completes safely; step() chooses the next timing.
     } else if (id === "patrol") {
       this.parking.plan = { ...this.parking.plan, patrolSite: target };
       this.parking.configuration.patrol = true;
@@ -595,23 +589,31 @@ export class LiveCitySimulation extends DumpingSimulation {
         this.plan = { ...this.plan, dropoff: target as DumpingSiteId };
         this.dumpingConfiguration.dropoff = true;
       }
-      const siteId = `${id === "cleanup" ? "illegal" : "designated"}-${target}`;
+      const siteId = `illegal-${target}`;
       const truck =
         this.trucks.find((t) => t.itinerary.includes(siteId)) ??
         this.trucks.reduce((a, b) =>
           a.itinerary.length < b.itinerary.length ? a : b,
         );
-      if (
+      if (id === "cleanup" &&
         truck.target === siteId &&
         ["driving", "collecting"].includes(truck.phase)
       )
         throw new Error("수거차가 이미 이곳을 방문하고 있어요.");
-      const old = truck.itinerary.indexOf(siteId);
-      if (old >= 0) {
-        truck.itinerary.splice(old, 1);
-        if (old <= truck.nextIndex) truck.nextIndex--;
+      // Keep a truck's current journey intact. Clear existing litter first,
+      // then collect the new bin on the same recurring route.
+      const visits = id === "dropoff" ? [siteId, `designated-${target}`] : [siteId];
+      let insertAt = truck.nextIndex + 1;
+      for (const visit of visits) {
+        if (truck.target === visit && ["driving", "collecting"].includes(truck.phase)) continue;
+        const old = truck.itinerary.indexOf(visit);
+        if (old >= 0) {
+          truck.itinerary.splice(old, 1);
+          if (old <= truck.nextIndex) truck.nextIndex--;
+          if (old < insertAt) insertAt--;
+        }
+        truck.itinerary.splice(insertAt++, 0, visit);
       }
-      truck.itinerary.splice(truck.nextIndex + 1, 0, siteId);
     } else if (id === "outreach") {
       this.plan = { ...this.plan, outreach: target as DumpingSiteId };
       this.dumpingConfiguration.outreach = true;
@@ -685,7 +687,8 @@ export class LiveCitySimulation extends DumpingSimulation {
     if (topic === "parking" && target === SCHOOL_NODE)
       return this.stats.roads
         .filter((r) =>
-          this.network.nodes.get(SCHOOL_NODE)!.connectedRoadIds.includes(r.id),
+          [...RESPONSIVE_SIGNAL_NODES].some(id =>
+            this.network.nodes.get(id)!.connectedRoadIds.includes(r.id)),
         )
         .reduce((n, r) => n + r.stopped, 0);
     if (topic === "parking" && PARKING_SITES.some((s) => s.id === target))
@@ -967,9 +970,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       const entry = {
         id: `live-${a.id}-${a.target}`,
         name: t?.name ?? "도시 전체",
-        scope: t ? "이 장소에 적용" : "도시 전체에 적용",
+        scope: a.id === "signal" ? "표시한 학교·주거 생활권에 적용" : t ? "이 장소에 적용" : "도시 전체에 적용",
         position: t?.position,
-        outlines: [],
+        outlines: a.id === "signal" ? [RESPONSIVE_SIGNAL_OUTLINE] : [],
         policies: [
           {
             id: a.id,
@@ -997,8 +1000,8 @@ export class LiveCitySimulation extends DumpingSimulation {
     if (a.id === "signal")
       return {
         id: SCHOOL_NODE,
-        name: "학교 앞 교차로",
-        position: { x: 48, z: 0 },
+        name: "학교·주거지 연결 교차로",
+        position: { x: 0, z: 0 },
       };
     if (a.id === "production")
       return {

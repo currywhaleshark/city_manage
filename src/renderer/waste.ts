@@ -2,11 +2,14 @@ import * as THREE from "three";
 import type { WasteSimulation } from "../simulation/services/waste";
 import type { Selection } from "./city";
 import { WASTE_DEPOT } from "../city/world";
+import type { MapLayer } from "../scenarios";
+import { ServiceVehicleMarkers } from "./service-vehicle-markers";
 
 export class WasteRenderer extends THREE.Group {
   readonly selectable: THREE.Object3D[] = [];
   private bins: { id: string; pile: THREE.Mesh }[] = [];
   private trucks = new Map<number, THREE.Group>();
+  private truckMarkers = new ServiceVehicleMarkers("waste");
   private materials: THREE.Material[] = [];
   constructor(private simulation: WasteSimulation) {
     super();
@@ -80,6 +83,7 @@ export class WasteRenderer extends THREE.Group {
       const g = new THREE.Group();
       this.add(g);
       this.trucks.set(truck.id, g);
+      this.truckMarkers.attach(g);
       const body = box(g, 0, 1.5, -0.6, 1.8, 1.6, 2.4, orange);
       box(g, 0, 1.15, 1.25, 1.8, 1.2, 1.3, cream);
       box(g, 0, 1.65, 1.62, 1.5, 0.6, 0.1, glass);
@@ -94,7 +98,13 @@ export class WasteRenderer extends THREE.Group {
       this.selectable.push(body);
     }
   }
-  update(alpha: number) {
+  update(
+    alpha: number,
+    camera: THREE.Camera,
+    height: number,
+    layer: MapLayer,
+  ) {
+    this.truckMarkers.update(camera, height, layer);
     for (const bin of this.bins) {
       const amount = this.simulation.sites.find(
         (s) => s.id === bin.id,
@@ -122,6 +132,7 @@ export class WasteRenderer extends THREE.Group {
     }
   }
   dispose() {
+    this.truckMarkers.dispose();
     this.traverse((o) => {
       if (o instanceof THREE.Mesh) o.geometry.dispose();
     });

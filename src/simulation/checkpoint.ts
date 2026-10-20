@@ -8,7 +8,7 @@ import { FacilitySimulation, type PlannedFacility } from "./facilities";
 
 // This is an internal structured-clone cache, never accepted from imported JSON.
 // Bump when engine state/semantics change. The portable command log remains authoritative.
-export const CHECKPOINT_VERSION = "living-state-6";
+export const CHECKPOINT_VERSION = "living-state-7";
 const shared = [
   "network",
   "pedestrians",
@@ -116,7 +116,8 @@ export function restoreLiveCheckpoint(
   const beforeAccess = previous || (checkpoint?.version as string) === "living-state-3";
   const beforeArrival = beforeAccess || (checkpoint?.version as string) === "living-state-4";
   const beforeRouting = beforeArrival || (checkpoint?.version as string) === "living-state-5";
-  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeRouting)
+  const beforeRelief = beforeRouting || (checkpoint?.version as string) === "living-state-6";
+  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeRelief)
     throw new Error("도시 저장 형식이 바뀌었어요.");
   const saved = validateLiveSave(checkpoint.save);
   if (

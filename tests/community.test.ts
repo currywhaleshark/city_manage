@@ -136,8 +136,10 @@ test("a waste agreement changes new disposal locally without deleting litter or 
   active.runUntil(62.2);
   assert.equal(
     active.disposalEvents.find((e) => e.request === 10000)!.kind,
-    "illegal",
+    "designated",
   );
+  assert.notEqual(active.disposalEvents.find(e => e.request === 10000)!.destination, "designated-alley",
+    "a full bin sends new disposal to another reachable legal site");
   // Keep the untouched world's physical ledger balanced after participation changes the destination.
   const w = base.wasteStats;
   assert.ok(
@@ -151,7 +153,7 @@ test("a waste agreement changes new disposal locally without deleting litter or 
   );
 });
 
-test("household participation is delayed, local, capacity-limited and expires; dissolved pollution is conserved", () => {
+test("household participation is delayed, local and fades after the activity; dissolved pollution is conserved", () => {
   const base = new LiveCitySimulation(),
     active = new LiveCitySimulation();
   const record = active.council.start(
@@ -183,6 +185,9 @@ test("household participation is delayed, local, capacity-limited and expires; d
     );
   assert.ok(active.water.sources.find((s) => s.id === "homes")!.raw > 0);
   active.runUntil(661);
+  assert.ok(active.council.waterFactor("homes") < 1, "learned habits survive the organized activity");
+  assert.ok(record.result);
+  active.runUntil(1861);
   assert.equal(active.council.waterFactor("homes"), 1);
   assert.ok(record.result);
   const w = active.water.waterStats;

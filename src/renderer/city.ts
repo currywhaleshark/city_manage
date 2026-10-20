@@ -1556,7 +1556,7 @@ export class CityRenderer {
       this.compass.style.transform = `rotate(${angle}rad)`;
     }
     const alpha = paused ? 1 : sim.alpha;
-    this.wasteView?.update(alpha);
+    this.wasteView?.update(alpha, this.camera, this.height, this.mapLayer);
     this.logisticsView?.update(
       this.camera,
       this.width,

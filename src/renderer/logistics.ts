@@ -6,12 +6,14 @@ import { CITY_FACILITIES } from "../city/data";
 import type { Selection } from "./city";
 import type { MapLayer } from "../scenarios";
 import { stockBand } from "./map-data";
+import { ServiceVehicleMarkers } from "./service-vehicle-markers";
 
 export class LogisticsRenderer extends THREE.Group {
   private labelClock = new LabelClock();
   readonly selectable: THREE.Object3D[] = [];
   private owned: THREE.Material[] = [];
   private trucks = new Map<number, { group: THREE.Group; cargo: THREE.Mesh }>();
+  private truckMarkers = new ServiceVehicleMarkers("stock");
   private piles: { shopId: string; mesh: THREE.Mesh }[] = [];
   private labels: {
     element: HTMLElement;
@@ -132,6 +134,7 @@ export class LogisticsRenderer extends THREE.Group {
       box(g, 0, 2.2, -0.65, 0.15, 0.1, 2.3, cream);
       for (const z of [-1.2, 1.2]) box(g, 0, 0.65, z, 1.8, 0.5, 0.5, dark);
       this.trucks.set(t.id, { group: g, cargo });
+      this.truckMarkers.attach(g);
     }
   }
   update(
@@ -141,6 +144,7 @@ export class LogisticsRenderer extends THREE.Group {
     layer: MapLayer,
     alpha: number,
   ) {
+    this.truckMarkers.update(camera, height, layer);
     for (const t of this.simulation.trucks) {
       const { group, cargo } = this.trucks.get(t.id)!;
       const v = this.simulation.vehicles.get(t.id);
@@ -239,6 +243,7 @@ export class LogisticsRenderer extends THREE.Group {
     }
   }
   dispose() {
+    this.truckMarkers.dispose();
     this.traverse((o) => {
       if (o instanceof THREE.Mesh) o.geometry.dispose();
     });

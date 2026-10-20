@@ -264,7 +264,7 @@ export class DumpingSimulation extends WasteSimulation {
       z: p.z + Math.sin(p.angle) * 6.9,
     };
   }
-  nearestDropoff(id: DumpingSiteId) {
+  protected dropoffCandidates(id: DumpingSiteId) {
     const site = DUMPING_SITES.find((s) => s.id === id)!;
     const targets = this.sites
       .filter((s) => !s.kind)
@@ -281,7 +281,10 @@ export class DumpingSimulation extends WasteSimulation {
           Math.abs(t.position.x - site.position.x) +
           Math.abs(t.position.z - site.position.z),
       }))
-      .sort((a, b) => a.distance - b.distance)[0];
+      .sort((a, b) => a.distance - b.distance);
+  }
+  nearestDropoff(id: DumpingSiteId) {
+    return this.dropoffCandidates(id)[0];
   }
   protected communityAwareness(_siteId: DumpingSiteId) {
     return 0;

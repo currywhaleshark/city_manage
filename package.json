@@ -16,6 +16,7 @@
     "verify:facilities": "tsx tests/facilities-report.ts",
     "verify:environment": "tsx tests/environment-report.ts",
     "verify:logistics": "tsx tests/logistics-report.ts",
+    "verify:community": "tsx tests/community-impact-report.ts",
     "verify:performance": "playwright test --config playwright.performance.config.ts",
     "verify:production": "tsx tests/production-smoke.ts"
   },
