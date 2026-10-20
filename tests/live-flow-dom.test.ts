@@ -164,7 +164,31 @@ test("live UI keeps a read story, carries its context into policy selection, and
         new dom.window.Event("change", { bubbles: true }),
       );
     };
+    // Compact controls use the same speed and save handlers as desktop.
+    const options = el("#city-options-toggle");
+    click("#city-options-toggle");
+    assert.equal(options.getAttribute("aria-expanded"), "true");
     change("#speed", "8");
+    assert.equal(el("#current-speed").textContent, "8×");
+    assert.equal(options.getAttribute("aria-expanded"), "false");
+    assert.equal(document.activeElement, options);
+    click("#city-options-toggle");
+    click("#save-city");
+    assert.equal(options.getAttribute("aria-expanded"), "false");
+    assert.equal(document.activeElement, options);
+    assert.equal(JSON.parse(dom.window.localStorage.getItem("mayor-living-city-v1")!).time, state().time);
+    click('[data-panel-open="news"]');
+    click("#city-options-toggle");
+    options.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    assert.equal(options.getAttribute("aria-expanded"), "false");
+    assert.equal(document.body.dataset.livePanel, "news", "Escape dismisses only the controls, keeping the current work open");
+    click("#city-options-toggle");
+    click("#city-canvas");
+    assert.equal(options.getAttribute("aria-expanded"), "false", "tapping the map dismisses extra controls");
+    click("#city-options-toggle");
+    el('[data-panel-open="notebook"]').focus();
+    assert.equal(options.getAttribute("aria-expanded"), "false", "tabbing out dismisses extra controls");
+    click("#close-panel");
     while (state().time < 121) tick(1);
     tick();
     const original = el("#resident-fact").textContent;

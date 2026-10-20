@@ -4,6 +4,7 @@ for (const viewport of [
   { width: 1440, height: 1000 },
   { width: 390, height: 844 },
   { width: 390, height: 600 },
+  { width: 320, height: 568 },
 ])
   test(`quiet start and a narrow vertical map rail (${viewport.width}x${viewport.height})`, async ({
     page,
@@ -45,6 +46,41 @@ for (const viewport of [
     expect(legend!.x).toBeGreaterThanOrEqual(rail!.x + rail!.width);
     expect(legend!.x + legend!.width).toBeLessThanOrEqual(viewport.width);
     expect(rail!.y + rail!.height).toBeLessThanOrEqual(deck!.y);
+    if (viewport.width <= 700) {
+      expect(rail!.width).toBeLessThanOrEqual(48);
+      expect(deck!.height).toBeLessThanOrEqual(65);
+      const controls = await page
+        .locator(".tools .tool, #pause, #city-options-toggle")
+        .evaluateAll((elements) => elements.map((el) => {
+          const r = el.getBoundingClientRect();
+          return { x: r.x, y: r.y, width: r.width, height: r.height };
+        }));
+      for (const r of controls) {
+        expect(r.width).toBeGreaterThanOrEqual(44);
+        expect(r.height).toBeGreaterThanOrEqual(44);
+        expect(r.x).toBeGreaterThanOrEqual(0);
+        expect(r.x + r.width).toBeLessThanOrEqual(viewport.width);
+        expect(Math.abs(r.y - controls[0].y)).toBeLessThanOrEqual(1);
+      }
+      await expect(page.locator("#speed")).toBeHidden();
+      await expect(page.locator("#save-city")).toBeHidden();
+      await page.locator("#city-options-toggle").click();
+      const options = await page.locator("#city-options").boundingBox();
+      expect(options!.y).toBeGreaterThanOrEqual(0);
+      expect(options!.y + options!.height).toBeLessThan(deck!.y);
+      expect(options!.x + options!.width).toBeLessThanOrEqual(viewport.width);
+      await page.locator("#speed").selectOption("2");
+      await expect(page.locator("#current-speed")).toHaveText("2×");
+      await expect(page.locator("#city-options-toggle")).toBeFocused();
+      await expect(page.locator("#speed")).toBeHidden();
+      await page.locator("#city-options-toggle").click();
+      await page.locator("#save-city").click();
+      await expect(page.locator("#city-options")).toBeHidden();
+      await expect(page.locator("#city-options-toggle")).toBeFocused();
+    } else {
+      await expect(page.locator("#speed")).toBeVisible();
+      await expect(page.locator("#save-city")).toBeVisible();
+    }
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

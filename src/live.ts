@@ -69,8 +69,8 @@ const escape = (s: string) =>
   );
 const stamp = (time: number) =>
   `${Math.floor(time / 60)}:${String(Math.floor(time % 60)).padStart(2, "0")}`;
-const tool = (id: string, label: string, glyph: string) =>
-  `<button class="tool" data-panel-open="${id}"><span class="tool-icon">${icon(glyph, 24)}</span><span>${label}</span></button>`;
+const tool = (id: string, label: string, shortLabel: string, glyph: string) =>
+  `<button class="tool" data-panel-open="${id}" aria-label="${label}"><span class="tool-icon">${icon(glyph, 24)}</span><span class="tool-label" data-short-label="${shortLabel}">${label}</span></button>`;
 document.body.classList.add("living-city");
 document.title = "우리 동네 시장님 · 살아가는 새봄동";
 $("#app").innerHTML = `<main class="workspace">
@@ -82,13 +82,37 @@ $("#app").innerHTML = `<main class="workspace">
   <div class="map-controls"><button id="zoom-in" aria-label="지도 확대">${icon("plus")}</button><button id="zoom-out" aria-label="지도 축소">${icon("minus")}</button><button id="camera-reset" aria-label="전체 도시 보기">${icon("home")}</button></div>
   <section id="live-panel" class="floating-panel" hidden aria-labelledby="live-panel-title"><div class="panel-heading"><div><span class="eyebrow" id="live-eyebrow">새봄동</span><h2 id="live-panel-title" tabindex="-1"></h2></div><button id="close-panel" class="square" aria-label="패널 닫기">${icon("close", 18)}</button></div><div class="panel-body" id="live-panel-body"></div></section>
 </main>
-<footer class="command-deck"><div class="toolbelt"><div class="town-badge"><span>${icon("city", 30)}</span><div><strong>새봄동</strong><small>문제도, 변화도 이어져요</small></div></div><nav class="tools" aria-label="도시 관리">${tool("news", "동네 소식", "residents")}${tool("policy", "정책 만들기", "bypass")}${tool("observe", "도시 살펴보기", "layers")}${tool("notebook", "조사 기록", "chart")}</nav><div class="compact-metrics"><div>${icon("coin", 20)}<span><small>남은 예산</small><strong id="live-budget">100</strong></span></div></div></div>
-<div class="statusbar"><div class="time-controls"><button id="pause" class="square" aria-label="일시정지">${icon("pause", 18)}</button><span id="clock">0:00</span><select id="speed" aria-label="시뮬레이션 속도"><option value="1">1배속</option><option value="2">2배속</option><option value="4" selected>4배속</option><option value="8">8배속</option></select></div><p id="footer-status">정책을 바꿔도 도시의 시간은 이어져요.</p><span id="next-grant">운영 예산 +20까지 5:00</span><button id="save-city">도시 저장</button></div></footer>
+<footer class="command-deck"><div class="toolbelt"><div class="town-badge"><span>${icon("city", 30)}</span><div><strong>새봄동</strong><small>문제도, 변화도 이어져요</small></div></div><nav class="tools" aria-label="도시 관리">${tool("news", "동네 소식", "소식", "residents")}${tool("policy", "정책 만들기", "정책", "bypass")}${tool("observe", "도시 살펴보기", "살펴보기", "layers")}${tool("notebook", "조사 기록", "기록", "chart")}</nav><div class="compact-metrics"><div>${icon("coin", 20)}<span><small>남은 예산</small><strong id="live-budget">100</strong></span></div></div></div>
+<div class="statusbar"><div class="time-controls"><button id="pause" class="square" aria-label="일시정지" aria-describedby="clock">${icon("pause", 18)}</button><span id="clock">0:00</span></div><p id="footer-status">정책을 바꿔도 도시의 시간은 이어져요.</p><span id="next-grant">운영 예산 +20까지 5:00</span><button id="city-options-toggle" aria-label="배속과 도시 저장 더보기" aria-controls="city-options" aria-expanded="false"><span id="current-speed">4×</span><span>더보기</span></button><div id="city-options" class="city-options" role="group" aria-label="배속과 도시 저장"><label class="speed-control"><span>도시 시간 배속</span><select id="speed" aria-label="시뮬레이션 속도"><option value="1">1배속</option><option value="2">2배속</option><option value="4" selected>4배속</option><option value="8">8배속</option></select></label><button id="save-city">도시 저장</button></div></div></footer>
 <div id="toast" role="status" aria-live="polite"></div>`;
 $('[data-map-layer="environment"]').remove();
-for (const button of document.querySelectorAll<HTMLElement>("[data-map-layer]"))
+const shortLayerLabels: Record<string, string> = {
+  land: "지구", traffic: "혼잡", waste: "쓰레기", water: "수질",
+  stock: "재고", access: "시설", population: "인구",
+};
+for (const button of document.querySelectorAll<HTMLElement>("[data-map-layer]")) {
   button.setAttribute("aria-label", button.textContent!.trim() + " 보기");
+  button.querySelector("span")!.dataset.shortLabel =
+    shortLayerLabels[button.dataset.mapLayer!];
+}
 bindMapScrollHint($(".map-tools"));
+const optionsToggle = $("#city-options-toggle");
+function closeCityOptions(restoreFocus = false) {
+  const wasOpen = optionsToggle.getAttribute("aria-expanded") === "true";
+  optionsToggle.setAttribute("aria-expanded", "false");
+  if (wasOpen && restoreFocus) optionsToggle.focus({ preventScroll: true });
+}
+// Changing layouts must not leave a hidden mobile trigger expanded.
+let compactDeck = window.innerWidth <= 700;
+window.addEventListener("resize", () => {
+  const compact = window.innerWidth <= 700;
+  if (compact !== compactDeck) closeCityOptions();
+  compactDeck = compact;
+});
+document.addEventListener("focusin", (e) => {
+  if (!(e.target as HTMLElement).closest("#city-options, #city-options-toggle"))
+    closeCityOptions();
+});
 let sim = new LiveCitySimulation(),
   paused = false,
   layer: MapLayer = "normal",
@@ -241,6 +265,7 @@ function close() {
   panelReturnFocus = undefined;
 }
 function show(name: string, title: string, body: string) {
+  closeCityOptions();
   if (!panel)
     panelReturnFocus =
       document.activeElement instanceof HTMLElement
@@ -517,6 +542,8 @@ async function resetSavedCity() {
   }
 }
 document.addEventListener("click", (e) => {
+  if (!(e.target as HTMLElement).closest("#city-options, #city-options-toggle"))
+    closeCityOptions();
   const b = (e.target as HTMLElement).closest<HTMLElement>("button");
   if (!b) return;
   if (resetting) return;
@@ -703,8 +730,15 @@ document.addEventListener("click", (e) => {
         }
       }
       break;
+    case "city-options-toggle":
+      optionsToggle.setAttribute(
+        "aria-expanded",
+        String(optionsToggle.getAttribute("aria-expanded") !== "true"),
+      );
+      break;
     case "save-city":
       if (save()) toast("현재 도시와 조사 기록을 저장했어요.");
+      closeCityOptions(true);
       break;
     case "investigate-story":
       if (reader.current) {
@@ -804,6 +838,10 @@ document.addEventListener("input", (e) => {
 });
 document.addEventListener("change", (e) => {
   const el = e.target as HTMLInputElement;
+  if (el.id === "speed") {
+    $("#current-speed").textContent = `${el.value}×`;
+    closeCityOptions(true);
+  }
   if (el.id === "display-quality" && ["normal", "light"].includes(el.value)) {
     displayQuality = el.value as DisplayQuality;
     city.setQuality(displayQuality);
@@ -829,6 +867,11 @@ document.addEventListener("change", (e) => {
   }
 });
 document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && optionsToggle.getAttribute("aria-expanded") === "true") {
+    e.preventDefault();
+    closeCityOptions(true);
+    return;
+  }
   if (inspector.isOpen) return;
   if (resetDraft || resetting) {
     if (e.key === "Escape") cancelReset();

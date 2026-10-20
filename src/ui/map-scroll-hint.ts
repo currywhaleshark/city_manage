@@ -25,6 +25,7 @@ export function bindMapScrollHint(root: HTMLElement) {
         : "위에 더 있음"
       : "아래 더 있음";
     if (hint.textContent !== text) hint.textContent = text;
+    hint.dataset.shortHint = `${above ? (below ? "↕" : "↑") : "↓"} 더`;
     list.setAttribute("aria-describedby", hint.id);
   };
 

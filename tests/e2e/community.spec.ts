@@ -59,6 +59,7 @@ for (const width of [1440, 390])
       .poll(() => page.evaluate(() => (window as any).__liveCity.paused))
       .toBe(false);
     await page.locator("#pause").click();
+    if (width <= 700) await page.locator("#city-options-toggle").click();
     await page.locator("#save-city").click();
     await page.reload();
     await expect
@@ -118,6 +119,7 @@ for (const width of [1440, 390])
     await page
       .locator('[data-community-reflection="0"]')
       .fill("남은 오염원도 조사하고 처리 시설을 의논해요.");
+    if (width <= 700) await page.locator("#city-options-toggle").click();
     await page.locator("#save-city").click();
     expect(
       await page.evaluate(

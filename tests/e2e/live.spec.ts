@@ -44,6 +44,7 @@ for (const width of [1440, 390])
       .locator("#live-notes")
       .fill("지금은 주거지 주차를 살펴보고 다음에는 하천을 조사해요.");
     await page.locator("#close-panel").click();
+    if (width <= 700) await page.locator("#city-options-toggle").click();
     await page.locator("#speed").selectOption("8");
     await page.locator("#pause").click();
     await expect
@@ -58,6 +59,7 @@ for (const width of [1440, 390])
       )
       .toBe(true);
     await page.locator("#pause").click();
+    if (width <= 700) await page.locator("#city-options-toggle").click();
     await page.locator("#save-city").click();
     const elapsed = await page.evaluate(() => (window as any).__liveCity.time);
     await page.screenshot({ path: `output/playwright/live-city-${width}.png` });
