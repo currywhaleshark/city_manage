@@ -138,6 +138,7 @@ test("clearing a blocked residential road improves real trips without removing d
   policy.apply("signal", "n3-2");
   policy.apply("patrol", "homes");
   let baseStopped = 0, policyStopped = 0;
+  let otherProblemRemains = false;
   const stopped = (city: LiveCitySimulation) => [...city.vehicles.values()]
     .filter(v => !city.serviceJourneys.has(v.id) && v.speed < 0.5).length;
   for (let time = 301; time <= 900; time++) {
@@ -145,12 +146,14 @@ test("clearing a blocked residential road improves real trips without removing d
     policy.runUntil(time);
     baseStopped += stopped(base);
     policyStopped += stopped(policy);
+    // Arrival now takes real travel time; observe the period instead of one exact tick.
+    otherProblemRemains ||= policy.parking.parkingStats.sites.some(s => s.id !== "homes" && s.illegal > 0);
   }
   assert.ok(policyStopped < baseStopped * 0.85);
   assert.ok(policy.completed.length > base.completed.length);
   assert.deepEqual(policy.demand, base.demand, "policy changes road conditions, not trip generation");
   assert.equal(policy.parking.parkingStats.sites.find(s => s.id === "homes")!.illegal, 0);
-  assert.ok(policy.parking.parkingStats.sites.some(s => s.id !== "homes" && s.illegal > 0),
+  assert.ok(otherProblemRemains,
     "a local policy does not magically clear every other problem");
 });
 

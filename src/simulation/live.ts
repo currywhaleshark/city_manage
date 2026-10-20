@@ -223,6 +223,8 @@ export interface LiveSave {
   council?: CommunityDecision[];
   /** First city-wide traffic cycle; absent in saves from the school-heavy model. */
   cityTrafficFrom?: number;
+  /** First tick using building exits; older cities retain their already driven history. */
+  vehicleAccessFrom?: number;
 }
 
 /** One transport engine and one clock. Domain services never advance their own traffic. */
@@ -261,7 +263,7 @@ export class LiveCitySimulation extends DumpingSimulation {
     at: number;
     done?: boolean;
   }[] = [];
-  constructor(readonly seed = 2404, public cityTrafficFrom = 0) {
+  constructor(readonly seed = 2404, public cityTrafficFrom = 0, public vehicleAccessFrom = 0) {
     super(seed, [], undefined, undefined, CITY_TRAFFIC_COUNT);
     if (cityTrafficFrom === 0) this.demand = createCityDemand(seed);
     this.parking = new ParkingSimulation(seed, [], undefined, [], [], this);
@@ -274,6 +276,7 @@ export class LiveCitySimulation extends DumpingSimulation {
     for (const bank of this.water.banks) bank.initial = bank.remaining = 0;
     this.facilities = new FacilitySimulation(seed);
   }
+  override get usesVehicleAccess() { return this.time + 1e-8 >= this.vehicleAccessFrom; }
   protected override communityAwareness(siteId: DumpingSiteId) {
     return this.council.awarenessBoost(siteId);
   }
@@ -1009,6 +1012,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       ...(Number.isFinite(this.cityTrafficFrom)
         ? { cityTrafficFrom: this.cityTrafficFrom }
         : {}),
+      ...(Number.isFinite(this.vehicleAccessFrom)
+        ? { vehicleAccessFrom: this.vehicleAccessFrom }
+        : {}),
     };
   }
 }
@@ -1039,6 +1045,11 @@ export function validateLiveSave(value: unknown): LiveSave {
       s.cityTrafficFrom > nextCityTrafficCycle(s.time))
   )
     throw new Error("도시 교통 기록을 확인할 수 없어요.");
+  if (s.vehicleAccessFrom !== undefined &&
+    (!Number.isFinite(s.vehicleAccessFrom) || s.vehicleAccessFrom < 0 ||
+      Math.abs(s.vehicleAccessFrom * 10 - Math.round(s.vehicleAccessFrom * 10)) > 1e-5 ||
+      s.vehicleAccessFrom > s.time + 0.1 + 1e-7))
+    throw new Error("차량 출발 기록을 확인할 수 없어요.");
   let previous = 0;
   for (const a of s.actions) {
     if (
@@ -1107,9 +1118,11 @@ export function prepareLiveSave(value: unknown): LiveSave {
   const save = validateLiveSave(value);
   // Replay the old city exactly, then change only future departures. Existing
   // vehicles, policies and observations are retained without resetting a city.
-  return save.cityTrafficFrom === undefined
-    ? { ...save, cityTrafficFrom: nextCityTrafficCycle(save.time) }
-    : save;
+  return {
+    ...save,
+    cityTrafficFrom: save.cityTrafficFrom ?? nextCityTrafficCycle(save.time),
+    vehicleAccessFrom: save.vehicleAccessFrom ?? (Math.round(save.time * 10) + 1) / 10,
+  };
 }
 export async function restoreLiveCity(
   value: unknown,
@@ -1122,15 +1135,18 @@ export async function restoreLiveCity(
 ) {
   const save = prepareLiveSave(value),
     city = options.initialCity ??
-      new LiveCitySimulation(save.seed, save.cityTrafficFrom);
+      new LiveCitySimulation(save.seed, save.cityTrafficFrom, save.vehicleAccessFrom);
   if (
     city.seed !== save.seed ||
     Math.round(city.time * 10) > Math.round(save.time * 10) ||
     (city.cityTrafficFrom !== save.cityTrafficFrom &&
-      !(city.cityTrafficFrom === Infinity && save.cityTrafficFrom! > city.time))
+      !(city.cityTrafficFrom === Infinity && save.cityTrafficFrom! > city.time)) ||
+    (city.vehicleAccessFrom !== save.vehicleAccessFrom &&
+      !(city.vehicleAccessFrom === Infinity && save.vehicleAccessFrom! > city.time))
   )
     throw new Error("이어 불러올 도시가 맞지 않아요.");
   city.cityTrafficFrom = save.cityTrafficFrom!;
+  city.vehicleAccessFrom = save.vehicleAccessFrom!;
   const previousActions = city.actions.length,
     previousMeetings = city.council.records.length;
   const commands = [

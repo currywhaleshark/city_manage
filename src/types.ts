@@ -96,6 +96,14 @@ export interface Vehicle {
   headway: number;
   waitingTime: number;
   enteredAt: number;
+  /** A vehicle waits off-road, then reserves space while turning out of a forecourt. */
+  departure?: {
+    accessId: string;
+    points: Crossing["points"];
+    mergeS: number;
+    progress: number;
+    merging: boolean;
+  };
   crossing?: Crossing;
   laneChange?: {
     fromLaneId: string;

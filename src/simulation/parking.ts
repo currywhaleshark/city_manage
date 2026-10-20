@@ -132,7 +132,7 @@ export interface ParkingRequest {
 export interface ParkingEpisode {
   request: ParkingRequest;
   destination: "illegal" | "lot" | "bay";
-  phase: "parked" | "leaving" | "finished";
+  phase: "approaching" | "parked" | "leaving" | "finished";
   pose: Pose;
   releaseAt: number;
   walkDistance: number;
@@ -258,7 +258,7 @@ export class ParkingSimulation extends TrafficSimulation {
       const destination = bay ? "bay" : lot ? "lot" : "illegal";
       // New parked vehicles cannot materialize on top of a passing vehicle.
       if (
-        this.transport &&
+        this.transport && !this.usesVehicleAccess &&
         destination === "illegal" &&
         request.surface === "road" &&
         [...this.vehicles.values()].some(
@@ -293,6 +293,13 @@ export class ParkingSimulation extends TrafficSimulation {
         illegalSeconds: 0,
         slot: lot ? slots : undefined,
       };
+      if (this.usesVehicleAccess && destination === "illegal" && request.surface === "road") {
+        // Recurring illegal parking also drives in; never create a stationary car in traffic.
+        if (!this.dispatchService(request.id, lane.from, lane.id, request.color)) continue;
+        episode.phase = "approaching";
+        this.episodes.push(episode);
+        continue;
+      }
       if (lot) {
         occupiedSlots.add(slots);
         do {
@@ -353,6 +360,14 @@ export class ParkingSimulation extends TrafficSimulation {
   }
   override step() {
     for (const episode of this.episodes) {
+      if (episode.phase === "approaching") {
+        if (!this.serviceJourneys.get(episode.request.id)?.arrived) continue;
+        episode.phase = "parked";
+        episode.releaseAt = this.time + (this.configuration.patrol &&
+          this.plan.patrolSite === episode.request.siteId
+          ? Math.min(episode.request.duration, 40 + (episode.request.id % 2) * 8)
+          : episode.request.duration);
+      }
       if (episode.phase !== "parked") continue;
       if (this.time + 1e-8 < episode.releaseAt) {
         if (episode.destination === "illegal")

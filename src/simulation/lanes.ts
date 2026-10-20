@@ -42,6 +42,7 @@ export function permitsRoute(
 export function occupiesLane(car: Vehicle, laneId: string) {
   return (
     !car.crossing &&
+    (!car.departure || car.departure.merging) &&
     (car.laneId === laneId || car.laneChange?.toLaneId === laneId)
   );
 }

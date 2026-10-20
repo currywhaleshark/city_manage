@@ -19,6 +19,7 @@ import {
   visibleRoadSegment,
 } from "../city/world";
 import { signalPhase } from "../simulation/network";
+import { vehicleAccesses } from "../simulation/vehicle-access";
 import type { TrafficSimulation } from "../simulation";
 import type { Lane, RoadMetric } from "../types";
 import { DISPLAY_PRESETS, type DisplayQuality } from "./quality";
@@ -928,6 +929,19 @@ export class CityRenderer {
       if (road.laneCount > 1)
         for (const lane of sim.network.lanes.values())
           if (lane.roadId === road.id) this.laneArrows(lane);
+    }
+    if (sim instanceof LiveCitySimulation) for (const access of vehicleAccesses(sim.network)) {
+      const [start, toward] = access.points;
+      const entrance = new THREE.Group();
+      entrance.position.set(start.x, 0, start.z);
+      entrance.rotation.y = Math.atan2(toward.x - start.x, toward.z - start.z);
+      this.roads.add(entrance);
+      this.box(entrance, 0, 0.37, 0, 4.4, 0.15, 5.2, 0x87918a);
+      // An open parking bay and a short apron visibly join the existing street.
+      this.box(entrance, 0, 0.36, 3.3, 4.4, 0.12, 1.8, 0x87918a);
+      for (const side of [-1, 1])
+        this.box(entrance, side * 1.8, 0.47, 0, 0.13, 0.025, 4.6, 0xeee5cf);
+      this.box(entrance, 0, 0.47, -2.3, 3.6, 0.025, 0.13, 0xeee5cf);
     }
     this.signalBulbs = new THREE.InstancedMesh(
       new THREE.SphereGeometry(0.31, 8, 6),

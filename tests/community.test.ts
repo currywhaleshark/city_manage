@@ -33,6 +33,8 @@ test("meetings need different voices, a real location and budget; only one volun
     poor.council.start("walking", "school", "together", heard("walking")),
   );
   assert.equal(poor.budget, 4);
+  const parkedBefore = s.parking.parkingStats.illegal;
+  const incomingBefore = s.parking.episodes.filter(e => e.phase === "approaching").length;
   const record = s.council.start(
     "walking",
     "school",
@@ -44,9 +46,11 @@ test("meetings need different voices, a real location and budget; only one volun
   assert.equal(s.budget, 95);
   assert.equal(
     s.parking.parkingStats.illegal,
-    6,
+    parkedBefore,
     "the meeting does not erase existing parked cars",
   );
+  assert.equal(s.parking.episodes.filter(e => e.phase === "approaching").length, incomingBefore,
+    "a meeting preserves the journeys already on their way");
   assert.throws(() =>
     s.council.start("sorting", "alley", "flexible", heard("sorting")),
   );

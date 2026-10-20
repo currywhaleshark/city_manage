@@ -159,7 +159,9 @@ export class ParkingRenderer extends THREE.Group {
             angle: car.pose.angle,
           }
         : ep.pose;
-      g.visible = ep.phase !== "finished" && inCityBounds(p);
+      g.visible = ep.phase !== "finished" &&
+        (ep.phase !== "approaching" || !!car) && inCityBounds(p);
+      if (ep.destination === "illegal") g.children[g.children.length - 1].visible = ep.phase === "parked";
       g.position.set(p.x, 0, p.z);
       g.rotation.y = Math.PI / 2 + p.angle;
     }

@@ -11,7 +11,7 @@ export function collectMetrics(sim: TrafficSimulation): SimulationStats {
     sim.pending.reduce((s, t) => s + sim.time - t.departAt, 0);
   const roads = [...sim.network.roads.values()].map((road) => {
     const vehicles = allVehicles.filter(
-      (v) => sim.network.lanes.get(v.laneId)!.roadId === road.id,
+      (v) => !v.departure && sim.network.lanes.get(v.laneId)!.roadId === road.id,
     );
     const stopped = vehicles.filter((v) => v.speed < 0.3).length;
     const meanSpeed = vehicles.length
