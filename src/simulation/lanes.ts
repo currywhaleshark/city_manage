@@ -43,6 +43,7 @@ export function occupiesLane(car: Vehicle, laneId: string) {
   return (
     !car.crossing &&
     (!car.departure || car.departure.merging) &&
+    car.arrival?.progress !== 1 &&
     (car.laneId === laneId || car.laneChange?.toLaneId === laneId)
   );
 }

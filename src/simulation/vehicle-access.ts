@@ -62,6 +62,68 @@ export function vehicleAccesses(network: Network): readonly VehicleAccess[] {
 
 export interface DeparturePlan { access: VehicleAccess; route: string[] }
 
+export interface ArrivalPlan {
+  access: VehicleAccess;
+  route: string[];
+  entryS: number;
+  points: Crossing["points"];
+}
+
+/** Approach in the lane's direction, then turn right into the same off-road bay. */
+export function arrivalPath(network: Network, access: VehicleAccess) {
+  const lane = network.lanes.get(access.laneId)!;
+  const dx = (lane.end.x - lane.start.x) / lane.length;
+  const dz = (lane.end.z - lane.start.z) / lane.length;
+  const entryS = access.startS - 8;
+  const at = (s: number): Vec2 => ({
+    x: lane.start.x + dx * s,
+    z: lane.start.z + dz * s,
+  });
+  return {
+    entryS,
+    points: [at(entryS), at(access.startS - 1), access.points[1], access.points[0]] as Crossing["points"],
+  };
+}
+
+export function planVehicleArrival(
+  network: Network, trip: Trip, departure?: DeparturePlan,
+): ArrivalPlan | undefined {
+  const destination = network.nodes.get(trip.destination)?.position;
+  if (!destination) return;
+  const source = departure && network.lanes.get(departure.access.laneId)!;
+  const start = source?.to ?? trip.origin;
+  const candidates = [...vehicleAccesses(network)].sort((a, b) => {
+    const score = (access: VehicleAccess) => {
+      const building = BUILDINGS.find(b => b.id === access.buildingId)!;
+      return Math.hypot(building.x - destination.x, building.z - destination.z) +
+        (trip.destination === SCHOOL_NODE && building.kind !== "school" ? 1000 : 0);
+    };
+    return score(a) - score(b);
+  });
+  for (const access of candidates) {
+    const lane = network.lanes.get(access.laneId)!;
+    const penalty = (id: string) => id === lane.roadId || id === source?.roadId ? Infinity : 0;
+    let tail = findRoute(network, start, lane.from, penalty);
+    if (start !== lane.from && !tail.length) continue;
+    if (start === lane.from && source?.roadId === lane.roadId) {
+      // Buildings on opposite sides of one road need a block loop, not a U-turn.
+      const loops = (network.outgoing.get(start) ?? []).flatMap(out => {
+        if (!Number.isFinite(penalty(out.roadId))) return [];
+        const back = findRoute(network, out.to, start, id =>
+          id === out.roadId ? Infinity : penalty(id));
+        return back.length ? [[out.roadId, ...back]] : [];
+      });
+      loops.sort((a, b) => a.length - b.length);
+      if (!loops.length) continue;
+      tail = loops[0];
+    }
+    return {
+      access, ...arrivalPath(network, access),
+      route: [...(source ? [source.roadId] : []), ...tail, lane.roadId],
+    };
+  }
+}
+
 export function planVehicleDeparture(
   network: Network, trip: Trip, stopLaneId?: string,
 ): DeparturePlan | undefined {

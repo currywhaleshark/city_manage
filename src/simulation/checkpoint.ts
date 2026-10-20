@@ -8,7 +8,7 @@ import { FacilitySimulation, type PlannedFacility } from "./facilities";
 
 // This is an internal structured-clone cache, never accepted from imported JSON.
 // Bump when engine state/semantics change. The portable command log remains authoritative.
-export const CHECKPOINT_VERSION = "living-state-4";
+export const CHECKPOINT_VERSION = "living-state-5";
 const shared = [
   "network",
   "pedestrians",
@@ -25,6 +25,7 @@ const excluded = new Set([
   "movementCache",
   "laneCache",
   "departureCache",
+  "arrivalCache",
   "parking",
   "logistics",
   "water",
@@ -112,7 +113,8 @@ export function restoreLiveCheckpoint(
   const legacy = (checkpoint?.version as string) === "living-state-1";
   const previous = legacy || (checkpoint?.version as string) === "living-state-2";
   const beforeAccess = previous || (checkpoint?.version as string) === "living-state-3";
-  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeAccess)
+  const beforeArrival = beforeAccess || (checkpoint?.version as string) === "living-state-4";
+  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeArrival)
     throw new Error("도시 저장 형식이 바뀌었어요.");
   const saved = validateLiveSave(checkpoint.save);
   if (
@@ -122,6 +124,8 @@ export function restoreLiveCheckpoint(
         requested.cityTrafficFrom! > saved.time)) ||
     (saved.vehicleAccessFrom !== requested.vehicleAccessFrom &&
       !(saved.vehicleAccessFrom === undefined && requested.vehicleAccessFrom! > saved.time)) ||
+    (saved.vehicleArrivalFrom !== requested.vehicleArrivalFrom &&
+      !(saved.vehicleArrivalFrom === undefined && requested.vehicleArrivalFrom! > saved.time)) ||
     Math.round(saved.time * 10) > Math.round(requested.time * 10) ||
     JSON.stringify(saved.actions) !==
       JSON.stringify(requested.actions.slice(0, saved.actions.length)) ||
@@ -142,11 +146,13 @@ export function restoreLiveCheckpoint(
     throw new Error("다른 도시의 저장 상태예요.");
   const state = structuredClone(checkpoint.state),
     city = new LiveCitySimulation(saved.seed, saved.cityTrafficFrom ?? Infinity,
-      saved.vehicleAccessFrom ?? Infinity);
+      saved.vehicleAccessFrom ?? Infinity, saved.vehicleArrivalFrom ?? Infinity);
   if (previous && !("cityTrafficFrom" in state.world))
     state.world.cityTrafficFrom = saved.cityTrafficFrom ?? Infinity;
   if (beforeAccess && !("vehicleAccessFrom" in state.world))
     state.world.vehicleAccessFrom = saved.vehicleAccessFrom ?? Infinity;
+  if (beforeArrival && !("vehicleArrivalFrom" in state.world))
+    state.world.vehicleArrivalFrom = saved.vehicleArrivalFrom ?? Infinity;
   if (legacy) {
     // Only presentation state changed. Keep the physical city and avoid a full replay.
     Object.assign(state.world, {
@@ -203,5 +209,6 @@ export function restoreLiveCheckpoint(
     throw new Error("도시 기록과 저장 상태가 맞지 않아요.");
   city.cityTrafficFrom = requested.cityTrafficFrom!;
   city.vehicleAccessFrom = requested.vehicleAccessFrom!;
+  city.vehicleArrivalFrom = requested.vehicleArrivalFrom!;
   return city;
 }

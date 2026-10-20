@@ -225,6 +225,8 @@ export interface LiveSave {
   cityTrafficFrom?: number;
   /** First tick using building exits; older cities retain their already driven history. */
   vehicleAccessFrom?: number;
+  /** First tick assigning building arrivals; existing journeys keep their original route. */
+  vehicleArrivalFrom?: number;
 }
 
 /** One transport engine and one clock. Domain services never advance their own traffic. */
@@ -263,7 +265,8 @@ export class LiveCitySimulation extends DumpingSimulation {
     at: number;
     done?: boolean;
   }[] = [];
-  constructor(readonly seed = 2404, public cityTrafficFrom = 0, public vehicleAccessFrom = 0) {
+  constructor(readonly seed = 2404, public cityTrafficFrom = 0, public vehicleAccessFrom = 0,
+    public vehicleArrivalFrom = 0) {
     super(seed, [], undefined, undefined, CITY_TRAFFIC_COUNT);
     if (cityTrafficFrom === 0) this.demand = createCityDemand(seed);
     this.parking = new ParkingSimulation(seed, [], undefined, [], [], this);
@@ -277,6 +280,9 @@ export class LiveCitySimulation extends DumpingSimulation {
     this.facilities = new FacilitySimulation(seed);
   }
   override get usesVehicleAccess() { return this.time + 1e-8 >= this.vehicleAccessFrom; }
+  override get usesVehicleArrivals() {
+    return this.usesVehicleAccess && this.time + 1e-8 >= this.vehicleArrivalFrom;
+  }
   protected override communityAwareness(siteId: DumpingSiteId) {
     return this.council.awarenessBoost(siteId);
   }
@@ -1015,6 +1021,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       ...(Number.isFinite(this.vehicleAccessFrom)
         ? { vehicleAccessFrom: this.vehicleAccessFrom }
         : {}),
+      ...(Number.isFinite(this.vehicleArrivalFrom)
+        ? { vehicleArrivalFrom: this.vehicleArrivalFrom }
+        : {}),
     };
   }
 }
@@ -1050,6 +1059,11 @@ export function validateLiveSave(value: unknown): LiveSave {
       Math.abs(s.vehicleAccessFrom * 10 - Math.round(s.vehicleAccessFrom * 10)) > 1e-5 ||
       s.vehicleAccessFrom > s.time + 0.1 + 1e-7))
     throw new Error("차량 출발 기록을 확인할 수 없어요.");
+  if (s.vehicleArrivalFrom !== undefined &&
+    (!Number.isFinite(s.vehicleArrivalFrom) || s.vehicleArrivalFrom < 0 ||
+      Math.abs(s.vehicleArrivalFrom * 10 - Math.round(s.vehicleArrivalFrom * 10)) > 1e-5 ||
+      s.vehicleArrivalFrom > s.time + 0.1 + 1e-7))
+    throw new Error("차량 도착 기록을 확인할 수 없어요.");
   let previous = 0;
   for (const a of s.actions) {
     if (
@@ -1122,6 +1136,7 @@ export function prepareLiveSave(value: unknown): LiveSave {
     ...save,
     cityTrafficFrom: save.cityTrafficFrom ?? nextCityTrafficCycle(save.time),
     vehicleAccessFrom: save.vehicleAccessFrom ?? (Math.round(save.time * 10) + 1) / 10,
+    vehicleArrivalFrom: save.vehicleArrivalFrom ?? (Math.round(save.time * 10) + 1) / 10,
   };
 }
 export async function restoreLiveCity(
@@ -1135,18 +1150,22 @@ export async function restoreLiveCity(
 ) {
   const save = prepareLiveSave(value),
     city = options.initialCity ??
-      new LiveCitySimulation(save.seed, save.cityTrafficFrom, save.vehicleAccessFrom);
+      new LiveCitySimulation(save.seed, save.cityTrafficFrom, save.vehicleAccessFrom,
+        save.vehicleArrivalFrom);
   if (
     city.seed !== save.seed ||
     Math.round(city.time * 10) > Math.round(save.time * 10) ||
     (city.cityTrafficFrom !== save.cityTrafficFrom &&
       !(city.cityTrafficFrom === Infinity && save.cityTrafficFrom! > city.time)) ||
     (city.vehicleAccessFrom !== save.vehicleAccessFrom &&
-      !(city.vehicleAccessFrom === Infinity && save.vehicleAccessFrom! > city.time))
+      !(city.vehicleAccessFrom === Infinity && save.vehicleAccessFrom! > city.time)) ||
+    (city.vehicleArrivalFrom !== save.vehicleArrivalFrom &&
+      !(city.vehicleArrivalFrom === Infinity && save.vehicleArrivalFrom! > city.time))
   )
     throw new Error("이어 불러올 도시가 맞지 않아요.");
   city.cityTrafficFrom = save.cityTrafficFrom!;
   city.vehicleAccessFrom = save.vehicleAccessFrom!;
+  city.vehicleArrivalFrom = save.vehicleArrivalFrom!;
   const previousActions = city.actions.length,
     previousMeetings = city.council.records.length;
   const commands = [

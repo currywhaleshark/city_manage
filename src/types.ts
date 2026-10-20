@@ -104,6 +104,15 @@ export interface Vehicle {
     progress: number;
     merging: boolean;
   };
+  /** Planned destination; progress exists only while entering its off-road bay. */
+  arrival?: {
+    accessId: string;
+    laneId: string;
+    entryS: number;
+    points: Crossing["points"];
+    progress?: number;
+    parkedFor?: number;
+  };
   crossing?: Crossing;
   laneChange?: {
     fromLaneId: string;
