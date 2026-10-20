@@ -32,8 +32,12 @@ for (const width of [1440, 390])
       "시간이 다른 주민",
     );
     await page.locator("#community-next").click();
-    await expect(page.locator("#start-community")).toBeDisabled();
-    await page.locator('[data-community-method="flexible"]').click();
+    await expect(page.locator(".community-proposal")).toHaveCount(3);
+    await expect(page.locator("#start-community")).toHaveCount(0);
+    await page.locator('#community-vote').click();
+    await expect(page.locator('#live-panel-body')).toContainText('가상 주민 11명');
+    await page.locator('#community-count').click();
+    if (await page.locator('#community-runoff').count()) await page.locator('#community-runoff').click();
     await page
       .locator("#community-reason")
       .fill("일하는 이웃도 편한 시간에 함께 실천해요.");
@@ -47,7 +51,7 @@ for (const width of [1440, 390])
       before,
     );
     await page.locator("#start-community").click();
-    await expect(page.locator("#live-budget")).toHaveText("90");
+    await expect(page.locator("#live-budget")).toHaveText("92");
     await expect(
       page.locator('[data-policy-place="community-waterCare-homes"]'),
     ).toBeVisible();
@@ -69,6 +73,9 @@ for (const width of [1440, 390])
       () => (window as any).__liveCity.council[0],
     );
     expect(record.heard).toEqual(["walker", "merchant", "worker"]);
+    expect(record.method).toBe('relay');
+    expect(record.vote.winner).toBe(record.method);
+    expect(record.vote.rounds[0].ballots).toHaveLength(11);
     expect(record.concern).toContain("작업장");
     // Replay the user's actual saved decisions at a later simulated time (no wall-clock wait).
     await page.evaluate(() => {

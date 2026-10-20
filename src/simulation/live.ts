@@ -31,6 +31,7 @@ import {
   COMMUNITY_PROJECTS,
   COMMUNITY_METHODS,
   communityTargets,
+  validateCommunityVote,
   type CommunityDecision,
 } from "./community";
 
@@ -227,6 +228,8 @@ export interface LiveSave {
   vehicleAccessFrom?: number;
   /** First tick assigning building arrivals; existing journeys keep their original route. */
   vehicleArrivalFrom?: number;
+  /** Start of directed arrival planning and congestion-aware detours. */
+  trafficRoutingFrom?: number;
 }
 
 /** One transport engine and one clock. Domain services never advance their own traffic. */
@@ -266,7 +269,7 @@ export class LiveCitySimulation extends DumpingSimulation {
     done?: boolean;
   }[] = [];
   constructor(readonly seed = 2404, public cityTrafficFrom = 0, public vehicleAccessFrom = 0,
-    public vehicleArrivalFrom = 0) {
+    public vehicleArrivalFrom = 0, public trafficRoutingFrom = 0) {
     super(seed, [], undefined, undefined, CITY_TRAFFIC_COUNT);
     if (cityTrafficFrom === 0) this.demand = createCityDemand(seed);
     this.parking = new ParkingSimulation(seed, [], undefined, [], [], this);
@@ -282,6 +285,9 @@ export class LiveCitySimulation extends DumpingSimulation {
   override get usesVehicleAccess() { return this.time + 1e-8 >= this.vehicleAccessFrom; }
   override get usesVehicleArrivals() {
     return this.usesVehicleAccess && this.time + 1e-8 >= this.vehicleArrivalFrom;
+  }
+  override get usesAdaptiveRouting() {
+    return this.usesVehicleArrivals && this.time + 1e-8 >= this.trafficRoutingFrom;
   }
   protected override communityAwareness(siteId: DumpingSiteId) {
     return this.council.awarenessBoost(siteId);
@@ -1024,6 +1030,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       ...(Number.isFinite(this.vehicleArrivalFrom)
         ? { vehicleArrivalFrom: this.vehicleArrivalFrom }
         : {}),
+      ...(Number.isFinite(this.trafficRoutingFrom)
+        ? { trafficRoutingFrom: this.trafficRoutingFrom }
+        : {}),
     };
   }
 }
@@ -1064,6 +1073,11 @@ export function validateLiveSave(value: unknown): LiveSave {
       Math.abs(s.vehicleArrivalFrom * 10 - Math.round(s.vehicleArrivalFrom * 10)) > 1e-5 ||
       s.vehicleArrivalFrom > s.time + 0.1 + 1e-7))
     throw new Error("차량 도착 기록을 확인할 수 없어요.");
+  if (s.trafficRoutingFrom !== undefined &&
+    (!Number.isFinite(s.trafficRoutingFrom) || s.trafficRoutingFrom < 0 ||
+      Math.abs(s.trafficRoutingFrom * 10 - Math.round(s.trafficRoutingFrom * 10)) > 1e-5 ||
+      s.trafficRoutingFrom > s.time + 0.1 + 1e-7))
+    throw new Error("차량 경로 기록을 확인할 수 없어요.");
   let previous = 0;
   for (const a of s.actions) {
     if (
@@ -1119,6 +1133,7 @@ export function validateLiveSave(value: unknown): LiveSave {
         )
       )
         throw new Error("주민 회의의 위치·의견·시행 순서를 확인해 주세요.");
+      if (c.vote !== undefined) validateCommunityVote(c.vote, s.seed, c.project, c.target, c.method);
       lastTime = c.time;
       lastPolicies = c.policyCount;
     }
@@ -1137,6 +1152,7 @@ export function prepareLiveSave(value: unknown): LiveSave {
     cityTrafficFrom: save.cityTrafficFrom ?? nextCityTrafficCycle(save.time),
     vehicleAccessFrom: save.vehicleAccessFrom ?? (Math.round(save.time * 10) + 1) / 10,
     vehicleArrivalFrom: save.vehicleArrivalFrom ?? (Math.round(save.time * 10) + 1) / 10,
+    trafficRoutingFrom: save.trafficRoutingFrom ?? (Math.round(save.time * 10) + 1) / 10,
   };
 }
 export async function restoreLiveCity(
@@ -1151,7 +1167,7 @@ export async function restoreLiveCity(
   const save = prepareLiveSave(value),
     city = options.initialCity ??
       new LiveCitySimulation(save.seed, save.cityTrafficFrom, save.vehicleAccessFrom,
-        save.vehicleArrivalFrom);
+        save.vehicleArrivalFrom, save.trafficRoutingFrom);
   if (
     city.seed !== save.seed ||
     Math.round(city.time * 10) > Math.round(save.time * 10) ||
@@ -1160,12 +1176,15 @@ export async function restoreLiveCity(
     (city.vehicleAccessFrom !== save.vehicleAccessFrom &&
       !(city.vehicleAccessFrom === Infinity && save.vehicleAccessFrom! > city.time)) ||
     (city.vehicleArrivalFrom !== save.vehicleArrivalFrom &&
-      !(city.vehicleArrivalFrom === Infinity && save.vehicleArrivalFrom! > city.time))
+      !(city.vehicleArrivalFrom === Infinity && save.vehicleArrivalFrom! > city.time)) ||
+    (city.trafficRoutingFrom !== save.trafficRoutingFrom &&
+      !(city.trafficRoutingFrom === Infinity && save.trafficRoutingFrom! > city.time))
   )
     throw new Error("이어 불러올 도시가 맞지 않아요.");
   city.cityTrafficFrom = save.cityTrafficFrom!;
   city.vehicleAccessFrom = save.vehicleAccessFrom!;
   city.vehicleArrivalFrom = save.vehicleArrivalFrom!;
+  city.trafficRoutingFrom = save.trafficRoutingFrom!;
   const previousActions = city.actions.length,
     previousMeetings = city.council.records.length;
   const commands = [
@@ -1188,6 +1207,7 @@ export async function restoreLiveCity(
             c.heard,
             c.reason,
             c.concern,
+            c.vote,
           );
           record.reflection = c.reflection;
         },

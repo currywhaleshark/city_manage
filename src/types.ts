@@ -122,6 +122,7 @@ export interface Vehicle {
     reason: "route" | "flow";
   };
   lastLaneChangeAt?: number;
+  routing?: { stoppedFor: number; nextCheckAt: number; changedAt?: number; changes: number };
   pose: Pose;
   previousPose: Pose;
 }

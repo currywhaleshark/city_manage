@@ -10,6 +10,7 @@ export const COMMUNITY_PROJECTS = [
   {
     id: "walking",
     topic: "parking",
+    problem: "길을 막는 차와 불편한 보행",
     title: "가까운 길 함께 걷기",
     description: "갈 수 있는 주민이 가까운 거리를 걸어 다녀요.",
     roles:
@@ -37,6 +38,7 @@ export const COMMUNITY_PROJECTS = [
   {
     id: "sorting",
     topic: "waste",
+    problem: "골목에 다시 쌓이는 쓰레기",
     title: "우리 골목 배출 약속",
     description: "주민들이 배출 장소와 방법을 서로 알려요.",
     roles:
@@ -64,6 +66,7 @@ export const COMMUNITY_PROJECTS = [
   {
     id: "waterCare",
     topic: "water",
+    problem: "생활하수로 더러워지는 하천",
     title: "생활하수 줄이기 약속",
     description: "주민과 가게가 기름을 따로 모으고 세제를 알맞게 써요.",
     roles:
@@ -101,6 +104,14 @@ export const COMMUNITY_METHODS = [
       "준비가 짧고 예산이 적게 들어요. 그 시간에 올 수 있는 주민이 함께해요.",
   },
   {
+    id: "relay",
+    title: "이웃이 번갈아 안내",
+    cost: 8,
+    preparation: 45,
+    participation: 0.55,
+    description: "이웃이 차례로 방법을 알려요. 안내를 맡을 주민과 시간이 필요해요.",
+  },
+  {
     id: "flexible",
     title: "시간을 나누어 실천",
     cost: 10,
@@ -123,6 +134,8 @@ export interface CommunityDecision {
   reason: string;
   concern: string;
   reflection: string;
+  /** Absent in historical meetings, which must not be given invented ballots. */
+  vote?: CommunityVote;
 }
 export interface CommunityRecord extends CommunityDecision {
   before: number;
@@ -138,6 +151,85 @@ export const communityProject = (id: CommunityProjectId) =>
   COMMUNITY_PROJECTS.find((p) => p.id === id)!;
 export const communityMethod = (id: CommunityMethodId) =>
   COMMUNITY_METHODS.find((m) => m.id === id)!;
+
+const PROPOSALS: Record<CommunityProjectId, Record<CommunityMethodId, { title: string; text: string; concern: string }>> = {
+  walking: {
+    together: { title: "시간을 정해 함께 걷기", text: "가까운 길은 이웃과 함께 걸어요. 함께 갈 시간과 안전한 길을 정하면 좋겠어요.", concern: "모이는 시간에 올 수 없는 이웃은 참여하기 어려워요." },
+    relay: { title: "이웃이 번갈아 걷는 길 안내", text: "안내할 이웃이 차례로 안전한 길을 알려 주면, 차를 덜 타고 걸어갈 수 있겠어요.", concern: "안내할 이웃이 필요하고, 짐이 많거나 이동이 어려우면 차가 필요해요." },
+    flexible: { title: "각자 시간에 걷는 길 약속", text: "길 안내를 나누고 갈 수 있는 시간에 걸어요. 모임에 못 오는 이웃도 참여할 수 있어요.", concern: "안내를 준비할 예산과 시간이 더 들어요. 모든 이동을 걷기로 바꿀 수는 없어요." },
+  },
+  sorting: {
+    together: { title: "함께 모여 배출 방법 익히기", text: "배출 장소에서 쓰레기를 어디에, 어떻게 내놓는지 함께 익히고 실천해요.", concern: "모이는 시간에 못 오는 이웃에게는 전달하기 어려워요." },
+    relay: { title: "골목별로 번갈아 배출 안내", text: "이웃이 차례로 배출 장소와 방법을 알려 줘요. 헷갈리는 점도 물어볼 수 있어요.", concern: "안내를 맡을 이웃이 필요해요. 가득 찬 배출함은 시청이 수거해야 해요." },
+    flexible: { title: "집마다 배출 안내를 나누기", text: "그림 안내를 집마다 나누면, 모임에 못 와도 자기 시간에 읽고 올바르게 버릴 수 있어요.", concern: "안내를 만드는 예산과 시간이 더 들어요. 멀거나 가득 찬 배출함 문제는 남아요." },
+  },
+  waterCare: {
+    together: { title: "모여서 생활하수 줄이기 배우기", text: "기름 따로 모으기와 세제 알맞게 쓰기를 함께 배우고 집에서 실천해요.", concern: "모이는 시간에 올 수 없는 이웃은 참여하기 어려워요." },
+    relay: { title: "가게와 이웃이 번갈아 실천 안내", text: "가게와 이웃이 차례로 기름과 세제 사용법을 알려 주며 생활하수를 줄여요.", concern: "안내할 사람과 시간이 필요해요. 작업장 배출은 별도로 관리해야 해요." },
+    flexible: { title: "집과 가게에 실천 안내 나누기", text: "쉬운 안내를 나누면 낮에 일하는 이웃도 편한 시간에 배우고 실천할 수 있어요.", concern: "준비 예산과 시간이 더 들어요. 이미 흐르는 오염은 시설의 도움도 필요해요." },
+  },
+};
+export function communityProposals(project: CommunityProjectId) {
+  return COMMUNITY_METHODS.map((m, index) => ({ ...m, ...PROPOSALS[project][m.id], proposer: communityProject(project).voices[index] }));
+}
+export const communityProposal = (project: CommunityProjectId, method: CommunityMethodId) =>
+  communityProposals(project).find(p => p.id === method)!;
+
+// Eleven fictional residents have stable preferences. Votes are a classroom
+// model, not a poll of real residents or a reward for the mayor's written answer.
+const PREFERENCES: { reason: string; ranking: CommunityMethodId[] }[] = [
+  { reason: "적은 예산으로 빨리 시작하고 싶어요.", ranking: ["together", "relay", "flexible"] },
+  { reason: "함께 배우는 모임이 좋지만, 못 오는 날에는 안내를 읽고 싶어요.", ranking: ["together", "flexible", "relay"] },
+  { reason: "가까운 이웃에게 직접 물어보고 싶어요.", ranking: ["relay", "together", "flexible"] },
+  { reason: "번갈아 도우면 좋겠어요. 어려우면 안내로 참여할래요.", ranking: ["relay", "flexible", "together"] },
+  { reason: "모임 시간이 맞지 않아 각자 실천하는 방법이 필요해요.", ranking: ["flexible", "relay", "together"] },
+  { reason: "내 시간에 참여하고 싶어요. 함께 배우는 날도 있으면 좋겠어요.", ranking: ["flexible", "together", "relay"] },
+];
+export function communityVoters(seed: number, project: CommunityProjectId, target: string) {
+  let hash = seed >>> 0;
+  for (const char of `${project}:${target}`) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
+  return Array.from({ length: 11 }, (_, i) => {
+    hash ^= hash << 13; hash ^= hash >>> 17; hash ^= hash << 5;
+    const preference = PREFERENCES[(hash >>> 0) % PREFERENCES.length];
+    return { id: `resident-${i + 1}`, name: `주민 ${i + 1}`, ...preference, ranking: [...preference.ranking] };
+  });
+}
+export interface CommunityVote {
+  version: 1;
+  budget: number;
+  rounds: { candidates: CommunityMethodId[]; ballots: { voter: string; method: CommunityMethodId }[] }[];
+  winner: CommunityMethodId;
+}
+export function holdCommunityVote(seed: number, project: CommunityProjectId, target: string, budget: number): CommunityVote {
+  if (!communityProject(project) || !communityTargets(project).some(t => t.id === target) || !Number.isSafeInteger(budget) || budget < 0)
+    throw new Error("회의의 문제·장소·예산을 다시 살펴봐요.");
+  const candidates = COMMUNITY_METHODS.filter(m => m.cost <= budget).map(m => m.id);
+  if (candidates.length < 2) throw new Error("두 가지 이상을 비교해 투표하려면 예산 8이 필요해요. 다음 운영 예산을 기다려요.");
+  const voters = communityVoters(seed, project, target);
+  const vote = (options: CommunityMethodId[]) => ({ candidates: options, ballots: voters.map(v => ({ voter: v.id, method: v.ranking.find(m => options.includes(m))! })) });
+  const leaders = (round: CommunityVote["rounds"][number]) => {
+    const counts = round.candidates.map(id => round.ballots.filter(b => b.method === id).length);
+    return round.candidates.filter((_, i) => counts[i] === Math.max(...counts));
+  };
+  const rounds = [vote(candidates)];
+  let winners = leaders(rounds[0]);
+  if (winners.length > 1) { // With eleven votes and three options, only two can tie for first.
+    rounds.push(vote(winners));
+    winners = leaders(rounds[1]);
+  }
+  return { version: 1, budget, rounds, winner: winners[0] };
+}
+export function validateCommunityVote(value: CommunityVote, seed: number, project: CommunityProjectId, target: string, method: CommunityMethodId) {
+  if (!value || value.version !== 1) throw new Error("주민투표 기록을 확인해 주세요.");
+  const expected = holdCommunityVote(seed, project, target, value.budget);
+  if (value.winner !== method || value.winner !== expected.winner || !Array.isArray(value.rounds) || value.rounds.length !== expected.rounds.length ||
+    expected.rounds.some((r, i) => {
+      const actual = value.rounds[i];
+      return !actual || !Array.isArray(actual.candidates) || actual.candidates.join() !== r.candidates.join() || !Array.isArray(actual.ballots) || actual.ballots.length !== r.ballots.length ||
+        r.ballots.some((b, j) => actual.ballots[j]?.voter !== b.voter || actual.ballots[j]?.method !== b.method);
+    })) throw new Error("주민투표의 표수와 결정된 방법이 맞지 않아요.");
+  return expected;
+}
 export function communityTargets(id: CommunityProjectId): PlacementTarget[] {
   const sites =
     id === "walking"
@@ -184,6 +276,7 @@ export class ResidentsCouncil {
         ? this.city.illegal(target).remaining
         : this.city.values.water;
   }
+  /** Retains historical commands; new player decisions go through decide(). */
   start(
     project: CommunityProjectId,
     target: string,
@@ -191,6 +284,7 @@ export class ResidentsCouncil {
     heard: string[],
     reason = "",
     concern = "",
+    vote?: CommunityVote,
   ) {
     const p = communityProject(project),
       m = communityMethod(method);
@@ -212,6 +306,10 @@ export class ResidentsCouncil {
       throw new Error("서로 다른 세 주민의 이야기를 먼저 들어 봐요.");
     if (this.city.budget < m.cost)
       throw new Error("준비 예산이 부족해요. 다음 운영 예산을 기다려요.");
+    if (vote) {
+      validateCommunityVote(vote, this.city.seed, project, target, method);
+      if (vote.budget !== this.city.budget) throw new Error("투표 때와 예산이 달라요. 회의를 다시 열어 주세요.");
+    }
     const r: CommunityRecord = {
       time: this.city.time,
       policyCount: this.city.actions.length,
@@ -222,6 +320,7 @@ export class ResidentsCouncil {
       reason: reason.slice(0, 400),
       concern: concern.slice(0, 400),
       reflection: "",
+      ...(vote ? { vote: structuredClone(vote) } : {}),
       before: this.measure(project, target),
       startsAt: this.city.time + m.preparation,
       endsAt: this.city.time + m.preparation + COMMUNITY_DURATION,
@@ -235,10 +334,14 @@ export class ResidentsCouncil {
     this.announce(
       r,
       "주민 회의에서 정한 약속",
-      `${p.title} · ${m.title}. 준비 뒤 10분 동안 함께 실천하고 다시 살펴봐요.`,
+      vote ? `주민투표로 ‘${communityProposal(project, method).title}’을 정했어요. 다른 의견도 살피며 준비 뒤 10분 동안 실천해요.` : `${p.title} · ${m.title}. 준비 뒤 10분 동안 함께 실천하고 다시 살펴봐요.`,
     );
     this.city.revision++;
     return r;
+  }
+  decide(project: CommunityProjectId, target: string, heard: string[], vote: CommunityVote, reason = "", concern = "") {
+    if (!vote) throw new Error("주민들의 제안을 듣고 투표를 먼저 진행해요.");
+    return this.start(project, target, vote.winner, heard, reason, concern, vote);
   }
   tick() {
     if (this.city.time + 1e-7 >= this.nextInvitation) {
@@ -367,7 +470,7 @@ export class ResidentsCouncil {
       policies: [
         {
           id: r.project,
-          title: p.title,
+          title: r.vote ? communityProposal(r.project, r.method).title : p.title,
           detail: `${r.started ? "함께 실천 중" : "주민 활동 준비 중"} · ${p.description}`,
           tradeoff: p.limit,
         },
@@ -386,6 +489,7 @@ export class ResidentsCouncil {
         reason,
         concern,
         reflection,
+        vote,
       }) => ({
         time,
         policyCount,
@@ -396,6 +500,7 @@ export class ResidentsCouncil {
         reason,
         concern,
         reflection,
+        ...(vote ? { vote: structuredClone(vote) } : {}),
       }),
     );
   }

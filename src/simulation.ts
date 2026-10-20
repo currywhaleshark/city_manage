@@ -25,6 +25,7 @@ import {
 } from "./simulation/network";
 import { planVehicleDeparture, planVehicleArrival, type DeparturePlan, type ArrivalPlan } from "./simulation/vehicle-access";
 import { inCityBounds } from "./city/world";
+import { findDrivingRoute, drivingRouteSeconds, type DrivingGoal } from "./simulation/routing";
 import { collectMetrics } from "./metrics";
 import { validatePolicy } from "./policies";
 import {
@@ -90,6 +91,7 @@ export class TrafficSimulation {
   private laneCache = new Map<string, Vehicle[]>();
   private departureCache = new Map<string, DeparturePlan | undefined>();
   private arrivalCache = new Map<string, ArrivalPlan | undefined>();
+  private routingDelays = new Map<string, number>();
   constructor(
     policy: PolicySelection = DEFAULT_POLICY,
     demand: readonly Trip[] = createDemand(),
@@ -119,6 +121,7 @@ export class TrafficSimulation {
   }
   get usesVehicleAccess(): boolean { return this.transport?.usesVehicleAccess ?? false; }
   get usesVehicleArrivals(): boolean { return this.transport?.usesVehicleArrivals ?? false; }
+  get usesAdaptiveRouting(): boolean { return this.transport?.usesAdaptiveRouting ?? false; }
   get stats() {
     return collectMetrics(this);
   }
@@ -311,9 +314,13 @@ export class TrafficSimulation {
         let arrival: ArrivalPlan | undefined;
         if (localArrival) {
           const key = `${trip.origin}|${trip.destination}|${departure?.access.id ?? ""}`;
-          if (!this.arrivalCache.has(key))
-            this.arrivalCache.set(key, planVehicleArrival(this.network, trip, departure));
-          arrival = this.arrivalCache.get(key);
+          if (this.usesAdaptiveRouting)
+            arrival = planVehicleArrival(this.network, trip, departure, lane => this.drivingDelay(lane));
+          else {
+            if (!this.arrivalCache.has(key))
+              this.arrivalCache.set(key, planVehicleArrival(this.network, trip, departure));
+            arrival = this.arrivalCache.get(key);
+          }
           if (!arrival) { i++; continue; }
         }
         const route = arrival?.route ?? departure?.route ??
@@ -386,6 +393,67 @@ export class TrafficSimulation {
     return !!car.arrival && car.laneId === car.arrival.laneId &&
       car.routeIndex === car.route.length - 1;
   }
+  private drivingDelay(lane: Lane, allowOutside = false) {
+    if (!allowOutside && lane.to.startsWith("outside-")) return Infinity;
+    if (!this.routingDelays.size) {
+      for (const candidate of this.network.lanes.values()) {
+        const cars = this.laneCars(candidate.id);
+        const claims = this.laneReservations.get(candidate.id)?.size ?? 0;
+        const occupied = cars.length + claims;
+        const fill = occupied * CLEAR_DISTANCE / candidate.length;
+        const stopped = cars.filter(v => v.speed < 0.5).length;
+        const standing = cars[0]?.routing?.stoppedFor ?? 0;
+        const blockedJunction = [...(this.nodeLocks.get(candidate.from) ?? [])].some(id => {
+          const car = this.vehicles.get(id);
+          return car?.crossing && (car.routing?.stoppedFor ?? 0) >= 20;
+        });
+        this.routingDelays.set(candidate.id,
+          stopped * 4 + occupied * 1.5 + (fill >= 0.8 ? 45 : 0) + (fill >= 0.95 ? 90 : 0) +
+          Math.min(120, Math.max(0, standing - 20) * 2) + (blockedJunction ? 90 : 0));
+      }
+    }
+    return this.routingDelays.get(lane.id) ?? 0;
+  }
+  private rerouteTraffic(dt: number) {
+    if (!this.usesAdaptiveRouting) return;
+    for (const car of this.vehicles.values()) {
+      const service = this.serviceJourneys.get(car.id);
+      if (car.departure || car.arrival?.progress !== undefined) {
+        if (car.routing) car.routing.stoppedFor = 0;
+        continue;
+      }
+      const state = car.routing ??= { stoppedFor: 0, nextCheckAt: 0, changes: 0 };
+      state.stoppedFor = car.speed < 0.5 ? state.stoppedFor + dt : 0;
+      if (car.crossing || service?.arrived) continue;
+      if (state.stoppedFor < 20 || this.time < state.nextCheckAt ||
+        this.time - (state.changedAt ?? -Infinity) < 45 || car.laneChange || this.atArrivalLane(car)) continue;
+      const lane = this.network.lanes.get(car.laneId)!;
+      if (lane.length - car.s > 18 || this.laneCars(lane.id)[0] !== car) continue;
+      const reservation = this.movementReservations.get(car.id);
+      // Never release the old junction while the vehicle's tail is still clearing it.
+      if (reservation && reservation.fromLaneId !== lane.id) continue;
+      state.nextCheckAt = this.time + 10;
+      const goal: DrivingGoal = car.arrival
+        ? { laneId: car.arrival.laneId, endS: car.arrival.entryS }
+        : service ? { laneId: service.stopLaneId, endS: this.network.lanes.get(service.stopLaneId)!.length - 7 }
+          : { nodeId: car.trip.destination };
+      if ("laneId" in goal ? goal.laneId === lane.id : goal.nodeId === lane.to) continue;
+      const outside = "laneId" in goal
+        ? this.network.lanes.get(goal.laneId)!.to.startsWith("outside-") : goal.nodeId.startsWith("outside-");
+      const delay = (candidate: Lane) => this.drivingDelay(candidate, outside);
+      const remaining = car.route.slice(car.routeIndex + 1);
+      const previous = drivingRouteSeconds(this.network, lane, remaining, goal, delay);
+      const alternative = findDrivingRoute(this.network,
+        { nodeId: lane.to, incomingLaneId: lane.id }, goal, delay);
+      if (!alternative || alternative.roads.join("|") === remaining.join("|") ||
+        previous - alternative.seconds < Math.max(8, previous * 0.2)) continue;
+      this.releaseReservation(car.id);
+      car.route = [...car.route.slice(0, car.routeIndex + 1), ...alternative.roads];
+      if (service) service.route = [...car.route];
+      state.changedAt = this.time;
+      state.changes++;
+    }
+  }
   private accessBusy(id: string, except?: number) {
     return [...this.vehicles.values()].some(car => car.id !== except &&
       (car.departure?.accessId === id ||
@@ -426,7 +494,14 @@ export class TrafficSimulation {
           other.s >= car.s
             ? other.s < departure.mergeS + CLEAR_DISTANCE + 1
             : car.s - other.s < CLEAR_DISTANCE + 1 + other.speed * 4);
-        if (blocked || this.laneReservations.get(car.laneId)?.size) {
+        // A stopped arrival upstream shields this exit from incoming crossings.
+        // Otherwise an arrival can hold a crossing claim behind it while waiting
+        // for this bay, and that same claim prevents the bay's car from leaving.
+        const sheltered = this.usesAdaptiveRouting && this.laneCars(car.laneId).some(other =>
+          other.arrival?.accessId === departure.accessId && this.atArrivalLane(other) &&
+          other.speed < 0.15 && other.arrival.entryS - other.s < 0.08 &&
+          car.s - other.s >= CLEAR_DISTANCE + 1);
+        if (blocked || (this.laneReservations.get(car.laneId)?.size && !sheltered)) {
           car.waitingTime += dt;
           continue;
         }
@@ -706,6 +781,7 @@ export class TrafficSimulation {
     if (this.transport) return;
     const dt = CONFIG.dt;
     this.laneCache.clear();
+    this.routingDelays.clear();
     this.ticks++;
     this.releaseLocks();
     this.pedestrians.step(this.time, dt, this.nodeLocks);
@@ -774,6 +850,7 @@ export class TrafficSimulation {
         transferred.add(v.id);
       }
     }
+    this.rerouteTraffic(dt);
     this.planLaneChanges();
     this.reserveApproaches();
     const next = new Map<number, { s: number; speed: number }>();

@@ -97,7 +97,7 @@ test("v1 checkpoints migrate presentation state without replaying or changing th
   );
   copy.runUntil(245);
   assert.equal(copy.voices.length, 0);
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-5");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-6");
 });
 
 test("incompatible, different-city or damaged caches are rejected without touching the portable save", () => {

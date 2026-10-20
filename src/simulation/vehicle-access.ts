@@ -1,6 +1,7 @@
 import { BUILDINGS, CONFIG, SCHOOL_NODE } from "../scenario";
 import type { Crossing, Lane, Network, Trip, Vec2 } from "../types";
 import { findRoute } from "./network";
+import { findDrivingRoute, type LaneDelay } from "./routing";
 
 export interface VehicleAccess {
   id: string;
@@ -87,6 +88,7 @@ export function arrivalPath(network: Network, access: VehicleAccess) {
 
 export function planVehicleArrival(
   network: Network, trip: Trip, departure?: DeparturePlan,
+  delay?: LaneDelay,
 ): ArrivalPlan | undefined {
   const destination = network.nodes.get(trip.destination)?.position;
   if (!destination) return;
@@ -100,6 +102,27 @@ export function planVehicleArrival(
     };
     return score(a) - score(b);
   });
+  if (delay) {
+    let best: { plan: ArrivalPlan; distance: number; seconds: number } | undefined;
+    let closest: number | undefined;
+    for (const access of candidates) {
+      const building = BUILDINGS.find(b => b.id === access.buildingId)!;
+      const distance = Math.hypot(building.x - destination.x, building.z - destination.z) +
+        (trip.destination === SCHOOL_NODE && building.kind !== "school" ? 1000 : 0);
+      // Grid-node destinations can be equally close to several buildings. Choose
+      // a legal, shorter approach among those neighbours, never a different district.
+      closest ??= distance;
+      if (distance > closest + 0.01) break;
+      const path = arrivalPath(network, access);
+      const route = findDrivingRoute(network, { nodeId: start, incomingLaneId: source?.id },
+        { laneId: access.laneId, endS: path.entryS }, delay);
+      if (!route || (best && route.seconds >= best.seconds - 1e-8)) continue;
+      best = { distance, seconds: route.seconds, plan: {
+        access, ...path, route: [...(source ? [source.roadId] : []), ...route.roads],
+      } };
+    }
+    return best?.plan;
+  }
   for (const access of candidates) {
     const lane = network.lanes.get(access.laneId)!;
     const penalty = (id: string) => id === lane.roadId || id === source?.roadId ? Infinity : 0;

@@ -271,6 +271,52 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.ok(row.isConnected);
     click("#close-panel");
 
+    // The mayor convenes a problem, hears residents' proposals and counts a
+    // real ballot. No activity/method can be preselected from the old UI.
+    click('[data-panel-open="news"]');
+    click('[data-panel-open="community"]');
+    assert.match(el('[data-community-project="sorting"]').textContent!, /쓰레기/);
+    click('[data-community-project="sorting"]');
+    click('[data-placement-target="alley"]');
+    const meetingTime = state().time, meetingBudget = state().budget;
+    assert.equal(document.querySelector("#start-community"), null);
+    assert.match(el(".community-voice").textContent!, /함께 모여 배출 방법/);
+    tick(20);
+    assert.equal(state().time, meetingTime, "residents can deliberate without time pressure");
+    click("#community-next");
+    assert.match(el(".community-voice").textContent!, /번갈아 배출 안내/);
+    click("#community-next");
+    assert.match(el(".community-voice").textContent!, /집마다 배출 안내/);
+    click("#community-next");
+    assert.equal(document.querySelectorAll(".community-proposal").length, 3);
+    assert.equal(document.querySelector("[data-community-method]"), null);
+    assert.equal(document.querySelector("#start-community"), null);
+    click("#community-vote");
+    assert.match(el("#live-panel-body").textContent!, /가상 주민 11명/);
+    assert.equal(state().council.length, 0);
+    click("#community-count");
+    assert.match(el(".community-status").textContent!, /동점/);
+    assert.equal(document.querySelector("#start-community"), null, "a tied vote cannot be enacted before the runoff");
+    click("#community-runoff");
+    assert.match(el(".community-status").textContent!, /함께 모여 배출 방법/);
+    assert.equal(state().budget, meetingBudget);
+    el<HTMLTextAreaElement>("#community-concern").value = "늦게 돌아오는 이웃에게도 안내해요";
+    el("#community-concern").dispatchEvent(new dom.window.Event("input", { bubbles: true }));
+    click("#start-community");
+    assert.equal(state().council.length, 1);
+    assert.equal(state().council[0].method, "together");
+    assert.equal(state().council[0].vote.rounds.length, 2);
+    assert.equal(state().budget, meetingBudget - 5);
+    assert.equal(state().paused, false);
+    const savedMeeting = JSON.parse(dom.window.localStorage.getItem("mayor-living-city-v1")!).council[0];
+    assert.equal(savedMeeting.concern, "늦게 돌아오는 이웃에게도 안내해요");
+    assert.equal(savedMeeting.vote.winner, "together");
+    click('[data-panel-open="news"]');
+    click('[data-panel-open="community"]');
+    click('[data-community-record="0"]');
+    assert.match(el("#live-panel-body").textContent!, /주민투표 기록.*결선/s);
+    click("#close-panel");
+
     // A reset must not keep reading an event from the old city.
     click('[data-panel-open="news"]');
     click("[data-news]");
@@ -322,6 +368,17 @@ test("live UI keeps a read story, carries its context into policy selection, and
     click("#apply-live-policy");
     assert.equal(state().actions.at(-1).id, "library");
     assert.equal(state().budget, 5);
+    click('[data-panel-open="news"]');
+    click('[data-panel-open="community"]');
+    click('[data-community-project="waterCare"]');
+    click('[data-placement-target="homes"]');
+    click("#community-next"); click("#community-next"); click("#community-next");
+    assert.equal(el<HTMLButtonElement>("#community-vote").disabled, true);
+    assert.match(el("#live-panel-body").textContent!, /예산 8이 필요/);
+    click("#cancel-meeting");
+    assert.equal(state().budget, 5);
+    assert.equal(state().paused, false);
+    assert.equal(state().council.length, 0, "deferring a meeting spends nothing and creates no activity");
   } finally {
     hook.deregister();
     dom.window.close();

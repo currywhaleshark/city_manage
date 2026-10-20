@@ -42,13 +42,15 @@ import { loadSavedCity } from "./storage/load-city";
 import {
   communityProject,
   communityTargets,
+  holdCommunityVote,
   type CommunityProjectId,
-  type CommunityMethodId,
 } from "./simulation/community";
 import {
   communityOverview,
   communityListening,
   communityPlan,
+  communityVoting,
+  communityResult,
   communityRecord,
   communityHistory,
   communityStatus,
@@ -317,13 +319,15 @@ function beginMeeting(project: CommunityProjectId) {
     wasPaused: paused,
     voice: 0,
     heard: [],
+    round: 0,
+    phase: "listening",
     reason: "",
     concern: "",
   };
   paused = true;
   $("#live-panel").hidden = true;
   city.showPlacement(
-    communityProject(project).title,
+    communityProject(project).problem,
     communityTargets(project),
     undefined,
     (target) => {
@@ -339,18 +343,24 @@ function beginMeeting(project: CommunityProjectId) {
   );
 }
 function listenMeeting() {
+  meeting!.phase = "listening";
   show(
     "meeting",
-    communityProject(meeting!.project).title,
+    communityProject(meeting!.project).problem,
     communityListening(meeting!),
   );
 }
 function planMeeting() {
+  meeting!.phase = "comparing";
   show(
     "meeting",
-    communityProject(meeting!.project).title,
+    communityProject(meeting!.project).problem,
     communityPlan(meeting!, sim.budget),
   );
+}
+function countMeeting() {
+  meeting!.phase = "result";
+  show("meeting", communityProject(meeting!.project).problem, communityResult(meeting!));
 }
 function viewCommunityRecord(index: number) {
   if (!sim.council.records[index]) return;
@@ -413,7 +423,7 @@ function help() {
   show(
     "help",
     "살아가는 도시 살펴보기",
-    `<ol class="live-help"><li>도시를 보며 지도 위 주민 말풍선을 들어요. 직접 연 이야기는 읽기 마치기를 누를 때까지 남아요.</li><li>왼쪽 지도 자료에서 쓰레기, 수질, 시설 접근성을 살펴요.</li><li>말풍선의 이 문제 살펴보기에서 자료와 정책을 살펴요. 정책과 적용할 장소는 직접 골라요.</li><li>조사 기록에서 시행한 장소와 전후 수치를 비교해요. 도시가 달라지면 주민이 다시 이야기해요.</li><li>남은 문제는 동네 소식의 주민 회의에서 함께 의논해요. 서로 다른 의견을 듣고 실천 방법을 정한 뒤 결과를 돌아봐요.</li></ol><p class="intro">수거차와 배송차는 자동차와 같은 길을 달려요. 하천 옆 쓰레기는 아래로 흐르고, 생산을 늘리면 물자와 오염 배출이 함께 늘어요.</p><p class="metric-note">드래그: 회전 · 오른쪽 드래그: 이동 · 휠: 확대<br>스페이스: 일시정지 · Escape: 창/위치 선택 닫기<br>도시 시간 5분마다 운영 예산 +20<br>자동 저장되며, 자리를 비운 동안의 시간은 흐르지 않아요.</p><label class="layer-picker">화면 품질<select id="display-quality"><option value="normal" ${displayQuality === "normal" ? "selected" : ""}>보통</option><option value="light" ${displayQuality === "light" ? "selected" : ""}>가볍게</option></select></label><p class="metric-note">가볍게: 그림자를 줄이고 초당 30번 그려요. 도시의 계산 결과는 같아요.</p><button id="toggle-sound" aria-pressed="${sound}">정책 효과음 ${sound ? "끄기" : "켜기"}</button><button id="new-city" class="secondary wide">저장 초기화</button>`,
+    `<ol class="live-help"><li>도시를 보며 지도 위 주민 말풍선을 들어요. 직접 연 이야기는 읽기 마치기를 누를 때까지 남아요.</li><li>왼쪽 지도 자료에서 쓰레기, 수질, 시설 접근성을 살펴요.</li><li>말풍선의 이 문제 살펴보기에서 자료와 정책을 살펴요. 정책과 적용할 장소는 직접 골라요.</li><li>조사 기록에서 시행한 장소와 전후 수치를 비교해요. 도시가 달라지면 주민이 다시 이야기해요.</li><li>남은 문제는 동네 소식의 주민 회의에서 함께 의논해요. 주민들이 제안한 방법을 비교하고 주민투표로 정해 실천한 뒤 결과를 돌아봐요.</li></ol><p class="intro">수거차와 배송차는 자동차와 같은 길을 달려요. 하천 옆 쓰레기는 아래로 흐르고, 생산을 늘리면 물자와 오염 배출이 함께 늘어요.</p><p class="metric-note">드래그: 회전 · 오른쪽 드래그: 이동 · 휠: 확대<br>스페이스: 일시정지 · Escape: 창/위치 선택 닫기<br>도시 시간 5분마다 운영 예산 +20<br>자동 저장되며, 자리를 비운 동안의 시간은 흐르지 않아요.</p><label class="layer-picker">화면 품질<select id="display-quality"><option value="normal" ${displayQuality === "normal" ? "selected" : ""}>보통</option><option value="light" ${displayQuality === "light" ? "selected" : ""}>가볍게</option></select></label><p class="metric-note">가볍게: 그림자를 줄이고 초당 30번 그려요. 도시의 계산 결과는 같아요.</p><button id="toggle-sound" aria-pressed="${sound}">정책 효과음 ${sound ? "끄기" : "켜기"}</button><button id="new-city" class="secondary wide">저장 초기화</button>`,
   );
 }
 function setLayer(next: MapLayer) {
@@ -535,11 +545,6 @@ document.addEventListener("click", (e) => {
     beginMeeting(b.dataset.communityProject as CommunityProjectId);
     return;
   }
-  if (b.dataset.communityMethod && meeting) {
-    meeting.method = b.dataset.communityMethod as CommunityMethodId;
-    planMeeting();
-    return;
-  }
   if (b.dataset.communityRecord !== undefined) {
     viewCommunityRecord(Number(b.dataset.communityRecord));
     return;
@@ -641,15 +646,37 @@ document.addEventListener("click", (e) => {
         listenMeeting();
       }
       break;
+    case "community-compare":
+      if (meeting) planMeeting();
+      break;
+    case "community-vote":
+      if (meeting?.phase === "comparing" && communityProject(meeting.project).voices.every(v => meeting!.heard.includes(v.id))) {
+        try {
+          meeting.vote = holdCommunityVote(sim.seed, meeting.project, meeting.target, sim.budget);
+          meeting.round = 0;
+          meeting.phase = "voting";
+          show("meeting", communityProject(meeting.project).problem, communityVoting(meeting, sim.seed));
+        } catch (err) { toast((err as Error).message); }
+      }
+      break;
+    case "community-count":
+      if (meeting?.phase === "voting" && meeting.vote) countMeeting();
+      break;
+    case "community-runoff":
+      if (meeting?.phase === "result" && meeting.vote && meeting.round < meeting.vote.rounds.length - 1) {
+        meeting.round++;
+        countMeeting();
+      }
+      break;
     case "start-community":
-      if (meeting?.method) {
+      if (meeting?.phase === "result" && meeting.vote && meeting.round === meeting.vote.rounds.length - 1) {
         try {
           const m = meeting;
-          sim.council.start(
+          sim.council.decide(
             m.project,
             m.target,
-            m.method!,
             m.heard,
+            m.vote!,
             m.reason,
             m.concern,
           );
@@ -657,7 +684,7 @@ document.addEventListener("click", (e) => {
           save();
           if (sound) void audio.play().catch(() => {});
           toast(
-            "주민이 함께 정한 활동을 준비해요. 지도에서 실천 장소를 볼 수 있어요.",
+            "주민투표로 정한 활동을 준비해요. 다른 의견도 함께 살펴요.",
           );
         } catch (err) {
           toast((err as Error).message);

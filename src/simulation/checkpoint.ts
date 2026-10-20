@@ -8,7 +8,7 @@ import { FacilitySimulation, type PlannedFacility } from "./facilities";
 
 // This is an internal structured-clone cache, never accepted from imported JSON.
 // Bump when engine state/semantics change. The portable command log remains authoritative.
-export const CHECKPOINT_VERSION = "living-state-5";
+export const CHECKPOINT_VERSION = "living-state-6";
 const shared = [
   "network",
   "pedestrians",
@@ -26,6 +26,7 @@ const excluded = new Set([
   "laneCache",
   "departureCache",
   "arrivalCache",
+  "routingDelays",
   "parking",
   "logistics",
   "water",
@@ -114,7 +115,8 @@ export function restoreLiveCheckpoint(
   const previous = legacy || (checkpoint?.version as string) === "living-state-2";
   const beforeAccess = previous || (checkpoint?.version as string) === "living-state-3";
   const beforeArrival = beforeAccess || (checkpoint?.version as string) === "living-state-4";
-  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeArrival)
+  const beforeRouting = beforeArrival || (checkpoint?.version as string) === "living-state-5";
+  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeRouting)
     throw new Error("도시 저장 형식이 바뀌었어요.");
   const saved = validateLiveSave(checkpoint.save);
   if (
@@ -126,6 +128,8 @@ export function restoreLiveCheckpoint(
       !(saved.vehicleAccessFrom === undefined && requested.vehicleAccessFrom! > saved.time)) ||
     (saved.vehicleArrivalFrom !== requested.vehicleArrivalFrom &&
       !(saved.vehicleArrivalFrom === undefined && requested.vehicleArrivalFrom! > saved.time)) ||
+    (saved.trafficRoutingFrom !== requested.trafficRoutingFrom &&
+      !(saved.trafficRoutingFrom === undefined && requested.trafficRoutingFrom! > saved.time)) ||
     Math.round(saved.time * 10) > Math.round(requested.time * 10) ||
     JSON.stringify(saved.actions) !==
       JSON.stringify(requested.actions.slice(0, saved.actions.length)) ||
@@ -146,13 +150,16 @@ export function restoreLiveCheckpoint(
     throw new Error("다른 도시의 저장 상태예요.");
   const state = structuredClone(checkpoint.state),
     city = new LiveCitySimulation(saved.seed, saved.cityTrafficFrom ?? Infinity,
-      saved.vehicleAccessFrom ?? Infinity, saved.vehicleArrivalFrom ?? Infinity);
+      saved.vehicleAccessFrom ?? Infinity, saved.vehicleArrivalFrom ?? Infinity,
+      saved.trafficRoutingFrom ?? Infinity);
   if (previous && !("cityTrafficFrom" in state.world))
     state.world.cityTrafficFrom = saved.cityTrafficFrom ?? Infinity;
   if (beforeAccess && !("vehicleAccessFrom" in state.world))
     state.world.vehicleAccessFrom = saved.vehicleAccessFrom ?? Infinity;
   if (beforeArrival && !("vehicleArrivalFrom" in state.world))
     state.world.vehicleArrivalFrom = saved.vehicleArrivalFrom ?? Infinity;
+  if (beforeRouting && !("trafficRoutingFrom" in state.world))
+    state.world.trafficRoutingFrom = saved.trafficRoutingFrom ?? Infinity;
   if (legacy) {
     // Only presentation state changed. Keep the physical city and avoid a full replay.
     Object.assign(state.world, {
@@ -210,5 +217,6 @@ export function restoreLiveCheckpoint(
   city.cityTrafficFrom = requested.cityTrafficFrom!;
   city.vehicleAccessFrom = requested.vehicleAccessFrom!;
   city.vehicleArrivalFrom = requested.vehicleArrivalFrom!;
+  city.trafficRoutingFrom = requested.trafficRoutingFrom!;
   return city;
 }
