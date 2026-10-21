@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { JSDOM } from "jsdom";
-import { TutorialInputs, tutorialCameraAllowed, type TutorialInputState } from "../src/ui/tutorial-inputs";
+import { TutorialInputs, type TutorialInputState } from "../src/ui/tutorial-inputs";
 
 function fixture() {
   const dom = new JSDOM(`<body><canvas id="city-canvas" tabindex="0"></canvas>
@@ -20,43 +20,41 @@ function fixture() {
   return { dom, doc, inputs, el, state: () => state, set: (next: Partial<TutorialInputState>) => { state = { ...state, ...next }; inputs.refresh(); } };
 }
 
-test("observation allows exploring the map, then spotlight locks it until guided placement", () => {
+test("every tutorial step allows map exploration while unrelated actions remain locked", () => {
   const f = fixture();
-  let moves = 0, placements = 0;
+  let moves = 0, placements = 0, cameraActions = 0;
   const canvas = f.el("#city-canvas"), target = f.el("[data-placement-target]");
   for (const type of ["pointerdown", "pointerup", "wheel", "touchstart"])
     canvas.addEventListener(type, () => moves++);
   target.addEventListener("click", () => placements++);
-  for (const type of ["pointerdown", "pointerup", "wheel", "touchstart"])
-    assert.equal(canvas.dispatchEvent(new f.dom.window.Event(type, { bubbles: true, cancelable: true })), true);
-  assert.equal(moves, 4, "mouse and touch gestures reach the map during initial observation");
-  assert.equal(tutorialCameraAllowed(f.state()), true);
-  let cameraActions = 0;
-  for (const id of ["#zoom-in", "#zoom-out", "#camera-reset"]) {
+  for (const id of ["#zoom-in", "#zoom-out", "#camera-reset"])
     f.el(id).addEventListener("click", () => cameraActions++);
-    f.el(id).click();
+
+  const steps: Partial<TutorialInputState>[] = [
+    { stage: "observe" }, { stage: "spotlight" },
+    { stage: "story" }, { stage: "story", panel: "story" },
+    { stage: "policy", panel: "policy" }, { stage: "policy", panel: "review" },
+    { stage: "watch", panel: "" }, { stage: "result" },
+    { stage: "result", panel: "tutorial-result" }, { stage: "free", panel: "" },
+  ];
+  for (const step of steps) {
+    f.set(step);
+    const beforeMoves = moves, beforeActions = cameraActions;
+    for (const type of ["pointerdown", "pointerup", "wheel", "touchstart"])
+      assert.equal(canvas.dispatchEvent(new f.dom.window.Event(type, { bubbles: true, cancelable: true })), true);
+    for (const id of ["#zoom-in", "#zoom-out", "#camera-reset"]) f.el(id).click();
+    assert.equal(moves, beforeMoves + 4, `${step.stage}: mouse and touch gestures reach the map`);
+    assert.equal(cameraActions, beforeActions + 3, `${step.stage}: zoom and reset buttons remain usable`);
+    assert.equal(!!canvas.inert, false);
+    target.click();
+    assert.equal(placements, 0, "exploring does not open policy placement");
+    assert.equal((f.el("#help") as HTMLButtonElement).disabled, true);
+    assert.equal((f.el("#pause") as HTMLButtonElement).disabled, true);
+    assert.equal(canvas.dispatchEvent(new f.dom.window.KeyboardEvent("keydown", { code: "Space", key: " ", bubbles: true, cancelable: true })), false);
   }
-  assert.equal(cameraActions, 3);
-  target.click();
-  assert.equal(placements, 0, "free map movement does not enable policy placement");
-  assert.equal((f.el("#help") as HTMLButtonElement).disabled, true);
-  assert.equal((f.el("#pause") as HTMLButtonElement).disabled, true);
-  f.set({ stage: "spotlight" });
-  f.el("#zoom-in").click();
-  assert.equal(cameraActions, 3, "the highlighted problem stays in view");
-  for (const type of ["pointerdown", "pointerup", "wheel", "touchstart"])
-    assert.equal(canvas.dispatchEvent(new f.dom.window.Event(type, { bubbles: true, cancelable: true })), false);
-  target.click();
-  assert.equal(moves, 4);
-  assert.equal(placements, 0);
-  assert.equal(tutorialCameraAllowed(f.state()), false);
   f.set({ stage: "policy", placement: true });
-  canvas.dispatchEvent(new f.dom.window.Event("pointerdown", { bubbles: true }));
   target.click();
-  assert.equal(moves, 5);
   assert.equal(placements, 1);
-  assert.equal(canvas.inert, false);
-  assert.equal(tutorialCameraAllowed(f.state()), true);
   f.set({ stage: "watch", placement: false });
   target.click();
   assert.equal(placements, 1);
@@ -103,7 +101,7 @@ test("restored stages also guard new controls before repaint and reserve Escape 
   assert.equal(escape(), true, "the learner can cancel choosing a place");
   f.set({ stage: "result", placement: false, inspection: true });
   assert.equal(escape(), true, "the learner can return from looking at the result's location");
-  assert.equal(tutorialCameraAllowed(f.state()), true);
+  assert.equal(!!f.el("#city-canvas").inert, false);
   f.set({ stage: "done", inspection: false });
   random.click();
   assert.equal(actions, 1);

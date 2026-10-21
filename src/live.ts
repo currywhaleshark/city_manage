@@ -23,7 +23,7 @@ import {
 import { mapTools } from "./ui/map-layers";
 import { bindMapScrollHint } from "./ui/map-scroll-hint";
 import { CityTutorial, tutorialResultText } from "./ui/city-tutorial";
-import { TutorialInputs, tutorialCameraAllowed, type TutorialInputState } from "./ui/tutorial-inputs";
+import { TutorialInputs, type TutorialInputState } from "./ui/tutorial-inputs";
 import { PlaceInspector } from "./ui/place-inspector";
 import {
   policyAvailability,
@@ -306,7 +306,6 @@ function renderTutorial() {
   }
   if (!tutorialCard.hidden) document.body.style.setProperty("--tutorial-height", `${tutorialCard.offsetHeight}px`);
   tutorialInputs.refresh();
-  city.controls.enabled = tutorialCameraAllowed(tutorialInputState());
 }
 function showTutorialResult() {
   const result = tutorial.result;

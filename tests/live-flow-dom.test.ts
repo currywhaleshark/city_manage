@@ -127,7 +127,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
             this.container = labels.parentElement;
             this.residents = new ResidentRenderer(this.container);
             this.residents.onChoose = (...args) => this.onResidentSelect?.(...args);
-            this.controls = { target: new Vector3(), update() {} };
+            this.controls = { enabled: true, target: new Vector3(), update() {} };
             window.__testCameraControls = this.controls;
             this.camera = { position: new Vector3(), zoom: 1, updateProjectionMatrix() {} };
           }
@@ -453,8 +453,8 @@ test("live UI keeps a read story, carries its context into policy selection, and
     while (state().time < 120) tick(1);
     tick();
     assert.equal(document.body.dataset.tutorial, "spotlight");
-    assert.equal(cameraEnabled(), false, "the problem spotlight restores guided map control");
-    assert.equal(el<HTMLButtonElement>("#zoom-in").disabled, true);
+    assert.equal(cameraEnabled(), true, "the learner can explore the highlighted problem");
+    assert.equal(el<HTMLButtonElement>("#zoom-in").disabled, false);
     assert.equal(el("#resident-bubble").hidden, true, "the place is highlighted before a speech bubble appears");
     tick(45);
     assert.equal(document.body.dataset.tutorial, "story");
@@ -480,7 +480,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
     click('[data-live-policy="signal"]');
     assert.equal(cameraEnabled(), true, "placement permits moving around the map");
     click("[data-placement-target]");
-    assert.equal(cameraEnabled(), false, "the confirmation returns to guided controls");
+    assert.equal(cameraEnabled(), true, "map exploration remains available during confirmation");
     click("#cancel-policy"); tick();
     assert.equal(document.body.dataset.tutorial, "policy", "cancelled placement keeps the lesson reachable");
     click("#tutorial-next");
