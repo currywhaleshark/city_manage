@@ -1032,9 +1032,12 @@
   .living-city .tutorial-card {
     top: 12px; left: auto; right: 76px;
     width: min(320px, calc(100vw - 280px));
+    padding: 2px 12px 8px;
     max-height: calc(100dvh - var(--deck-height) - 24px);
     overflow-y: auto;
   }
+  .living-city .tutorial-card h2 { margin-bottom: 4px; }
+  .living-city .tutorial-card > button { margin-top: 6px; }
   .living-city[data-tutorial-card] .map-tools { --rail-top: 120px; }
   .living-city #live-panel {
     top: 12px;
@@ -1054,4 +1057,14 @@
     padding: 12px 16px;
     gap: 12px;
   }
+}
+@media (max-width: 700px) and (max-height: 600px) and (orientation: landscape) {
+  /* The action opens the full instructions; leave room for the resident's preview. */
+  .living-city[data-tutorial="story"] .tutorial-card,
+  .living-city[data-tutorial="policy"] .tutorial-card { padding-bottom: 2px; }
+  .living-city[data-tutorial="story"] .tutorial-card > button,
+  .living-city[data-tutorial="policy"] .tutorial-card > button { margin-top: 4px; }
+  .living-city[data-tutorial="story"] .tutorial-card > [aria-live],
+  .living-city[data-tutorial="policy"] .tutorial-card > [aria-live] { display: none; }
+  .living-city[data-tutorial-card] #resident-quote { -webkit-line-clamp: 2; }
 }

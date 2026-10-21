@@ -347,9 +347,19 @@ export class ResidentRenderer extends THREE.Group {
         obstacles.reduce((sum, o) => sum + overlap(box, o) * 100, 0)
       );
     };
-    const bestCard = candidates.reduce((best, box) =>
+    let bestCard = candidates.reduce((best, box) =>
       score(box) < score(best) ? box : best,
     );
+    if (obstacles.some((o) => overlap(bestCard, o) > 0)) {
+      // Controls can leave a usable gap between the fixed anchor-side candidates.
+      const xs = [bestCard.x, 8, width - bw - 8, ...obstacles.flatMap((o) => [o.x - bw, o.x + o.w])];
+      const ys = [bestCard.y, top, bottom - bh, ...obstacles.flatMap((o) => [o.y - bh, o.y + o.h])];
+      for (const x of xs)
+        for (const y of ys) {
+          const candidate = keepInside(x, y, bw, bh);
+          if (score(candidate) < score(bestCard)) bestCard = candidate;
+        }
+    }
     this.cardPlacement = stablePlacement(
       bestCard,
       this.cardPlacement,
@@ -403,8 +413,9 @@ export class ResidentRenderer extends THREE.Group {
       if (occupied.some((o) => overlap(box, o) > 0)) {
         // A short phone can leave a usable strip below a card that the row grid skips.
         const edgeRows = [top, bottom - ph, ...occupied.flatMap((o) => [o.y - ph - 6, o.y + o.h + 6])];
+        const edgeColumns = [8, p.x - pw / 2, width - pw - 8, ...occupied.flatMap((o) => [o.x - pw - 6, o.x + o.w + 6])];
         for (const y of edgeRows)
-          for (const x of [8, p.x - pw / 2, width - pw - 8]) {
+          for (const x of edgeColumns) {
             const candidate = keepInside(x, y, pw, ph);
             if (cost(candidate) < cost(box)) box = candidate;
           }

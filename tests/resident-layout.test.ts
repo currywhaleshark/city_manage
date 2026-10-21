@@ -151,6 +151,59 @@ test("a narrow phone keeps the tutorial bubble and pin clear of both map control
   assert.equal(intersects(bubble, f.pin()), false, JSON.stringify({ bubble, pin: f.pin() }));
 });
 
+test("landscape guidance uses the gap between tools and keeps the resident pin separate", (t) => {
+  const f = fixture(t);
+  f.resize(844, 258);
+  f.bubbleSize(260, 130);
+  f.document.querySelector(".topbar")!.getBoundingClientRect = () =>
+    new f.document.defaultView!.DOMRect(24, 22, 796, 46);
+  const boxes = [
+    { x: 448, y: 12, w: 320, h: 174 },
+    { x: 24, y: 120, w: 118, h: 122 },
+    { x: 780, y: 94, w: 40, h: 116 },
+  ];
+  boxes.forEach((box, i) => {
+    const obstacle = f.obstacle(box);
+    if (i === 0) { obstacle.className = "tutorial-card"; obstacle.id = "city-tutorial"; }
+    if (i === 1) obstacle.className = "map-tools";
+    obstacle.getClientRects = () => [obstacle.getBoundingClientRect()] as unknown as DOMRectList;
+  });
+  const bubble = f.update(422, 105.86);
+  for (const box of boxes) {
+    assert.equal(intersects(bubble, box), false, "the story must not cover a control");
+    assert.equal(intersects(f.pin(), box), false, "the pin must not cover a control");
+  }
+  assert.equal(intersects(bubble, f.pin()), false);
+  for (let i = 1; i <= 30; i++) {
+    assert.deepEqual(f.update(422 + i * 0.00001, 105.86), bubble);
+  }
+});
+
+test("a short landscape phone fits the compact guide, story and location pin", (t) => {
+  const f = fixture(t);
+  f.resize(568, 256);
+  f.bubbleSize(230, 130);
+  f.document.querySelector(".topbar")!.getBoundingClientRect = () =>
+    new f.document.defaultView!.DOMRect(16, 16, 536, 40);
+  const boxes = [
+    { x: 204, y: 12, w: 288, h: 98 },
+    { x: 12, y: 120, w: 48, h: 120 },
+    { x: 512, y: 100, w: 40, h: 116 },
+  ];
+  boxes.forEach((box, i) => {
+    const obstacle = f.obstacle(box);
+    if (i === 0) { obstacle.className = "tutorial-card"; obstacle.id = "city-tutorial"; }
+    if (i === 1) obstacle.className = "map-tools";
+    obstacle.getClientRects = () => [obstacle.getBoundingClientRect()] as unknown as DOMRectList;
+  });
+  const bubble = f.update(284, 105);
+  for (const box of boxes) {
+    assert.equal(intersects(bubble, box), false);
+    assert.equal(intersects(f.pin(), box), false);
+  }
+  assert.equal(intersects(bubble, f.pin()), false);
+});
+
 test("resident bubble and pin stay put across tiny camera changes and repeated story refreshes", (t) => {
   const f = fixture(t);
   const first = f.update(),
