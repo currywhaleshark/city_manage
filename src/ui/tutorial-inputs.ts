@@ -35,9 +35,9 @@ export function tutorialControlAllowed(el: HTMLElement, s: TutorialInputState) {
   return false;
 }
 
-/** Native inert handles touch/tab navigation; capture guards also cover local handlers and shortcuts. */
+/** Native locks handle touch/tab navigation; capture guards cover local handlers and shortcuts. */
 export class TutorialInputs {
-  private locked = new Map<HTMLElement, { inert: boolean; value?: string }>();
+  private locked = new Map<HTMLElement, { inert: boolean; disabled?: boolean; value?: string }>();
 
   constructor(private document: Document, private state: () => TutorialInputState) {
     for (const type of ["click", "dblclick", "pointerdown", "pointerup", "touchstart", "wheel", "keydown", "input", "change", "focusin"])
@@ -49,15 +49,21 @@ export class TutorialInputs {
     for (const el of this.locked.keys()) if (!el.isConnected) this.locked.delete(el);
     for (const el of this.document.querySelectorAll<HTMLElement>(controls)) {
       const previous = this.locked.get(el);
+      const button = el.tagName === "BUTTON" ? el as HTMLButtonElement : undefined;
       if (!tutorialControlAllowed(el, s)) {
         if (!previous) this.locked.set(el, {
           inert: !!el.inert,
+          disabled: button?.disabled,
           value: "value" in el ? String(el.value) : undefined,
         });
-        el.inert = true;
+        // Inert removes a button from hit testing, letting taps reach controls
+        // underneath (for example the story preview under its close button).
+        if (button) button.disabled = true;
+        else el.inert = true;
         el.dataset.tutorialLocked = "";
       } else if (previous) {
         el.inert = previous.inert;
+        if (button && previous.disabled !== undefined) button.disabled = previous.disabled;
         delete el.dataset.tutorialLocked;
         this.locked.delete(el);
       }

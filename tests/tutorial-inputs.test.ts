@@ -47,6 +47,8 @@ test("capture stops canvas gestures and element-local actions outside the guided
 
 test("locks preserve policy availability, block field changes, and restore normal focusability", () => {
   const f = fixture();
+  assert.equal((f.el("#help") as HTMLButtonElement).disabled, true);
+  assert.equal(!!f.el("#help").inert, false, "locked buttons still intercept taps over underlying controls");
   f.set({ stage: "policy", panel: "policy" });
   assert.equal(f.el("#affordable").inert, false);
   assert.equal((f.el("#unavailable") as HTMLButtonElement).disabled, true);
@@ -60,6 +62,7 @@ test("locks preserve policy availability, block field changes, and restore norma
   f.set({ stage: "done" });
   assert.equal(f.doc.querySelectorAll("[data-tutorial-locked]").length, 0);
   assert.equal(topic.inert, false);
+  assert.equal((f.el("#help") as HTMLButtonElement).disabled, false);
   assert.equal((f.el("#unavailable") as HTMLButtonElement).disabled, true);
   assert.equal(f.el("#unavailable").getAttribute("aria-disabled"), "true");
   f.el("#help").focus();

@@ -171,7 +171,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
     const cameraEnabled = () => (dom.window as any).__testCameraControls.enabled;
     assert.equal(cameraEnabled(), false);
     for (const selector of ['#help', '[data-panel-open="policy"]', '[data-panel-open="news"]', '#layer-waste', '#city-options-toggle', '#pause']) {
-      assert.equal(el(selector).inert, true, selector);
+      assert.equal(el<HTMLButtonElement>(selector).disabled, true, selector);
       click(selector);
     }
     assert.equal(el("#live-panel").hidden, true);
