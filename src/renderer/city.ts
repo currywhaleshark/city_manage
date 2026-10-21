@@ -90,6 +90,10 @@ export class CityRenderer {
     new THREE.RingGeometry(9, 9.8, 48),
     new THREE.MeshBasicMaterial({ color: 0xf3be53, side: THREE.DoubleSide }),
   );
+  private tutorialRing = new THREE.Mesh(
+    new THREE.RingGeometry(14, 15.4, 48),
+    new THREE.MeshBasicMaterial({ color: 0xf3be53, side: THREE.DoubleSide, depthTest: false, depthWrite: false }),
+  );
   readonly camera: THREE.PerspectiveCamera;
   readonly controls: OrbitControls;
   private city = new THREE.Group();
@@ -230,6 +234,10 @@ export class CityRenderer {
     this.inspectionRing.rotation.x = -Math.PI / 2;
     this.inspectionRing.visible = false;
     this.scene.add(this.inspectionRing);
+    this.tutorialRing.rotation.x = -Math.PI / 2;
+    this.tutorialRing.renderOrder = 10;
+    this.tutorialRing.visible = false;
+    this.scene.add(this.tutorialRing);
     this.staticCity();
     this.residentView = new ResidentRenderer(labels.parentElement!);
     this.scene.add(this.residentView);
@@ -1260,6 +1268,10 @@ export class CityRenderer {
   }
   focusPosition(position: { x: number; z: number }, span = 180) {
     this.cameraView.focus(position, span);
+  }
+  setTutorialSpotlight(position?: { x: number; z: number }) {
+    this.tutorialRing.visible = !!position;
+    if (position) this.tutorialRing.position.set(position.x, 0.85, position.z);
   }
   beginInspection(position: { x: number; z: number }) {
     if (this.inspection) return;

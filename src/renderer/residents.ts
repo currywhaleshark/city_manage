@@ -319,7 +319,7 @@ export class ResidentRenderer extends THREE.Group {
       });
     }
     for (const el of document.querySelectorAll<HTMLElement>(
-      ".living-city .map-tools, .living-city .mission-peek, .living-city #overlay-legend",
+      ".living-city .map-tools, .living-city .mission-peek, .living-city #overlay-legend, .living-city #city-tutorial",
     )) {
       if (el.hidden || !el.getClientRects().length) continue;
       const r = el.getBoundingClientRect();

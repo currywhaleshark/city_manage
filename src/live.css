@@ -2,6 +2,54 @@
   --deck-height: 132px;
   --panel-bottom: calc(var(--deck-height) + 12px);
 }
+.tutorial-card {
+  position: absolute;
+  top: 86px;
+  right: 24px;
+  z-index: 12;
+  width: 320px;
+  padding: 8px 16px 14px;
+  border: 1px solid #b4bd9f;
+  border-left: 4px solid #ae852f;
+  border-radius: 8px;
+  background: #fffdf2;
+  color: #304638;
+  box-shadow: 0 3px 14px #23312620;
+}
+.tutorial-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #68572d;
+  font-size: 11px;
+}
+.tutorial-heading button,
+.tutorial-inline button {
+  min-height: 44px;
+  padding: 4px 0 4px 8px;
+  background: transparent;
+  border-color: transparent;
+  color: inherit;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.tutorial-card h2 { margin: 0 0 6px; font-size: 16px; line-height: 1.4; }
+.tutorial-card p { margin: 0; font-size: 13px; line-height: 1.6; word-break: keep-all; }
+.tutorial-card > button { min-height: 44px; margin-top: 10px; width: 100%; justify-content: center; }
+.tutorial-target { outline: 3px solid #d6a543; outline-offset: 3px; }
+.tutorial-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-left: 3px solid #d6a543;
+  background: #c7ac5120;
+}
+.tutorial-inline p { margin: 0; font-size: 13px; line-height: 1.6; flex: 1; }
+.tutorial-result p { line-height: 1.75; }
+.living-city[data-tutorial] #news-peek,
+.living-city[data-tutorial] #applied-shared { display: none; }
 .living-city .toolbelt {
   height: 76px;
 }
@@ -956,8 +1004,35 @@
     top: var(--rail-top);
   }
 }
+@media (max-width: 700px) {
+  .tutorial-card {
+    top: 70px; left: 12px; right: 12px; width: auto; padding: 4px 12px 12px;
+    max-height: calc(100dvh - var(--deck-height) - 170px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .living-city[data-tutorial-card] .map-tools {
+    --rail-top: calc(82px + var(--tutorial-height, 160px));
+    top: var(--rail-top);
+  }
+  .living-city[data-tutorial-card] .map-tools .legend {
+    max-height: calc(100dvh - var(--deck-height) - var(--rail-top) - 16px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .tutorial-inline { flex-wrap: wrap; gap: 2px; }
+  .tutorial-inline p { flex-basis: 100%; }
+  .tutorial-inline button { margin-left: auto; }
+}
 /* A short landscape viewport needs a reading pane above the command deck. */
 @media (max-height: 600px) and (orientation: landscape) {
+  .living-city .tutorial-card {
+    top: 12px; left: auto; right: 12px;
+    width: min(320px, calc(100vw - 180px));
+    max-height: calc(100dvh - var(--deck-height) - 24px);
+    overflow-y: auto;
+  }
+  .living-city[data-tutorial-card] .map-tools { --rail-top: 120px; }
   .living-city #live-panel {
     top: 12px;
     right: 12px;

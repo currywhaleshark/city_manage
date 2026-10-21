@@ -22,6 +22,7 @@ import {
 } from "./ui/live-notebook";
 import { mapTools } from "./ui/map-layers";
 import { bindMapScrollHint } from "./ui/map-scroll-hint";
+import { CityTutorial, tutorialResultText } from "./ui/city-tutorial";
 import { PlaceInspector } from "./ui/place-inspector";
 import {
   policyAvailability,
@@ -138,6 +139,16 @@ const city = new CityRenderer(
   displayQuality,
 );
 const reader = new StoryReader();
+const tutorial = new CityTutorial();
+const tutorialCard = document.createElement("aside");
+tutorialCard.id = "city-tutorial";
+tutorialCard.className = "tutorial-card";
+tutorialCard.hidden = true;
+tutorialCard.setAttribute("aria-label", "처음 도시 살펴보기 안내");
+tutorialCard.innerHTML = '<div class="tutorial-heading"><span id="tutorial-step"></span><button data-tutorial="skip">안내 그만 보기</button></div><div aria-live="polite" aria-atomic="true"><h2 id="tutorial-title"></h2><p id="tutorial-copy"></p></div><button id="tutorial-next" class="primary" data-tutorial="next"></button>';
+$(".workspace").append(tutorialCard);
+let tutorialStage = tutorial.stage;
+let tutorialTarget: HTMLElement | null = null;
 const inspector = new PlaceInspector($(".city-view"), city, () => {
   paused = !paused;
   inspector.update(sim.time, paused);
@@ -174,8 +185,9 @@ bindStoryReading($("#resident-map"), reader, () => {
   }
 });
 function renderStory() {
-  const event = reader.sync(sim.currentStory);
-  city.setResidentVoices(event ? [storyVoice(event)] : []);
+  const event = reader.sync(tutorial.story(sim.currentStory));
+  const guidedStory = tutorial.active && !["story", "policy"].includes(tutorial.stage);
+  city.setResidentVoices(event && !guidedStory ? [storyVoice(event)] : []);
   storyPreview.setAttribute(
     "aria-label",
     event ? `${event.title} · 주민 이야기 내용 보기` : "주민 이야기 내용 보기",
@@ -217,6 +229,78 @@ let sound = false,
   lastSaveTime = -30,
   saveFailed = false;
 const SAVE_KEY = "mayor-living-city-v1";
+function cityRecord() {
+  return { ...sim.save(), tutorial: tutorial.save() };
+}
+function renderTutorial() {
+  const stage = tutorial.stage;
+  if (tutorial.active) document.body.dataset.tutorial = stage;
+  else delete document.body.dataset.tutorial;
+  const readingPanel = !$("#live-panel").hidden;
+  const hidden = !tutorial.active || busy || !!resetDraft || resetting || inspector.isOpen || !!pending || !!meeting;
+  tutorialCard.hidden = hidden || readingPanel;
+  if (!tutorialCard.hidden) document.body.dataset.tutorialCard = "visible";
+  else delete document.body.dataset.tutorialCard;
+  const copy = {
+    observe: ["1 / 5 · 도시 관찰", "잠시 도시를 관찰해 봐요", "길을 오가는 차와 사람들을 살펴봐요. 조금 뒤, 불편이 생긴 곳을 알려드릴게요.", ""],
+    spotlight: ["2 / 5 · 문제 장소", "이곳에 불편이 생겼어요", `${tutorial.issue?.title ?? "표시한 곳"} 주변을 살펴봐요. 노란 테두리가 문제를 발견한 곳이에요.`, ""],
+    story: ["3 / 5 · 주민 이야기", "주민의 말을 들어봐요", "말풍선을 눌러 무슨 일이 있었는지 읽고, ‘이 문제 살펴보기’로 들어가요.", "주민 이야기 보기"],
+    policy: ["4 / 5 · 방법 고르기", "방법과 장소를 직접 골라요", "정책의 비용과 아쉬운 점을 비교해요. 적용할 곳을 고르고 ‘이 정책 시행’을 눌러요.", "정책 살펴보기"],
+    watch: ["5 / 5 · 변화 관찰", "도시가 달라지는지 지켜봐요", "정책을 시행했어요. 도시 시간 2분이 지나면 시행한 곳의 전후 모습을 비교해 볼게요.", ""],
+    result: ["5 / 5 · 결과 확인", "정책 뒤, 무엇이 달라졌을까요?", "관찰한 결과가 준비됐어요. 좋아진 점과 아직 남은 불편을 함께 확인해요.", "결과 비교하기"],
+    free: ["처음 안내 마침", "이제 시장님이 살펴볼 차례예요", "자유롭게 도시를 관찰하고 다른 문제도 해결해 봐요. 남은 문제는 주민 회의를 열어 함께 의논할 수 있어요.", "자유롭게 시작하기"],
+    done: ["", "", "", ""],
+  }[stage];
+  const text = paused && ["observe", "spotlight", "watch"].includes(stage)
+    ? "도시가 잠시 멈춰 있어요. ‘계속 관찰하기’를 누르면 도시 시간이 다시 흘러요."
+    : copy[2];
+  for (const [id, value] of [["tutorial-step", copy[0]], ["tutorial-title", copy[1]], ["tutorial-copy", text]]) {
+    if ($(`#${id}`).textContent !== value) $(`#${id}`).textContent = value;
+  }
+  const next = $("#tutorial-next");
+  const action = paused && ["observe", "spotlight", "watch"].includes(stage) ? "계속 관찰하기" : copy[3];
+  next.hidden = !action;
+  if (next.textContent !== action) next.textContent = action;
+  // Put instructions inside the reading panel instead of covering it with a second card.
+  const body = $("#live-panel-body");
+  let hint = body.querySelector<HTMLElement>(".tutorial-inline");
+  if (tutorial.active && !busy && !resetDraft && ["story", "policy", "review", "tutorial-result"].includes(panel)) {
+    if (!hint) {
+      hint = document.createElement("div");
+      hint.className = "tutorial-inline";
+      hint.innerHTML = '<p role="status"></p><button data-tutorial="skip">안내 그만 보기</button>';
+      body.prepend(hint);
+    }
+    const message = panel === "story" ? "주민 이야기와 관찰한 사실을 읽고, 아래 ‘이 문제 살펴보기’를 눌러요."
+      : panel === "tutorial-result" ? "시행 전후를 비교하고, 아래 ‘확인했어요’를 눌러요."
+      : panel === "review" ? "적용할 장소와 비용을 확인했나요? ‘이 정책 시행’을 눌러 시작해요."
+      : "방법마다 비용과 아쉬운 점이 달라요. 하나를 고르면 지도에서 적용할 곳을 정해요.";
+    if (hint.querySelector("p")!.textContent !== message) hint.querySelector("p")!.textContent = message;
+  } else hint?.remove();
+  const selector = tutorial.active && !busy && !resetDraft && !inspector.isOpen
+    ? stage === "story" ? (panel === "story" ? "#investigate-story" : !readingPanel ? "#resident-bubble" : "")
+      : stage === "policy" ? (panel === "review" ? "#apply-live-policy" : !readingPanel && !pending ? '[data-panel-open="policy"]' : "") : ""
+    : "";
+  const target = selector ? document.querySelector<HTMLElement>(selector) : null;
+  if (target !== tutorialTarget) {
+    tutorialTarget?.classList.remove("tutorial-target");
+    target?.classList.add("tutorial-target");
+    tutorialTarget = target;
+  }
+  city.setTutorialSpotlight(stage === "spotlight" && !hidden && !readingPanel ? tutorial.issue?.position : undefined);
+  if (stage !== tutorialStage) {
+    tutorialStage = stage;
+    if (stage === "spotlight" && tutorial.issue?.position) city.focusPosition(tutorial.issue.position, 120);
+  }
+  if (!tutorialCard.hidden) document.body.style.setProperty("--tutorial-height", `${tutorialCard.offsetHeight}px`);
+}
+function showTutorialResult() {
+  const result = tutorial.result;
+  if (!result) return;
+  const n = (value: number) => String(Number(value.toFixed(1)));
+  show("tutorial-result", "정책 전후를 비교해 봐요",
+    `<div class="tutorial-result"><p class="metric-note">${escape(result.title)} · ${escape(result.place)}</p><p class="intro">${escape(tutorialResultText(result))}</p><h3>${escape(result.measurement)}</h3><div class="study-comparison"><span>시행 전 ${n(result.before)}</span><strong>→</strong><span>관찰 때 ${n(result.now)}</span></div><p class="metric-note">${escape(result.scope)} · 도시 시간 ${stamp(result.time)}에 확인한 결과예요.</p><p>${escape(result.tradeoff)}</p><p>다른 정책과 생활 변화도 함께 영향을 줘요. 바로 나아지지 않았다면 장소와 방법을 다시 살펴봐요.</p><button class="secondary wide" data-review-policy="${tutorial.actionIndex}">${result.position ? "시행한 곳 다시 살펴보기" : "도시 전체 다시 살펴보기"}</button><button class="primary wide" data-tutorial="read-result">확인했어요</button></div>`);
+}
 function toast(text: string) {
   $("#toast").textContent = text;
   $("#toast").classList.add("visible");
@@ -224,7 +308,7 @@ function toast(text: string) {
 }
 function save() {
   try {
-    localStorage.setItem(SAVE_KEY, JSON.stringify(sim.save()));
+    localStorage.setItem(SAVE_KEY, JSON.stringify(cityRecord()));
     void writeCheckpoint(captureLiveCheckpoint(sim)).catch(() => {
       if (!checkpointFailed)
         toast(
@@ -278,6 +362,7 @@ function show(name: string, title: string, body: string) {
   document.body.dataset.livePanel = name;
   document.body.dataset.activePanel = name;
   $("#live-panel-title").focus();
+  renderTutorial();
 }
 function news() {
   show(
@@ -293,6 +378,13 @@ function renderNews() {
   updateNewsList(box, sim.news);
 }
 function policies() {
+  const tutorialBefore = tutorial.stage;
+  if (tutorial.stage === "story" && tutorial.issue) {
+    studyContext = tutorial.issue;
+    topic = tutorial.issue.topic;
+  }
+  tutorial.policiesOpened();
+  if (tutorial.stage !== tutorialBefore) save();
   show(
     "policy",
     "우리 동네 바꾸기",
@@ -457,7 +549,7 @@ function help() {
   show(
     "help",
     "살아가는 도시 살펴보기",
-    `<ol class="live-help"><li>도시를 보며 지도 위 주민 말풍선을 들어요. 직접 연 이야기는 읽기 마치기를 누를 때까지 남아요.</li><li>왼쪽 지도 자료에서 쓰레기, 수질, 시설 접근성을 살펴요.</li><li>말풍선의 이 문제 살펴보기에서 자료와 정책을 살펴요. 정책과 적용할 장소는 직접 골라요.</li><li>조사 기록에서 시행한 장소와 전후 수치를 비교해요. 도시가 달라지면 주민이 다시 이야기해요.</li><li>남은 문제는 동네 소식의 주민 회의에서 함께 의논해요. 주민들이 제안한 방법을 비교하고 주민투표로 정해 실천한 뒤 결과를 돌아봐요.</li></ol><p class="intro">수거차와 배송차는 자동차와 같은 길을 달려요. 하천 옆 쓰레기는 아래로 흐르고, 생산을 늘리면 물자와 오염 배출이 함께 늘어요.</p><p class="metric-note">드래그: 회전 · 오른쪽 드래그: 이동 · 휠: 확대<br>스페이스: 일시정지 · Escape: 창/위치 선택 닫기<br>도시 시간 5분마다 운영 예산 +20<br>자동 저장되며, 자리를 비운 동안의 시간은 흐르지 않아요.</p><label class="layer-picker">화면 품질<select id="display-quality"><option value="normal" ${displayQuality === "normal" ? "selected" : ""}>보통</option><option value="light" ${displayQuality === "light" ? "selected" : ""}>가볍게</option></select></label><p class="metric-note">가볍게: 그림자를 줄이고 초당 30번 그려요. 도시의 계산 결과는 같아요.</p><button id="toggle-sound" aria-pressed="${sound}">정책 효과음 ${sound ? "끄기" : "켜기"}</button><button id="new-city" class="secondary wide">저장 초기화</button>`,
+    `<ol class="live-help"><li>도시를 보며 지도 위 주민 말풍선을 들어요. 말풍선을 누르면 자세한 내용이 열리고, 오른쪽 위 ×로 닫을 수 있어요.</li><li>왼쪽 지도 자료에서 쓰레기, 수질, 시설 접근성을 살펴요.</li><li>말풍선의 이 문제 살펴보기에서 자료와 정책을 살펴요. 정책과 적용할 장소는 직접 골라요.</li><li>조사 기록에서 시행한 장소와 전후 수치를 비교해요. 도시가 달라지면 주민이 다시 이야기해요.</li><li>남은 문제는 동네 소식의 주민 회의에서 함께 의논해요. 주민들이 제안한 방법을 비교하고 주민투표로 정해 실천한 뒤 결과를 돌아봐요.</li></ol><p class="intro">수거차와 배송차는 자동차와 같은 길을 달려요. 하천 옆 쓰레기는 아래로 흐르고, 생산을 늘리면 물자와 오염 배출이 함께 늘어요.</p><p class="metric-note">드래그: 회전 · 오른쪽 드래그: 이동 · 휠: 확대<br>스페이스: 일시정지 · Escape: 창/위치 선택 닫기<br>도시 시간 5분마다 운영 예산 +20<br>자동 저장되며, 자리를 비운 동안의 시간은 흐르지 않아요.</p><label class="layer-picker">화면 품질<select id="display-quality"><option value="normal" ${displayQuality === "normal" ? "selected" : ""}>보통</option><option value="light" ${displayQuality === "light" ? "selected" : ""}>가볍게</option></select></label><p class="metric-note">가볍게: 그림자를 줄이고 초당 30번 그려요. 도시의 계산 결과는 같아요.</p><button class="secondary wide" data-tutorial="start">처음 도시 살펴보기 안내</button><button id="toggle-sound" aria-pressed="${sound}">정책 효과음 ${sound ? "끄기" : "켜기"}</button><button id="new-city" class="secondary wide">저장 초기화</button>`,
   );
 }
 function setLayer(next: MapLayer) {
@@ -526,6 +618,7 @@ async function resetSavedCity() {
     revision = -1;
     lastUI = -1;
     reader.reset();
+    tutorial.start();
     studyContext = undefined;
     stats = sim.stats;
     close();
@@ -534,6 +627,7 @@ async function resetSavedCity() {
     busy = false;
     paused = false;
     lastFrame = performance.now();
+    renderTutorial();
     if (save()) toast("저장을 초기화하고 새 도시를 시작했어요.");
   } catch {
     confirmReset("저장소를 정리하지 못했어요. 잠시 후 다시 시도해 주세요.");
@@ -569,6 +663,41 @@ document.addEventListener("click", (e) => {
     !["export-loading", "new-city", "confirm-new"].includes(b.id)
   )
     return;
+  if (b.dataset.tutorial) {
+    if (b.dataset.tutorial === "skip") {
+      tutorial.finish();
+      reader.finish();
+      if (panel === "tutorial-result") close();
+      $("#live-panel").hidden ? $("#city-canvas").focus() : $("#live-panel-title").focus();
+    } else if (b.dataset.tutorial === "start") {
+      close();
+      reader.reset();
+      tutorial.start();
+    } else if (b.dataset.tutorial === "read-result") {
+      tutorial.resultRead();
+      close();
+    } else if (tutorial.stage === "story" && tutorial.issue) {
+      readStory(tutorial.issue);
+    } else if (tutorial.stage === "policy") {
+      if (tutorial.issue) {
+        studyContext = tutorial.issue;
+        topic = tutorial.issue.topic;
+      }
+      policies();
+    } else if (tutorial.stage === "result") {
+      showTutorialResult();
+    } else if (tutorial.stage === "free") {
+      tutorial.finish();
+      reader.finish();
+      $("#city-canvas").focus();
+    } else if (["observe", "spotlight", "watch"].includes(tutorial.stage) && !pending && !meeting) {
+      paused = false;
+    }
+    renderTutorial();
+    renderStory();
+    save();
+    return;
+  }
   if (b.dataset.panelOpen) {
     open(b.dataset.panelOpen);
     return;
@@ -774,6 +903,7 @@ document.addEventListener("click", (e) => {
             a.target,
             $<HTMLTextAreaElement>("#live-reason").value,
           );
+          tutorial.policyApplied(sim);
           reader.finish();
           close();
           renderStory();
@@ -798,7 +928,7 @@ document.addEventListener("click", (e) => {
           [
             b.id === "export-loading"
               ? loadingText
-              : JSON.stringify(sim.save(), null, 2),
+              : JSON.stringify(cityRecord(), null, 2),
           ],
           {
             type: "application/json",
@@ -961,6 +1091,7 @@ async function load(text: string) {
     );
     if (generation !== loadGeneration) return;
     sim = restored;
+    tutorial.restore(JSON.parse(text).tutorial, sim);
     reader.reset();
     studyContext = undefined;
     revision = -1;
@@ -983,6 +1114,14 @@ function frame(now: number) {
   lastFrame = now;
   if (!paused && !busy && !document.hidden)
     sim.advance(dt * Number($<HTMLSelectElement>("#speed").value));
+  if (tutorial.active && !paused && !busy && !document.hidden && !resetDraft && !pending && !meeting && !inspector.isOpen && $("#live-panel").hidden) {
+    const before = tutorial.stage;
+    tutorial.advance(sim, dt);
+    if (before !== tutorial.stage) {
+      renderTutorial();
+      save();
+    }
+  }
   if (revision !== sim.revision) refreshWorld();
   if (!busy && Math.floor(now / 500) !== lastUI) {
     lastUI = Math.floor(now / 500);
@@ -994,7 +1133,7 @@ function frame(now: number) {
     $("#issue-count").textContent = String(sim.activeIssues.length);
     $("#latest-news").textContent =
       sim.currentStory?.title ?? "동네를 천천히 둘러봐요";
-    $("#news-peek").hidden = !sim.currentStory;
+    $("#news-peek").hidden = tutorial.active || !sim.currentStory;
     $("#next-grant").textContent =
       `운영 예산 +20까지 ${stamp(300 - (sim.time % 300))}`;
     $("#pause").setAttribute("aria-label", paused ? "계속하기" : "일시정지");
@@ -1008,6 +1147,7 @@ function frame(now: number) {
           : "잠시 멈춰 있어요"
         : "도시가 살아가고 있어요";
     renderStory();
+    renderTutorial();
     if (panel === "observe") renderReadings();
     if (panel === "news") renderNews();
     if (panel === "policy")
@@ -1031,7 +1171,10 @@ requestAnimationFrame(frame);
 try {
   const previous = localStorage.getItem(SAVE_KEY);
   if (previous) void load(previous);
+  else { tutorial.start(); renderTutorial(); }
 } catch {
+  tutorial.start();
+  renderTutorial();
   toast("자동 저장을 사용할 수 없어요. 조사 기록에서 파일로 저장할 수 있어요.");
 }
 // Read-only diagnostics for browser regression checks.

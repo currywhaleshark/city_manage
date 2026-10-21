@@ -114,6 +114,19 @@ function fixture(t: TestContext) {
   };
 }
 
+test("a mobile tutorial card leaves a separate readable place for the resident bubble", (t) => {
+  const f = fixture(t);
+  f.resize(390, 780);
+  const guideBox = { x: 12, y: 70, w: 366, h: 200 };
+  const guide = f.obstacle(guideBox);
+  guide.className = "tutorial-card";
+  guide.id = "city-tutorial";
+  guide.getClientRects = () => [guide.getBoundingClientRect()] as unknown as DOMRectList;
+  const bubble = f.update(190, 235);
+  assert.equal(intersects(bubble, guideBox), false);
+  assert.equal(intersects(f.pin(), guideBox), false);
+});
+
 test("resident bubble and pin stay put across tiny camera changes and repeated story refreshes", (t) => {
   const f = fixture(t);
   const first = f.update(),

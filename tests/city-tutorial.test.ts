@@ -1,0 +1,136 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { LiveCitySimulation, restoreLiveCity } from "../src/simulation/live";
+import { captureLiveCheckpoint, restoreLiveCheckpoint } from "../src/simulation/checkpoint";
+import { CityTutorial, tutorialResultText } from "../src/ui/city-tutorial";
+
+test("tutorial waits for a real problem, highlights its place before speech, and compares the chosen policy", () => {
+  const sim = new LiveCitySimulation();
+  const tutorial = new CityTutorial();
+  tutorial.start();
+  tutorial.advance(sim, 30);
+  assert.equal(tutorial.stage, "observe", "time alone must never invent a problem");
+  sim.advance(120);
+  const news = structuredClone(sim.news);
+  tutorial.advance(sim, 1);
+  assert.equal(tutorial.stage, "spotlight");
+  assert.deepEqual(tutorial.issue, sim.activeIssues[0]);
+  assert.equal(tutorial.story(sim.currentStory), undefined);
+  tutorial.advance(sim, 3);
+  assert.equal(tutorial.stage, "spotlight");
+  tutorial.advance(sim, 1);
+  assert.equal(tutorial.stage, "story");
+  assert.deepEqual(tutorial.story(), tutorial.issue);
+  assert.deepEqual(sim.news, news, "guidance does not alter problems or history");
+  tutorial.policiesOpened();
+  assert.equal(tutorial.stage, "policy");
+  sim.apply("signal", sim.targets("signal")[0].id);
+  tutorial.policyApplied(sim);
+  assert.equal(tutorial.stage, "watch");
+  assert.equal(tutorial.story(sim.currentStory), undefined, "other speech waits until guidance ends");
+  sim.advance(119);
+  tutorial.advance(sim, 30);
+  assert.equal(tutorial.stage, "watch");
+  sim.advance(1);
+  tutorial.advance(sim, 1);
+  assert.equal(tutorial.stage, "result");
+  assert.deepEqual(tutorial.result, sim.policyComparisons[0]);
+  const result = structuredClone(tutorial.result);
+  sim.advance(120);
+  tutorial.advance(sim, 30);
+  assert.deepEqual(tutorial.result, result, "the displayed comparison stays at its observed time");
+  assert.equal(tutorial.stage, "result", "viewing the result is not silently skipped");
+  tutorial.resultRead();
+  assert.equal(tutorial.stage, "free");
+  tutorial.finish();
+  assert.equal(tutorial.active, false);
+  assert.equal(tutorial.story(sim.currentStory), sim.currentStory);
+});
+
+test("minimum observation time, pause, and later policies cannot skip or replace the first lesson", () => {
+  const sim = new LiveCitySimulation();
+  sim.advance(120);
+  const tutorial = new CityTutorial();
+  tutorial.start();
+  tutorial.advance(sim, 11);
+  tutorial.advance(sim, 0);
+  assert.equal(tutorial.stage, "observe");
+  tutorial.advance(sim, 1);
+  tutorial.advance(sim, 4);
+  tutorial.policiesOpened();
+  sim.apply("signal", sim.targets("signal")[0].id);
+  tutorial.policyApplied(sim);
+  sim.advance(10);
+  sim.apply("reduce");
+  tutorial.policyApplied(sim);
+  assert.equal(tutorial.actionIndex, 0);
+  sim.advance(110);
+  tutorial.advance(sim, 1);
+  assert.equal(tutorial.result?.action.id, "signal");
+});
+
+test("progress resumes at speech, observation and frozen results, while old saves remain in free play", () => {
+  const sim = new LiveCitySimulation();
+  const tutorial = new CityTutorial();
+  const restored = new CityTutorial();
+  tutorial.start();
+  sim.advance(120);
+  tutorial.advance(sim, 12);
+  tutorial.advance(sim, 4);
+  restored.restore(JSON.parse(JSON.stringify(tutorial.save())), sim);
+  assert.equal(restored.stage, "story");
+  assert.deepEqual(restored.issue, tutorial.issue);
+  sim.apply("reduce");
+  tutorial.policyApplied(sim);
+  restored.restore(tutorial.save(), sim);
+  assert.equal(restored.stage, "watch");
+  sim.advance(120);
+  tutorial.advance(sim, 1);
+  const savedResult = tutorial.save();
+  sim.advance(60);
+  restored.restore(savedResult, sim);
+  assert.deepEqual(restored.result, tutorial.result);
+  assert.equal(restored.stage, "result");
+  restored.restore(undefined, sim);
+  assert.equal(restored.active, false);
+  restored.restore({ version: 1, stage: "watch", elapsed: 0, actionIndex: -1 }, sim);
+  assert.equal(restored.stage, "observe");
+  restored.restore({ ...savedResult, result: { before: 0, after: NaN, time: Infinity } }, sim);
+  assert.equal(restored.stage, "watch");
+  restored.restore({ version: 1, stage: "story", elapsed: 0, issueId: 999999 }, sim);
+  assert.equal(restored.stage, "observe");
+  restored.restore({ version: 1, stage: "done", elapsed: 0 }, sim);
+  assert.equal(restored.active, false);
+});
+
+test("results describe improvement, no change and worsening without promising a solved city", () => {
+  const sim = new LiveCitySimulation();
+  sim.apply("reduce");
+  const comparison = sim.policyComparisons[0];
+  assert.match(tutorialResultText({ ...comparison, before: 5, now: 2 }), /쓰레기가 전보다 줄었어요/);
+  assert.match(tutorialResultText({ ...comparison, before: 5, now: 5 }), /아직 전과 비슷해요/);
+  assert.match(tutorialResultText({ ...comparison, before: 5, now: 9 }), /쓰레기가 전보다 늘었어요/);
+});
+
+test("portable saves and cached cities both keep tutorial progress without changing engine state", async () => {
+  const sim = new LiveCitySimulation();
+  const tutorial = new CityTutorial();
+  tutorial.start();
+  sim.advance(120);
+  tutorial.advance(sim, 12);
+  tutorial.advance(sim, 4);
+  sim.apply("reduce");
+  tutorial.policyApplied(sim);
+  const record = JSON.parse(JSON.stringify({ ...sim.save(), tutorial: tutorial.save() }));
+  const cached = restoreLiveCheckpoint(captureLiveCheckpoint(sim), record);
+  const replayed = await restoreLiveCity(record);
+  for (const city of [cached, replayed]) {
+    const resumed = new CityTutorial();
+    resumed.restore(record.tutorial, city);
+    assert.equal(resumed.stage, "watch");
+    assert.equal(resumed.actionIndex, 0);
+    assert.deepEqual(city.actions, sim.actions);
+    assert.deepEqual(city.values, sim.values);
+    assert.equal(city.time, sim.time);
+  }
+});

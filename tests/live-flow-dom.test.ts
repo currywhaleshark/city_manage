@@ -131,6 +131,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
             this.camera = { position: new Vector3(), zoom: 1, updateProjectionMatrix() {} };
           }
           setSimulation() {} setMapLayer() {} render() {} resetCamera() {} focusPosition() {} zoom() {} setQuality() {}
+          setTutorialSpotlight() {}
           beginInspection() {} endInspection() {} recenterInspection() {}
           setResidentVoices(voices) { this.residents.setVoices(voices); }
           setResidentMode(open) { this.residents.setOpen(open); }
@@ -164,6 +165,10 @@ test("live UI keeps a read story, carries its context into policy selection, and
         new dom.window.Event("change", { bubbles: true }),
       );
     };
+    assert.equal(document.body.dataset.tutorial, "observe");
+    assert.match(el("#tutorial-copy").textContent!, /조금 뒤/);
+    click('#city-tutorial [data-tutorial="skip"]');
+    assert.equal(el("#city-tutorial").hidden, true);
     // Compact controls use the same speed and save handlers as desktop.
     const options = el("#city-options-toggle");
     click("#city-options-toggle");
@@ -420,6 +425,61 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(state().budget, 5);
     assert.equal(state().paused, false);
     assert.equal(state().council.length, 0, "deferring a meeting spends nothing and creates no activity");
+
+    // A new city walks through actual discovery, speech, placement and results.
+    click("#help"); click("#new-city"); click("#confirm-new");
+    await new Promise((resolve) => setImmediate(resolve));
+    tick();
+    assert.equal(document.body.dataset.tutorial, "observe");
+    while (state().time < 120) tick(1);
+    tick();
+    assert.equal(document.body.dataset.tutorial, "spotlight");
+    assert.equal(el("#resident-bubble").hidden, true, "the place is highlighted before a speech bubble appears");
+    tick(45);
+    assert.equal(document.body.dataset.tutorial, "story");
+    assert.equal(el("#resident-bubble").hidden, false);
+    click("#read-story");
+    assert.match(el(".tutorial-inline").textContent!, /이 문제 살펴보기/);
+    assert.equal(el("#city-tutorial").hidden, true, "only one instruction surface is shown at a time");
+    click("#investigate-story");
+    assert.equal(document.body.dataset.tutorial, "policy");
+    change("#policy-topic", "parking");
+    click('[data-live-policy="signal"]'); click("[data-placement-target]");
+    click("#cancel-policy"); tick();
+    assert.equal(document.body.dataset.tutorial, "policy", "cancelled placement keeps the lesson reachable");
+    click("#tutorial-next");
+    change("#policy-topic", "parking");
+    click('[data-live-policy="signal"]'); click("[data-placement-target]");
+    click("#apply-live-policy"); tick();
+    assert.equal(document.body.dataset.tutorial, "watch");
+    click("#pause"); tick();
+    const waitingTime = state().time;
+    tick(30);
+    assert.equal(state().time, waitingTime);
+    assert.equal(el("#tutorial-next").textContent, "계속 관찰하기");
+    click("#tutorial-next");
+    const policyTime = state().actions[0].time;
+    while (state().time < policyTime + 121) tick(1);
+    tick();
+    assert.equal(document.body.dataset.tutorial, "result");
+    click("#tutorial-next");
+    assert.equal(document.body.dataset.livePanel, "tutorial-result");
+    assert.match(el(".tutorial-result").textContent!, /시행 전.*관찰 때/s);
+    const resultText = el(".tutorial-result").textContent;
+    tick(30);
+    assert.equal(el(".tutorial-result").textContent, resultText);
+    click(".tutorial-result [data-review-policy]");
+    assert.equal(el<HTMLDialogElement>("#place-inspector").open, true);
+    click("#close-inspection");
+    assert.equal(document.body.dataset.livePanel, "tutorial-result");
+    assert.equal(el(".tutorial-result").textContent, resultText);
+    click('[data-tutorial="read-result"]');
+    assert.equal(document.body.dataset.tutorial, "free");
+    assert.match(el("#tutorial-copy").textContent!, /주민 회의/);
+    click("#tutorial-next");
+    assert.equal(document.body.dataset.tutorial, undefined);
+    assert.equal(el("#city-tutorial").hidden, true);
+    assert.equal(JSON.parse(dom.window.localStorage.getItem("mayor-living-city-v1")!).tutorial.stage, "done");
   } finally {
     hook.deregister();
     dom.window.close();
