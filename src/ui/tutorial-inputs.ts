@@ -8,9 +8,10 @@ export interface TutorialInputState {
 }
 
 const controls = "button,input,select,textarea,summary,a[href],canvas";
+const mapControls = ["city-canvas", "zoom-in", "zoom-out", "camera-reset"];
 
 export function tutorialCameraAllowed(s: TutorialInputState) {
-  return s.stage === "done" || s.inspection || (s.stage === "policy" && s.placement);
+  return s.stage === "done" || s.stage === "observe" || s.inspection || (s.stage === "policy" && s.placement);
 }
 
 export function tutorialControlAllowed(el: HTMLElement, s: TutorialInputState) {
@@ -20,11 +21,12 @@ export function tutorialControlAllowed(el: HTMLElement, s: TutorialInputState) {
   if (el.dataset.tutorial === "skip") return true;
   if (el.dataset.tutorial === "next") return !s.panel && !s.placement;
   if (el.dataset.tutorial === "read-result") return s.stage === "result" && s.panel === "tutorial-result";
+  if (s.stage === "observe") return mapControls.includes(el.id);
   if (s.stage === "story")
     return s.panel === "story" ? el.id === "investigate-story" : !s.panel && el.id === "read-story";
   if (s.stage === "policy") {
     if (s.placement)
-      return !!el.closest("#placement-map") || ["city-canvas", "zoom-in", "zoom-out", "camera-reset"].includes(el.id);
+      return !!el.closest("#placement-map") || mapControls.includes(el.id);
     if (s.panel === "review") return ["apply-live-policy", "cancel-policy", "close-panel", "live-reason"].includes(el.id);
     if (s.panel === "policy")
       return el.id === "close-panel" || !!el.closest(".live-policy-list");

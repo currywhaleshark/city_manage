@@ -6,6 +6,7 @@ import { TutorialInputs, tutorialCameraAllowed, type TutorialInputState } from "
 function fixture() {
   const dom = new JSDOM(`<body><canvas id="city-canvas" tabindex="0"></canvas>
     <button id="help">도움말</button><button id="pause">멈춤</button>
+    <button id="zoom-in">확대</button><button id="zoom-out">축소</button><button id="camera-reset">전체 도시</button>
     <aside id="city-tutorial"><button data-tutorial="skip">안내 그만 보기</button><button id="tutorial-next" data-tutorial="next">계속</button></aside>
     <section id="placement-map"><button data-placement-target="school">학교</button></section>
     <section id="live-panel"><h2 id="live-panel-title" tabindex="-1">정책</h2>
@@ -19,7 +20,7 @@ function fixture() {
   return { dom, doc, inputs, el, state: () => state, set: (next: Partial<TutorialInputState>) => { state = { ...state, ...next }; inputs.refresh(); } };
 }
 
-test("capture stops canvas gestures and element-local actions outside the guided placement", () => {
+test("observation allows exploring the map, then spotlight locks it until guided placement", () => {
   const f = fixture();
   let moves = 0, placements = 0;
   const canvas = f.el("#city-canvas"), target = f.el("[data-placement-target]");
@@ -27,15 +28,32 @@ test("capture stops canvas gestures and element-local actions outside the guided
     canvas.addEventListener(type, () => moves++);
   target.addEventListener("click", () => placements++);
   for (const type of ["pointerdown", "pointerup", "wheel", "touchstart"])
+    assert.equal(canvas.dispatchEvent(new f.dom.window.Event(type, { bubbles: true, cancelable: true })), true);
+  assert.equal(moves, 4, "mouse and touch gestures reach the map during initial observation");
+  assert.equal(tutorialCameraAllowed(f.state()), true);
+  let cameraActions = 0;
+  for (const id of ["#zoom-in", "#zoom-out", "#camera-reset"]) {
+    f.el(id).addEventListener("click", () => cameraActions++);
+    f.el(id).click();
+  }
+  assert.equal(cameraActions, 3);
+  target.click();
+  assert.equal(placements, 0, "free map movement does not enable policy placement");
+  assert.equal((f.el("#help") as HTMLButtonElement).disabled, true);
+  assert.equal((f.el("#pause") as HTMLButtonElement).disabled, true);
+  f.set({ stage: "spotlight" });
+  f.el("#zoom-in").click();
+  assert.equal(cameraActions, 3, "the highlighted problem stays in view");
+  for (const type of ["pointerdown", "pointerup", "wheel", "touchstart"])
     assert.equal(canvas.dispatchEvent(new f.dom.window.Event(type, { bubbles: true, cancelable: true })), false);
   target.click();
-  assert.equal(moves, 0);
+  assert.equal(moves, 4);
   assert.equal(placements, 0);
   assert.equal(tutorialCameraAllowed(f.state()), false);
   f.set({ stage: "policy", placement: true });
   canvas.dispatchEvent(new f.dom.window.Event("pointerdown", { bubbles: true }));
   target.click();
-  assert.equal(moves, 1);
+  assert.equal(moves, 5);
   assert.equal(placements, 1);
   assert.equal(canvas.inert, false);
   assert.equal(tutorialCameraAllowed(f.state()), true);

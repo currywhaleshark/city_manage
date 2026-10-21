@@ -254,7 +254,7 @@ function renderTutorial() {
   if (!tutorialCard.hidden) document.body.dataset.tutorialCard = "visible";
   else delete document.body.dataset.tutorialCard;
   const copy = {
-    observe: ["1 / 5 · 도시 관찰", "잠시 도시를 관찰해 봐요", "지금은 조작하지 않고 차와 사람들을 살펴봐요. 조금 뒤, 불편이 생긴 곳을 알려드릴게요.", ""],
+    observe: ["1 / 5 · 도시 관찰", "잠시 도시를 관찰해 봐요", "지도를 움직이거나 확대하며 차와 사람들을 살펴봐요. 조금 뒤, 불편이 생긴 곳을 알려드릴게요.", ""],
     spotlight: ["2 / 5 · 문제 장소", "이곳에 불편이 생겼어요", `${tutorial.issue?.title ?? "표시한 곳"} 주변을 살펴봐요. 노란 테두리가 문제를 발견한 곳이에요.`, ""],
     story: ["3 / 5 · 주민 이야기", "주민의 말을 들어봐요", "말풍선을 눌러 무슨 일이 있었는지 읽고, ‘이 문제 살펴보기’로 들어가요.", "주민 이야기 보기"],
     policy: ["4 / 5 · 방법 고르기", "방법과 장소를 직접 골라요", "이 문제에 맞는 정책의 비용과 아쉬운 점을 비교해요. 적용할 곳을 고르고 ‘이 정책 시행’을 눌러요.", "정책 살펴보기"],

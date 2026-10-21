@@ -169,7 +169,10 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(document.body.dataset.tutorial, "observe");
     assert.match(el("#tutorial-copy").textContent!, /조금 뒤/);
     const cameraEnabled = () => (dom.window as any).__testCameraControls.enabled;
-    assert.equal(cameraEnabled(), false);
+    assert.equal(cameraEnabled(), true, "initial observation lets the learner explore the city");
+    assert.equal(!!el("#city-canvas").inert, false);
+    for (const selector of ["#zoom-in", "#zoom-out", "#camera-reset"])
+      assert.equal(el<HTMLButtonElement>(selector).disabled, false);
     for (const selector of ['#help', '[data-panel-open="policy"]', '[data-panel-open="news"]', '#layer-waste', '#city-options-toggle', '#pause']) {
       assert.equal(el<HTMLButtonElement>(selector).disabled, true, selector);
       click(selector);
@@ -450,6 +453,8 @@ test("live UI keeps a read story, carries its context into policy selection, and
     while (state().time < 120) tick(1);
     tick();
     assert.equal(document.body.dataset.tutorial, "spotlight");
+    assert.equal(cameraEnabled(), false, "the problem spotlight restores guided map control");
+    assert.equal(el<HTMLButtonElement>("#zoom-in").disabled, true);
     assert.equal(el("#resident-bubble").hidden, true, "the place is highlighted before a speech bubble appears");
     tick(45);
     assert.equal(document.body.dataset.tutorial, "story");
