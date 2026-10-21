@@ -23,6 +23,7 @@ import {
 import { mapTools } from "./ui/map-layers";
 import { bindMapScrollHint } from "./ui/map-scroll-hint";
 import { CityTutorial, tutorialResultText } from "./ui/city-tutorial";
+import { TutorialInputs, tutorialCameraAllowed, type TutorialInputState } from "./ui/tutorial-inputs";
 import { PlaceInspector } from "./ui/place-inspector";
 import {
   policyAvailability,
@@ -157,6 +158,7 @@ let inspectionLayer: MapLayer | undefined;
 inspector.onClose = () => {
   if (inspectionLayer !== undefined) setLayer(inspectionLayer);
   inspectionLayer = undefined;
+  renderTutorial();
 };
 let studyContext: CityEvent | undefined;
 let comparison: ObservationComparison | undefined;
@@ -204,6 +206,7 @@ function inspectPlace(event: CityEvent) {
   setLayer(topicLayer[event.topic]);
   inspector.open(event.title, event.position);
   inspector.update(sim.time, paused);
+  renderTutorial();
 }
 function readStory(event: CityEvent) {
   reader.hold(event);
@@ -229,6 +232,15 @@ let sound = false,
   lastSaveTime = -30,
   saveFailed = false;
 const SAVE_KEY = "mayor-living-city-v1";
+function tutorialInputState(): TutorialInputState {
+  return {
+    stage: busy || resetDraft || resetting ? "done" : tutorial.stage,
+    panel: $("#live-panel").hidden ? "" : panel,
+    placement: !!pending && $("#live-panel").hidden,
+    inspection: inspector.isOpen,
+  };
+}
+const tutorialInputs = new TutorialInputs(document, tutorialInputState);
 function cityRecord() {
   return { ...sim.save(), tutorial: tutorial.save() };
 }
@@ -242,10 +254,10 @@ function renderTutorial() {
   if (!tutorialCard.hidden) document.body.dataset.tutorialCard = "visible";
   else delete document.body.dataset.tutorialCard;
   const copy = {
-    observe: ["1 / 5 · 도시 관찰", "잠시 도시를 관찰해 봐요", "길을 오가는 차와 사람들을 살펴봐요. 조금 뒤, 불편이 생긴 곳을 알려드릴게요.", ""],
+    observe: ["1 / 5 · 도시 관찰", "잠시 도시를 관찰해 봐요", "지금은 조작하지 않고 차와 사람들을 살펴봐요. 조금 뒤, 불편이 생긴 곳을 알려드릴게요.", ""],
     spotlight: ["2 / 5 · 문제 장소", "이곳에 불편이 생겼어요", `${tutorial.issue?.title ?? "표시한 곳"} 주변을 살펴봐요. 노란 테두리가 문제를 발견한 곳이에요.`, ""],
     story: ["3 / 5 · 주민 이야기", "주민의 말을 들어봐요", "말풍선을 눌러 무슨 일이 있었는지 읽고, ‘이 문제 살펴보기’로 들어가요.", "주민 이야기 보기"],
-    policy: ["4 / 5 · 방법 고르기", "방법과 장소를 직접 골라요", "정책의 비용과 아쉬운 점을 비교해요. 적용할 곳을 고르고 ‘이 정책 시행’을 눌러요.", "정책 살펴보기"],
+    policy: ["4 / 5 · 방법 고르기", "방법과 장소를 직접 골라요", "이 문제에 맞는 정책의 비용과 아쉬운 점을 비교해요. 적용할 곳을 고르고 ‘이 정책 시행’을 눌러요.", "정책 살펴보기"],
     watch: ["5 / 5 · 변화 관찰", "도시가 달라지는지 지켜봐요", "정책을 시행했어요. 도시 시간 2분이 지나면 시행한 곳의 전후 모습을 비교해 볼게요.", ""],
     result: ["5 / 5 · 결과 확인", "정책 뒤, 무엇이 달라졌을까요?", "관찰한 결과가 준비됐어요. 좋아진 점과 아직 남은 불편을 함께 확인해요.", "결과 비교하기"],
     free: ["처음 안내 마침", "이제 시장님이 살펴볼 차례예요", "자유롭게 도시를 관찰하고 다른 문제도 해결해 봐요. 남은 문제는 주민 회의를 열어 함께 의논할 수 있어요.", "자유롭게 시작하기"],
@@ -293,6 +305,8 @@ function renderTutorial() {
     if (stage === "spotlight" && tutorial.issue?.position) city.focusPosition(tutorial.issue.position, 120);
   }
   if (!tutorialCard.hidden) document.body.style.setProperty("--tutorial-height", `${tutorialCard.offsetHeight}px`);
+  tutorialInputs.refresh();
+  city.controls.enabled = tutorialCameraAllowed(tutorialInputState());
 }
 function showTutorialResult() {
   const result = tutorial.result;
@@ -347,6 +361,7 @@ function close() {
     panelReturnFocus.focus({ preventScroll: true });
   else $("#city-canvas").focus({ preventScroll: true });
   panelReturnFocus = undefined;
+  renderTutorial();
 }
 function show(name: string, title: string, body: string) {
   closeCityOptions();
@@ -431,6 +446,7 @@ function beginPolicy(id: LivePolicyId) {
       policies();
     },
   );
+  renderTutorial();
 }
 function community() {
   show("community", "주민과 함께 정해요", communityOverview(sim));
@@ -954,6 +970,7 @@ document.addEventListener("click", (e) => {
       break;
   }
 });
+document.addEventListener("click", () => renderTutorial());
 document.addEventListener("input", (e) => {
   const input = e.target as HTMLTextAreaElement;
   if (meeting && input.id === "community-reason") meeting.reason = input.value;
@@ -1013,6 +1030,7 @@ document.addEventListener("keydown", (e) => {
     close();
     return;
   }
+  if (tutorial.active) return;
   if (
     e.code === "Space" &&
     !["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(
@@ -1024,7 +1042,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 city.onSelect = (s) => {
-  if (busy || rebuilding || meeting || pending || resetDraft || inspector.isOpen) return;
+  if (tutorial.active || busy || rebuilding || meeting || pending || resetDraft || inspector.isOpen) return;
   studyContext = undefined;
   const applied = s.kind === "policy" ? city.appliedPolicy(s.id) : undefined;
   show(
@@ -1107,6 +1125,7 @@ async function load(text: string) {
   } finally {
     if (generation !== loadGeneration) return;
     if (!busy) paused = previousPaused;
+    renderTutorial();
     lastFrame = performance.now();
   }
 }

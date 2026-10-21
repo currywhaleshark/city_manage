@@ -38,6 +38,7 @@
 .tutorial-card p { margin: 0; font-size: 13px; line-height: 1.6; word-break: keep-all; }
 .tutorial-card > button { min-height: 44px; margin-top: 10px; width: 100%; justify-content: center; }
 .tutorial-target { outline: 3px solid #d6a543; outline-offset: 3px; }
+.living-city [data-tutorial-locked]:not(canvas) { opacity: 0.35; cursor: default; }
 .tutorial-inline {
   display: flex;
   align-items: center;

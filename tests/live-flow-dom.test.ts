@@ -128,6 +128,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
             this.residents = new ResidentRenderer(this.container);
             this.residents.onChoose = (...args) => this.onResidentSelect?.(...args);
             this.controls = { target: new Vector3(), update() {} };
+            window.__testCameraControls = this.controls;
             this.camera = { position: new Vector3(), zoom: 1, updateProjectionMatrix() {} };
           }
           setSimulation() {} setMapLayer() {} render() {} resetCamera() {} focusPosition() {} zoom() {} setQuality() {}
@@ -167,8 +168,22 @@ test("live UI keeps a read story, carries its context into policy selection, and
     };
     assert.equal(document.body.dataset.tutorial, "observe");
     assert.match(el("#tutorial-copy").textContent!, /조금 뒤/);
+    const cameraEnabled = () => (dom.window as any).__testCameraControls.enabled;
+    assert.equal(cameraEnabled(), false);
+    for (const selector of ['#help', '[data-panel-open="policy"]', '[data-panel-open="news"]', '#layer-waste', '#city-options-toggle', '#pause']) {
+      assert.equal(el(selector).inert, true, selector);
+      click(selector);
+    }
+    assert.equal(el("#live-panel").hidden, true);
+    assert.equal(state().paused, false);
+    change("#speed", "8");
+    assert.equal(el<HTMLSelectElement>("#speed").value, "4");
+    document.body.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: " ", code: "Space", bubbles: true, cancelable: true }));
+    assert.equal(state().paused, false, "the pause shortcut cannot bypass the lesson");
     click('#city-tutorial [data-tutorial="skip"]');
     assert.equal(el("#city-tutorial").hidden, true);
+    assert.equal(cameraEnabled(), true);
+    assert.equal(el("#help").inert, false);
     // Compact controls use the same speed and save handlers as desktop.
     const options = el("#city-options-toggle");
     click("#city-options-toggle");
@@ -376,6 +391,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
 
     // Unavailable policies explain why before selection. A grant updates the
     // open list in place, and the same button then leads to a real placement.
+    click('#city-tutorial [data-tutorial="skip"]');
     click('[data-panel-open="policy"]');
     change("#policy-topic", "parking");
     click('[data-live-policy="signal"]');
@@ -438,13 +454,28 @@ test("live UI keeps a read story, carries its context into policy selection, and
     tick(45);
     assert.equal(document.body.dataset.tutorial, "story");
     assert.equal(el("#resident-bubble").hidden, false);
+    click("#close-story");
+    click('[data-panel-open="policy"]');
+    assert.equal(el("#resident-bubble").hidden, false);
+    assert.equal(el("#live-panel").hidden, true, "policy selection waits for the resident's story");
     click("#read-story");
     assert.match(el(".tutorial-inline").textContent!, /이 문제 살펴보기/);
     assert.equal(el("#city-tutorial").hidden, true, "only one instruction surface is shown at a time");
+    click("#close-panel");
+    click("#inspect-story");
+    document.body.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }));
+    assert.equal(document.body.dataset.livePanel, "story");
+    assert.equal(el<HTMLDialogElement>("#place-inspector").open, false);
     click("#investigate-story");
     assert.equal(document.body.dataset.tutorial, "policy");
-    change("#policy-topic", "parking");
-    click('[data-live-policy="signal"]'); click("[data-placement-target]");
+    change("#policy-topic", "water");
+    assert.equal(el<HTMLSelectElement>("#policy-topic").value, "parking");
+    click('[data-panel-open="community"]');
+    assert.equal(document.body.dataset.livePanel, "policy");
+    click('[data-live-policy="signal"]');
+    assert.equal(cameraEnabled(), true, "placement permits moving around the map");
+    click("[data-placement-target]");
+    assert.equal(cameraEnabled(), false, "the confirmation returns to guided controls");
     click("#cancel-policy"); tick();
     assert.equal(document.body.dataset.tutorial, "policy", "cancelled placement keeps the lesson reachable");
     click("#tutorial-next");
@@ -454,10 +485,10 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(document.body.dataset.tutorial, "watch");
     click("#pause"); tick();
     const waitingTime = state().time;
+    click('[data-panel-open="policy"]');
+    assert.equal(el("#live-panel").hidden, true);
     tick(30);
-    assert.equal(state().time, waitingTime);
-    assert.equal(el("#tutorial-next").textContent, "계속 관찰하기");
-    click("#tutorial-next");
+    assert.ok(state().time > waitingTime, "random pause clicks cannot stop the observation");
     const policyTime = state().actions[0].time;
     while (state().time < policyTime + 121) tick(1);
     tick();
@@ -470,6 +501,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(el(".tutorial-result").textContent, resultText);
     click(".tutorial-result [data-review-policy]");
     assert.equal(el<HTMLDialogElement>("#place-inspector").open, true);
+    assert.equal(cameraEnabled(), true);
     click("#close-inspection");
     assert.equal(document.body.dataset.livePanel, "tutorial-result");
     assert.equal(el(".tutorial-result").textContent, resultText);
@@ -480,6 +512,18 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(document.body.dataset.tutorial, undefined);
     assert.equal(el("#city-tutorial").hidden, true);
     assert.equal(JSON.parse(dom.window.localStorage.getItem("mayor-living-city-v1")!).tutorial.stage, "done");
+    assert.equal(cameraEnabled(), true);
+    assert.equal(document.querySelectorAll("[data-tutorial-locked]").length, 0);
+    click("#pause");
+    assert.equal(state().paused, true);
+    click("#help"); click('[data-tutorial="start"]');
+    assert.equal(document.body.dataset.tutorial, "observe");
+    assert.equal(el("#tutorial-next").textContent, "계속 관찰하기");
+    click("#tutorial-next");
+    assert.equal(state().paused, false, "a restarted lesson can resume a paused city using its guide");
+    click('#city-tutorial [data-tutorial="skip"]');
+    click('[data-panel-open="policy"]');
+    assert.equal(!!el<HTMLSelectElement>("#policy-topic").inert, false);
   } finally {
     hook.deregister();
     dom.window.close();
