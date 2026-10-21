@@ -186,7 +186,7 @@ test("a short landscape phone fits the compact guide, story and location pin", (
   f.document.querySelector(".topbar")!.getBoundingClientRect = () =>
     new f.document.defaultView!.DOMRect(16, 16, 536, 40);
   const boxes = [
-    { x: 204, y: 12, w: 288, h: 98 },
+    { x: 204, y: 12, w: 232, h: 98 },
     { x: 12, y: 120, w: 48, h: 120 },
     { x: 512, y: 100, w: 40, h: 116 },
   ];
