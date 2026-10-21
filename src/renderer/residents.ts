@@ -401,6 +401,13 @@ export class ResidentRenderer extends THREE.Group {
       let box = options.reduce((best, b) => (cost(b) < cost(best) ? b : best));
       // When a narrow screen or expanded story uses the nearby space, search free rows too.
       if (occupied.some((o) => overlap(box, o) > 0)) {
+        // A short phone can leave a usable strip below a card that the row grid skips.
+        const edgeRows = [top, bottom - ph, ...occupied.flatMap((o) => [o.y - ph - 6, o.y + o.h + 6])];
+        for (const y of edgeRows)
+          for (const x of [8, p.x - pw / 2, width - pw - 8]) {
+            const candidate = keepInside(x, y, pw, ph);
+            if (cost(candidate) < cost(box)) box = candidate;
+          }
         for (let y = top; y <= bottom - ph; y += ph + 12)
           for (let x = 8; x <= width - pw - 8; x += pw + 12) {
             const candidate = { x, y, w: pw, h: ph };

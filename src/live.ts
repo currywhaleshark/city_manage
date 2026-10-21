@@ -363,6 +363,7 @@ function show(name: string, title: string, body: string) {
   document.body.dataset.activePanel = name;
   $("#live-panel-title").focus();
   renderTutorial();
+  $("#live-panel-body").scrollTop = 0;
 }
 function news() {
   show(

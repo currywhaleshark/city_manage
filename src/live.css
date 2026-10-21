@@ -1020,6 +1020,9 @@
     overflow-y: auto;
     overscroll-behavior: contain;
   }
+  .living-city[data-tutorial-card] .resident-bubble {
+    width: min(230px, calc(100vw - 136px));
+  }
   .tutorial-inline { flex-wrap: wrap; gap: 2px; }
   .tutorial-inline p { flex-basis: 100%; }
   .tutorial-inline button { margin-left: auto; }
@@ -1027,8 +1030,8 @@
 /* A short landscape viewport needs a reading pane above the command deck. */
 @media (max-height: 600px) and (orientation: landscape) {
   .living-city .tutorial-card {
-    top: 12px; left: auto; right: 12px;
-    width: min(320px, calc(100vw - 180px));
+    top: 12px; left: auto; right: 76px;
+    width: min(320px, calc(100vw - 280px));
     max-height: calc(100dvh - var(--deck-height) - 24px);
     overflow-y: auto;
   }

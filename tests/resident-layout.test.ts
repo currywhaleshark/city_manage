@@ -100,6 +100,7 @@ function fixture(t: TestContext) {
       height = h;
       bw = w <= 700 ? 250 : 302;
     },
+    bubbleSize: (w: number, h: number) => { bw = w; bh = h; },
     expand: (h: number) => {
       bh = h;
       bubble.querySelector<HTMLDetailsElement>("details")!.open = true;
@@ -125,6 +126,29 @@ test("a mobile tutorial card leaves a separate readable place for the resident b
   const bubble = f.update(190, 235);
   assert.equal(intersects(bubble, guideBox), false);
   assert.equal(intersects(f.pin(), guideBox), false);
+});
+
+test("a narrow phone keeps the tutorial bubble and pin clear of both map control columns", (t) => {
+  const f = fixture(t);
+  f.resize(320, 504);
+  f.bubbleSize(184, 152);
+  const boxes = [
+    { x: 12, y: 70, w: 296, h: 186 },
+    { x: 12, y: 268, w: 48, h: 220 },
+    { x: 264, y: 348, w: 40, h: 116 },
+  ];
+  boxes.forEach((box, i) => {
+    const obstacle = f.obstacle(box);
+    if (i === 0) { obstacle.className = "tutorial-card"; obstacle.id = "city-tutorial"; }
+    if (i === 1) obstacle.className = "map-tools";
+    obstacle.getClientRects = () => [obstacle.getBoundingClientRect()] as unknown as DOMRectList;
+  });
+  const bubble = f.update(160, 226.63);
+  for (const box of boxes) {
+    assert.equal(intersects(bubble, box), false, "the story must not cover a control");
+    assert.equal(intersects(f.pin(), box), false, "the location pin must not cover a control");
+  }
+  assert.equal(intersects(bubble, f.pin()), false, JSON.stringify({ bubble, pin: f.pin() }));
 });
 
 test("resident bubble and pin stay put across tiny camera changes and repeated story refreshes", (t) => {
