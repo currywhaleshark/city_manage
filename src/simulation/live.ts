@@ -14,7 +14,7 @@ import {
   type ParkingSite,
 } from "./parking";
 import { wasteLaneId, type WasteSite } from "./services/waste";
-import { LogisticsSimulation } from "./economy";
+import { LogisticsSimulation, type Shop } from "./economy";
 import { WaterSimulation, WATER_SOURCES, waterTargets } from "./water";
 import { FacilitySimulation, type PlannedFacility } from "./facilities";
 import { BUILDABLE_PLOTS } from "../city/world";
@@ -65,6 +65,13 @@ export const EAST_WASTE_SITE = {
   facilityId: "block-7-1",
   roadId: "n7-1_n7-2",
   from: "n7-1",
+} as const;
+/** A shop in the commercial district across the river, near the workshop. */
+export const EAST_SHOP_SITE = {
+  id: "east-bank",
+  name: "강너머 상가 가게",
+  facilityId: "block-5-1",
+  laneId: "n5-2_n6-2:n5-2:0",
 } as const;
 export const STAGGER_TARGET = "industry-commute";
 const isEastRoad = (id: string) =>
@@ -272,6 +279,8 @@ export interface LiveSave {
   trafficRoutingFrom?: number;
   /** Start of the commercial/industrial problems across the river and the industrial rush. */
   eastBankFrom?: number;
+  /** First tick of the shop across the river and its deliveries. */
+  eastShopFrom?: number;
 }
 
 /** One transport engine and one clock. Domain services never advance their own traffic. */
@@ -313,7 +322,8 @@ export class LiveCitySimulation extends DumpingSimulation {
     done?: boolean;
   }[] = [];
   constructor(readonly seed = 2404, public cityTrafficFrom = 0, public vehicleAccessFrom = 0,
-    public vehicleArrivalFrom = 0, public trafficRoutingFrom = 0, public eastBankFrom = 0) {
+    public vehicleArrivalFrom = 0, public trafficRoutingFrom = 0, public eastBankFrom = 0,
+    public eastShopFrom = 0) {
     super(seed, [], undefined, undefined, CITY_TRAFFIC_COUNT);
     if (cityTrafficFrom === 0)
       this.demand = createCityDemand(seed, false, eastBankFrom === 0);
@@ -335,8 +345,11 @@ export class LiveCitySimulation extends DumpingSimulation {
     return this.usesVehicleArrivals && this.time + 1e-8 >= this.trafficRoutingFrom;
   }
   get usesEastBank() { return this.time + 1e-8 >= this.eastBankFrom; }
+  get usesEastShop() { return this.time + 1e-8 >= this.eastShopFrom; }
   /** Older cities gain the shop collection point only once the east bank starts. */
   private openEastBank() {
+    if (this.usesEastShop && !this.logistics.shops.some((s) => s.id === EAST_SHOP_SITE.id))
+      this.openEastShop();
     if (!this.usesEastBank || this.sites.some((s) => s.id === EAST_WASTE_SITE.id))
       return;
     const random = seededRandom(this.seed ^ 0x65617374);
@@ -359,6 +372,34 @@ export class LiveCitySimulation extends DumpingSimulation {
     const truck =
       this.trucks.find((t) => t.itinerary.includes("market")) ?? this.trucks[0];
     truck.itinerary.push(site.id);
+    this.revision++;
+  }
+  /** The shop opens with a little stock; the workshop truck adds it to its round. */
+  private openEastShop() {
+    const random = seededRandom(this.seed ^ 0x73686f70);
+    const initial = 8 + Math.floor(random() * 5);
+    const shop: Shop = {
+      ...EAST_SHOP_SITE,
+      initial,
+      stock: initial,
+      capacity: 60,
+      demandRate: (4 + random() * 2) / 60,
+      requested: 0,
+      sold: 0,
+      unmet: 0,
+      delivered: 0,
+      stockoutSeconds: 0,
+      bySource: {},
+    };
+    this.logistics.shops.push(shop);
+    const truck =
+      this.logistics.trucks.find((t) => t.sourceId === "factory") ??
+      this.logistics.trucks[0];
+    // Keep the current stop; the new shop joins right after it. The index is
+    // normalized first so a longer round does not change which shop is next.
+    const current = truck.nextIndex % truck.itinerary.length;
+    truck.nextIndex = current;
+    truck.itinerary.splice(current + 1, 0, shop.id);
     this.revision++;
   }
   /** Stopped vehicles on roads entirely across the river. */
@@ -1243,6 +1284,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       ...(Number.isFinite(this.eastBankFrom)
         ? { eastBankFrom: this.eastBankFrom }
         : {}),
+      ...(Number.isFinite(this.eastShopFrom)
+        ? { eastShopFrom: this.eastShopFrom }
+        : {}),
     };
   }
 }
@@ -1293,6 +1337,11 @@ export function validateLiveSave(value: unknown): LiveSave {
       Math.abs(s.eastBankFrom * 10 - Math.round(s.eastBankFrom * 10)) > 1e-5 ||
       s.eastBankFrom > s.time + 0.1 + 1e-7))
     throw new Error("강너머 지구 기록을 확인할 수 없어요.");
+  if (s.eastShopFrom !== undefined &&
+    (!Number.isFinite(s.eastShopFrom) || s.eastShopFrom < 0 ||
+      Math.abs(s.eastShopFrom * 10 - Math.round(s.eastShopFrom * 10)) > 1e-5 ||
+      s.eastShopFrom > s.time + 0.1 + 1e-7))
+    throw new Error("강너머 상점 기록을 확인할 수 없어요.");
   let previous = 0;
   for (const a of s.actions) {
     if (
@@ -1369,6 +1418,7 @@ export function prepareLiveSave(value: unknown): LiveSave {
     vehicleArrivalFrom: save.vehicleArrivalFrom ?? (Math.round(save.time * 10) + 1) / 10,
     trafficRoutingFrom: save.trafficRoutingFrom ?? (Math.round(save.time * 10) + 1) / 10,
     eastBankFrom: save.eastBankFrom ?? (Math.round(save.time * 10) + 1) / 10,
+    eastShopFrom: save.eastShopFrom ?? (Math.round(save.time * 10) + 1) / 10,
   };
 }
 export async function restoreLiveCity(
@@ -1383,7 +1433,8 @@ export async function restoreLiveCity(
   const save = prepareLiveSave(value),
     city = options.initialCity ??
       new LiveCitySimulation(save.seed, save.cityTrafficFrom, save.vehicleAccessFrom,
-        save.vehicleArrivalFrom, save.trafficRoutingFrom, save.eastBankFrom);
+        save.vehicleArrivalFrom, save.trafficRoutingFrom, save.eastBankFrom,
+        save.eastShopFrom);
   if (
     city.seed !== save.seed ||
     Math.round(city.time * 10) > Math.round(save.time * 10) ||
@@ -1396,7 +1447,9 @@ export async function restoreLiveCity(
     (city.trafficRoutingFrom !== save.trafficRoutingFrom &&
       !(city.trafficRoutingFrom === Infinity && save.trafficRoutingFrom! > city.time)) ||
     (city.eastBankFrom !== save.eastBankFrom &&
-      !(city.eastBankFrom === Infinity && save.eastBankFrom! > city.time))
+      !(city.eastBankFrom === Infinity && save.eastBankFrom! > city.time)) ||
+    (city.eastShopFrom !== save.eastShopFrom &&
+      !(city.eastShopFrom === Infinity && save.eastShopFrom! > city.time))
   )
     throw new Error("이어 불러올 도시가 맞지 않아요.");
   city.cityTrafficFrom = save.cityTrafficFrom!;
@@ -1404,6 +1457,7 @@ export async function restoreLiveCity(
   city.vehicleArrivalFrom = save.vehicleArrivalFrom!;
   city.trafficRoutingFrom = save.trafficRoutingFrom!;
   city.eastBankFrom = save.eastBankFrom!;
+  city.eastShopFrom = save.eastShopFrom!;
   const previousActions = city.actions.length,
     previousMeetings = city.council.records.length;
   const commands = [

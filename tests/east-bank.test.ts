@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   LiveCitySimulation,
   EAST_WASTE_SITE,
+  EAST_SHOP_SITE,
   STAGGER_TARGET,
   prepareLiveSave,
   restoreLiveCity,
@@ -17,6 +18,7 @@ import {
 import { citySatisfaction } from "../src/simulation/satisfaction";
 import { policyAvailability } from "../src/ui/live-policies";
 import { createNetwork } from "../src/scenario";
+import { LogisticsSimulation } from "../src/simulation/economy";
 
 const eastNode = (id: string) => Number(/^n(\d+)-/.exec(id)?.[1] ?? -1) >= 5 ||
   id.startsWith("boundary-east");
@@ -67,7 +69,7 @@ test("a new city opens the east bank at once: shop collection, market curb and t
 });
 
 test("an older city replays unchanged and gains the east bank only from its switch time", async () => {
-  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, Infinity);
+  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, Infinity, Infinity);
   old.apply("patrol", "school");
   old.runUntil(412.3);
   const save = old.save();
@@ -79,6 +81,8 @@ test("an older city replays unchanged and gains the east bank only from its swit
   const checkpoint = captureLiveCheckpoint(old);
   (checkpoint as { version: string }).version = "living-state-7";
   delete checkpoint.state.world.eastBankFrom;
+  delete checkpoint.state.world.eastShopFrom;
+  delete checkpoint.state.world.eastQueue;
   const copy = restoreLiveCheckpoint(checkpoint, save);
   const replayed = await restoreLiveCity(save);
   for (const city of [copy, replayed]) {
@@ -91,7 +95,7 @@ test("an older city replays unchanged and gains the east bank only from its swit
   assert.deepEqual(copy.save(), replayed.save());
   assert.ok(copy.sites.some((s) => s.id === EAST_WASTE_SITE.id));
   assert.ok(copy.parking.episodes.some((e) => e.request.siteId === "east-market"));
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-8");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-9");
 });
 
 test("signal timing is chosen once per district and only retimes that district", () => {
@@ -147,6 +151,49 @@ test("satisfaction reads the east bank's own measurements once it is open", () =
   );
   assert.equal(s.topics.parking.parts[2].value, city.eastStopped);
   assert.equal(s.topics.water.parts[0].value, city.water.cells[4].level);
-  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, Infinity);
+  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, Infinity, Infinity);
   assert.equal(citySatisfaction(old).topics.parking.parts.length, 2);
+});
+
+test("the shop across the river opens with the city, receives real deliveries and counts as a shop", () => {
+  const lab = new LogisticsSimulation();
+  assert.equal(lab.shops.length, 4, "the logistics experiment keeps its four shops");
+  const city = new LiveCitySimulation();
+  city.runUntil(1);
+  const shop = city.logistics.shops.find((s) => s.id === EAST_SHOP_SITE.id)!;
+  assert.equal(city.logistics.shops.length, 5);
+  const factory = city.logistics.trucks.find((t) => t.sourceId === "factory")!;
+  assert.ok(factory.itinerary.includes(shop.id));
+  city.runUntil(1800);
+  assert.ok(shop.delivered > 0, "the workshop truck drives to it");
+  assert.ok(shop.bySource.factory > 0);
+  assert.equal(
+    city.values.supply,
+    city.logistics.shops.filter((s) => s.stock < 3).length,
+  );
+  assert.equal(citySatisfaction(city).topics.supply.parts[0].bad, 5);
+});
+
+test("an older save gains the shop only from its own switch time, cached or replayed", async () => {
+  // A save from the first east-bank version: east bank on, no shop yet.
+  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, Infinity);
+  old.runUntil(512.3);
+  const save = old.save();
+  assert.equal(save.eastShopFrom, undefined);
+  assert.equal(prepareLiveSave(save).eastShopFrom, 512.4);
+  assert.equal(old.logistics.shops.length, 4);
+  const checkpoint = captureLiveCheckpoint(old);
+  (checkpoint as { version: string }).version = "living-state-8";
+  delete checkpoint.state.world.eastShopFrom;
+  const copy = restoreLiveCheckpoint(checkpoint, save);
+  const replayed = await restoreLiveCity(save);
+  for (const city of [copy, replayed]) {
+    assert.deepEqual([...city.vehicles], [...old.vehicles]);
+    assert.equal(city.logistics.shops.length, 4);
+  }
+  for (const city of [copy, replayed]) city.runUntil(900);
+  assert.equal(copy.logistics.shops.length, 5);
+  assert.deepEqual(copy.logistics.shops, replayed.logistics.shops);
+  assert.deepEqual([...copy.vehicles], [...replayed.vehicles]);
+  assert.deepEqual(copy.save(), replayed.save());
 });

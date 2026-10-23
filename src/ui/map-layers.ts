@@ -52,7 +52,7 @@ export const mapTools = `<div class="map-tools" aria-label="지도 보기">
       .map((b) => swatch(b.color, b.label))
       .join(
         "",
-      )}</div><p>상점 4곳의 재고예요.<br>차에 실린 물건은 아직 포함하지 않아요.<br>입구의 숫자: 배송을 기다리는 물자<br>${vehicleKey("stock", "화물차")}</p></div>
+      )}</div><p>상점마다 남은 재고예요.<br>차에 실린 물건은 아직 포함하지 않아요.<br>입구의 숫자: 배송을 기다리는 물자<br>${vehicleKey("stock", "화물차")}</p></div>
     <div data-layer-legend="traffic" hidden><strong>도로 혼잡도</strong><div class="legend-swatches">${swatch(0x659e88, "원활")}${swatch(0xceb66d, "느림")}${swatch(0xc87763, "막힘")}</div></div>
     <div data-layer-legend="waste" hidden><strong>남은 쓰레기 <small>봉투</small></strong><div class="waste-gradient" style="background:linear-gradient(90deg,${WASTE_COLOR_STOPS.map(cssColor).join(",")})"></div><div class="gradient-ticks"><span>0</span><span>20</span><span>40</span><span>60+</span></div><p>진할수록 많이 쌓였어요.<br>수거하는 6곳만 색이 바뀌어요.<br>${vehicleKey("waste", "수거차")}</p></div>
     <div data-layer-legend="access" hidden>
