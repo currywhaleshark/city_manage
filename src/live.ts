@@ -58,6 +58,15 @@ import {
   communityStatus,
   type MeetingDraft,
 } from "./ui/community";
+import {
+  SatisfactionTracker,
+  satisfactionChart,
+  satisfactionGauge,
+  satisfactionPanel,
+  satisfactionSummary,
+  satisfactionTopics,
+  type SatisfactionLine,
+} from "./ui/satisfaction";
 
 const $ = <T extends HTMLElement = HTMLElement>(s: string) =>
   document.querySelector<T>(s)!;
@@ -77,7 +86,7 @@ document.body.classList.add("living-city");
 document.title = "우리 동네 시장님 · 살아가는 새봄동";
 $("#app").innerHTML = `<main class="workspace">
   <section class="city-view" aria-label="계속 살아가는 새봄동"><canvas id="city-canvas" tabindex="0" aria-label="도시 지도. 드래그 회전, 오른쪽 드래그 이동, 휠 확대"></canvas><div id="map-labels" aria-hidden="true"></div></section>
-  <header class="topbar"><div class="brand"><span class="brand-mark">${icon("city", 24)}</span><div><h1>우리 동네 시장님</h1><span>새봄동 · 함께 살아가는 도시</span></div></div><div class="header-end"><span class="mode-badge"><i class="live-dot"></i><span id="live-state">도시가 살아가고 있어요</span></span><span class="live-wallet">예산 <b id="mobile-budget">100</b></span><button id="help" class="square" aria-label="도움말">${icon("help", 20)}</button></div></header>
+  <header class="topbar"><div class="brand"><span class="brand-mark">${icon("city", 24)}</span><div><h1>우리 동네 시장님</h1><span>새봄동 · 함께 살아가는 도시</span></div></div><div class="header-end"><span class="mode-badge"><i class="live-dot"></i><span id="live-state">도시가 살아가고 있어요</span></span><button id="satisfaction-gauge" class="satisfaction-gauge" data-panel-open="satisfaction" aria-label="주민 만족도 자세히 보기"></button><span class="live-wallet">예산 <b id="mobile-budget">100</b></span><button id="help" class="square" aria-label="도움말">${icon("help", 20)}</button></div></header>
   <button class="mission-peek" id="news-peek" hidden><span class="mission-number" id="issue-count">0</span><span><small>지금 우리 동네</small><strong id="latest-news">이웃의 이야기를 들어 봐요</strong></span>${icon("arrow", 17)}</button>
   ${mapTools}
   <div class="compass"><span>북</span><svg width="25" height="35" viewBox="0 0 25 35"><path d="M12 2 5 24l7-5 7 5Z" fill="#384e48"/></svg></div>
@@ -140,6 +149,9 @@ const city = new CityRenderer(
   displayQuality,
 );
 const reader = new StoryReader();
+const satisfaction = new SatisfactionTracker();
+let satisfactionLine: SatisfactionLine = "overall",
+  shownSatisfaction: number | undefined;
 const tutorial = new CityTutorial();
 const tutorialCard = document.createElement("aside");
 tutorialCard.id = "city-tutorial";
@@ -242,7 +254,11 @@ function tutorialInputState(): TutorialInputState {
 }
 const tutorialInputs = new TutorialInputs(document, tutorialInputState);
 function cityRecord() {
-  return { ...sim.save(), tutorial: tutorial.save() };
+  return {
+    ...sim.save(),
+    tutorial: tutorial.save(),
+    satisfaction: satisfaction.save(),
+  };
 }
 function renderTutorial() {
   const stage = tutorial.stage;
@@ -561,6 +577,40 @@ function notebook() {
     }</div>${communityHistory(sim.council.records)}<button class="secondary wide" data-panel-open="community">주민과 함께 의논하기</button><label class="decision-reason">생각한 원인과 다음에 할 일<textarea id="live-notes" rows="4" maxlength="4000" placeholder="관찰한 사실과 내 생각을 구분해 적어 봐요.">${escape(sim.notes)}</textarea></label><p class="metric-note">시간에 따른 실제 변화예요. 다른 원인도 함께 바뀌므로 정책 하나의 효과로 단정하지 않아요.</p><div class="live-actions"><button id="export-city">기록 파일 저장</button><button id="import-city">저장 파일 열기</button></div><input id="city-file" type="file" accept="application/json,.json" hidden><button id="new-city" class="secondary wide">저장 초기화</button>`,
   );
 }
+function satisfactionView() {
+  satisfaction.update(sim);
+  show(
+    "satisfaction",
+    "주민 만족도",
+    satisfactionPanel(satisfaction, sim, satisfactionLine),
+  );
+}
+function renderSatisfaction() {
+  const gauge = $("#satisfaction-gauge");
+  gauge.innerHTML = satisfactionGauge(satisfaction);
+  const score = Math.round(satisfaction.current?.overall ?? 0);
+  // Pulse only on a visible point change, not on every refresh.
+  if (shownSatisfaction !== undefined && score !== shownSatisfaction) {
+    gauge.classList.remove("rising", "falling");
+    void gauge.offsetWidth;
+    gauge.classList.add(score > shownSatisfaction ? "rising" : "falling");
+  }
+  shownSatisfaction = score;
+  if (panel !== "satisfaction") return;
+  const topics = document.querySelector("#satisfaction-topics");
+  if (topics) {
+    const open = new Set(
+      [...topics.querySelectorAll<HTMLElement>("details[open]")].map(
+        (d) => d.dataset.satisfactionTopic!,
+      ),
+    );
+    topics.innerHTML = satisfactionTopics(satisfaction, open);
+  }
+  const chart = document.querySelector("#satisfaction-chart");
+  if (chart) chart.innerHTML = satisfactionChart(satisfaction, sim, satisfactionLine);
+  const summary = document.querySelector("#satisfaction-summary");
+  if (summary) summary.innerHTML = satisfactionSummary(satisfaction);
+}
 function help() {
   show(
     "help",
@@ -585,7 +635,14 @@ function setLayer(next: MapLayer) {
 function open(name: string) {
   if (pending || meeting) close();
   (
-    ({ news, policy: policies, observe, notebook, community }) as Record<
+    ({
+      news,
+      policy: policies,
+      observe,
+      notebook,
+      community,
+      satisfaction: satisfactionView,
+    }) as Record<
       string,
       () => void
     >
@@ -628,6 +685,8 @@ async function resetSavedCity() {
     await clearCheckpoint();
     localStorage.removeItem(SAVE_KEY);
     sim = new LiveCitySimulation();
+    satisfaction.reset();
+    shownSatisfaction = undefined;
     resetDraft = undefined;
     loadingText = "";
     checkpointFailed = false;
@@ -716,6 +775,14 @@ document.addEventListener("click", (e) => {
   }
   if (b.dataset.panelOpen) {
     open(b.dataset.panelOpen);
+    return;
+  }
+  if (b.dataset.satisfactionLine) {
+    satisfactionLine = b.dataset.satisfactionLine as SatisfactionLine;
+    document
+      .querySelectorAll("[data-satisfaction-line]")
+      .forEach((el) => el.setAttribute("aria-pressed", String(el === b)));
+    renderSatisfaction();
     return;
   }
   if (b.dataset.livePolicy) {
@@ -1110,6 +1177,8 @@ async function load(text: string) {
     if (generation !== loadGeneration) return;
     sim = restored;
     tutorial.restore(JSON.parse(text).tutorial, sim);
+    satisfaction.restore(JSON.parse(text).satisfaction, sim.time);
+    shownSatisfaction = undefined;
     reader.reset();
     studyContext = undefined;
     revision = -1;
@@ -1149,6 +1218,8 @@ function frame(now: number) {
     inspector.update(sim.time, paused);
     $("#live-budget").textContent = String(sim.budget);
     $("#mobile-budget").textContent = String(sim.budget);
+    satisfaction.update(sim);
+    renderSatisfaction();
     $("#issue-count").textContent = String(sim.activeIssues.length);
     $("#latest-news").textContent =
       sim.currentStory?.title ?? "동네를 천천히 둘러봐요";
