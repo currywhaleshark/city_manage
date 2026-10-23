@@ -4,6 +4,7 @@ import {
   type LiveCitySimulation,
   type Topic,
 } from "../simulation/live";
+import { pendingText } from "./map-feedback";
 import {
   citySatisfaction,
   SATISFACTION_TOPICS,
@@ -80,6 +81,13 @@ export class SatisfactionTracker {
       if (this.current.time - s.time >= SATISFACTION_TREND) before = s;
     if (!before) return 0;
     return lineValue(this.current, line) - lineValue(before, line);
+  }
+
+  /** The newest recorded value at or before `time`, if the history reaches back that far. */
+  valueAt(time: number, line: SatisfactionLine = "overall") {
+    let found: SatisfactionSample | undefined;
+    for (const s of this.history) if (s.time <= time + 1e-7) found = s;
+    return found && lineValue(found, line);
   }
 
   save() {
@@ -224,6 +232,15 @@ export function satisfactionSummary(tracker: SatisfactionTracker) {
   return `<span class="satisfaction-face ${band}" aria-hidden="true">${faces[band]}</span><div><small>주민들은 지금</small><strong>${moods[band]} · ${Math.round(score)}점</strong></div>${trendMarkup(tracker.trend())}`;
 }
 
+/** Bought policies that have not started yet, so a flat score is not read as failure. */
+export function satisfactionPending(sim: LiveCitySimulation) {
+  const pending = sim.pendingEffects;
+  if (!pending.length) return "";
+  return `<p class="satisfaction-pending-title">효과 준비 중</p><ul>${pending
+    .map((p) => `<li>${pendingText(p.title, p.readyAt - sim.time)}</li>`)
+    .join("")}</ul><p class="metric-note">준비가 끝나야 수치가 바뀌기 시작해요.</p>`;
+}
+
 export function satisfactionPanel(
   tracker: SatisfactionTracker,
   sim: LiveCitySimulation,
@@ -235,5 +252,5 @@ export function satisfactionPanel(
         `<button class="satisfaction-line" data-satisfaction-line="${l}" aria-pressed="${l === line}">${l === "overall" ? "전체" : TOPICS[l]}</button>`,
     )
     .join("");
-  return `<div class="satisfaction-summary" id="satisfaction-summary">${satisfactionSummary(tracker)}</div><p class="intro">주민이 겪는 불편을 잰 수치로 만든 점수예요. 분야를 눌러 어떤 수치 때문인지 살펴봐요.</p><div id="satisfaction-topics">${satisfactionTopics(tracker)}</div><h3>시간에 따른 변화</h3><div class="satisfaction-lines" role="group" aria-label="그래프에 볼 분야">${chips}</div><div id="satisfaction-chart">${satisfactionChart(tracker, sim, line)}</div><p class="metric-note">화살표는 도시 시간 1분 전과 비교한 변화예요. 여러 생활 변화가 함께 반영되므로 정책 하나의 효과로 단정하지 않아요. 준비 시간이 필요한 정책은 효과가 늦게 나타나요.</p>`;
+  return `<div class="satisfaction-summary" id="satisfaction-summary">${satisfactionSummary(tracker)}</div><div id="satisfaction-pending" class="satisfaction-pending">${satisfactionPending(sim)}</div><p class="intro">주민이 겪는 불편을 잰 수치로 만든 점수예요. 분야를 눌러 어떤 수치 때문인지 살펴봐요.</p><div id="satisfaction-topics">${satisfactionTopics(tracker)}</div><h3>시간에 따른 변화</h3><div class="satisfaction-lines" role="group" aria-label="그래프에 볼 분야">${chips}</div><div id="satisfaction-chart">${satisfactionChart(tracker, sim, line)}</div><p class="metric-note">화살표는 도시 시간 1분 전과 비교한 변화예요. 여러 생활 변화가 함께 반영되므로 정책 하나의 효과로 단정하지 않아요. 준비 시간이 필요한 정책은 효과가 늦게 나타나요.</p>`;
 }

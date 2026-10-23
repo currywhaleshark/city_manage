@@ -1266,6 +1266,15 @@ export class CityRenderer {
   resetCamera() {
     this.cameraView.overview(this.current instanceof WaterSimulation);
   }
+  /** Screen pixels for a ground position, for HTML overlays outside the renderer. */
+  screenPoint(position: { x: number; z: number }, height = 10) {
+    const p = new THREE.Vector3(position.x, height, position.z).project(this.camera);
+    return {
+      x: ((p.x + 1) / 2) * this.width,
+      y: ((1 - p.y) / 2) * this.height,
+      visible: p.z > -1 && p.z < 1,
+    };
+  }
   focusPosition(position: { x: number; z: number }, span = 180) {
     this.cameraView.focus(position, span);
   }

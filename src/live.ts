@@ -63,10 +63,12 @@ import {
   satisfactionChart,
   satisfactionGauge,
   satisfactionPanel,
+  satisfactionPending,
   satisfactionSummary,
   satisfactionTopics,
   type SatisfactionLine,
 } from "./ui/satisfaction";
+import { MapFeedback } from "./ui/map-feedback";
 
 const $ = <T extends HTMLElement = HTMLElement>(s: string) =>
   document.querySelector<T>(s)!;
@@ -150,6 +152,7 @@ const city = new CityRenderer(
 );
 const reader = new StoryReader();
 const satisfaction = new SatisfactionTracker();
+const mapFeedback = new MapFeedback($(".city-view"), (p) => city.screenPoint(p));
 let satisfactionLine: SatisfactionLine = "overall",
   shownSatisfaction: number | undefined;
 const tutorial = new CityTutorial();
@@ -610,6 +613,8 @@ function renderSatisfaction() {
   if (chart) chart.innerHTML = satisfactionChart(satisfaction, sim, satisfactionLine);
   const summary = document.querySelector("#satisfaction-summary");
   if (summary) summary.innerHTML = satisfactionSummary(satisfaction);
+  const pendingList = document.querySelector("#satisfaction-pending");
+  if (pendingList) pendingList.innerHTML = satisfactionPending(sim);
 }
 function help() {
   show(
@@ -687,6 +692,7 @@ async function resetSavedCity() {
     sim = new LiveCitySimulation();
     satisfaction.reset();
     shownSatisfaction = undefined;
+    mapFeedback.reset(sim);
     resetDraft = undefined;
     loadingText = "";
     checkpointFailed = false;
@@ -1179,6 +1185,7 @@ async function load(text: string) {
     tutorial.restore(JSON.parse(text).tutorial, sim);
     satisfaction.restore(JSON.parse(text).satisfaction, sim.time);
     shownSatisfaction = undefined;
+    mapFeedback.reset(sim);
     reader.reset();
     studyContext = undefined;
     revision = -1;
@@ -1220,6 +1227,7 @@ function frame(now: number) {
     $("#mobile-budget").textContent = String(sim.budget);
     satisfaction.update(sim);
     renderSatisfaction();
+    mapFeedback.update(sim, satisfaction, now);
     $("#issue-count").textContent = String(sim.activeIssues.length);
     $("#latest-news").textContent =
       sim.currentStory?.title ?? "동네를 천천히 둘러봐요";
@@ -1250,8 +1258,10 @@ function frame(now: number) {
         .forEach((button) => (button.disabled = Boolean(sim.council.current)));
     if (!busy && sim.time - lastSaveTime >= 30) save();
   }
-  if (!document.hidden && renderClock.due(now, busy ? "light" : displayQuality))
+  if (!document.hidden && renderClock.due(now, busy ? "light" : displayQuality)) {
     city.render(sim, layer === "traffic", stats.roads, paused || busy);
+    mapFeedback.position();
+  }
   requestAnimationFrame(frame);
 }
 window.addEventListener("pagehide", () => {

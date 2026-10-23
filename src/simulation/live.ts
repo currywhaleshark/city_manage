@@ -1181,6 +1181,48 @@ export class LiveCitySimulation extends DumpingSimulation {
   get activeIssues() {
     return [...this.issues.values()];
   }
+  /**
+   * When an action starts to change the city, from the same delays the engine
+   * applies. Policies that act at once return their own time.
+   */
+  effectReadyAt(a: CityAction) {
+    const next = (interval: number) =>
+      (Math.floor(a.time / interval + 1e-9) + 1) * interval;
+    switch (a.id) {
+      case "patrol":
+        return a.time + 40;
+      case "outreach":
+      case "outlet":
+      case "riverCleanup":
+        return a.time + 60;
+      case "sewer":
+        return a.time + 120;
+      case "stagger":
+        return next(CITY_TRAFFIC_INTERVAL);
+      // New parking arrivals choose the lot or bay at the next parking wave.
+      case "parkingLot":
+      case "loadingBay":
+        return next(240);
+      default:
+        return a.time;
+    }
+  }
+  /** Policies that are bought but not yet acting, so students know to wait. */
+  get pendingEffects() {
+    return this.actions.flatMap((action, index) => {
+      const readyAt = this.effectReadyAt(action);
+      if (readyAt <= this.time + 1e-7) return [];
+      const policy = LIVE_POLICIES.find((p) => p.id === action.id)!;
+      return [{
+        index,
+        id: action.id,
+        title: policy.title,
+        topic: policy.topic,
+        readyAt,
+        position: this.targetsForHistory(action)?.position,
+      }];
+    });
+  }
   get policyMap(): AppliedPolicyMap {
     const map: AppliedPolicyMap = { places: [], shared: [] };
     for (const a of this.actions) {

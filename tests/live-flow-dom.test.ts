@@ -131,7 +131,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
             window.__testCameraControls = this.controls;
             this.camera = { position: new Vector3(), zoom: 1, updateProjectionMatrix() {} };
           }
-          setSimulation() {} setMapLayer() {} render() {} resetCamera() {} focusPosition() {} zoom() {} setQuality() {}
+          setSimulation() {} setMapLayer() {} render() {} screenPoint() { return { x: 0, y: 0, visible: false }; } resetCamera() {} focusPosition() {} zoom() {} setQuality() {}
           setTutorialSpotlight() {}
           beginInspection() {} endInspection() {} recenterInspection() {}
           setResidentVoices(voices) { this.residents.setVoices(voices); }

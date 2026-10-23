@@ -1358,3 +1358,103 @@
     text-overflow: ellipsis;
   }
 }
+
+/* Satisfaction feedback on the map: change chips and policy countdowns */
+#map-feedback {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+}
+.map-chip,
+.map-pending {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  white-space: nowrap;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 3px 12px #23312630;
+}
+.map-chip {
+  padding: 6px 12px;
+  background: #fffdf2;
+  color: #304638;
+  border: 1px solid #c1ccb7;
+  animation: map-chip-rise 6s ease-out forwards;
+}
+.map-chip[data-mood="up"] {
+  background: #e3f3d6;
+  border-color: #6fae4f;
+  color: #2f5f22;
+}
+.map-chip[data-mood="down"] {
+  background: #fae2d9;
+  border-color: #d8694b;
+  color: #8a3520;
+}
+.map-chip[data-mood="start"] {
+  background: #e0f0f3;
+  border-color: #56899a;
+  color: #24606d;
+}
+.map-pending {
+  padding: 4px 10px;
+  background: #fff7dd;
+  color: #68572d;
+  border: 1px dashed #ae852f;
+  font-size: 12px;
+}
+@keyframes map-chip-rise {
+  0% {
+    opacity: 0;
+    margin-top: 8px;
+  }
+  10% {
+    opacity: 1;
+    margin-top: 0;
+  }
+  80% {
+    opacity: 1;
+    margin-top: -26px;
+  }
+  100% {
+    opacity: 0;
+    margin-top: -34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-chip {
+    animation: none;
+  }
+}
+@media (max-width: 700px) {
+  .map-chip {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .map-pending {
+    font-size: 11px;
+  }
+}
+.satisfaction-pending:empty {
+  display: none;
+}
+.satisfaction-pending {
+  padding: 10px 12px;
+  border: 1px dashed #ae852f;
+  border-radius: 8px;
+}
+.satisfaction-pending ul {
+  margin: 6px 0;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+}
+.satisfaction-pending-title {
+  margin: 0;
+  font-weight: 700;
+  color: #e7c26a;
+}
