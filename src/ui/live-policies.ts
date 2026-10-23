@@ -12,7 +12,10 @@ export function policyAvailability(sim: LiveCitySimulation, id: LivePolicyId) {
   const global = ["extraTruck", "reduce", "handling"].includes(id);
   const targets = sim.targets(id);
   const reasons: string[] = [];
-  if (sim.has(id) && !["cleanup", "library", "park"].includes(id)) {
+  // Signal timing can be added once per district, until both are covered.
+  const repeatable = ["cleanup", "library", "park"].includes(id) ||
+    (id === "signal" && targets.length > 0);
+  if (sim.has(id) && !repeatable) {
     reasons.push("시행 중");
   } else {
     if (sim.budget < policy.cost)

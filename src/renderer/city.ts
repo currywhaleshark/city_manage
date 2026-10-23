@@ -1180,7 +1180,7 @@ export class CityRenderer {
       this.ring.position.set(s.position.x, 0.6, s.position.z);
       this.ring.scale.setScalar(0.6);
     } else if (selection.kind === "parking") {
-      const s = PARKING_SITES.find((s) => s.id === selection.id)!;
+      const s = parkingSite(selection.id)!;
       this.ring.position.set(s.position.x, 0.6, s.position.z);
       this.ring.scale.setScalar(0.7);
     } else if (selection.kind === "building") {
@@ -1239,7 +1239,7 @@ export class CityRenderer {
     });
   }
   focusParking(id: string) {
-    const s = PARKING_SITES.find((s) => s.id === id);
+    const s = parkingSite(id);
     if (!s) return;
     this.focusPosition(s.position, 110);
     this.select({
@@ -1756,6 +1756,6 @@ export class CityRenderer {
     return this.renderer.info.render.calls;
   }
 }
-import { ParkingSimulation, PARKING_SITES } from "../simulation/parking";
+import { ParkingSimulation, parkingSite } from "../simulation/parking";
 import { ParkingRenderer } from "./parking";
 import { PlacementRenderer, type PlacementTarget } from "./placement";

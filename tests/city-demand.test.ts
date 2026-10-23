@@ -57,7 +57,9 @@ test("production adds only industrial journeys and leaves every base journey unc
   city.apply("production", "factory");
   city.runUntil(300);
   assert.equal(city.demand.length, 110);
-  assert.deepEqual(city.demand.map(t => ({...t, id: t.id - 1001000, departAt: +(t.departAt - 300).toFixed(1)})), more);
+  // A new city has the east-bank rush; only departure times differ from `more`.
+  assert.deepEqual(city.demand.map(t => ({...t, id: t.id - 1001000, departAt: +(t.departAt - 300).toFixed(1)})),
+    createCityDemand(2405, true, true));
 });
 
 test("recurring vehicles really travel on both banks and all bridges, with no dropped trips", () => {
@@ -116,7 +118,7 @@ test("legacy JSON and v2 checkpoints preserve the city and switch only at the ne
   assert.deepEqual([...copy.vehicles], [...old.vehicles]);
   assert.deepEqual([...copy.vehicles], [...replayed.vehicles]);
   assert.deepEqual(copy.demand, old.demand);
-  assert.deepEqual(copy.demand.map(t => t.origin), createCityDemand(2406).map(t => t.origin));
+  assert.deepEqual(copy.demand.map(t => t.origin), createCityDemand(2406, false, true).map(t => t.origin));
   assert.equal(copy.notes, "기존 조사 기록");
   assert.deepEqual(copy.observations, save.observations);
   assert.equal(save.cityTrafficFrom, undefined, "never mutate imported source data");

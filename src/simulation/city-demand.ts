@@ -4,11 +4,19 @@ import type { Trip } from "../types";
 
 export const CITY_TRAFFIC_INTERVAL = 300;
 export const CITY_TRAFFIC_COUNT = 90;
+/** Rush hour: work trips across the river start within this many seconds. */
+export const EAST_RUSH_WINDOW = 40;
 
-/** City life has several destinations; the school experiment keeps its own demand. */
+/**
+ * City life has several destinations; the school experiment keeps its own demand.
+ * With `rush`, commutes into the commercial and industrial districts crowd the
+ * start of the cycle.
+ * The same random draws are used either way, so only those departure times move.
+ */
 export function createCityDemand(
   seed: number,
   production = false,
+  rush = false,
 ): readonly Trip[] {
   const random = seededRandom(seed);
   const pick = (first: number, count: number) => first + Math.floor(random() * count);
@@ -62,13 +70,16 @@ export function createCityDemand(
     // Spread departures through the whole cycle. Extra factory trips don't
     // move or replace the base trips when the production policy is applied.
     const slot = extra < 0 ? id / CITY_TRAFFIC_COUNT : extra / 20;
+    const crowded = rush && purpose === "work" &&
+      (destination === industry || destination === commerce);
+    const spread = crowded ? EAST_RUSH_WINDOW : 280;
     trips.push(
       Object.freeze({
         id,
         origin,
         destination,
         purpose,
-        departAt: Math.round((5 + slot * 280 + random() * 3) * 10) / 10,
+        departAt: Math.round((5 + slot * spread + random() * 3) * 10) / 10,
         targetSpeed: 7.5 + random() * 2,
         color: colors[pick(0, colors.length)],
       }),

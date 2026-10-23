@@ -57,6 +57,61 @@ export const PARKING_SITES = [
     opinion: "주차할 곳도 필요하지만 공터에 공원이나 도서관도 생겼으면 해요.",
   },
 ] as const;
+export interface ParkingSite {
+  id: string;
+  name: string;
+  facilityId: string;
+  /** Sidewalk parking and detours need a walking route; road-only sites have none. */
+  routeId?: string;
+  laneId: string;
+  position: { x: number; z: number };
+  reason: string;
+  durations: readonly number[];
+  group: string;
+  opinion: string;
+  bay?: { x: number; z: number };
+  exit?: "west" | "east";
+}
+/** Only the living city has these; the parking experiment keeps its three sites. */
+export const EAST_PARKING_SITES: readonly ParkingSite[] = [
+  {
+    id: "east-market",
+    name: "강너머 상가 거리",
+    facilityId: "block-6-0",
+    laneId: "n6-1_n7-1:n6-1:0",
+    position: { x: 216, z: -52 },
+    reason: "상가 손님이 오래 세운 차와 물건을 내리는 차가 번갈아 길을 막아요.",
+    durations: [380, 110],
+    group: "강너머 상인",
+    opinion:
+      "손님이 잠깐 세울 곳과 물건을 내릴 곳이 있으면 길도 덜 막힐 거예요.",
+    bay: { x: 204, z: -58 },
+    exit: "east",
+  },
+];
+export const parkingSite = (id: string): ParkingSite | undefined =>
+  PARKING_SITES.find((s) => s.id === id) ??
+  EAST_PARKING_SITES.find((s) => s.id === id);
+/** One road request per wave: customers and deliveries take turns at the curb. */
+export function createEastParkingDemand(
+  seed: number,
+  wave: number,
+): readonly ParkingRequest[] {
+  const random = seededRandom(seed ^ 0x65617374);
+  return Object.freeze(
+    EAST_PARKING_SITES.map((site, index) => {
+      const d = site.durations[wave % site.durations.length];
+      return Object.freeze({
+        id: 30006 + index,
+        siteId: site.id,
+        surface: "road" as const,
+        duration: d + Math.floor(random() * 20),
+        maxWalk: d <= 150 ? 115 : 185,
+        color: d <= 150 ? 0xd99c55 : 0xc27462,
+      });
+    }),
+  );
+}
 export interface ParkingPlan {
   siteId: string;
   patrolSite: string;
@@ -166,6 +221,10 @@ export class ParkingSimulation extends TrafficSimulation {
   readonly episodes: ParkingEpisode[] = [];
   readonly parcelUses: readonly ParcelUse[];
   lotCapacity: number;
+  /** Prototype getter, so checkpoints keep the same fields. */
+  get siteList(): readonly ParkingSite[] {
+    return PARKING_SITES;
+  }
   constructor(
     readonly seed = 2404,
     ids: readonly string[] = [],
@@ -240,10 +299,8 @@ export class ParkingSimulation extends TrafficSimulation {
         )
       )
         continue;
-      const site = PARKING_SITES.find((s) => s.id === request.siteId)!;
-      const route =
-        this.pedestrians.routes.get(site.routeId) ??
-        walkingRoutes(this.network).find((r) => r.id === site.routeId)!;
+      const site = this.siteList.find((s) => s.id === request.siteId)!;
+      const route = this.walkingRoute(site);
       const lane = this.network.lanes.get(site.laneId)!;
       const walkDistance =
         Math.abs(plot.position.x - site.position.x) +
@@ -269,14 +326,13 @@ export class ParkingSimulation extends TrafficSimulation {
         )
       )
         continue;
-      const sidewalk = walkingPose(route, 9);
       const pose = bay
         ? this.bayPose(site.id)
         : lot
           ? { x: plot.position.x - 8 + slots * 5, z: plot.position.z, angle: 0 }
           : request.surface === "road"
             ? this.lanePose(lane, lane.length - 7)
-            : sidewalk;
+            : walkingPose(route!, 9);
       const episode: ParkingEpisode = {
         request,
         destination,
@@ -345,16 +401,22 @@ export class ParkingSimulation extends TrafficSimulation {
       }
       if (destination === "illegal" && request.surface === "sidewalk")
         this.pedestrians.detours.set(
-          site.routeId,
-          sidewalkDetour(route, this.network),
+          site.routeId!,
+          sidewalkDetour(route!, this.network),
         );
     }
   }
-  bayPose(siteId: string): Pose {
-    const site = PARKING_SITES.find((s) => s.id === siteId)!;
-    const route =
+  private walkingRoute(site: ParkingSite) {
+    if (!site.routeId) return undefined;
+    return (
       this.pedestrians.routes.get(site.routeId) ??
-      walkingRoutes(this.network).find((r) => r.id === site.routeId)!;
+      walkingRoutes(this.network).find((r) => r.id === site.routeId)!
+    );
+  }
+  bayPose(siteId: string): Pose {
+    const site = this.siteList.find((s) => s.id === siteId)!;
+    if (site.bay) return { ...site.bay, angle: Math.PI / 2 };
+    const route = this.walkingRoute(site)!;
     const p = this.network.nodes.get(route.nodeId)!.position;
     return { x: p.x + 12, z: p.z + 13, angle: 0 };
   }
@@ -374,15 +436,16 @@ export class ParkingSimulation extends TrafficSimulation {
           episode.illegalSeconds += CONFIG.dt;
         continue;
       }
-      const site = PARKING_SITES.find((s) => s.id === episode.request.siteId)!;
+      const site = this.siteList.find((s) => s.id === episode.request.siteId)!;
       if (
         episode.destination === "illegal" &&
         episode.request.surface === "sidewalk"
       )
-        this.pedestrians.detours.delete(site.routeId);
+        this.pedestrians.detours.delete(site.routeId!);
       if (this.vehicles.has(episode.request.id)) {
+        const side = site.exit ?? "west";
         const exit = [...this.network.lanes.values()].find(
-          (l) => l.from === "boundary-west-0" && l.to === "outside-west-0",
+          (l) => l.from === `boundary-${side}-0` && l.to === `outside-${side}-0`,
         )!;
         if (
           this.dispatchService(
@@ -406,7 +469,7 @@ export class ParkingSimulation extends TrafficSimulation {
       }
   }
   get parkingStats() {
-    const sites = PARKING_SITES.map((site) => {
+    const sites = this.siteList.map((site) => {
       const cars = this.episodes.filter((e) => e.request.siteId === site.id);
       return {
         id: site.id,

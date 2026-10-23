@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { ParkingSimulation, PARKING_SITES } from "../simulation/parking";
+import { ParkingSimulation } from "../simulation/parking";
 import { BUILDABLE_PLOTS, inCityBounds } from "../city/world";
 import type { Selection } from "./city";
 export class ParkingRenderer extends THREE.Group {
@@ -48,7 +48,7 @@ export class ParkingRenderer extends THREE.Group {
       }
       return m;
     };
-    for (const s of PARKING_SITES) {
+    for (const s of sim.siteList) {
       const element = document.createElement("button");
       element.className = "parking-label";
       element.dataset.parkingLabel = s.id;
@@ -126,7 +126,7 @@ export class ParkingRenderer extends THREE.Group {
       const g = new THREE.Group();
       this.add(g);
       this.cars.set(ep.request.id, g);
-      const site = PARKING_SITES.find((s) => s.id === ep.request.siteId)!;
+      const site = sim.siteList.find((s) => s.id === ep.request.siteId)!;
       const sel: Selection = {
         kind: "parking",
         id: site.id,

@@ -8,14 +8,18 @@ import {
 import {
   ParkingSimulation,
   PARKING_SITES,
+  EAST_PARKING_SITES,
   createParkingDemand,
+  createEastParkingDemand,
+  type ParkingSite,
 } from "./parking";
+import { wasteLaneId, type WasteSite } from "./services/waste";
 import { LogisticsSimulation } from "./economy";
 import { WaterSimulation, WATER_SOURCES, waterTargets } from "./water";
 import { FacilitySimulation, type PlannedFacility } from "./facilities";
 import { BUILDABLE_PLOTS } from "../city/world";
 import { validateParcelUses, type ParcelUse } from "../city/parcels";
-import { createDemand, SCHOOL_NODE } from "../scenario";
+import { createDemand, SCHOOL_NODE, seededRandom } from "../scenario";
 import {
   createCityDemand,
   CITY_TRAFFIC_INTERVAL,
@@ -26,7 +30,13 @@ import type { ResidentVoice } from "./residents";
 import type { PlacementTarget } from "../renderer/placement";
 import type { AppliedPolicyMap } from "../policies/map";
 import { cityChangeText } from "./change-messages";
-import { updateResponsiveSignals, RESPONSIVE_SIGNAL_NODES, RESPONSIVE_SIGNAL_OUTLINE } from "./responsive-signals";
+import {
+  updateResponsiveSignals,
+  RESPONSIVE_SIGNAL_NODES,
+  RESPONSIVE_SIGNAL_OUTLINE,
+  EAST_SIGNAL_TARGET,
+  EAST_SIGNAL_OUTLINE,
+} from "./responsive-signals";
 import {
   ResidentsCouncil,
   COMMUNITY_PROJECTS,
@@ -44,6 +54,26 @@ export const CITY_PACING = {
   interval: 100,
   speaking: 80,
 } as const;
+/** Parking sites in the living city, including the commercial street across the river. */
+export const LIVE_PARKING_SITES: readonly ParkingSite[] = [
+  ...PARKING_SITES,
+  ...EAST_PARKING_SITES,
+];
+export const EAST_WASTE_SITE = {
+  id: "east-shops",
+  name: "강너머 상점가",
+  facilityId: "block-7-1",
+  roadId: "n7-1_n7-2",
+  from: "n7-1",
+} as const;
+export const STAGGER_TARGET = "industry-commute";
+const isEastRoad = (id: string) =>
+  id.split("_").every((n) => Number(/^n(\d+)-/.exec(n)?.[1] ?? -1) >= 5);
+class LiveParkingSimulation extends ParkingSimulation {
+  override get siteList() {
+    return LIVE_PARKING_SITES;
+  }
+}
 export const TOPICS: Record<Topic, string> = {
   parking: "길과 주차",
   waste: "쓰레기",
@@ -57,9 +87,18 @@ export const LIVE_POLICIES = [
     topic: "parking",
     title: "초록불 시간 조절",
     cost: 15,
-    description: "학교·주거지 교차로에서 기다리는 차를 보고 초록불 시간을 나눠요.",
+    description: "고른 생활권의 교차로에서 기다리는 차를 보고 초록불 시간을 나눠요.",
     tradeoff:
-      "다음 신호 주기부터 조절해요. 보행 시간은 지키며, 강 건너와 다른 지역의 정체는 남을 수 있어요.",
+      "다음 신호 주기부터 조절해요. 보행 시간은 지키며, 고르지 않은 생활권의 정체는 남을 수 있어요.",
+  },
+  {
+    id: "stagger",
+    topic: "parking",
+    title: "출근 시간 나누기",
+    cost: 20,
+    description:
+      "강너머 산업지구로 출근하는 차가 한꺼번에 몰리지 않게 출발 시간을 나눠요. 다음 교통 주기부터 적용해요.",
+    tradeoff: "차량 수는 그대로예요. 일찍 또는 늦게 출근하는 작업자가 생겨요.",
   },
   {
     id: "patrol",
@@ -84,7 +123,7 @@ export const LIVE_POLICIES = [
     topic: "parking",
     title: "잠깐 정차 공간",
     cost: 25,
-    description: "학교나 시장 옆에 150초 이내 정차할 자리 한 곳을 마련해요.",
+    description: "학교, 시장, 강너머 상가 옆에 150초 이내 정차할 자리 한 곳을 마련해요.",
     tradeoff: "오래 머무는 차와 이미 자리를 잡은 차에는 도움이 되지 않아요.",
   },
   {
@@ -231,6 +270,8 @@ export interface LiveSave {
   vehicleArrivalFrom?: number;
   /** Start of directed arrival planning and congestion-aware detours. */
   trafficRoutingFrom?: number;
+  /** Start of the commercial/industrial problems across the river and the industrial rush. */
+  eastBankFrom?: number;
 }
 
 /** One transport engine and one clock. Domain services never advance their own traffic. */
@@ -258,6 +299,8 @@ export class LiveCitySimulation extends DumpingSimulation {
   private issues = new Map<string, CityEvent>();
   private pendingIssues = new Map<string, number>();
   private nextIssueAt: number = CITY_PACING.observe;
+  /** East-bank queue checks over the last traffic cycle (one every 20 seconds). */
+  private eastQueue: number[] = [];
   private nextStoryAt: number = CITY_PACING.observe;
   private storyId = 0;
   private storyUntil = 0;
@@ -270,10 +313,11 @@ export class LiveCitySimulation extends DumpingSimulation {
     done?: boolean;
   }[] = [];
   constructor(readonly seed = 2404, public cityTrafficFrom = 0, public vehicleAccessFrom = 0,
-    public vehicleArrivalFrom = 0, public trafficRoutingFrom = 0) {
+    public vehicleArrivalFrom = 0, public trafficRoutingFrom = 0, public eastBankFrom = 0) {
     super(seed, [], undefined, undefined, CITY_TRAFFIC_COUNT);
-    if (cityTrafficFrom === 0) this.demand = createCityDemand(seed);
-    this.parking = new ParkingSimulation(seed, [], undefined, [], [], this);
+    if (cityTrafficFrom === 0)
+      this.demand = createCityDemand(seed, false, eastBankFrom === 0);
+    this.parking = new LiveParkingSimulation(seed, [], undefined, [], [], this);
     this.logistics = new LogisticsSimulation(seed, [], undefined, 0, this);
     this.water = new WaterSimulation(seed, [], undefined, 0, this);
     this.water.householdFactor = (source) => this.council.waterFactor(source);
@@ -289,6 +333,49 @@ export class LiveCitySimulation extends DumpingSimulation {
   }
   override get usesAdaptiveRouting() {
     return this.usesVehicleArrivals && this.time + 1e-8 >= this.trafficRoutingFrom;
+  }
+  get usesEastBank() { return this.time + 1e-8 >= this.eastBankFrom; }
+  /** Older cities gain the shop collection point only once the east bank starts. */
+  private openEastBank() {
+    if (!this.usesEastBank || this.sites.some((s) => s.id === EAST_WASTE_SITE.id))
+      return;
+    const random = seededRandom(this.seed ^ 0x65617374);
+    const site: WasteSite = {
+      ...EAST_WASTE_SITE,
+      laneId: wasteLaneId(EAST_WASTE_SITE),
+      initial: 24,
+      generated: 0,
+      collected: 0,
+      remaining: 24,
+      rate: (2.4 + random() * 0.6) / 60,
+      participation: 0.3 + random() * 0.3,
+      // Same overflow limit as the other collection points in the dumping model.
+      capacity: 40,
+      lastCollectedAt: null,
+      completedAt: null,
+    };
+    this.sites.push(site);
+    // Join a recurring round at its end, so the current journey stays intact.
+    const truck =
+      this.trucks.find((t) => t.itinerary.includes("market")) ?? this.trucks[0];
+    truck.itinerary.push(site.id);
+    this.revision++;
+  }
+  /** Stopped vehicles on roads entirely across the river. */
+  /**
+   * Rush-hour queue across the river: the mean of the three highest checks in
+   * the last cycle. A queue that only clears between rushes is not "better".
+   */
+  get eastRushPeak() {
+    const top = [...this.eastQueue].sort((a, b) => b - a).slice(0, 3);
+    return top.length
+      ? top.reduce((n, v) => n + v, 0) / top.length
+      : this.eastStopped;
+  }
+  get eastStopped() {
+    return this.stats.roads
+      .filter((r) => isEastRoad(r.id))
+      .reduce((n, r) => n + r.stopped, 0);
   }
   protected override communityAwareness(siteId: DumpingSiteId) {
     return this.council.awarenessBoost(siteId);
@@ -330,6 +417,7 @@ export class LiveCitySimulation extends DumpingSimulation {
     };
   }
   override step() {
+    this.openEastBank();
     updateResponsiveSignals(this);
     this.parking.step();
     super.step();
@@ -379,9 +467,10 @@ export class LiveCitySimulation extends DumpingSimulation {
       this.budget += 20;
       const w = this.trafficWave++,
         production = this.has("production"),
+        rush = this.usesEastBank && !this.has("stagger"),
         demand =
           this.time >= this.cityTrafficFrom
-            ? createCityDemand(this.seed + w, production)
+            ? createCityDemand(this.seed + w, production, rush)
             : createDemand(
                 this.seed + w,
                 CITY_TRAFFIC_COUNT + (production ? 20 : 0),
@@ -403,14 +492,19 @@ export class LiveCitySimulation extends DumpingSimulation {
     }
     if (second % 240 === 0) {
       const w = this.parkingWave++;
-      this.parking.addRequests(
-        createParkingDemand(this.seed + w)
-          .map((t) => ({
-            ...t,
-            id: 300000 + w * 10 + t.id - 30000,
-          }))
+      const toWave = (t: { id: number }) => 300000 + w * 10 + t.id - 30000;
+      this.parking.addRequests([
+        ...createParkingDemand(this.seed + w)
+          .map((t) => ({ ...t, id: toWave(t) }))
           .filter((t) => !this.council.chooseWalking(t)),
-      );
+        // No walking routes cross the river, so these drivers always drive.
+        ...(this.usesEastBank
+          ? createEastParkingDemand(this.seed + w, w).map((t) => ({
+              ...t,
+              id: toWave(t),
+            }))
+          : []),
+      ]);
       this.revision++;
     }
     if (second % 900 === 0) {
@@ -423,22 +517,29 @@ export class LiveCitySimulation extends DumpingSimulation {
         })),
       );
     }
-    if (second % 20 === 0) this.detectIssues();
+    if (second % 20 === 0) {
+      if (this.usesEastBank) {
+        this.eastQueue.push(this.eastStopped);
+        if (this.eastQueue.length > CITY_TRAFFIC_INTERVAL / 20)
+          this.eastQueue.shift();
+      }
+      this.detectIssues();
+    }
     for (const f of this.feedback)
       if (second >= f.at && !f.done) {
         f.done = true;
         const p = LIVE_POLICIES.find((p) => p.id === f.action.id)!;
         const after = this.measure(p.topic, f.action.target),
           delta = after - f.before;
+        const traffic = ["signal", "stagger"].includes(f.action.id);
         const text = cityChangeText(
-          f.action.id === "signal" ? "traffic" : p.topic,
+          traffic ? "traffic" : p.topic,
           Math.abs(delta) < 0.5 ? "same" : delta < 0 ? "less" : "more",
         );
         const target = this.targetsForHistory(f.action);
-        const measurement =
-          f.action.id === "signal"
-            ? "교차로 주변 정차 차량 수"
-            : this.unit(p.topic);
+        const measurement = traffic
+          ? this.trafficMeasurement(f.action)
+          : this.unit(p.topic);
         const event = this.emit(
           "reaction",
           p.topic,
@@ -489,9 +590,30 @@ export class LiveCitySimulation extends DumpingSimulation {
           depth: 212,
           detail: "표시한 생활권의 25개 교차로 · 기다리는 차에 맞춰 조절",
         },
+        {
+          id: EAST_SIGNAL_TARGET,
+          name: "강너머 상업·산업지구 교차로",
+          position: { x: 216, z: 96 },
+          width: 164,
+          depth: 404,
+          detail: "강 건너 36개 교차로 · 기다리는 차에 맞춰 조절",
+        },
+      ].filter(
+        (t) => !this.actions.some((a) => a.id === "signal" && a.target === t.id),
+      );
+    if (id === "stagger")
+      return [
+        {
+          id: STAGGER_TARGET,
+          name: "강너머 산업지구 출근길",
+          position: { x: 216, z: 168 },
+          width: 138,
+          depth: 234,
+          detail: "산업지구로 출근하는 차의 출발 시간을 고르게 나눠요",
+        },
       ];
     if (id === "patrol" || id === "loadingBay")
-      return PARKING_SITES.filter(
+      return LIVE_PARKING_SITES.filter(
         (s) => id === "patrol" || s.id !== "homes",
       ).map((s) => make(s));
     if (["cleanup", "dropoff", "outreach"].includes(id))
@@ -524,7 +646,10 @@ export class LiveCitySimulation extends DumpingSimulation {
   apply(id: LivePolicyId, target = "", reason = "") {
     const p = LIVE_POLICIES.find((p) => p.id === id);
     if (!p) throw new Error("정책을 확인해 주세요.");
-    if (this.has(id) && !["cleanup", "library", "park"].includes(id))
+    if (
+      this.has(id) &&
+      !["cleanup", "library", "park", "signal"].includes(id)
+    )
       throw new Error("이미 시행 중인 정책이에요.");
     if (this.budget < p.cost)
       throw new Error(
@@ -533,7 +658,11 @@ export class LiveCitySimulation extends DumpingSimulation {
     const targets = this.targets(id),
       global = ["extraTruck", "reduce", "handling"].includes(id);
     if (!global && !targets.some((t) => t.id === target))
-      throw new Error("지도에서 적용할 수 있는 위치를 골라 주세요.");
+      throw new Error(
+        id === "signal" && this.has(id)
+          ? "이미 시행 중인 정책이에요."
+          : "지도에서 적용할 수 있는 위치를 골라 주세요.",
+      );
     const before = this.measure(p.topic, target);
     let facility: FacilitySimulation | undefined;
     let parcel: ParcelUse | undefined;
@@ -683,7 +812,14 @@ export class LiveCitySimulation extends DumpingSimulation {
       );
     this.revision++;
   }
+  private trafficMeasurement(action: CityAction) {
+    return action.id === "signal" && action.target === SCHOOL_NODE
+      ? "교차로 주변 정차 차량 수"
+      : "강 건너 출근길 정차 차량 수(최근 5분 중 많던 때)";
+  }
   private measure(topic: Topic, target: string) {
+    if (target === EAST_SIGNAL_TARGET || target === STAGGER_TARGET)
+      return this.eastRushPeak;
     if (topic === "parking" && target === SCHOOL_NODE)
       return this.stats.roads
         .filter((r) =>
@@ -691,7 +827,7 @@ export class LiveCitySimulation extends DumpingSimulation {
             this.network.nodes.get(id)!.connectedRoadIds.includes(r.id)),
         )
         .reduce((n, r) => n + r.stopped, 0);
-    if (topic === "parking" && PARKING_SITES.some((s) => s.id === target))
+    if (topic === "parking" && LIVE_PARKING_SITES.some((s) => s.id === target))
       return this.parking.parkingStats.sites.find((s) => s.id === target)!
         .illegal;
     if (topic === "waste" && DUMPING_SITES.some((s) => s.id === target))
@@ -705,7 +841,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       const local =
         (policy.topic === "parking" &&
           (action.target === SCHOOL_NODE ||
-            PARKING_SITES.some((s) => s.id === action.target))) ||
+            action.target === EAST_SIGNAL_TARGET ||
+            action.target === STAGGER_TARGET ||
+            LIVE_PARKING_SITES.some((s) => s.id === action.target))) ||
         (policy.topic === "waste" &&
           DUMPING_SITES.some((s) => s.id === action.target));
       const place = this.targetsForHistory(action);
@@ -716,10 +854,9 @@ export class LiveCitySimulation extends DumpingSimulation {
         place: place?.name ?? "도시 전체",
         position: place?.position,
         scope: local ? place!.name : "도시 전체",
-        measurement:
-          action.id === "signal"
-            ? "교차로 주변 정차 차량 수"
-            : this.unit(policy.topic),
+        measurement: ["signal", "stagger"].includes(action.id)
+          ? this.trafficMeasurement(action)
+          : this.unit(policy.topic),
         before,
         now: this.measure(policy.topic, action.target),
         time: this.time,
@@ -777,8 +914,9 @@ export class LiveCitySimulation extends DumpingSimulation {
     return event;
   }
   private detectIssues() {
+    const east = this.usesEastBank;
     const conditions = [
-      ...PARKING_SITES.map((s) => ({
+      ...(east ? LIVE_PARKING_SITES : PARKING_SITES).map((s) => ({
         key: `parking-${s.id}`,
         topic: "parking" as const,
         value: this.parking.parkingStats.sites.find((p) => p.id === s.id)!
@@ -817,7 +955,8 @@ export class LiveCitySimulation extends DumpingSimulation {
       {
         key: "traffic",
         topic: "parking" as const,
-        value: this.stats.stopped,
+        // Once the east bank has its own alert, the school route counts only its bank.
+        value: east ? this.stats.stopped - this.eastStopped : this.stats.stopped,
         high: 15,
         low: 6,
         title: "막히는 등굣길",
@@ -825,6 +964,32 @@ export class LiveCitySimulation extends DumpingSimulation {
         facilityId: "b6",
         position: { x: 48, z: 0 },
       },
+      ...(east
+        ? [
+            {
+              key: "traffic-east",
+              topic: "parking" as const,
+              value: this.eastRushPeak,
+              high: 12,
+              low: 9,
+              title: "강너머 출근길",
+              text: "산업지구로 출근하는 차가 한꺼번에 몰려 길이 막혀요. 출근 시간과 신호를 함께 살펴봐 주세요.",
+              facilityId: "b15",
+              position: { x: 192, z: 120 },
+            },
+            {
+              key: "water-outlet",
+              topic: "water" as const,
+              value: this.water.cells[4].level,
+              high: 12,
+              low: 8,
+              title: "작업장 배출구 아래",
+              text: "작업장 배출구 아래 물이 탁해졌어요. 어느 배출구에서 얼마나 들어오는지 살펴봐 주세요.",
+              facilityId: "b15",
+              position: { x: 136, z: 116 },
+            },
+          ]
+        : []),
       {
         key: "water",
         topic: "water" as const,
@@ -859,9 +1024,13 @@ export class LiveCitySimulation extends DumpingSimulation {
     const measurement = (c: (typeof conditions)[number]) =>
       c.key === "traffic"
         ? "도로 위 정차 차량"
-        : c.key.startsWith("collection-")
-          ? "수거장에 남은 봉투"
-          : this.unit(c.topic);
+        : c.key === "traffic-east"
+          ? "강 건너 출근길 정차 차량(최근 5분 중 많던 때)"
+          : c.key === "water-outlet"
+            ? "배출구 아래의 가상 오염도"
+            : c.key.startsWith("collection-")
+              ? "수거장에 남은 봉투"
+              : this.unit(c.topic);
     for (const c of conditions) {
       if (!this.issues.has(c.key) && c.value >= c.high) {
         if (!this.pendingIssues.has(c.key))
@@ -874,7 +1043,7 @@ export class LiveCitySimulation extends DumpingSimulation {
           c.topic,
           `${c.title}의 변화`,
           cityChangeText(
-            c.key === "traffic"
+            c.key.startsWith("traffic")
               ? "traffic"
               : c.key.startsWith("collection-")
                 ? "collection"
@@ -889,7 +1058,7 @@ export class LiveCitySimulation extends DumpingSimulation {
     }
     if (this.time < this.nextIssueAt) return;
     // Recheck the actual condition before announcing: temporary queues need no alert.
-    const c = conditions
+    const ready = conditions
       .filter(
         (c) =>
           this.pendingIssues.has(c.key) &&
@@ -898,7 +1067,16 @@ export class LiveCitySimulation extends DumpingSimulation {
       .sort(
         (a, b) =>
           this.pendingIssues.get(a.key)! - this.pendingIssues.get(b.key)!,
-      )[0];
+      );
+    // Take turns between the banks so problems across the river are not
+    // always queued behind the many western ones.
+    const acrossRiver = (p: { x: number }) => p.x >= 128;
+    const last = east
+      ? [...this.news].reverse().find((n) => n.type === "problem")?.position
+      : undefined;
+    const c =
+      (last && ready.find((c) => acrossRiver(c.position) !== acrossRiver(last))) ??
+      ready[0];
     if (!c) return;
     const issue = this.emit(
       "problem",
@@ -970,9 +1148,23 @@ export class LiveCitySimulation extends DumpingSimulation {
       const entry = {
         id: `live-${a.id}-${a.target}`,
         name: t?.name ?? "도시 전체",
-        scope: a.id === "signal" ? "표시한 학교·주거 생활권에 적용" : t ? "이 장소에 적용" : "도시 전체에 적용",
+        scope:
+          a.id === "signal"
+            ? a.target === EAST_SIGNAL_TARGET
+              ? "표시한 강너머 상업·산업지구에 적용"
+              : "표시한 학교·주거 생활권에 적용"
+            : t
+              ? "이 장소에 적용"
+              : "도시 전체에 적용",
         position: t?.position,
-        outlines: a.id === "signal" ? [RESPONSIVE_SIGNAL_OUTLINE] : [],
+        outlines:
+          a.id === "signal"
+            ? [
+                a.target === EAST_SIGNAL_TARGET
+                  ? EAST_SIGNAL_OUTLINE
+                  : RESPONSIVE_SIGNAL_OUTLINE,
+              ]
+            : [],
         policies: [
           {
             id: a.id,
@@ -990,7 +1182,7 @@ export class LiveCitySimulation extends DumpingSimulation {
   }
   private targetsForHistory(a: CityAction) {
     if (a.id === "patrol" || a.id === "loadingBay")
-      return PARKING_SITES.find((s) => s.id === a.target);
+      return LIVE_PARKING_SITES.find((s) => s.id === a.target);
     if (["cleanup", "dropoff", "outreach"].includes(a.id))
       return DUMPING_SITES.find((s) => s.id === a.target);
     if (["parkingLot", "library", "park", "sewer"].includes(a.id))
@@ -998,10 +1190,22 @@ export class LiveCitySimulation extends DumpingSimulation {
     if (a.id === "outlet" || a.id === "riverCleanup")
       return waterTargets(a.id).find((s) => s.id === a.target);
     if (a.id === "signal")
+      return a.target === EAST_SIGNAL_TARGET
+        ? {
+            id: EAST_SIGNAL_TARGET,
+            name: "강너머 상업·산업지구 교차로",
+            position: { x: 216, z: 96 },
+          }
+        : {
+            id: SCHOOL_NODE,
+            name: "학교·주거지 연결 교차로",
+            position: { x: 0, z: 0 },
+          };
+    if (a.id === "stagger")
       return {
-        id: SCHOOL_NODE,
-        name: "학교·주거지 연결 교차로",
-        position: { x: 0, z: 0 },
+        id: STAGGER_TARGET,
+        name: "강너머 산업지구 출근길",
+        position: { x: 216, z: 168 },
       };
     if (a.id === "production")
       return {
@@ -1035,6 +1239,9 @@ export class LiveCitySimulation extends DumpingSimulation {
         : {}),
       ...(Number.isFinite(this.trafficRoutingFrom)
         ? { trafficRoutingFrom: this.trafficRoutingFrom }
+        : {}),
+      ...(Number.isFinite(this.eastBankFrom)
+        ? { eastBankFrom: this.eastBankFrom }
         : {}),
     };
   }
@@ -1081,6 +1288,11 @@ export function validateLiveSave(value: unknown): LiveSave {
       Math.abs(s.trafficRoutingFrom * 10 - Math.round(s.trafficRoutingFrom * 10)) > 1e-5 ||
       s.trafficRoutingFrom > s.time + 0.1 + 1e-7))
     throw new Error("차량 경로 기록을 확인할 수 없어요.");
+  if (s.eastBankFrom !== undefined &&
+    (!Number.isFinite(s.eastBankFrom) || s.eastBankFrom < 0 ||
+      Math.abs(s.eastBankFrom * 10 - Math.round(s.eastBankFrom * 10)) > 1e-5 ||
+      s.eastBankFrom > s.time + 0.1 + 1e-7))
+    throw new Error("강너머 지구 기록을 확인할 수 없어요.");
   let previous = 0;
   for (const a of s.actions) {
     if (
@@ -1156,6 +1368,7 @@ export function prepareLiveSave(value: unknown): LiveSave {
     vehicleAccessFrom: save.vehicleAccessFrom ?? (Math.round(save.time * 10) + 1) / 10,
     vehicleArrivalFrom: save.vehicleArrivalFrom ?? (Math.round(save.time * 10) + 1) / 10,
     trafficRoutingFrom: save.trafficRoutingFrom ?? (Math.round(save.time * 10) + 1) / 10,
+    eastBankFrom: save.eastBankFrom ?? (Math.round(save.time * 10) + 1) / 10,
   };
 }
 export async function restoreLiveCity(
@@ -1170,7 +1383,7 @@ export async function restoreLiveCity(
   const save = prepareLiveSave(value),
     city = options.initialCity ??
       new LiveCitySimulation(save.seed, save.cityTrafficFrom, save.vehicleAccessFrom,
-        save.vehicleArrivalFrom, save.trafficRoutingFrom);
+        save.vehicleArrivalFrom, save.trafficRoutingFrom, save.eastBankFrom);
   if (
     city.seed !== save.seed ||
     Math.round(city.time * 10) > Math.round(save.time * 10) ||
@@ -1181,13 +1394,16 @@ export async function restoreLiveCity(
     (city.vehicleArrivalFrom !== save.vehicleArrivalFrom &&
       !(city.vehicleArrivalFrom === Infinity && save.vehicleArrivalFrom! > city.time)) ||
     (city.trafficRoutingFrom !== save.trafficRoutingFrom &&
-      !(city.trafficRoutingFrom === Infinity && save.trafficRoutingFrom! > city.time))
+      !(city.trafficRoutingFrom === Infinity && save.trafficRoutingFrom! > city.time)) ||
+    (city.eastBankFrom !== save.eastBankFrom &&
+      !(city.eastBankFrom === Infinity && save.eastBankFrom! > city.time))
   )
     throw new Error("이어 불러올 도시가 맞지 않아요.");
   city.cityTrafficFrom = save.cityTrafficFrom!;
   city.vehicleAccessFrom = save.vehicleAccessFrom!;
   city.vehicleArrivalFrom = save.vehicleArrivalFrom!;
   city.trafficRoutingFrom = save.trafficRoutingFrom!;
+  city.eastBankFrom = save.eastBankFrom!;
   const previousActions = city.actions.length,
     previousMeetings = city.council.records.length;
   const commands = [

@@ -1,6 +1,6 @@
 import type { LiveCitySimulation } from "./live";
 
-/** The school and its western residential connections; eastern industry is unchanged. */
+/** The school and its western residential connections. */
 export const RESPONSIVE_SIGNAL_NODES = new Set(
   Array.from({ length: 25 }, (_, i) => `n${i % 5}-${Math.floor(i / 5)}`),
 );
@@ -8,10 +8,28 @@ export const RESPONSIVE_SIGNAL_OUTLINE = [
   { x: -106, z: -106 }, { x: 106, z: -106 },
   { x: 106, z: 106 }, { x: -106, z: 106 },
 ];
+/** Commercial and industrial junctions across the river (columns 5–8). */
+export const EAST_SIGNAL_TARGET = "east-junctions";
+export const EAST_SIGNAL_NODES = new Set(
+  Array.from({ length: 36 }, (_, i) => `n${5 + (i % 4)}-${Math.floor(i / 4)}`),
+);
+export const EAST_SIGNAL_OUTLINE = [
+  { x: 134, z: -106 }, { x: 298, z: -106 },
+  { x: 298, z: 298 }, { x: 134, z: 298 },
+];
 
 export function updateResponsiveSignals(city: LiveCitySimulation) {
-  if (!city.has("signal")) return;
-  for (const id of RESPONSIVE_SIGNAL_NODES) {
+  for (const a of city.actions) {
+    if (a.id !== "signal") continue;
+    updateGroup(
+      city,
+      a.target === EAST_SIGNAL_TARGET ? EAST_SIGNAL_NODES : RESPONSIVE_SIGNAL_NODES,
+    );
+  }
+}
+
+function updateGroup(city: LiveCitySimulation, nodes: Set<string>) {
+  for (const id of nodes) {
     const signal = city.network.nodes.get(id)!.signal;
     const cycle = signal.ns + signal.ew + 2 * (signal.yellow + signal.clearance) +
       (signal.walk ?? 0) + (signal.walkClearance ?? 0);

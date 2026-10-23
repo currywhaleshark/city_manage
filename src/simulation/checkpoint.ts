@@ -8,7 +8,7 @@ import { FacilitySimulation, type PlannedFacility } from "./facilities";
 
 // This is an internal structured-clone cache, never accepted from imported JSON.
 // Bump when engine state/semantics change. The portable command log remains authoritative.
-export const CHECKPOINT_VERSION = "living-state-7";
+export const CHECKPOINT_VERSION = "living-state-8";
 const shared = [
   "network",
   "pedestrians",
@@ -117,7 +117,8 @@ export function restoreLiveCheckpoint(
   const beforeArrival = beforeAccess || (checkpoint?.version as string) === "living-state-4";
   const beforeRouting = beforeArrival || (checkpoint?.version as string) === "living-state-5";
   const beforeRelief = beforeRouting || (checkpoint?.version as string) === "living-state-6";
-  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeRelief)
+  const beforeEast = beforeRelief || (checkpoint?.version as string) === "living-state-7";
+  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeEast)
     throw new Error("도시 저장 형식이 바뀌었어요.");
   const saved = validateLiveSave(checkpoint.save);
   if (
@@ -131,6 +132,8 @@ export function restoreLiveCheckpoint(
       !(saved.vehicleArrivalFrom === undefined && requested.vehicleArrivalFrom! > saved.time)) ||
     (saved.trafficRoutingFrom !== requested.trafficRoutingFrom &&
       !(saved.trafficRoutingFrom === undefined && requested.trafficRoutingFrom! > saved.time)) ||
+    (saved.eastBankFrom !== requested.eastBankFrom &&
+      !(saved.eastBankFrom === undefined && requested.eastBankFrom! > saved.time)) ||
     Math.round(saved.time * 10) > Math.round(requested.time * 10) ||
     JSON.stringify(saved.actions) !==
       JSON.stringify(requested.actions.slice(0, saved.actions.length)) ||
@@ -152,7 +155,7 @@ export function restoreLiveCheckpoint(
   const state = structuredClone(checkpoint.state),
     city = new LiveCitySimulation(saved.seed, saved.cityTrafficFrom ?? Infinity,
       saved.vehicleAccessFrom ?? Infinity, saved.vehicleArrivalFrom ?? Infinity,
-      saved.trafficRoutingFrom ?? Infinity);
+      saved.trafficRoutingFrom ?? Infinity, saved.eastBankFrom ?? Infinity);
   if (previous && !("cityTrafficFrom" in state.world))
     state.world.cityTrafficFrom = saved.cityTrafficFrom ?? Infinity;
   if (beforeAccess && !("vehicleAccessFrom" in state.world))
@@ -161,6 +164,11 @@ export function restoreLiveCheckpoint(
     state.world.vehicleArrivalFrom = saved.vehicleArrivalFrom ?? Infinity;
   if (beforeRouting && !("trafficRoutingFrom" in state.world))
     state.world.trafficRoutingFrom = saved.trafficRoutingFrom ?? Infinity;
+  // The east bank adds only its queue checks; its sites appear when it opens.
+  if (beforeEast && !("eastBankFrom" in state.world)) {
+    state.world.eastBankFrom = saved.eastBankFrom ?? Infinity;
+    state.world.eastQueue = [];
+  }
   if (legacy) {
     // Only presentation state changed. Keep the physical city and avoid a full replay.
     Object.assign(state.world, {
@@ -219,5 +227,6 @@ export function restoreLiveCheckpoint(
   city.vehicleAccessFrom = requested.vehicleAccessFrom!;
   city.vehicleArrivalFrom = requested.vehicleArrivalFrom!;
   city.trafficRoutingFrom = requested.trafficRoutingFrom!;
+  city.eastBankFrom = requested.eastBankFrom!;
   return city;
 }

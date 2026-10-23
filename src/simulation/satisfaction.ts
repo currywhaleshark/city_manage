@@ -55,10 +55,16 @@ function parts(sim: LiveCitySimulation): Record<Topic, SatisfactionPart[]> {
     0,
   );
   return {
-    parking: [
-      part("불법주차한 차", values.parking, 0, 6, "대"),
-      part("길에서 기다리는 차", sim.stats.stopped, 6, 24, "대"),
-    ],
+    parking: sim.usesEastBank
+      ? [
+          part("불법주차한 차", values.parking, 0, 6, "대"),
+          part("강 서쪽 길에서 기다리는 차", sim.stats.stopped - sim.eastStopped, 4, 18, "대"),
+          part("강 건너 길에서 기다리는 차", sim.eastStopped, 4, 15, "대"),
+        ]
+      : [
+          part("불법주차한 차", values.parking, 0, 6, "대"),
+          part("길에서 기다리는 차", sim.stats.stopped, 6, 24, "대"),
+        ],
     waste: [
       part(
         "길가에 버려진 쓰레기",
@@ -77,7 +83,12 @@ function parts(sim: LiveCitySimulation): Record<Topic, SatisfactionPart[]> {
         1,
       ),
     ],
-    water: [part("하류의 가상 오염도", values.water, 8, 30, "", 1)],
+    water: [
+      ...(sim.usesEastBank
+        ? [part("배출구 아래의 가상 오염도", sim.water.cells[4].level, 8, 30, "", 1)]
+        : []),
+      part("하류의 가상 오염도", values.water, 8, 30, "", 1),
+    ],
     supply: [
       part(
         "물건이 모자란 상점",
