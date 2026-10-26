@@ -109,7 +109,7 @@ test("problems remain visible without policy, policy mitigates locally, and the 
     const project = topic === "parking" ? "walking" : topic === "waste" ? "sorting" : "waterCare";
     const target = topic === "waste" ? "alley" : "homes";
     for (const mode of [0, 1, 2]) {
-      const city = new LiveCitySimulation(seed);
+      const city = new LiveCitySimulation(seed, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model, as measured
       city.runUntil(120);
       if (mode) {
         if (topic === "parking") city.apply("patrol", target);
@@ -139,4 +139,25 @@ test("problems remain visible without policy, policy mitigates locally, and the 
     assert.ok(results[1] < results[0], `${seed} ${topic}: local policy helps`);
     assert.ok(results[2] < results[1], `${seed} ${topic}: participation adds a real local improvement`);
   }
+});
+
+test("a meeting without budget for two proposals asks to wait and keeps the vote closed", async () => {
+  const { communityPlan } = await import("../src/ui/community");
+  const { communityTargets } = await import("../src/simulation/community");
+  const draft = {
+    project: "waterCare" as const,
+    target: communityTargets("waterCare")[0].id,
+    wasPaused: false,
+    voice: 0,
+    heard: heard("waterCare"),
+    round: 0,
+    phase: "comparing" as const,
+    reason: "",
+    concern: "",
+  };
+  const poor = communityPlan(draft, 5), rich = communityPlan(draft, 100);
+  assert.match(poor, /예산 8이 필요/);
+  assert.match(poor, /id="community-vote" disabled/);
+  assert.doesNotMatch(rich, /예산 8이 필요/);
+  assert.doesNotMatch(rich, /id="community-vote" disabled/);
 });

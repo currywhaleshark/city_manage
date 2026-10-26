@@ -11,7 +11,7 @@ import {
 } from "../src/ui/map-feedback";
 
 test("bought policies report the delay the engine really applies, then stop waiting", () => {
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   city.budget = 1000;
   city.runUntil(10);
   city.apply("outreach", "river");

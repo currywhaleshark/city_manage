@@ -12,6 +12,8 @@ import {
 
 test("checkpoints preserve live transport identities and continue to the same exact future", () => {
   const s = new LiveCitySimulation();
+  // A new city's next budget arrives at 06:00; this test needs several policies first.
+  s.budget = 200;
   s.apply("signal", "n3-2");
   s.apply("park", "north");
   s.council.start("waterCare", "homes", "flexible", [
@@ -97,7 +99,7 @@ test("v1 checkpoints migrate presentation state without replaying or changing th
   );
   copy.runUntil(245);
   assert.equal(copy.voices.length, 0);
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-9");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-10");
 });
 
 test("incompatible, different-city or damaged caches are rejected without touching the portable save", () => {

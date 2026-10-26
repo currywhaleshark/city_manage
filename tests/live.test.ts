@@ -101,7 +101,7 @@ test("shared parked cars obstruct service traffic, with no hidden second traffic
 });
 
 test("real dumping litter transfers into the river with conservation; new waves and collections continue after 15 minutes", () => {
-  const s = new LiveCitySimulation();
+  const s = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   s.runUntil(1250);
   assert.ok(s.transferredToRiver > 0);
   const w = s.wasteStats,

@@ -418,9 +418,12 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(document.querySelector("#placement-title"), null);
     assert.equal(document.body.dataset.livePanel, "policy");
     assert.equal(state().paused, false);
-    while (state().time < 300) tick(1);
+    // The daily budget arrives at 06:00; the night passes in fast-forward.
+    change("#speed", "8");
+    while (state().budget === 40) tick(1);
     tick();
-    assert.equal(el("#policy-budget").textContent, "60");
+    assert.equal(el("#clock").textContent, "2일 오전 6:00");
+    assert.equal(el("#policy-budget").textContent, "232");
     assert.equal(library.getAttribute("aria-disabled"), "false");
     assert.equal(document.activeElement, library);
     assert.equal(caveat.open, true);
@@ -432,16 +435,16 @@ test("live UI keeps a read story, carries its context into policy selection, and
     );
     click("#apply-live-policy");
     assert.equal(state().actions.at(-1).id, "library");
-    assert.equal(state().budget, 5);
+    assert.equal(state().budget, 177);
     click('[data-panel-open="news"]');
     click('[data-panel-open="community"]');
     click('[data-community-project="waterCare"]');
     click('[data-placement-target="homes"]');
     click("#community-next"); click("#community-next"); click("#community-next");
-    assert.equal(el<HTMLButtonElement>("#community-vote").disabled, true);
-    assert.match(el("#live-panel-body").textContent!, /예산 8이 필요/);
+    // The low-budget comparison is covered in community-vote.test.ts.
+    assert.equal(el<HTMLButtonElement>("#community-vote").disabled, false);
     click("#cancel-meeting");
-    assert.equal(state().budget, 5);
+    assert.equal(state().budget, 177);
     assert.equal(state().paused, false);
     assert.equal(state().council.length, 0, "deferring a meeting spends nothing and creates no activity");
 
@@ -450,7 +453,8 @@ test("live UI keeps a read story, carries its context into policy selection, and
     await new Promise((resolve) => setImmediate(resolve));
     tick();
     assert.equal(document.body.dataset.tutorial, "observe");
-    while (state().time < 120) tick(1);
+    // The first example is a problem whose result shows soon (not the commute).
+    while (document.body.dataset.tutorial === "observe" && state().time < 600) tick(1);
     tick();
     assert.equal(document.body.dataset.tutorial, "spotlight");
     assert.equal(cameraEnabled(), true, "the learner can explore the highlighted problem");
@@ -477,7 +481,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(el<HTMLSelectElement>("#policy-topic").value, "parking");
     click('[data-panel-open="community"]');
     assert.equal(document.body.dataset.livePanel, "policy");
-    click('[data-live-policy="signal"]');
+    click('[data-live-policy="patrol"]');
     assert.equal(cameraEnabled(), true, "placement permits moving around the map");
     click("[data-placement-target]");
     assert.equal(cameraEnabled(), true, "map exploration remains available during confirmation");
@@ -485,7 +489,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(document.body.dataset.tutorial, "policy", "cancelled placement keeps the lesson reachable");
     click("#tutorial-next");
     change("#policy-topic", "parking");
-    click('[data-live-policy="signal"]'); click("[data-placement-target]");
+    click('[data-live-policy="patrol"]'); click("[data-placement-target]");
     click("#apply-live-policy"); tick();
     assert.equal(document.body.dataset.tutorial, "watch");
     click("#pause"); tick();

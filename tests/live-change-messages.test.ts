@@ -24,7 +24,7 @@ function setWater(city: LiveCitySimulation, level: number) {
 // Controlled observations exercise the real issue lifecycle and feedback routing.
 // Transport, collection and pollution physics are covered by the domain tests.
 function fixture() {
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   const state = { time: 20, illegal: 0, stopped: 0 };
   const traffic = city.stats,
     parking = city.parking.parkingStats;

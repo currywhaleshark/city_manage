@@ -37,7 +37,12 @@ export class CityTutorial {
     if (!this.active || seconds <= 0) return;
     this.elapsed += seconds;
     if (this.stage === "observe" && this.elapsed >= 12) {
-      const issue = sim.activeIssues.find((event) => event.position);
+      // A first example whose result shows soon; commute problems are judged
+      // over a whole commute, so they are used only if nothing else appears.
+      const issues = sim.activeIssues.filter((event) => event.position);
+      const issue =
+        issues.find((event) => !sim.isCommuteIssue(event)) ??
+        (this.elapsed >= 40 ? issues[0] : undefined);
       if (issue) {
         this.issue = structuredClone(issue);
         this.move("spotlight");
@@ -46,7 +51,7 @@ export class CityTutorial {
       this.move("story");
     } else if (this.stage === "watch" && this.actionIndex !== undefined) {
       const action = sim.actions[this.actionIndex];
-      if (action && sim.time >= action.time + 120) {
+      if (action && sim.time >= (sim.reactionAt(this.actionIndex) ?? action.time + 120)) {
         const comparison = sim.policyComparisons[this.actionIndex];
         if (comparison) {
           this.result = structuredClone(comparison);

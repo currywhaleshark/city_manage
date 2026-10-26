@@ -863,7 +863,15 @@
     font-size: 11px;
     line-height: 14px;
     text-align: center;
+    white-space: nowrap;
     pointer-events: none;
+  }
+  /* Only the time fits under the pause button; the day stays in its label. */
+  .living-city #clock .clock-day {
+    display: none;
+  }
+  .living-city #clock .clock-time {
+    font-size: 10px;
   }
   .living-city #city-options-toggle {
     display: flex;

@@ -1,0 +1,4884 @@
+{
+  "generatedAt": "2026-10-26T05:28:00.987Z",
+  "daySeconds": 2880,
+  "hourSeconds": 120,
+  "hourlyTrips": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    29,
+    46,
+    52,
+    40,
+    29,
+    23,
+    35,
+    23,
+    23,
+    34,
+    29,
+    52,
+    58,
+    40,
+    34,
+    29,
+    3,
+    2
+  ],
+  "runs": [
+    {
+      "seed": 2404,
+      "days": 3,
+      "seconds": 8640,
+      "budget": 676,
+      "unreachable": 0,
+      "pendingAtEnd": 0,
+      "peakHour": {
+        "day": 1,
+        "hour": 9,
+        "meanOnRoad": 79.1,
+        "maxOnRoad": 91
+      },
+      "commutes": [
+        {
+          "day": 1,
+          "traffic": 35,
+          "traffic-east": 5.666666666666667,
+          "school-signal": 28.666666666666668
+        },
+        {
+          "day": 2,
+          "traffic": 37,
+          "traffic-east": 11,
+          "school-signal": 26
+        },
+        {
+          "day": 3,
+          "traffic": 37.333333333333336,
+          "traffic-east": 9.333333333333334,
+          "school-signal": 24.333333333333332
+        }
+      ],
+      "problems": [
+        {
+          "when": "1일차 오전 8:00",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "1일차 오전 8:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "1일차 오전 8:50",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "1일차 오전 9:40",
+          "type": "problem",
+          "title": "막히는 등굣길"
+        },
+        {
+          "when": "1일차 오전 10:30",
+          "type": "problem",
+          "title": "작업장 배출구 아래"
+        },
+        {
+          "when": "1일차 오전 11:20",
+          "type": "problem",
+          "title": "생활 시설"
+        },
+        {
+          "when": "1일차 오후 12:10",
+          "type": "problem",
+          "title": "강너머 상점가 수거장"
+        },
+        {
+          "when": "1일차 오후 1:00",
+          "type": "problem",
+          "title": "동네 상점"
+        },
+        {
+          "when": "1일차 오후 1:50",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "1일차 오후 2:40",
+          "type": "problem",
+          "title": "주택가 뒷골목"
+        },
+        {
+          "when": "1일차 오후 2:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "1일차 오후 3:30",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "1일차 오후 4:20",
+          "type": "problem",
+          "title": "새봄천 산책길"
+        },
+        {
+          "when": "1일차 오후 5:10",
+          "type": "problem",
+          "title": "새봄천 하류"
+        },
+        {
+          "when": "1일차 오후 6:00",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "1일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "1일차 오후 6:30",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "1일차 오후 6:50",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
+          "when": "1일차 오후 7:40",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "1일차 오후 8:00",
+          "type": "improved",
+          "title": "남쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "1일차 오후 8:30",
+          "type": "improved",
+          "title": "서쪽 끝 주택가 수거장의 변화"
+        },
+        {
+          "when": "1일차 오후 8:30",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "1일차 오후 9:20",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "1일차 오후 10:10",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "1일차 오후 10:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "1일차 오후 11:00",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "1일차 오후 11:10",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "1일차 오후 11:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오전 12:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오전 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오전 2:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오전 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오전 2:30",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오전 3:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오전 3:50",
+          "type": "improved",
+          "title": "공터 옆 길의 변화"
+        },
+        {
+          "when": "2일차 오전 3:50",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오전 4:30",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오전 4:40",
+          "type": "problem",
+          "title": "학교 앞 수거장 수거장"
+        },
+        {
+          "when": "2일차 오전 5:20",
+          "type": "improved",
+          "title": "주택가 뒷골목의 변화"
+        },
+        {
+          "when": "2일차 오전 5:30",
+          "type": "problem",
+          "title": "북쪽 주택가 수거장"
+        },
+        {
+          "when": "2일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "2일차 오전 6:20",
+          "type": "problem",
+          "title": "동쪽 상점가 수거장"
+        },
+        {
+          "when": "2일차 오전 6:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오전 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오전 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "2일차 오전 8:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오전 9:00",
+          "type": "improved",
+          "title": "새봄천 산책길의 변화"
+        },
+        {
+          "when": "2일차 오전 9:00",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
+          "when": "2일차 오전 9:50",
+          "type": "problem",
+          "title": "강너머 출근길"
+        },
+        {
+          "when": "2일차 오전 10:40",
+          "type": "problem",
+          "title": "주택가 뒷골목"
+        },
+        {
+          "when": "2일차 오전 11:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오전 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 12:20",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "2일차 오후 1:00",
+          "type": "improved",
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 1:10",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "2일차 오후 2:00",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오후 2:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오후 2:50",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오후 3:40",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 4:30",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오후 4:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 5:00",
+          "type": "improved",
+          "title": "학교 앞 수거장 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 5:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 5:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 6:10",
+          "type": "problem",
+          "title": "새봄천 산책길"
+        },
+        {
+          "when": "2일차 오후 6:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 6:30",
+          "type": "improved",
+          "title": "동쪽 상점가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 7:00",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오후 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "2일차 오후 8:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 9:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오후 9:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 10:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 11:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 12:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 12:50",
+          "type": "problem",
+          "title": "강너머 상점가 수거장"
+        },
+        {
+          "when": "3일차 오전 1:40",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 2:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 2:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오전 3:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 4:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오전 4:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 5:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 5:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 6:10",
+          "type": "problem",
+          "title": "학교 앞 수거장 수거장"
+        },
+        {
+          "when": "3일차 오전 6:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 6:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오전 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "3일차 오전 8:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 8:30",
+          "type": "improved",
+          "title": "학교 가는 길 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오전 9:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오전 9:10",
+          "type": "improved",
+          "title": "북쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오전 9:50",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오전 10:40",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 10:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오전 11:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 12:10",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 12:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 2:00",
+          "type": "improved",
+          "title": "학교 가는 길 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오후 2:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 2:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 3:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오후 3:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 4:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 5:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 5:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "3일차 오후 6:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 6:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 6:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 7:00",
+          "type": "problem",
+          "title": "동쪽 상점가 수거장"
+        },
+        {
+          "when": "3일차 오후 7:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 8:40",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "3일차 오후 9:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오후 10:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 10:20",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 10:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 11:10",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 12:00",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "4일차 오전 12:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "4일차 오전 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "4일차 오전 1:30",
+          "type": "improved",
+          "title": "서쪽 끝 주택가 수거장의 변화"
+        },
+        {
+          "when": "4일차 오전 2:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "4일차 오전 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "4일차 오전 2:30",
+          "type": "improved",
+          "title": "남쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "4일차 오전 2:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "4일차 오전 3:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "4일차 오전 3:50",
+          "type": "problem",
+          "title": "북쪽 주택가 수거장"
+        },
+        {
+          "when": "4일차 오전 4:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 5:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "4일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 6:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "4일차 오전 6:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "4일차 오전 6:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        }
+      ],
+      "hours": [
+        {
+          "day": 1,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 3,
+          "meanOnRoad": 32.6,
+          "maxOnRoad": 43,
+          "meanStopped": 13.3,
+          "meanTravel": 59,
+          "pedestrians": 12.9,
+          "engineMsPerCitySecond": 7.44
+        },
+        {
+          "day": 1,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 25,
+          "meanOnRoad": 67.7,
+          "maxOnRoad": 77,
+          "meanStopped": 30.6,
+          "meanTravel": 142,
+          "pedestrians": 21.4,
+          "engineMsPerCitySecond": 4.97
+        },
+        {
+          "day": 1,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 37,
+          "meanOnRoad": 79.1,
+          "maxOnRoad": 85,
+          "meanStopped": 34.7,
+          "meanTravel": 186,
+          "pedestrians": 17.3,
+          "engineMsPerCitySecond": 4.32
+        },
+        {
+          "day": 1,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 47,
+          "meanOnRoad": 65.7,
+          "maxOnRoad": 75,
+          "meanStopped": 29.8,
+          "meanTravel": 202,
+          "pedestrians": 10.9,
+          "engineMsPerCitySecond": 4.21
+        },
+        {
+          "day": 1,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 50,
+          "meanOnRoad": 38.5,
+          "maxOnRoad": 47,
+          "meanStopped": 16.8,
+          "meanTravel": 234,
+          "pedestrians": 9.2,
+          "engineMsPerCitySecond": 4.27
+        },
+        {
+          "day": 1,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 25,
+          "meanOnRoad": 29.8,
+          "maxOnRoad": 38,
+          "meanStopped": 13.3,
+          "meanTravel": 134,
+          "pedestrians": 12.1,
+          "engineMsPerCitySecond": 4.24
+        },
+        {
+          "day": 1,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 34,
+          "meanOnRoad": 32.7,
+          "maxOnRoad": 39,
+          "meanStopped": 13.4,
+          "meanTravel": 116,
+          "pedestrians": 8.2,
+          "engineMsPerCitySecond": 6.35
+        },
+        {
+          "day": 1,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 24,
+          "meanOnRoad": 24.9,
+          "maxOnRoad": 28,
+          "meanStopped": 9.3,
+          "meanTravel": 142,
+          "pedestrians": 8.2,
+          "engineMsPerCitySecond": 4.51
+        },
+        {
+          "day": 1,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 21,
+          "meanOnRoad": 30.8,
+          "maxOnRoad": 39,
+          "meanStopped": 12.9,
+          "meanTravel": 136,
+          "pedestrians": 11.8,
+          "engineMsPerCitySecond": 4.06
+        },
+        {
+          "day": 1,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 37,
+          "meanOnRoad": 32.2,
+          "maxOnRoad": 38,
+          "meanStopped": 12.7,
+          "meanTravel": 131,
+          "pedestrians": 10.7,
+          "engineMsPerCitySecond": 6.77
+        },
+        {
+          "day": 1,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 34,
+          "meanOnRoad": 42.6,
+          "maxOnRoad": 49,
+          "meanStopped": 18.3,
+          "meanTravel": 112,
+          "pedestrians": 17.6,
+          "engineMsPerCitySecond": 13.66
+        },
+        {
+          "day": 1,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 43,
+          "meanOnRoad": 54.1,
+          "maxOnRoad": 64,
+          "meanStopped": 22.8,
+          "meanTravel": 122,
+          "pedestrians": 21.9,
+          "engineMsPerCitySecond": 13.38
+        },
+        {
+          "day": 1,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 52,
+          "meanOnRoad": 54.3,
+          "maxOnRoad": 61,
+          "meanStopped": 23.6,
+          "meanTravel": 135,
+          "pedestrians": 16.4,
+          "engineMsPerCitySecond": 13.41
+        },
+        {
+          "day": 1,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 42,
+          "meanOnRoad": 49.5,
+          "maxOnRoad": 52,
+          "meanStopped": 20.1,
+          "meanTravel": 141,
+          "pedestrians": 15.8,
+          "engineMsPerCitySecond": 11.75
+        },
+        {
+          "day": 1,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 32,
+          "meanOnRoad": 43,
+          "maxOnRoad": 48,
+          "meanStopped": 18.2,
+          "meanTravel": 175,
+          "pedestrians": 11.8,
+          "engineMsPerCitySecond": 9.88
+        },
+        {
+          "day": 1,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 36,
+          "meanOnRoad": 22.8,
+          "maxOnRoad": 38,
+          "meanStopped": 10,
+          "meanTravel": 163,
+          "pedestrians": 3,
+          "engineMsPerCitySecond": 6.65
+        },
+        {
+          "day": 1,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 8,
+          "meanOnRoad": 3.3,
+          "maxOnRoad": 7,
+          "meanStopped": 1.1,
+          "meanTravel": 163,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 2.23
+        },
+        {
+          "day": 2,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 1.9,
+          "maxOnRoad": 2,
+          "meanStopped": 0.8,
+          "meanTravel": 141,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.77
+        },
+        {
+          "day": 2,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 3,
+          "meanOnRoad": 1.7,
+          "maxOnRoad": 2,
+          "meanStopped": 0.3,
+          "meanTravel": 132,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 2.29
+        },
+        {
+          "day": 2,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 0.3,
+          "maxOnRoad": 1,
+          "meanStopped": 0.1,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 4.31
+        },
+        {
+          "day": 2,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.5,
+          "maxOnRoad": 2,
+          "meanStopped": 0.8,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 4.97
+        },
+        {
+          "day": 2,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 2,
+          "meanOnRoad": 1.8,
+          "maxOnRoad": 2,
+          "meanStopped": 0.5,
+          "meanTravel": 170,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 2.64
+        },
+        {
+          "day": 2,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 1,
+          "meanOnRoad": 1.6,
+          "maxOnRoad": 2,
+          "meanStopped": 0.8,
+          "meanTravel": 151,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 4.1
+        },
+        {
+          "day": 2,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 4,
+          "meanOnRoad": 21.3,
+          "maxOnRoad": 27,
+          "meanStopped": 7.2,
+          "meanTravel": 61,
+          "pedestrians": 8.1,
+          "engineMsPerCitySecond": 7.22
+        },
+        {
+          "day": 2,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 25,
+          "meanOnRoad": 47.8,
+          "maxOnRoad": 54,
+          "meanStopped": 19.3,
+          "meanTravel": 146,
+          "pedestrians": 15.2,
+          "engineMsPerCitySecond": 12.03
+        },
+        {
+          "day": 2,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 31,
+          "meanOnRoad": 71.4,
+          "maxOnRoad": 80,
+          "meanStopped": 31.5,
+          "meanTravel": 157,
+          "pedestrians": 18.9,
+          "engineMsPerCitySecond": 23.27
+        },
+        {
+          "day": 2,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 40,
+          "meanOnRoad": 79,
+          "maxOnRoad": 91,
+          "meanStopped": 36.1,
+          "meanTravel": 207,
+          "pedestrians": 16.3,
+          "engineMsPerCitySecond": 17.04
+        },
+        {
+          "day": 2,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 48,
+          "meanOnRoad": 57.5,
+          "maxOnRoad": 65,
+          "meanStopped": 27.9,
+          "meanTravel": 208,
+          "pedestrians": 11.5,
+          "engineMsPerCitySecond": 10.63
+        },
+        {
+          "day": 2,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 47,
+          "meanOnRoad": 37.4,
+          "maxOnRoad": 47,
+          "meanStopped": 15.6,
+          "meanTravel": 183,
+          "pedestrians": 8.5,
+          "engineMsPerCitySecond": 7.99
+        },
+        {
+          "day": 2,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 22,
+          "meanOnRoad": 27.4,
+          "maxOnRoad": 39,
+          "meanStopped": 10.9,
+          "meanTravel": 142,
+          "pedestrians": 11.7,
+          "engineMsPerCitySecond": 5.44
+        },
+        {
+          "day": 2,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 34,
+          "meanOnRoad": 29.8,
+          "maxOnRoad": 35,
+          "meanStopped": 12.1,
+          "meanTravel": 120,
+          "pedestrians": 9.7,
+          "engineMsPerCitySecond": 12.63
+        },
+        {
+          "day": 2,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 27,
+          "meanOnRoad": 25.3,
+          "maxOnRoad": 28,
+          "meanStopped": 9.8,
+          "meanTravel": 122,
+          "pedestrians": 7.9,
+          "engineMsPerCitySecond": 7.13
+        },
+        {
+          "day": 2,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 29,
+          "meanOnRoad": 24.2,
+          "maxOnRoad": 30,
+          "meanStopped": 10.8,
+          "meanTravel": 101,
+          "pedestrians": 11.8,
+          "engineMsPerCitySecond": 5.37
+        },
+        {
+          "day": 2,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 29,
+          "meanOnRoad": 26.5,
+          "maxOnRoad": 31,
+          "meanStopped": 10.3,
+          "meanTravel": 109,
+          "pedestrians": 10.3,
+          "engineMsPerCitySecond": 7.68
+        },
+        {
+          "day": 2,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 23,
+          "meanOnRoad": 39.4,
+          "maxOnRoad": 56,
+          "meanStopped": 17.9,
+          "meanTravel": 119,
+          "pedestrians": 17.9,
+          "engineMsPerCitySecond": 8.88
+        },
+        {
+          "day": 2,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 50,
+          "meanOnRoad": 66.8,
+          "maxOnRoad": 73,
+          "meanStopped": 31.7,
+          "meanTravel": 130,
+          "pedestrians": 23.8,
+          "engineMsPerCitySecond": 9.22
+        },
+        {
+          "day": 2,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 47,
+          "meanOnRoad": 66,
+          "maxOnRoad": 73,
+          "meanStopped": 28.7,
+          "meanTravel": 160,
+          "pedestrians": 19.1,
+          "engineMsPerCitySecond": 6.88
+        },
+        {
+          "day": 2,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 45,
+          "meanOnRoad": 52.4,
+          "maxOnRoad": 57,
+          "meanStopped": 23.4,
+          "meanTravel": 167,
+          "pedestrians": 16.8,
+          "engineMsPerCitySecond": 3.73
+        },
+        {
+          "day": 2,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 43,
+          "meanOnRoad": 43.8,
+          "maxOnRoad": 52,
+          "meanStopped": 18.5,
+          "meanTravel": 159,
+          "pedestrians": 16.3,
+          "engineMsPerCitySecond": 3.37
+        },
+        {
+          "day": 2,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 26,
+          "meanOnRoad": 21.9,
+          "maxOnRoad": 33,
+          "meanStopped": 10.3,
+          "meanTravel": 171,
+          "pedestrians": 4.6,
+          "engineMsPerCitySecond": 2.48
+        },
+        {
+          "day": 2,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 10,
+          "meanOnRoad": 6.5,
+          "maxOnRoad": 10,
+          "meanStopped": 2.7,
+          "meanTravel": 193,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.79
+        },
+        {
+          "day": 3,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 3,
+          "meanOnRoad": 2.1,
+          "maxOnRoad": 3,
+          "meanStopped": 0.8,
+          "meanTravel": 185,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.4
+        },
+        {
+          "day": 3,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.8,
+          "maxOnRoad": 1,
+          "meanStopped": 0.3,
+          "meanTravel": 131,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.17
+        },
+        {
+          "day": 3,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.4,
+          "maxOnRoad": 1,
+          "meanStopped": 0.1,
+          "meanTravel": 94,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.49
+        },
+        {
+          "day": 3,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.1,
+          "maxOnRoad": 2,
+          "meanStopped": 0.4,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.35
+        },
+        {
+          "day": 3,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 2,
+          "meanOnRoad": 1.3,
+          "maxOnRoad": 2,
+          "meanStopped": 0.6,
+          "meanTravel": 104,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.19
+        },
+        {
+          "day": 3,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 1,
+          "meanOnRoad": 1.9,
+          "maxOnRoad": 3,
+          "meanStopped": 0.8,
+          "meanTravel": 55,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.2
+        },
+        {
+          "day": 3,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 3,
+          "meanOnRoad": 21.3,
+          "maxOnRoad": 28,
+          "meanStopped": 7.6,
+          "meanTravel": 121,
+          "pedestrians": 8.1,
+          "engineMsPerCitySecond": 2.3
+        },
+        {
+          "day": 3,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 21,
+          "meanOnRoad": 47.5,
+          "maxOnRoad": 53,
+          "meanStopped": 19.8,
+          "meanTravel": 143,
+          "pedestrians": 15.3,
+          "engineMsPerCitySecond": 3.85
+        },
+        {
+          "day": 3,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 44,
+          "meanOnRoad": 68.3,
+          "maxOnRoad": 76,
+          "meanStopped": 29.3,
+          "meanTravel": 157,
+          "pedestrians": 19.7,
+          "engineMsPerCitySecond": 4.76
+        },
+        {
+          "day": 3,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 33,
+          "meanOnRoad": 74.1,
+          "maxOnRoad": 83,
+          "meanStopped": 32.6,
+          "meanTravel": 186,
+          "pedestrians": 16.7,
+          "engineMsPerCitySecond": 5.53
+        },
+        {
+          "day": 3,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 49,
+          "meanOnRoad": 57.4,
+          "maxOnRoad": 61,
+          "meanStopped": 25.3,
+          "meanTravel": 197,
+          "pedestrians": 12.3,
+          "engineMsPerCitySecond": 3.85
+        },
+        {
+          "day": 3,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 45,
+          "meanOnRoad": 34.8,
+          "maxOnRoad": 47,
+          "meanStopped": 13.8,
+          "meanTravel": 188,
+          "pedestrians": 9,
+          "engineMsPerCitySecond": 2.98
+        },
+        {
+          "day": 3,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 24,
+          "meanOnRoad": 31.2,
+          "maxOnRoad": 38,
+          "meanStopped": 12.4,
+          "meanTravel": 144,
+          "pedestrians": 12.7,
+          "engineMsPerCitySecond": 2.71
+        },
+        {
+          "day": 3,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 29,
+          "meanOnRoad": 30.8,
+          "maxOnRoad": 36,
+          "meanStopped": 12.7,
+          "meanTravel": 125,
+          "pedestrians": 10.4,
+          "engineMsPerCitySecond": 3.05
+        },
+        {
+          "day": 3,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 28,
+          "meanOnRoad": 24.8,
+          "maxOnRoad": 30,
+          "meanStopped": 10.5,
+          "meanTravel": 129,
+          "pedestrians": 7.7,
+          "engineMsPerCitySecond": 2.28
+        },
+        {
+          "day": 3,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 22,
+          "meanOnRoad": 31.6,
+          "maxOnRoad": 39,
+          "meanStopped": 13.2,
+          "meanTravel": 142,
+          "pedestrians": 11.4,
+          "engineMsPerCitySecond": 2.68
+        },
+        {
+          "day": 3,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 37,
+          "meanOnRoad": 33.7,
+          "maxOnRoad": 37,
+          "meanStopped": 14.4,
+          "meanTravel": 125,
+          "pedestrians": 11.5,
+          "engineMsPerCitySecond": 2.98
+        },
+        {
+          "day": 3,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 31,
+          "meanOnRoad": 40.3,
+          "maxOnRoad": 51,
+          "meanStopped": 18.2,
+          "meanTravel": 126,
+          "pedestrians": 19.7,
+          "engineMsPerCitySecond": 3.12
+        },
+        {
+          "day": 3,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 46,
+          "meanOnRoad": 57.6,
+          "maxOnRoad": 63,
+          "meanStopped": 24.8,
+          "meanTravel": 116,
+          "pedestrians": 25.1,
+          "engineMsPerCitySecond": 4.1
+        },
+        {
+          "day": 3,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 52,
+          "meanOnRoad": 52.8,
+          "maxOnRoad": 62,
+          "meanStopped": 23.3,
+          "meanTravel": 130,
+          "pedestrians": 27.7,
+          "engineMsPerCitySecond": 3.77
+        },
+        {
+          "day": 3,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 43,
+          "meanOnRoad": 49.7,
+          "maxOnRoad": 55,
+          "meanStopped": 21.3,
+          "meanTravel": 148,
+          "pedestrians": 20.8,
+          "engineMsPerCitySecond": 3.65
+        },
+        {
+          "day": 3,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 32,
+          "meanOnRoad": 37.3,
+          "maxOnRoad": 42,
+          "meanStopped": 17.8,
+          "meanTravel": 170,
+          "pedestrians": 11.5,
+          "engineMsPerCitySecond": 3.21
+        },
+        {
+          "day": 3,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 23,
+          "meanOnRoad": 27.3,
+          "maxOnRoad": 38,
+          "meanStopped": 10.9,
+          "meanTravel": 168,
+          "pedestrians": 2.1,
+          "engineMsPerCitySecond": 2.22
+        },
+        {
+          "day": 3,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 17,
+          "meanOnRoad": 9.9,
+          "maxOnRoad": 17,
+          "meanStopped": 4.4,
+          "meanTravel": 208,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.72
+        },
+        {
+          "day": 4,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 4,
+          "meanOnRoad": 2,
+          "maxOnRoad": 4,
+          "meanStopped": 0.7,
+          "meanTravel": 173,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.41
+        },
+        {
+          "day": 4,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.6,
+          "maxOnRoad": 2,
+          "meanStopped": 0.8,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.16
+        },
+        {
+          "day": 4,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 3,
+          "meanOnRoad": 1.3,
+          "maxOnRoad": 2,
+          "meanStopped": 0.2,
+          "meanTravel": 117,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.09
+        },
+        {
+          "day": 4,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.8,
+          "maxOnRoad": 1,
+          "meanStopped": 0.1,
+          "meanTravel": 97,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.09
+        },
+        {
+          "day": 4,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 0.2,
+          "maxOnRoad": 1,
+          "meanStopped": 0.1,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.1
+        },
+        {
+          "day": 4,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 1,
+          "meanOnRoad": 1.6,
+          "maxOnRoad": 2,
+          "meanStopped": 0.6,
+          "meanTravel": 79,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.48
+        },
+        {
+          "day": 4,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 3,
+          "meanOnRoad": 19.5,
+          "maxOnRoad": 28,
+          "meanStopped": 7.3,
+          "meanTravel": 61,
+          "pedestrians": 7.3,
+          "engineMsPerCitySecond": 3.15
+        }
+      ]
+    },
+    {
+      "seed": 2405,
+      "days": 3,
+      "seconds": 8640,
+      "budget": 676,
+      "unreachable": 0,
+      "pendingAtEnd": 0,
+      "peakHour": {
+        "day": 1,
+        "hour": 9,
+        "meanOnRoad": 82.1,
+        "maxOnRoad": 89
+      },
+      "commutes": [
+        {
+          "day": 1,
+          "traffic": 39.666666666666664,
+          "traffic-east": 9,
+          "school-signal": 32
+        },
+        {
+          "day": 2,
+          "traffic": 34.333333333333336,
+          "traffic-east": 8.666666666666666,
+          "school-signal": 23.666666666666668
+        },
+        {
+          "day": 3,
+          "traffic": 33.333333333333336,
+          "traffic-east": 11.666666666666666,
+          "school-signal": 27
+        }
+      ],
+      "problems": [
+        {
+          "when": "1일차 오전 8:00",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "1일차 오전 8:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "1일차 오전 8:50",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "1일차 오전 9:40",
+          "type": "problem",
+          "title": "막히는 등굣길"
+        },
+        {
+          "when": "1일차 오전 10:30",
+          "type": "problem",
+          "title": "작업장 배출구 아래"
+        },
+        {
+          "when": "1일차 오전 11:20",
+          "type": "problem",
+          "title": "생활 시설"
+        },
+        {
+          "when": "1일차 오후 12:10",
+          "type": "problem",
+          "title": "강너머 상점가 수거장"
+        },
+        {
+          "when": "1일차 오후 1:00",
+          "type": "problem",
+          "title": "동네 상점"
+        },
+        {
+          "when": "1일차 오후 1:50",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "1일차 오후 2:40",
+          "type": "problem",
+          "title": "새봄천 하류"
+        },
+        {
+          "when": "1일차 오후 3:30",
+          "type": "problem",
+          "title": "주택가 뒷골목"
+        },
+        {
+          "when": "1일차 오후 4:20",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "1일차 오후 5:10",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
+          "when": "1일차 오후 6:00",
+          "type": "problem",
+          "title": "새봄천 산책길"
+        },
+        {
+          "when": "1일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "1일차 오후 6:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "1일차 오후 7:10",
+          "type": "improved",
+          "title": "남쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "1일차 오후 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "1일차 오후 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "1일차 오후 8:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "1일차 오후 9:00",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "1일차 오후 9:40",
+          "type": "improved",
+          "title": "서쪽 끝 주택가 수거장의 변화"
+        },
+        {
+          "when": "1일차 오후 9:50",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "1일차 오후 10:30",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "1일차 오후 10:40",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "1일차 오후 11:30",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "1일차 오후 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오전 12:20",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오전 12:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오전 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오전 2:10",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오전 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오전 2:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오전 2:50",
+          "type": "improved",
+          "title": "주택가 뒷골목의 변화"
+        },
+        {
+          "when": "2일차 오전 3:00",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "2일차 오전 3:10",
+          "type": "improved",
+          "title": "공터 옆 길의 변화"
+        },
+        {
+          "when": "2일차 오전 3:50",
+          "type": "problem",
+          "title": "동쪽 상점가 수거장"
+        },
+        {
+          "when": "2일차 오전 4:30",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오전 4:40",
+          "type": "problem",
+          "title": "학교 앞 수거장 수거장"
+        },
+        {
+          "when": "2일차 오전 5:30",
+          "type": "problem",
+          "title": "주택가 뒷골목"
+        },
+        {
+          "when": "2일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "2일차 오전 6:20",
+          "type": "improved",
+          "title": "새봄천 산책길의 변화"
+        },
+        {
+          "when": "2일차 오전 6:20",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오전 6:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오전 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오전 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "2일차 오전 8:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오전 9:00",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
+          "when": "2일차 오전 9:40",
+          "type": "improved",
+          "title": "학교 앞 수거장 수거장의 변화"
+        },
+        {
+          "when": "2일차 오전 9:50",
+          "type": "problem",
+          "title": "강너머 출근길"
+        },
+        {
+          "when": "2일차 오전 10:40",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "2일차 오전 11:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오전 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 12:20",
+          "type": "improved",
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 12:20",
+          "type": "problem",
+          "title": "북쪽 주택가 수거장"
+        },
+        {
+          "when": "2일차 오후 1:10",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "2일차 오후 2:00",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오후 2:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오후 2:50",
+          "type": "problem",
+          "title": "새봄천 산책길"
+        },
+        {
+          "when": "2일차 오후 3:40",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 4:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 4:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오후 5:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 6:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오후 6:20",
+          "type": "improved",
+          "title": "동쪽 상점가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 6:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 6:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오후 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 7:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "2일차 오후 8:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 9:20",
+          "type": "improved",
+          "title": "북쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 9:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 10:10",
+          "type": "problem",
+          "title": "강너머 상점가 수거장"
+        },
+        {
+          "when": "2일차 오후 10:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 11:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오후 11:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 12:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 12:40",
+          "type": "improved",
+          "title": "학교 가는 길 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오전 12:40",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오전 12:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 1:30",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 2:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오전 3:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 4:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 4:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오전 5:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 5:40",
+          "type": "improved",
+          "title": "서쪽 끝 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 6:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오전 6:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 6:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오전 6:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 7:00",
+          "type": "problem",
+          "title": "학교 앞 수거장 수거장"
+        },
+        {
+          "when": "3일차 오전 7:50",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오전 8:40",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "3일차 오전 9:30",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 10:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 10:40",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오전 10:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오전 11:30",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 12:20",
+          "type": "problem",
+          "title": "동쪽 상점가 수거장"
+        },
+        {
+          "when": "3일차 오후 12:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 1:40",
+          "type": "improved",
+          "title": "남쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오후 1:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오후 2:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 2:30",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 3:00",
+          "type": "problem",
+          "title": "북쪽 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 3:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 4:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 4:40",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 5:30",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "3일차 오후 6:20",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오후 6:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오후 7:00",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "3일차 오후 8:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 9:00",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 9:50",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 10:40",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 10:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 11:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "4일차 오전 12:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "4일차 오전 12:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "4일차 오전 1:20",
+          "type": "improved",
+          "title": "주택가 뒷골목의 변화"
+        },
+        {
+          "when": "4일차 오전 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "4일차 오전 1:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 1:50",
+          "type": "improved",
+          "title": "공터 옆 길의 변화"
+        },
+        {
+          "when": "4일차 오전 2:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "4일차 오전 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "4일차 오전 2:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "4일차 오전 3:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "4일차 오전 4:20",
+          "type": "problem",
+          "title": "주택가 뒷골목"
+        },
+        {
+          "when": "4일차 오전 4:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "4일차 오전 5:10",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "4일차 오전 5:20",
+          "type": "improved",
+          "title": "새봄천 산책길의 변화"
+        },
+        {
+          "when": "4일차 오전 6:00",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "4일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 6:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "4일차 오전 6:50",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        }
+      ],
+      "hours": [
+        {
+          "day": 1,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 3,
+          "meanOnRoad": 31.9,
+          "maxOnRoad": 44,
+          "meanStopped": 12.8,
+          "meanTravel": 92,
+          "pedestrians": 13,
+          "engineMsPerCitySecond": 3.25
+        },
+        {
+          "day": 1,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 24,
+          "meanOnRoad": 68.9,
+          "maxOnRoad": 79,
+          "meanStopped": 33.1,
+          "meanTravel": 148,
+          "pedestrians": 20.8,
+          "engineMsPerCitySecond": 5.01
+        },
+        {
+          "day": 1,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 42,
+          "meanOnRoad": 82.1,
+          "maxOnRoad": 89,
+          "meanStopped": 36.6,
+          "meanTravel": 193,
+          "pedestrians": 18.7,
+          "engineMsPerCitySecond": 6.6
+        },
+        {
+          "day": 1,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 42,
+          "meanOnRoad": 62.7,
+          "maxOnRoad": 70,
+          "meanStopped": 28.8,
+          "meanTravel": 226,
+          "pedestrians": 13.1,
+          "engineMsPerCitySecond": 5.21
+        },
+        {
+          "day": 1,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 47,
+          "meanOnRoad": 41.7,
+          "maxOnRoad": 53,
+          "meanStopped": 18.8,
+          "meanTravel": 203,
+          "pedestrians": 8.3,
+          "engineMsPerCitySecond": 3.43
+        },
+        {
+          "day": 1,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 37,
+          "meanOnRoad": 32,
+          "maxOnRoad": 35,
+          "meanStopped": 12.8,
+          "meanTravel": 148,
+          "pedestrians": 12.2,
+          "engineMsPerCitySecond": 3.3
+        },
+        {
+          "day": 1,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 23,
+          "meanOnRoad": 28,
+          "maxOnRoad": 32,
+          "meanStopped": 11.1,
+          "meanTravel": 130,
+          "pedestrians": 9.3,
+          "engineMsPerCitySecond": 2.74
+        },
+        {
+          "day": 1,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 24,
+          "meanOnRoad": 28.2,
+          "maxOnRoad": 31,
+          "meanStopped": 12.5,
+          "meanTravel": 131,
+          "pedestrians": 8.7,
+          "engineMsPerCitySecond": 2.59
+        },
+        {
+          "day": 1,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 25,
+          "meanOnRoad": 32.3,
+          "maxOnRoad": 38,
+          "meanStopped": 12.7,
+          "meanTravel": 146,
+          "pedestrians": 11.5,
+          "engineMsPerCitySecond": 3.15
+        },
+        {
+          "day": 1,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 43,
+          "meanOnRoad": 30.6,
+          "maxOnRoad": 38,
+          "meanStopped": 13.8,
+          "meanTravel": 122,
+          "pedestrians": 11.6,
+          "engineMsPerCitySecond": 2.65
+        },
+        {
+          "day": 1,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 22,
+          "meanOnRoad": 38.8,
+          "maxOnRoad": 53,
+          "meanStopped": 15.8,
+          "meanTravel": 121,
+          "pedestrians": 17.3,
+          "engineMsPerCitySecond": 3.27
+        },
+        {
+          "day": 1,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 44,
+          "meanOnRoad": 61,
+          "maxOnRoad": 71,
+          "meanStopped": 27.8,
+          "meanTravel": 123,
+          "pedestrians": 26.3,
+          "engineMsPerCitySecond": 4.12
+        },
+        {
+          "day": 1,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 50,
+          "meanOnRoad": 64.1,
+          "maxOnRoad": 70,
+          "meanStopped": 27.7,
+          "meanTravel": 138,
+          "pedestrians": 20.8,
+          "engineMsPerCitySecond": 4.55
+        },
+        {
+          "day": 1,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 42,
+          "meanOnRoad": 52.1,
+          "maxOnRoad": 56,
+          "meanStopped": 22.8,
+          "meanTravel": 170,
+          "pedestrians": 14.6,
+          "engineMsPerCitySecond": 3.7
+        },
+        {
+          "day": 1,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 39,
+          "meanOnRoad": 43.3,
+          "maxOnRoad": 51,
+          "meanStopped": 17.6,
+          "meanTravel": 163,
+          "pedestrians": 11.8,
+          "engineMsPerCitySecond": 3.32
+        },
+        {
+          "day": 1,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 28,
+          "meanOnRoad": 22.9,
+          "maxOnRoad": 33,
+          "meanStopped": 8.6,
+          "meanTravel": 169,
+          "pedestrians": 2.8,
+          "engineMsPerCitySecond": 2.41
+        },
+        {
+          "day": 1,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 13,
+          "meanOnRoad": 7.1,
+          "maxOnRoad": 14,
+          "meanStopped": 2.6,
+          "meanTravel": 225,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.46
+        },
+        {
+          "day": 2,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 4,
+          "meanOnRoad": 2,
+          "maxOnRoad": 4,
+          "meanStopped": 0.9,
+          "meanTravel": 136,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.03
+        },
+        {
+          "day": 2,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.3,
+          "maxOnRoad": 1,
+          "meanStopped": 0,
+          "meanTravel": 108,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.17
+        },
+        {
+          "day": 2,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.5,
+          "maxOnRoad": 2,
+          "meanStopped": 0.8,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.27
+        },
+        {
+          "day": 2,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 1.8,
+          "maxOnRoad": 2,
+          "meanStopped": 0.7,
+          "meanTravel": 165,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.44
+        },
+        {
+          "day": 2,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 2,
+          "meanOnRoad": 1.2,
+          "maxOnRoad": 2,
+          "meanStopped": 0.3,
+          "meanTravel": 157,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.3
+        },
+        {
+          "day": 2,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 0,
+          "meanOnRoad": 2.4,
+          "maxOnRoad": 3,
+          "meanStopped": 1,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.64
+        },
+        {
+          "day": 2,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 5,
+          "meanOnRoad": 23.3,
+          "maxOnRoad": 29,
+          "meanStopped": 8.4,
+          "meanTravel": 140,
+          "pedestrians": 7.7,
+          "engineMsPerCitySecond": 2.77
+        },
+        {
+          "day": 2,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 23,
+          "meanOnRoad": 51.3,
+          "maxOnRoad": 60,
+          "meanStopped": 20.6,
+          "meanTravel": 146,
+          "pedestrians": 16,
+          "engineMsPerCitySecond": 4.19
+        },
+        {
+          "day": 2,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 37,
+          "meanOnRoad": 69.8,
+          "maxOnRoad": 77,
+          "meanStopped": 30.3,
+          "meanTravel": 172,
+          "pedestrians": 21.8,
+          "engineMsPerCitySecond": 5.33
+        },
+        {
+          "day": 2,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 38,
+          "meanOnRoad": 72.6,
+          "maxOnRoad": 80,
+          "meanStopped": 34.5,
+          "meanTravel": 191,
+          "pedestrians": 16.9,
+          "engineMsPerCitySecond": 4.89
+        },
+        {
+          "day": 2,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 44,
+          "meanOnRoad": 59.6,
+          "maxOnRoad": 68,
+          "meanStopped": 27.7,
+          "meanTravel": 181,
+          "pedestrians": 12.9,
+          "engineMsPerCitySecond": 3.95
+        },
+        {
+          "day": 2,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 43,
+          "meanOnRoad": 35.8,
+          "maxOnRoad": 50,
+          "meanStopped": 16.8,
+          "meanTravel": 210,
+          "pedestrians": 8.3,
+          "engineMsPerCitySecond": 3.14
+        },
+        {
+          "day": 2,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 26,
+          "meanOnRoad": 33.9,
+          "maxOnRoad": 43,
+          "meanStopped": 15.7,
+          "meanTravel": 156,
+          "pedestrians": 11.8,
+          "engineMsPerCitySecond": 2.8
+        },
+        {
+          "day": 2,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 37,
+          "meanOnRoad": 35.5,
+          "maxOnRoad": 38,
+          "meanStopped": 13.1,
+          "meanTravel": 144,
+          "pedestrians": 10.1,
+          "engineMsPerCitySecond": 3.04
+        },
+        {
+          "day": 2,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 27,
+          "meanOnRoad": 20.5,
+          "maxOnRoad": 25,
+          "meanStopped": 8.3,
+          "meanTravel": 130,
+          "pedestrians": 7.4,
+          "engineMsPerCitySecond": 2.4
+        },
+        {
+          "day": 2,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 23,
+          "meanOnRoad": 25.3,
+          "maxOnRoad": 34,
+          "meanStopped": 10.3,
+          "meanTravel": 99,
+          "pedestrians": 11.2,
+          "engineMsPerCitySecond": 2.66
+        },
+        {
+          "day": 2,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 25,
+          "meanOnRoad": 29.9,
+          "maxOnRoad": 38,
+          "meanStopped": 12.3,
+          "meanTravel": 118,
+          "pedestrians": 10.9,
+          "engineMsPerCitySecond": 2.6
+        },
+        {
+          "day": 2,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 41,
+          "meanOnRoad": 46.5,
+          "maxOnRoad": 52,
+          "meanStopped": 21.3,
+          "meanTravel": 125,
+          "pedestrians": 16.9,
+          "engineMsPerCitySecond": 4.09
+        },
+        {
+          "day": 2,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 43,
+          "meanOnRoad": 62.5,
+          "maxOnRoad": 68,
+          "meanStopped": 25.3,
+          "meanTravel": 121,
+          "pedestrians": 23.8,
+          "engineMsPerCitySecond": 4.17
+        },
+        {
+          "day": 2,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 57,
+          "meanOnRoad": 54.6,
+          "maxOnRoad": 62,
+          "meanStopped": 23.3,
+          "meanTravel": 154,
+          "pedestrians": 17,
+          "engineMsPerCitySecond": 4.13
+        },
+        {
+          "day": 2,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 35,
+          "meanOnRoad": 48.6,
+          "maxOnRoad": 52,
+          "meanStopped": 20.4,
+          "meanTravel": 144,
+          "pedestrians": 19.5,
+          "engineMsPerCitySecond": 3.85
+        },
+        {
+          "day": 2,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 41,
+          "meanOnRoad": 39.8,
+          "maxOnRoad": 48,
+          "meanStopped": 16.2,
+          "meanTravel": 151,
+          "pedestrians": 16.3,
+          "engineMsPerCitySecond": 3.08
+        },
+        {
+          "day": 2,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 20,
+          "meanOnRoad": 23.3,
+          "maxOnRoad": 34,
+          "meanStopped": 9.2,
+          "meanTravel": 160,
+          "pedestrians": 2.1,
+          "engineMsPerCitySecond": 2.52
+        },
+        {
+          "day": 2,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 17,
+          "meanOnRoad": 5.4,
+          "maxOnRoad": 14,
+          "meanStopped": 2.3,
+          "meanTravel": 187,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.46
+        },
+        {
+          "day": 3,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 2,
+          "meanOnRoad": 1.7,
+          "maxOnRoad": 2,
+          "meanStopped": 0.6,
+          "meanTravel": 157,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.33
+        },
+        {
+          "day": 3,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.3,
+          "maxOnRoad": 1,
+          "meanStopped": 0,
+          "meanTravel": 78,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.27
+        },
+        {
+          "day": 3,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 1,
+          "maxOnRoad": 1,
+          "meanStopped": 0.3,
+          "meanTravel": 144,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.24
+        },
+        {
+          "day": 3,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 1.2,
+          "maxOnRoad": 2,
+          "meanStopped": 0.5,
+          "meanTravel": 55,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.3
+        },
+        {
+          "day": 3,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.5,
+          "maxOnRoad": 2,
+          "meanStopped": 0.5,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.19
+        },
+        {
+          "day": 3,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 2,
+          "meanOnRoad": 0.8,
+          "maxOnRoad": 2,
+          "meanStopped": 0.3,
+          "meanTravel": 145,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.5
+        },
+        {
+          "day": 3,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 2,
+          "meanOnRoad": 23,
+          "maxOnRoad": 29,
+          "meanStopped": 8.9,
+          "meanTravel": 90,
+          "pedestrians": 8.1,
+          "engineMsPerCitySecond": 2.52
+        },
+        {
+          "day": 3,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 22,
+          "meanOnRoad": 53.7,
+          "maxOnRoad": 61,
+          "meanStopped": 23.3,
+          "meanTravel": 140,
+          "pedestrians": 15.7,
+          "engineMsPerCitySecond": 4
+        },
+        {
+          "day": 3,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 35,
+          "meanOnRoad": 69.1,
+          "maxOnRoad": 75,
+          "meanStopped": 29.3,
+          "meanTravel": 178,
+          "pedestrians": 19.8,
+          "engineMsPerCitySecond": 4.81
+        },
+        {
+          "day": 3,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 38,
+          "meanOnRoad": 78.6,
+          "maxOnRoad": 89,
+          "meanStopped": 35.2,
+          "meanTravel": 198,
+          "pedestrians": 16.6,
+          "engineMsPerCitySecond": 5.1
+        },
+        {
+          "day": 3,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 50,
+          "meanOnRoad": 61.8,
+          "maxOnRoad": 70,
+          "meanStopped": 28.3,
+          "meanTravel": 200,
+          "pedestrians": 13,
+          "engineMsPerCitySecond": 5.76
+        },
+        {
+          "day": 3,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 42,
+          "meanOnRoad": 37.3,
+          "maxOnRoad": 50,
+          "meanStopped": 15.2,
+          "meanTravel": 224,
+          "pedestrians": 8.8,
+          "engineMsPerCitySecond": 3.53
+        },
+        {
+          "day": 3,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 32,
+          "meanOnRoad": 30.7,
+          "maxOnRoad": 35,
+          "meanStopped": 12.1,
+          "meanTravel": 126,
+          "pedestrians": 12.1,
+          "engineMsPerCitySecond": 2.96
+        },
+        {
+          "day": 3,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 33,
+          "meanOnRoad": 26.8,
+          "maxOnRoad": 35,
+          "meanStopped": 10.4,
+          "meanTravel": 115,
+          "pedestrians": 9.1,
+          "engineMsPerCitySecond": 2.61
+        },
+        {
+          "day": 3,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 20,
+          "meanOnRoad": 27.2,
+          "maxOnRoad": 31,
+          "meanStopped": 11.8,
+          "meanTravel": 129,
+          "pedestrians": 7.8,
+          "engineMsPerCitySecond": 2.78
+        },
+        {
+          "day": 3,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 29,
+          "meanOnRoad": 32.3,
+          "maxOnRoad": 35,
+          "meanStopped": 14.4,
+          "meanTravel": 134,
+          "pedestrians": 11.6,
+          "engineMsPerCitySecond": 2.89
+        },
+        {
+          "day": 3,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 23,
+          "meanOnRoad": 31.3,
+          "maxOnRoad": 39,
+          "meanStopped": 12.8,
+          "meanTravel": 117,
+          "pedestrians": 11.7,
+          "engineMsPerCitySecond": 2.89
+        },
+        {
+          "day": 3,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 38,
+          "meanOnRoad": 47.8,
+          "maxOnRoad": 53,
+          "meanStopped": 20.4,
+          "meanTravel": 146,
+          "pedestrians": 18.6,
+          "engineMsPerCitySecond": 4.13
+        },
+        {
+          "day": 3,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 47,
+          "meanOnRoad": 54.8,
+          "maxOnRoad": 64,
+          "meanStopped": 23,
+          "meanTravel": 121,
+          "pedestrians": 28.8,
+          "engineMsPerCitySecond": 4.06
+        },
+        {
+          "day": 3,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 47,
+          "meanOnRoad": 66.8,
+          "maxOnRoad": 72,
+          "meanStopped": 30.1,
+          "meanTravel": 142,
+          "pedestrians": 23.2,
+          "engineMsPerCitySecond": 4.66
+        },
+        {
+          "day": 3,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 41,
+          "meanOnRoad": 48.5,
+          "maxOnRoad": 55,
+          "meanStopped": 19.2,
+          "meanTravel": 182,
+          "pedestrians": 13.6,
+          "engineMsPerCitySecond": 3.84
+        },
+        {
+          "day": 3,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 32,
+          "meanOnRoad": 44.2,
+          "maxOnRoad": 47,
+          "meanStopped": 18.8,
+          "meanTravel": 165,
+          "pedestrians": 11.4,
+          "engineMsPerCitySecond": 3.47
+        },
+        {
+          "day": 3,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 26,
+          "meanOnRoad": 35.2,
+          "maxOnRoad": 45,
+          "meanStopped": 13.7,
+          "meanTravel": 175,
+          "pedestrians": 2.3,
+          "engineMsPerCitySecond": 2.73
+        },
+        {
+          "day": 3,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 24,
+          "meanOnRoad": 9.7,
+          "maxOnRoad": 20,
+          "meanStopped": 4.3,
+          "meanTravel": 227,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.44
+        },
+        {
+          "day": 4,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 2.1,
+          "maxOnRoad": 3,
+          "meanStopped": 0.8,
+          "meanTravel": 198,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.41
+        },
+        {
+          "day": 4,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 2,
+          "meanOnRoad": 1.3,
+          "maxOnRoad": 2,
+          "meanStopped": 0.3,
+          "meanTravel": 131,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.67
+        },
+        {
+          "day": 4,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 1,
+          "maxOnRoad": 1,
+          "meanStopped": 0.3,
+          "meanTravel": 95,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.23
+        },
+        {
+          "day": 4,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.2,
+          "maxOnRoad": 1,
+          "meanStopped": 0,
+          "meanTravel": 115,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.08
+        },
+        {
+          "day": 4,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.5,
+          "maxOnRoad": 1,
+          "meanStopped": 0.2,
+          "meanTravel": 63,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.3
+        },
+        {
+          "day": 4,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 0,
+          "meanOnRoad": 2.5,
+          "maxOnRoad": 3,
+          "meanStopped": 1.3,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.37
+        },
+        {
+          "day": 4,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 5,
+          "meanOnRoad": 23.3,
+          "maxOnRoad": 29,
+          "meanStopped": 8.3,
+          "meanTravel": 97,
+          "pedestrians": 7.5,
+          "engineMsPerCitySecond": 2.64
+        }
+      ]
+    },
+    {
+      "seed": 2406,
+      "days": 3,
+      "seconds": 8640,
+      "budget": 676,
+      "unreachable": 0,
+      "pendingAtEnd": 0,
+      "peakHour": {
+        "day": 3,
+        "hour": 9,
+        "meanOnRoad": 88.2,
+        "maxOnRoad": 97
+      },
+      "commutes": [
+        {
+          "day": 1,
+          "traffic": 33,
+          "traffic-east": 11.666666666666666,
+          "school-signal": 28.333333333333332
+        },
+        {
+          "day": 2,
+          "traffic": 37.333333333333336,
+          "traffic-east": 8.333333333333334,
+          "school-signal": 31.333333333333332
+        },
+        {
+          "day": 3,
+          "traffic": 41.666666666666664,
+          "traffic-east": 10.333333333333334,
+          "school-signal": 31.666666666666668
+        }
+      ],
+      "problems": [
+        {
+          "when": "1일차 오전 8:00",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "1일차 오전 8:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "1일차 오전 8:50",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "1일차 오전 9:40",
+          "type": "problem",
+          "title": "강너머 출근길"
+        },
+        {
+          "when": "1일차 오전 10:30",
+          "type": "problem",
+          "title": "생활 시설"
+        },
+        {
+          "when": "1일차 오전 11:20",
+          "type": "problem",
+          "title": "작업장 배출구 아래"
+        },
+        {
+          "when": "1일차 오후 12:10",
+          "type": "problem",
+          "title": "동네 상점"
+        },
+        {
+          "when": "1일차 오후 1:00",
+          "type": "problem",
+          "title": "강너머 상점가 수거장"
+        },
+        {
+          "when": "1일차 오후 1:50",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "1일차 오후 2:40",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "1일차 오후 2:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "1일차 오후 3:30",
+          "type": "problem",
+          "title": "주택가 뒷골목"
+        },
+        {
+          "when": "1일차 오후 4:20",
+          "type": "problem",
+          "title": "새봄천 하류"
+        },
+        {
+          "when": "1일차 오후 5:10",
+          "type": "problem",
+          "title": "새봄천 산책길"
+        },
+        {
+          "when": "1일차 오후 6:00",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "1일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "1일차 오후 6:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "1일차 오후 6:50",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "1일차 오후 7:40",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "1일차 오후 8:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "1일차 오후 8:30",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "1일차 오후 9:20",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "1일차 오후 9:30",
+          "type": "improved",
+          "title": "서쪽 끝 주택가 수거장의 변화"
+        },
+        {
+          "when": "1일차 오후 10:10",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "1일차 오후 10:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "1일차 오후 10:50",
+          "type": "improved",
+          "title": "공터 옆 길의 변화"
+        },
+        {
+          "when": "1일차 오후 11:00",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "1일차 오후 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "1일차 오후 11:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오전 12:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오전 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오전 2:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오전 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오전 2:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오전 3:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오전 3:50",
+          "type": "problem",
+          "title": "학교 앞 수거장 수거장"
+        },
+        {
+          "when": "2일차 오전 4:30",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오전 4:50",
+          "type": "problem",
+          "title": "북쪽 주택가 수거장"
+        },
+        {
+          "when": "2일차 오전 5:30",
+          "type": "improved",
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오전 5:40",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
+          "when": "2일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "2일차 오전 6:30",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오전 6:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오전 7:20",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "2일차 오전 8:10",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "2일차 오전 9:00",
+          "type": "problem",
+          "title": "동쪽 상점가 수거장"
+        },
+        {
+          "when": "2일차 오전 9:40",
+          "type": "improved",
+          "title": "새봄천 산책길의 변화"
+        },
+        {
+          "when": "2일차 오전 9:50",
+          "type": "problem",
+          "title": "막히는 등굣길"
+        },
+        {
+          "when": "2일차 오전 10:40",
+          "type": "improved",
+          "title": "동쪽 상점가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오전 10:40",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오전 11:00",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오전 11:30",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "2일차 오후 12:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 12:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 1:20",
+          "type": "improved",
+          "title": "학교 앞 수거장 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 2:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오후 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 2:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오후 3:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오후 3:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 4:40",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오후 4:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 4:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 5:30",
+          "type": "problem",
+          "title": "새봄천 산책길"
+        },
+        {
+          "when": "2일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 6:20",
+          "type": "problem",
+          "title": "강너머 상점가 수거장"
+        },
+        {
+          "when": "2일차 오후 7:00",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "2일차 오후 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "2일차 오후 8:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 9:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오후 9:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 10:10",
+          "type": "improved",
+          "title": "학교 가는 길 주택가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 10:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 10:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 11:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 12:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오전 12:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 1:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 2:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오전 2:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오전 3:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 4:30",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 4:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 5:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 6:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오전 6:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 6:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오전 6:40",
+          "type": "improved",
+          "title": "남쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오전 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오전 8:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오전 8:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오전 9:00",
+          "type": "improved",
+          "title": "북쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오전 9:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오전 9:50",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "3일차 오전 10:40",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 10:40",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "3일차 오전 10:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오전 11:30",
+          "type": "problem",
+          "title": "동쪽 상점가 수거장"
+        },
+        {
+          "when": "3일차 오후 12:20",
+          "type": "problem",
+          "title": "학교 앞 수거장 수거장"
+        },
+        {
+          "when": "3일차 오후 1:10",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 2:00",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 2:30",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 2:50",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 3:40",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오후 4:30",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 4:40",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "3일차 오후 5:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "3일차 오후 6:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 7:00",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 7:00",
+          "type": "improved",
+          "title": "공터 옆 길의 변화"
+        },
+        {
+          "when": "3일차 오후 7:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "3일차 오후 8:10",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "3일차 오후 8:50",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "3일차 오후 9:00",
+          "type": "problem",
+          "title": "북쪽 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 9:50",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오후 10:00",
+          "type": "improved",
+          "title": "서쪽 끝 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오후 10:40",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "3일차 오후 10:50",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 11:30",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "3일차 오후 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 12:20",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "4일차 오전 1:20",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "4일차 오전 1:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 2:10",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "4일차 오전 2:20",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "4일차 오전 2:40",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "4일차 오전 3:00",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "4일차 오전 3:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "4일차 오전 4:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
+        },
+        {
+          "when": "4일차 오전 4:40",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "4일차 오전 4:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 5:30",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "4일차 오전 6:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 6:40",
+          "type": "improved",
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
+          "when": "4일차 오전 7:00",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        }
+      ],
+      "hours": [
+        {
+          "day": 1,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 4,
+          "meanOnRoad": 30.8,
+          "maxOnRoad": 43,
+          "meanStopped": 10.8,
+          "meanTravel": 85,
+          "pedestrians": 13.3,
+          "engineMsPerCitySecond": 2.87
+        },
+        {
+          "day": 1,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 27,
+          "meanOnRoad": 67.6,
+          "maxOnRoad": 74,
+          "meanStopped": 30.6,
+          "meanTravel": 147,
+          "pedestrians": 21.3,
+          "engineMsPerCitySecond": 4.69
+        },
+        {
+          "day": 1,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 39,
+          "meanOnRoad": 77.7,
+          "maxOnRoad": 83,
+          "meanStopped": 33.3,
+          "meanTravel": 191,
+          "pedestrians": 23.9,
+          "engineMsPerCitySecond": 4.74
+        },
+        {
+          "day": 1,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 49,
+          "meanOnRoad": 54.9,
+          "maxOnRoad": 68,
+          "meanStopped": 24.7,
+          "meanTravel": 202,
+          "pedestrians": 12.8,
+          "engineMsPerCitySecond": 3.01
+        },
+        {
+          "day": 1,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 38,
+          "meanOnRoad": 39.3,
+          "maxOnRoad": 50,
+          "meanStopped": 16.3,
+          "meanTravel": 193,
+          "pedestrians": 8.3,
+          "engineMsPerCitySecond": 3.12
+        },
+        {
+          "day": 1,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 32,
+          "meanOnRoad": 31.8,
+          "maxOnRoad": 36,
+          "meanStopped": 12.8,
+          "meanTravel": 151,
+          "pedestrians": 11.3,
+          "engineMsPerCitySecond": 2.23
+        },
+        {
+          "day": 1,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 30,
+          "meanOnRoad": 32.8,
+          "maxOnRoad": 37,
+          "meanStopped": 12.8,
+          "meanTravel": 128,
+          "pedestrians": 10,
+          "engineMsPerCitySecond": 2.51
+        },
+        {
+          "day": 1,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 28,
+          "meanOnRoad": 24.9,
+          "maxOnRoad": 28,
+          "meanStopped": 9.8,
+          "meanTravel": 137,
+          "pedestrians": 7.7,
+          "engineMsPerCitySecond": 2.03
+        },
+        {
+          "day": 1,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 25,
+          "meanOnRoad": 27.8,
+          "maxOnRoad": 32,
+          "meanStopped": 11.5,
+          "meanTravel": 120,
+          "pedestrians": 11.8,
+          "engineMsPerCitySecond": 1.93
+        },
+        {
+          "day": 1,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 35,
+          "meanOnRoad": 27.3,
+          "maxOnRoad": 31,
+          "meanStopped": 13,
+          "meanTravel": 112,
+          "pedestrians": 11.3,
+          "engineMsPerCitySecond": 2.18
+        },
+        {
+          "day": 1,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 29,
+          "meanOnRoad": 41.8,
+          "maxOnRoad": 51,
+          "meanStopped": 15.8,
+          "meanTravel": 118,
+          "pedestrians": 18,
+          "engineMsPerCitySecond": 2.87
+        },
+        {
+          "day": 1,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 46,
+          "meanOnRoad": 63,
+          "maxOnRoad": 71,
+          "meanStopped": 28,
+          "meanTravel": 114,
+          "pedestrians": 26,
+          "engineMsPerCitySecond": 3.76
+        },
+        {
+          "day": 1,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 51,
+          "meanOnRoad": 55.4,
+          "maxOnRoad": 61,
+          "meanStopped": 22.5,
+          "meanTravel": 147,
+          "pedestrians": 20.5,
+          "engineMsPerCitySecond": 3.32
+        },
+        {
+          "day": 1,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 40,
+          "meanOnRoad": 47.8,
+          "maxOnRoad": 51,
+          "meanStopped": 20.3,
+          "meanTravel": 161,
+          "pedestrians": 13.6,
+          "engineMsPerCitySecond": 3.31
+        },
+        {
+          "day": 1,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 32,
+          "meanOnRoad": 40.5,
+          "maxOnRoad": 45,
+          "meanStopped": 16.5,
+          "meanTravel": 146,
+          "pedestrians": 10.2,
+          "engineMsPerCitySecond": 2.75
+        },
+        {
+          "day": 1,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 31,
+          "meanOnRoad": 26.7,
+          "maxOnRoad": 39,
+          "meanStopped": 11.5,
+          "meanTravel": 181,
+          "pedestrians": 2.1,
+          "engineMsPerCitySecond": 1.86
+        },
+        {
+          "day": 1,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 15,
+          "meanOnRoad": 5.4,
+          "maxOnRoad": 10,
+          "meanStopped": 1.9,
+          "meanTravel": 171,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.41
+        },
+        {
+          "day": 2,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.3,
+          "maxOnRoad": 1,
+          "meanStopped": 0.1,
+          "meanTravel": 92,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 0.97
+        },
+        {
+          "day": 2,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.5,
+          "maxOnRoad": 2,
+          "meanStopped": 0.8,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.07
+        },
+        {
+          "day": 2,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 2,
+          "meanOnRoad": 1.7,
+          "maxOnRoad": 2,
+          "meanStopped": 0.8,
+          "meanTravel": 165,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.12
+        },
+        {
+          "day": 2,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 1.3,
+          "maxOnRoad": 2,
+          "meanStopped": 0.5,
+          "meanTravel": 153,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 0.91
+        },
+        {
+          "day": 2,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.4,
+          "maxOnRoad": 2,
+          "meanStopped": 0.5,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.02
+        },
+        {
+          "day": 2,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 2,
+          "meanOnRoad": 2.7,
+          "maxOnRoad": 4,
+          "meanStopped": 0.7,
+          "meanTravel": 189,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.09
+        },
+        {
+          "day": 2,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 5,
+          "meanOnRoad": 23.3,
+          "maxOnRoad": 28,
+          "meanStopped": 8,
+          "meanTravel": 89,
+          "pedestrians": 7.8,
+          "engineMsPerCitySecond": 2.34
+        },
+        {
+          "day": 2,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 23,
+          "meanOnRoad": 46.2,
+          "maxOnRoad": 51,
+          "meanStopped": 20.3,
+          "meanTravel": 147,
+          "pedestrians": 16.8,
+          "engineMsPerCitySecond": 3.44
+        },
+        {
+          "day": 2,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 35,
+          "meanOnRoad": 65.4,
+          "maxOnRoad": 72,
+          "meanStopped": 30.1,
+          "meanTravel": 151,
+          "pedestrians": 21.2,
+          "engineMsPerCitySecond": 4.16
+        },
+        {
+          "day": 2,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 39,
+          "meanOnRoad": 77.5,
+          "maxOnRoad": 85,
+          "meanStopped": 36.8,
+          "meanTravel": 181,
+          "pedestrians": 15,
+          "engineMsPerCitySecond": 4.22
+        },
+        {
+          "day": 2,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 46,
+          "meanOnRoad": 55.9,
+          "maxOnRoad": 63,
+          "meanStopped": 26.5,
+          "meanTravel": 209,
+          "pedestrians": 10.8,
+          "engineMsPerCitySecond": 3.14
+        },
+        {
+          "day": 2,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 42,
+          "meanOnRoad": 37.6,
+          "maxOnRoad": 47,
+          "meanStopped": 18,
+          "meanTravel": 177,
+          "pedestrians": 8.9,
+          "engineMsPerCitySecond": 2.59
+        },
+        {
+          "day": 2,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 30,
+          "meanOnRoad": 34.1,
+          "maxOnRoad": 37,
+          "meanStopped": 14.3,
+          "meanTravel": 155,
+          "pedestrians": 11.3,
+          "engineMsPerCitySecond": 2.29
+        },
+        {
+          "day": 2,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 34,
+          "meanOnRoad": 26.5,
+          "maxOnRoad": 34,
+          "meanStopped": 12,
+          "meanTravel": 137,
+          "pedestrians": 8.9,
+          "engineMsPerCitySecond": 2.21
+        },
+        {
+          "day": 2,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 21,
+          "meanOnRoad": 21.9,
+          "maxOnRoad": 27,
+          "meanStopped": 8.4,
+          "meanTravel": 114,
+          "pedestrians": 7.7,
+          "engineMsPerCitySecond": 1.85
+        },
+        {
+          "day": 2,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 22,
+          "meanOnRoad": 26.4,
+          "maxOnRoad": 38,
+          "meanStopped": 11.9,
+          "meanTravel": 127,
+          "pedestrians": 11.2,
+          "engineMsPerCitySecond": 2.04
+        },
+        {
+          "day": 2,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 36,
+          "meanOnRoad": 36.4,
+          "maxOnRoad": 44,
+          "meanStopped": 16.5,
+          "meanTravel": 115,
+          "pedestrians": 10.7,
+          "engineMsPerCitySecond": 2.45
+        },
+        {
+          "day": 2,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 33,
+          "meanOnRoad": 44.8,
+          "maxOnRoad": 53,
+          "meanStopped": 19,
+          "meanTravel": 120,
+          "pedestrians": 17.6,
+          "engineMsPerCitySecond": 2.93
+        },
+        {
+          "day": 2,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 48,
+          "meanOnRoad": 59.3,
+          "maxOnRoad": 65,
+          "meanStopped": 24.4,
+          "meanTravel": 133,
+          "pedestrians": 22.7,
+          "engineMsPerCitySecond": 3.54
+        },
+        {
+          "day": 2,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 52,
+          "meanOnRoad": 55.9,
+          "maxOnRoad": 63,
+          "meanStopped": 24.6,
+          "meanTravel": 139,
+          "pedestrians": 18.3,
+          "engineMsPerCitySecond": 3.31
+        },
+        {
+          "day": 2,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 38,
+          "meanOnRoad": 49.3,
+          "maxOnRoad": 56,
+          "meanStopped": 19.8,
+          "meanTravel": 164,
+          "pedestrians": 14.7,
+          "engineMsPerCitySecond": 3.11
+        },
+        {
+          "day": 2,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 34,
+          "meanOnRoad": 43.8,
+          "maxOnRoad": 50,
+          "meanStopped": 19,
+          "meanTravel": 160,
+          "pedestrians": 11,
+          "engineMsPerCitySecond": 2.81
+        },
+        {
+          "day": 2,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 29,
+          "meanOnRoad": 23.6,
+          "maxOnRoad": 40,
+          "meanStopped": 9.3,
+          "meanTravel": 170,
+          "pedestrians": 2.4,
+          "engineMsPerCitySecond": 1.87
+        },
+        {
+          "day": 2,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 12,
+          "meanOnRoad": 6.6,
+          "maxOnRoad": 12,
+          "meanStopped": 2.4,
+          "meanTravel": 200,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.17
+        },
+        {
+          "day": 3,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 4,
+          "meanOnRoad": 1.5,
+          "maxOnRoad": 3,
+          "meanStopped": 0.5,
+          "meanTravel": 160,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.19
+        },
+        {
+          "day": 3,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.1,
+          "maxOnRoad": 2,
+          "meanStopped": 0.3,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.04
+        },
+        {
+          "day": 3,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 2,
+          "meanOnRoad": 1.3,
+          "maxOnRoad": 2,
+          "meanStopped": 0.5,
+          "meanTravel": 106,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 0.86
+        },
+        {
+          "day": 3,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 1.4,
+          "maxOnRoad": 2,
+          "meanStopped": 0.4,
+          "meanTravel": 57,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 0.87
+        },
+        {
+          "day": 3,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.5,
+          "maxOnRoad": 1,
+          "meanStopped": 0.2,
+          "meanTravel": 235,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 0.93
+        },
+        {
+          "day": 3,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 1,
+          "meanOnRoad": 1.2,
+          "maxOnRoad": 2,
+          "meanStopped": 0.3,
+          "meanTravel": 152,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.14
+        },
+        {
+          "day": 3,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 4,
+          "meanOnRoad": 23.1,
+          "maxOnRoad": 30,
+          "meanStopped": 8.5,
+          "meanTravel": 83,
+          "pedestrians": 8.3,
+          "engineMsPerCitySecond": 2.09
+        },
+        {
+          "day": 3,
+          "hour": 7,
+          "scheduled": 46,
+          "arrived": 22,
+          "meanOnRoad": 49.7,
+          "maxOnRoad": 56,
+          "meanStopped": 20.5,
+          "meanTravel": 158,
+          "pedestrians": 15.3,
+          "engineMsPerCitySecond": 3.49
+        },
+        {
+          "day": 3,
+          "hour": 8,
+          "scheduled": 52,
+          "arrived": 30,
+          "meanOnRoad": 70.4,
+          "maxOnRoad": 76,
+          "meanStopped": 32.3,
+          "meanTravel": 163,
+          "pedestrians": 20.7,
+          "engineMsPerCitySecond": 5.71
+        },
+        {
+          "day": 3,
+          "hour": 9,
+          "scheduled": 40,
+          "arrived": 32,
+          "meanOnRoad": 88.2,
+          "maxOnRoad": 97,
+          "meanStopped": 40.2,
+          "meanTravel": 212,
+          "pedestrians": 16.1,
+          "engineMsPerCitySecond": 4.6
+        },
+        {
+          "day": 3,
+          "hour": 10,
+          "scheduled": 29,
+          "arrived": 60,
+          "meanOnRoad": 66.8,
+          "maxOnRoad": 75,
+          "meanStopped": 32.5,
+          "meanTravel": 217,
+          "pedestrians": 12.6,
+          "engineMsPerCitySecond": 3.71
+        },
+        {
+          "day": 3,
+          "hour": 11,
+          "scheduled": 23,
+          "arrived": 37,
+          "meanOnRoad": 39.8,
+          "maxOnRoad": 51,
+          "meanStopped": 19.5,
+          "meanTravel": 201,
+          "pedestrians": 8.4,
+          "engineMsPerCitySecond": 2.64
+        },
+        {
+          "day": 3,
+          "hour": 12,
+          "scheduled": 35,
+          "arrived": 37,
+          "meanOnRoad": 33,
+          "maxOnRoad": 37,
+          "meanStopped": 13.8,
+          "meanTravel": 170,
+          "pedestrians": 11.9,
+          "engineMsPerCitySecond": 2.59
+        },
+        {
+          "day": 3,
+          "hour": 13,
+          "scheduled": 23,
+          "arrived": 25,
+          "meanOnRoad": 34.6,
+          "maxOnRoad": 38,
+          "meanStopped": 13.5,
+          "meanTravel": 142,
+          "pedestrians": 8.7,
+          "engineMsPerCitySecond": 2.77
+        },
+        {
+          "day": 3,
+          "hour": 14,
+          "scheduled": 23,
+          "arrived": 30,
+          "meanOnRoad": 25.5,
+          "maxOnRoad": 28,
+          "meanStopped": 11,
+          "meanTravel": 138,
+          "pedestrians": 7.5,
+          "engineMsPerCitySecond": 2.21
+        },
+        {
+          "day": 3,
+          "hour": 15,
+          "scheduled": 34,
+          "arrived": 24,
+          "meanOnRoad": 30.4,
+          "maxOnRoad": 34,
+          "meanStopped": 12.6,
+          "meanTravel": 128,
+          "pedestrians": 11.6,
+          "engineMsPerCitySecond": 2.52
+        },
+        {
+          "day": 3,
+          "hour": 16,
+          "scheduled": 29,
+          "arrived": 32,
+          "meanOnRoad": 31.7,
+          "maxOnRoad": 34,
+          "meanStopped": 12.4,
+          "meanTravel": 127,
+          "pedestrians": 11.1,
+          "engineMsPerCitySecond": 2.6
+        },
+        {
+          "day": 3,
+          "hour": 17,
+          "scheduled": 52,
+          "arrived": 29,
+          "meanOnRoad": 42.3,
+          "maxOnRoad": 54,
+          "meanStopped": 19.2,
+          "meanTravel": 126,
+          "pedestrians": 18.3,
+          "engineMsPerCitySecond": 3.03
+        },
+        {
+          "day": 3,
+          "hour": 18,
+          "scheduled": 58,
+          "arrived": 46,
+          "meanOnRoad": 66.9,
+          "maxOnRoad": 71,
+          "meanStopped": 33.3,
+          "meanTravel": 113,
+          "pedestrians": 24.8,
+          "engineMsPerCitySecond": 3.99
+        },
+        {
+          "day": 3,
+          "hour": 19,
+          "scheduled": 40,
+          "arrived": 40,
+          "meanOnRoad": 62.8,
+          "maxOnRoad": 68,
+          "meanStopped": 30.2,
+          "meanTravel": 161,
+          "pedestrians": 15.9,
+          "engineMsPerCitySecond": 4.2
+        },
+        {
+          "day": 3,
+          "hour": 20,
+          "scheduled": 34,
+          "arrived": 49,
+          "meanOnRoad": 54.5,
+          "maxOnRoad": 62,
+          "meanStopped": 22.4,
+          "meanTravel": 191,
+          "pedestrians": 14.5,
+          "engineMsPerCitySecond": 3.04
+        },
+        {
+          "day": 3,
+          "hour": 21,
+          "scheduled": 29,
+          "arrived": 34,
+          "meanOnRoad": 50.8,
+          "maxOnRoad": 57,
+          "meanStopped": 22.5,
+          "meanTravel": 163,
+          "pedestrians": 11.3,
+          "engineMsPerCitySecond": 3.3
+        },
+        {
+          "day": 3,
+          "hour": 22,
+          "scheduled": 3,
+          "arrived": 34,
+          "meanOnRoad": 27.6,
+          "maxOnRoad": 44,
+          "meanStopped": 10.2,
+          "meanTravel": 188,
+          "pedestrians": 1.9,
+          "engineMsPerCitySecond": 1.87
+        },
+        {
+          "day": 3,
+          "hour": 23,
+          "scheduled": 2,
+          "arrived": 15,
+          "meanOnRoad": 7.6,
+          "maxOnRoad": 15,
+          "meanStopped": 3.6,
+          "meanTravel": 223,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.05
+        },
+        {
+          "day": 4,
+          "hour": 0,
+          "scheduled": 1,
+          "arrived": 4,
+          "meanOnRoad": 1.3,
+          "maxOnRoad": 3,
+          "meanStopped": 0.2,
+          "meanTravel": 108,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 0.97
+        },
+        {
+          "day": 4,
+          "hour": 1,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.8,
+          "maxOnRoad": 1,
+          "meanStopped": 0.1,
+          "meanTravel": 99,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.08
+        },
+        {
+          "day": 4,
+          "hour": 2,
+          "scheduled": 1,
+          "arrived": 0,
+          "meanOnRoad": 0.2,
+          "maxOnRoad": 1,
+          "meanStopped": 0.1,
+          "meanTravel": null,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.02
+        },
+        {
+          "day": 4,
+          "hour": 3,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 0.7,
+          "maxOnRoad": 1,
+          "meanStopped": 0.3,
+          "meanTravel": 81,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 0.95
+        },
+        {
+          "day": 4,
+          "hour": 4,
+          "scheduled": 1,
+          "arrived": 1,
+          "meanOnRoad": 1.8,
+          "maxOnRoad": 2,
+          "meanStopped": 0.6,
+          "meanTravel": 89,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.14
+        },
+        {
+          "day": 4,
+          "hour": 5,
+          "scheduled": 2,
+          "arrived": 2,
+          "meanOnRoad": 1.3,
+          "maxOnRoad": 2,
+          "meanStopped": 0.3,
+          "meanTravel": 114,
+          "pedestrians": 0,
+          "engineMsPerCitySecond": 1.07
+        },
+        {
+          "day": 4,
+          "hour": 6,
+          "scheduled": 29,
+          "arrived": 6,
+          "meanOnRoad": 21.4,
+          "maxOnRoad": 26,
+          "meanStopped": 8.4,
+          "meanTravel": 81,
+          "pedestrians": 7.6,
+          "engineMsPerCitySecond": 2.45
+        }
+      ]
+    }
+  ]
+}

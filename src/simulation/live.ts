@@ -22,10 +22,29 @@ import { validateParcelUses, type ParcelUse } from "../city/parcels";
 import { createDemand, SCHOOL_NODE, seededRandom } from "../scenario";
 import {
   createCityDemand,
+  createHourlyDemand,
   CITY_TRAFFIC_INTERVAL,
   CITY_TRAFFIC_COUNT,
+  HOURLY_PEDESTRIANS,
 } from "./city-demand";
-import { createPedestrianDemand } from "./pedestrians";
+import {
+  createPedestrianDemand,
+  SCHOOL_WALKS,
+  NEIGHBORHOOD_WALKS,
+} from "./pedestrians";
+import {
+  dayClock,
+  formatDayClock,
+  inCommute,
+  nextHourAt,
+  BUDGET_HOUR,
+  COMMUTE_FROM,
+  COMMUTE_UNTIL,
+  DAILY_BUDGET,
+  HOUR_SECONDS,
+  START_HOUR,
+  type DayClock,
+} from "./day-clock";
 import type { ResidentVoice } from "./residents";
 import type { PlacementTarget } from "../renderer/placement";
 import type { AppliedPolicyMap } from "../policies/map";
@@ -104,7 +123,7 @@ export const LIVE_POLICIES = [
     title: "출근 시간 나누기",
     cost: 20,
     description:
-      "강너머 산업지구로 출근하는 차가 한꺼번에 몰리지 않게 출발 시간을 나눠요. 다음 교통 주기부터 적용해요.",
+      "강너머 산업지구로 출근하는 차가 한꺼번에 몰리지 않게 출발 시간을 나눠요. 다음 출근 시간부터 적용해요.",
     tradeoff: "차량 수는 그대로예요. 일찍 또는 늦게 출근하는 작업자가 생겨요.",
   },
   {
@@ -281,7 +300,25 @@ export interface LiveSave {
   eastBankFrom?: number;
   /** First tick of the shop across the river and its deliveries. */
   eastShopFrom?: number;
+  /** Start of the daily cycle (07:00 of day 1); absent in saves from the five-minute model. */
+  dailyCycleFrom?: number;
 }
+/** Morning commute series judged window by window in the daily cycle. */
+type CommuteKey = "traffic" | "traffic-east" | "school-signal";
+/**
+ * Commute problems in the daily cycle compare the mean of the three highest
+ * checks in a commute window. Measured over 3 seeds × 2 days (DAILY_CYCLE.md):
+ * west 33–40 without policy, 20–31 with signals and patrol; east 5.7–11.7
+ * without policy, 3.7–7.3 with the stagger and east signals.
+ */
+const COMMUTE_LIMITS = {
+  traffic: { high: 32, low: 29 },
+  "traffic-east": { high: 8, low: 5 },
+} as const;
+const topThreeMean = (values: readonly number[]) => {
+  const top = [...values].sort((a, b) => b - a).slice(0, 3);
+  return top.length ? top.reduce((n, v) => n + v, 0) / top.length : 0;
+};
 
 /** One transport engine and one clock. Domain services never advance their own traffic. */
 export class LiveCitySimulation extends DumpingSimulation {
@@ -320,12 +357,22 @@ export class LiveCitySimulation extends DumpingSimulation {
     before: number;
     at: number;
     done?: boolean;
+    /** Daily cycle: compare the commute window after the effect starts. */
+    window?: CommuteKey;
   }[] = [];
+  /** Samples (every 20 s) of the commute window in progress. */
+  private commuteSamples = new Map<CommuteKey, number[]>();
+  /** Mean of the three highest samples in the last finished commute window. */
+  private commutePeaks = new Map<CommuteKey, number>();
   constructor(readonly seed = 2404, public cityTrafficFrom = 0, public vehicleAccessFrom = 0,
     public vehicleArrivalFrom = 0, public trafficRoutingFrom = 0, public eastBankFrom = 0,
-    public eastShopFrom = 0) {
+    public eastShopFrom = 0, public dailyCycleFrom = 0) {
     super(seed, [], undefined, undefined, CITY_TRAFFIC_COUNT);
-    if (cityTrafficFrom === 0)
+    if (dailyCycleFrom === 0) {
+      // The first hour (07:00) is scheduled here; later hours start in step().
+      this.demand = this.hourTrips(0, eastBankFrom === 0);
+      this.pedestrians.demand = this.hourPedestrians(0);
+    } else if (cityTrafficFrom === 0)
       this.demand = createCityDemand(seed, false, eastBankFrom === 0);
     this.parking = new LiveParkingSimulation(seed, [], undefined, [], [], this);
     this.logistics = new LogisticsSimulation(seed, [], undefined, 0, this);
@@ -345,6 +392,37 @@ export class LiveCitySimulation extends DumpingSimulation {
     return this.usesVehicleArrivals && this.time + 1e-8 >= this.trafficRoutingFrom;
   }
   get usesEastBank() { return this.time + 1e-8 >= this.eastBankFrom; }
+  get usesDailyCycle() { return this.time + 1e-8 >= this.dailyCycleFrom; }
+  /** The day and hour, once the daily cycle has started. */
+  get clock(): DayClock | undefined {
+    return this.usesDailyCycle ? dayClock(this.time, this.dailyCycleFrom) : undefined;
+  }
+  /** A moment in the city's history, as students read it. */
+  timeLabel(time: number) {
+    return time + 1e-8 >= this.dailyCycleFrom
+      ? formatDayClock(dayClock(time, this.dailyCycleFrom))
+      : `${time.toFixed(0)}초`;
+  }
+  /** Departures for one hour counted from the switch, relative to that hour's start. */
+  private hourTrips(hourIndex: number, rush: boolean) {
+    const hour = (START_HOUR + hourIndex) % 24;
+    return createHourlyDemand(
+      this.seed + 100000 + hourIndex,
+      hour,
+      this.has("production"),
+      rush,
+    ).map((t) => ({ ...t, id: 5000000 + hourIndex * 1000 + t.id }));
+  }
+  private hourPedestrians(hourIndex: number) {
+    const hour = (START_HOUR + hourIndex) % 24;
+    const school = hour === 7 || hour === 8 || hour === 15;
+    return createPedestrianDemand(
+      this.seed + 100000 + hourIndex,
+      HOURLY_PEDESTRIANS[hour],
+      HOUR_SECONDS - 5,
+      school ? SCHOOL_WALKS : NEIGHBORHOOD_WALKS,
+    ).map((t) => ({ ...t, id: 5000000 + hourIndex * 1000 + t.id }));
+  }
   get usesEastShop() { return this.time + 1e-8 >= this.eastShopFrom; }
   /** Older cities gain the shop collection point only once the east bank starts. */
   private openEastBank() {
@@ -504,7 +582,27 @@ export class LiveCitySimulation extends DumpingSimulation {
       this.removedFromBoom += this.water.captured;
       this.water.captured = 0;
     }
-    if (second % CITY_TRAFFIC_INTERVAL === 0) {
+    if (this.usesDailyCycle) {
+      // dailyCycleFrom is a whole second, so hour starts fall on whole seconds.
+      const elapsed = second - this.dailyCycleFrom;
+      if (elapsed >= 0 && elapsed % HOUR_SECONDS === 0) {
+        const hourIndex = elapsed / HOUR_SECONDS;
+        if ((START_HOUR + hourIndex) % 24 === BUDGET_HOUR) this.budget += DAILY_BUDGET;
+        const rush = this.usesEastBank && !this.has("stagger");
+        this.scheduleDemand(
+          this.hourTrips(hourIndex, rush).map((t) => ({
+            ...t,
+            departAt: this.time + t.departAt,
+          })),
+        );
+        this.pedestrians.scheduleDemand(
+          this.hourPedestrians(hourIndex).map((t) => ({
+            ...t,
+            departAt: this.time + t.departAt,
+          })),
+        );
+      }
+    } else if (second % CITY_TRAFFIC_INTERVAL === 0) {
       this.budget += 20;
       const w = this.trafficWave++,
         production = this.has("production"),
@@ -570,7 +668,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       if (second >= f.at && !f.done) {
         f.done = true;
         const p = LIVE_POLICIES.find((p) => p.id === f.action.id)!;
-        const after = this.measure(p.topic, f.action.target),
+        const after = f.window
+            ? this.commutePeaks.get(f.window) ?? this.measure(p.topic, f.action.target)
+            : this.measure(p.topic, f.action.target),
           delta = after - f.before;
         const traffic = ["signal", "stagger"].includes(f.action.id);
         const text = cityChangeText(
@@ -589,7 +689,9 @@ export class LiveCitySimulation extends DumpingSimulation {
           this.place(p.topic).facilityId,
           target?.position ?? this.place(p.topic).position,
         );
-        event.evidence = `${target?.name ?? "도시 전체"} · ${measurement}: 시행 전 ${f.before.toFixed(1)} → 지금 ${after.toFixed(1)}. 다른 정책과 생활 변화도 함께 반영돼요.`;
+        event.evidence = f.window
+          ? `${target?.name ?? "도시 전체"} · ${measurement}: 시행 전 출근 시간 ${f.before.toFixed(1)} → 효과가 시작된 뒤 출근 시간 ${after.toFixed(1)}. 같은 시간대끼리 비교했고, 다른 정책과 생활 변화도 함께 반영돼요.`
+          : `${target?.name ?? "도시 전체"} · ${measurement}: 시행 전 ${f.before.toFixed(1)} → 지금 ${after.toFixed(1)}. 다른 정책과 생활 변화도 함께 반영돼요.`;
       }
     this.presentStory();
     if (second % 60 === 0) {
@@ -833,7 +935,17 @@ export class LiveCitySimulation extends DumpingSimulation {
       reason: reason.slice(0, 400),
     };
     this.actions.push(action);
-    this.feedback.push({ action, before, at: this.time + 120 });
+    // Daily cycle: commute policies are compared with a whole commute after
+    // they take effect, not with the quiet hours two minutes later.
+    const window: CommuteKey | undefined =
+      this.usesDailyCycle && (id === "signal" || id === "stagger")
+        ? target === SCHOOL_NODE ? "school-signal" : "traffic-east"
+        : undefined;
+    this.feedback.push(
+      window
+        ? { action, before, at: this.commuteEndAfter(this.effectReadyAt(action)), window }
+        : { action, before, at: this.time + 120 },
+    );
     this.emit(
       "policy",
       p.topic,
@@ -854,20 +966,27 @@ export class LiveCitySimulation extends DumpingSimulation {
     this.revision++;
   }
   private trafficMeasurement(action: CityAction) {
+    const daily = action.time + 1e-8 >= this.dailyCycleFrom;
     return action.id === "signal" && action.target === SCHOOL_NODE
-      ? "교차로 주변 정차 차량 수"
-      : "강 건너 출근길 정차 차량 수(최근 5분 중 많던 때)";
+      ? daily
+        ? "교차로 주변 정차 차량 수(출근 시간 중 많던 때)"
+        : "교차로 주변 정차 차량 수"
+      : daily
+        ? "강 건너 출근길 정차 차량 수(출근 시간 중 많던 때)"
+        : "강 건너 출근길 정차 차량 수(최근 5분 중 많던 때)";
+  }
+  /** End of the first whole morning commute that starts after `time`. */
+  private commuteEndAfter(time: number) {
+    return nextHourAt(time, this.dailyCycleFrom, COMMUTE_FROM) +
+      (COMMUTE_UNTIL - COMMUTE_FROM) * HOUR_SECONDS;
   }
   private measure(topic: Topic, target: string) {
     if (target === EAST_SIGNAL_TARGET || target === STAGGER_TARGET)
-      return this.eastRushPeak;
+      return this.usesDailyCycle ? this.commuteLevel("traffic-east") : this.eastRushPeak;
     if (topic === "parking" && target === SCHOOL_NODE)
-      return this.stats.roads
-        .filter((r) =>
-          [...RESPONSIVE_SIGNAL_NODES].some(id =>
-            this.network.nodes.get(id)!.connectedRoadIds.includes(r.id)),
-        )
-        .reduce((n, r) => n + r.stopped, 0);
+      return this.usesDailyCycle
+        ? this.commuteLevel("school-signal")
+        : this.schoolSignalStopped;
     if (topic === "parking" && LIVE_PARKING_SITES.some((s) => s.id === target))
       return this.parking.parkingStats.sites.find((s) => s.id === target)!
         .illegal;
@@ -954,8 +1073,56 @@ export class LiveCitySimulation extends DumpingSimulation {
     if (this.news.length > 120) this.news.shift();
     return event;
   }
+  private commuteValue(key: CommuteKey) {
+    if (key === "traffic-east") return this.eastStopped;
+    if (key === "school-signal") return this.schoolSignalStopped;
+    return this.usesEastBank ? this.stats.stopped - this.eastStopped : this.stats.stopped;
+  }
+  private get schoolSignalStopped() {
+    return this.stats.roads
+      .filter((r) =>
+        [...RESPONSIVE_SIGNAL_NODES].some(id =>
+          this.network.nodes.get(id)!.connectedRoadIds.includes(r.id)),
+      )
+      .reduce((n, r) => n + r.stopped, 0);
+  }
+  /**
+   * Daily cycle: sample the morning commute every 20 s and close the window
+   * when it ends. Returns the windows that closed on this check.
+   */
+  private trackCommute() {
+    const closed = new Map<CommuteKey, number>();
+    const clock = this.clock;
+    if (!clock) return closed;
+    const keys: CommuteKey[] = ["traffic", "traffic-east", "school-signal"];
+    if (inCommute(clock.hour)) {
+      for (const key of keys) {
+        const samples = this.commuteSamples.get(key) ?? [];
+        samples.push(this.commuteValue(key));
+        this.commuteSamples.set(key, samples);
+      }
+    } else if (this.commuteSamples.size) {
+      for (const [key, samples] of this.commuteSamples) {
+        const peak = topThreeMean(samples);
+        this.commutePeaks.set(key, peak);
+        closed.set(key, peak);
+      }
+      this.commuteSamples.clear();
+    }
+    return closed;
+  }
+  /** The commute so far today, or the last finished one outside the window. */
+  private commuteLevel(key: CommuteKey) {
+    const samples = this.commuteSamples.get(key);
+    return samples?.length
+      ? topThreeMean(samples)
+      : this.commutePeaks.get(key) ?? this.commuteValue(key);
+  }
   private detectIssues() {
     const east = this.usesEastBank;
+    const daily = this.usesDailyCycle;
+    const commute = daily && inCommute(this.clock!.hour);
+    const closed = this.trackCommute();
     const conditions = [
       ...(east ? LIVE_PARKING_SITES : PARKING_SITES).map((s) => ({
         key: `parking-${s.id}`,
@@ -997,9 +1164,10 @@ export class LiveCitySimulation extends DumpingSimulation {
         key: "traffic",
         topic: "parking" as const,
         // Once the east bank has its own alert, the school route counts only its bank.
-        value: east ? this.stats.stopped - this.eastStopped : this.stats.stopped,
-        high: 15,
-        low: 6,
+        value: daily ? this.commuteLevel("traffic") : this.commuteValue("traffic"),
+        windowed: daily,
+        high: daily ? COMMUTE_LIMITS.traffic.high : 15,
+        low: daily ? COMMUTE_LIMITS.traffic.low : 6,
         title: "막히는 등굣길",
         text: "길에서 기다리는 차가 많아졌어요. 불법주차와 신호를 함께 살펴봐 주세요.",
         facilityId: "b6",
@@ -1010,9 +1178,10 @@ export class LiveCitySimulation extends DumpingSimulation {
             {
               key: "traffic-east",
               topic: "parking" as const,
-              value: this.eastRushPeak,
-              high: 12,
-              low: 9,
+              value: daily ? this.commuteLevel("traffic-east") : this.eastRushPeak,
+              windowed: daily,
+              high: daily ? COMMUTE_LIMITS["traffic-east"].high : 12,
+              low: daily ? COMMUTE_LIMITS["traffic-east"].low : 9,
               title: "강너머 출근길",
               text: "산업지구로 출근하는 차가 한꺼번에 몰려 길이 막혀요. 출근 시간과 신호를 함께 살펴봐 주세요.",
               facilityId: "b15",
@@ -1064,20 +1233,33 @@ export class LiveCitySimulation extends DumpingSimulation {
     ];
     const measurement = (c: (typeof conditions)[number]) =>
       c.key === "traffic"
-        ? "도로 위 정차 차량"
+        ? daily
+          ? "도로 위 정차 차량(출근 시간 중 많던 때)"
+          : "도로 위 정차 차량"
         : c.key === "traffic-east"
-          ? "강 건너 출근길 정차 차량(최근 5분 중 많던 때)"
+          ? daily
+            ? "강 건너 출근길 정차 차량(출근 시간 중 많던 때)"
+            : "강 건너 출근길 정차 차량(최근 5분 중 많던 때)"
           : c.key === "water-outlet"
             ? "배출구 아래의 가상 오염도"
             : c.key.startsWith("collection-")
               ? "수거장에 남은 봉투"
               : this.unit(c.topic);
     for (const c of conditions) {
-      if (!this.issues.has(c.key) && c.value >= c.high) {
+      // Daily cycle: commute problems appear only during the commute and are
+      // judged better once a whole commute stays low, not when it simply ends.
+      const windowed = "windowed" in c && c.windowed === true;
+      const finished = windowed ? closed.get(c.key as CommuteKey) : undefined;
+      const value = finished ?? c.value;
+      if (!this.issues.has(c.key) && c.value >= c.high && (!windowed || commute)) {
         if (!this.pendingIssues.has(c.key))
           this.pendingIssues.set(c.key, this.time);
       } else this.pendingIssues.delete(c.key);
-      if (c.value <= c.low && this.issues.has(c.key)) {
+      if (
+        (windowed ? finished !== undefined : true) &&
+        value <= c.low &&
+        this.issues.has(c.key)
+      ) {
         this.issues.delete(c.key);
         const event = this.emit(
           "improved",
@@ -1094,7 +1276,9 @@ export class LiveCitySimulation extends DumpingSimulation {
           c.facilityId,
           c.position,
         );
-        event.evidence = `변화 확인 시점 ${event.time.toFixed(0)}초 · ${c.title} · ${measurement(c)} ${c.value.toFixed(1)}`;
+        event.evidence = finished !== undefined
+          ? `변화 확인 시점 ${this.timeLabel(event.time)} · ${c.title} · 오늘 출근 시간(${COMMUTE_FROM}~${COMMUTE_UNTIL}시) 중 정차 차량이 많던 때 ${value.toFixed(1)}`
+          : `변화 확인 시점 ${this.timeLabel(event.time)} · ${c.title} · ${measurement(c)} ${c.value.toFixed(1)}`;
       }
     }
     if (this.time < this.nextIssueAt) return;
@@ -1115,9 +1299,12 @@ export class LiveCitySimulation extends DumpingSimulation {
     const last = east
       ? [...this.news].reverse().find((n) => n.type === "problem")?.position
       : undefined;
+    // Commute problems can only be heard during the commute: they go first.
+    const commuteReady = ready.filter((c) => "windowed" in c && c.windowed === true);
+    const pool = commuteReady.length ? commuteReady : ready;
     const c =
-      (last && ready.find((c) => acrossRiver(c.position) !== acrossRiver(last))) ??
-      ready[0];
+      (last && pool.find((c) => acrossRiver(c.position) !== acrossRiver(last))) ??
+      pool[0];
     if (!c) return;
     const issue = this.emit(
       "problem",
@@ -1127,7 +1314,7 @@ export class LiveCitySimulation extends DumpingSimulation {
       c.facilityId,
       c.position,
     );
-    issue.evidence = `발견 시점 ${issue.time.toFixed(0)}초 · ${c.title} · ${measurement(c)} ${c.value.toFixed(1)}`;
+    issue.evidence = `발견 시점 ${this.timeLabel(issue.time)} · ${c.title} · ${measurement(c)} ${c.value.toFixed(1)}`;
     this.issues.set(c.key, issue);
     this.pendingIssues.delete(c.key);
     this.nextIssueAt = this.time + CITY_PACING.interval;
@@ -1181,6 +1368,20 @@ export class LiveCitySimulation extends DumpingSimulation {
   get activeIssues() {
     return [...this.issues.values()];
   }
+  /** A problem judged across the morning commute rather than moment to moment. */
+  isCommuteIssue(event: CityEvent) {
+    if (!this.usesDailyCycle) return false;
+    const key = [...this.issues].find(([, issue]) => issue.id === event.id)?.[0];
+    return key === "traffic" || key === "traffic-east";
+  }
+  /** The last finished morning commute (mean of its three highest checks). */
+  get lastCommute(): Partial<Record<CommuteKey, number>> {
+    return Object.fromEntries(this.commutePeaks);
+  }
+  /** When the resident reaction to an action is (or was) recorded. */
+  reactionAt(actionIndex: number) {
+    return this.feedback[actionIndex]?.at;
+  }
   /**
    * When an action starts to change the city, from the same delays the engine
    * applies. Policies that act at once return their own time.
@@ -1198,7 +1399,10 @@ export class LiveCitySimulation extends DumpingSimulation {
       case "sewer":
         return a.time + 120;
       case "stagger":
-        return next(CITY_TRAFFIC_INTERVAL);
+        // Daily cycle: the next morning hour scheduled after the decision.
+        return a.time + 1e-8 >= this.dailyCycleFrom
+          ? Math.min(...[6, 7, 8, 9].map((h) => nextHourAt(a.time, this.dailyCycleFrom, h)))
+          : next(CITY_TRAFFIC_INTERVAL);
       // New parking arrivals choose the lot or bay at the next parking wave.
       case "parkingLot":
       case "loadingBay":
@@ -1329,6 +1533,9 @@ export class LiveCitySimulation extends DumpingSimulation {
       ...(Number.isFinite(this.eastShopFrom)
         ? { eastShopFrom: this.eastShopFrom }
         : {}),
+      ...(Number.isFinite(this.dailyCycleFrom)
+        ? { dailyCycleFrom: this.dailyCycleFrom }
+        : {}),
     };
   }
 }
@@ -1384,6 +1591,15 @@ export function validateLiveSave(value: unknown): LiveSave {
       Math.abs(s.eastShopFrom * 10 - Math.round(s.eastShopFrom * 10)) > 1e-5 ||
       s.eastShopFrom > s.time + 0.1 + 1e-7))
     throw new Error("강너머 상점 기록을 확인할 수 없어요.");
+  // Whole seconds on a five-minute boundary, so hours and commute checks line up.
+  if (
+    s.dailyCycleFrom !== undefined &&
+    (!Number.isSafeInteger(s.dailyCycleFrom) ||
+      s.dailyCycleFrom < 0 ||
+      s.dailyCycleFrom % CITY_TRAFFIC_INTERVAL !== 0 ||
+      s.dailyCycleFrom > nextCityTrafficCycle(s.time))
+  )
+    throw new Error("하루 시간 기록을 확인할 수 없어요.");
   let previous = 0;
   for (const a of s.actions) {
     if (
@@ -1461,6 +1677,8 @@ export function prepareLiveSave(value: unknown): LiveSave {
     trafficRoutingFrom: save.trafficRoutingFrom ?? (Math.round(save.time * 10) + 1) / 10,
     eastBankFrom: save.eastBankFrom ?? (Math.round(save.time * 10) + 1) / 10,
     eastShopFrom: save.eastShopFrom ?? (Math.round(save.time * 10) + 1) / 10,
+    // The day starts at 07:00 on the next five-minute boundary.
+    dailyCycleFrom: save.dailyCycleFrom ?? nextCityTrafficCycle(save.time),
   };
 }
 export async function restoreLiveCity(
@@ -1476,7 +1694,7 @@ export async function restoreLiveCity(
     city = options.initialCity ??
       new LiveCitySimulation(save.seed, save.cityTrafficFrom, save.vehicleAccessFrom,
         save.vehicleArrivalFrom, save.trafficRoutingFrom, save.eastBankFrom,
-        save.eastShopFrom);
+        save.eastShopFrom, save.dailyCycleFrom);
   if (
     city.seed !== save.seed ||
     Math.round(city.time * 10) > Math.round(save.time * 10) ||
@@ -1491,7 +1709,9 @@ export async function restoreLiveCity(
     (city.eastBankFrom !== save.eastBankFrom &&
       !(city.eastBankFrom === Infinity && save.eastBankFrom! > city.time)) ||
     (city.eastShopFrom !== save.eastShopFrom &&
-      !(city.eastShopFrom === Infinity && save.eastShopFrom! > city.time))
+      !(city.eastShopFrom === Infinity && save.eastShopFrom! > city.time)) ||
+    (city.dailyCycleFrom !== save.dailyCycleFrom &&
+      !(city.dailyCycleFrom === Infinity && save.dailyCycleFrom! > city.time))
   )
     throw new Error("이어 불러올 도시가 맞지 않아요.");
   city.cityTrafficFrom = save.cityTrafficFrom!;
@@ -1500,6 +1720,7 @@ export async function restoreLiveCity(
   city.trafficRoutingFrom = save.trafficRoutingFrom!;
   city.eastBankFrom = save.eastBankFrom!;
   city.eastShopFrom = save.eastShopFrom!;
+  city.dailyCycleFrom = save.dailyCycleFrom!;
   const previousActions = city.actions.length,
     previousMeetings = city.council.records.length;
   const commands = [

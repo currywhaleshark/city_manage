@@ -212,7 +212,7 @@ test("v5 traffic resumes in place, then detours; cached and portable futures agr
 
 test("hour-long city traffic remains bounded across seeds and policies, and an old gridlock can recover", t => {
   for (const seed of [2404, 2405, 2406]) for (const policy of [false, true]) {
-    const city = new LiveCitySimulation(seed);
+    const city = new LiveCitySimulation(seed, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
     const original = city.demand.map(v => v.id);
     const periods = [{ stopped: 0, pending: 0 }, { stopped: 0, pending: 0 }];
     let late30Stopped = 0;

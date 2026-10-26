@@ -4,7 +4,7 @@
 
 `simulation/checkpoint.ts`는 현재 모델의 데이터만 구조화 복제하고, 복원 시 새 클래스 인스턴스에 되돌린다. 교통·차로 예약·정책 피드백의 공유 참조를 한 번의 복제로 보존하고, 네트워크·시설의 파생 상태와 콜백은 재구성한다. 내부 버전은 `living-state-3`이며 상태 구조나 의미가 달라지면 반드시 올린다. v1 캐시는 순차 문제 발견·이야기 발표 필드를 초기화한다. v1/v2의 교통 전환 필드가 없는 상태에는 이전 수요를 뜻하는 Infinity를 채우고 기록과의 일치를 검증한 뒤 다음 주기의 도시 전체 수요를 예약한다. 이 이행에는 도시 전체 재계산이 필요하지 않다. 캐시 일치 판정은 시드·시간·명령 접두부·교통 전환 시점을 검사하며 주민의 성찰·메모 수정은 최신 기록에서 읽는다.
 
-`simulation/city-demand.ts`는 통합 도시만의 지구별 수요를 생성한다. 별도 학교 실험은 `scenario.createDemand`를 유지한다. JSON의 선택적 `cityTrafficFrom`은 새 도시에서는 0이고 이전 저장을 불러오면 다음 300초 경계다. 복원 경로는 모두 `prepareLiveSave`로 같은 전환을 정규화하며, 전환 전에는 이전 수요로 재생하고 이후 주기부터 새 수요를 사용한다. 상태 캐시는 전환 시점이 같은 기록 또는 전환 전의 이전 캐시에만 재사용한다.
+`simulation/city-demand.ts`는 통합 도시만의 지구별 수요를 생성한다. 별도 학교 실험은 `scenario.createDemand`를 유지한다. JSON의 선택적 `cityTrafficFrom`은 새 도시에서는 0이고 이전 저장을 불러오면 다음 300초 경계다. 복원 경로는 모두 `prepareLiveSave`로 같은 전환을 정규화하며, 전환 전에는 이전 수요로 재생하고 이후 주기부터 새 수요를 사용한다. 상태 캐시는 전환 시점이 같은 기록 또는 전환 전의 이전 캐시에만 재사용한다. 하루 주기에서는 `simulation/day-clock.ts`가 경과 시간과 `dailyCycleFrom`으로 시각을 계산하고, `createHourlyDemand`가 매시 정각의 출발을 만든다. 전환 전 기록은 5분 주기로 재생한다([DAILY_CYCLE.md](DAILY_CYCLE.md)).
 
 `storage/live-checkpoint.ts`는 IndexedDB 캐시의 읽기와 순차 쓰기, `storage/load-city.ts`는 직접 복원/남은 구간 계산/전체 명령 재생을 선택한다. `simulation/live-worker.ts`가 오래된 기록의 계산을 맡고 Worker를 쓸 수 없으면 메인 스레드에서 짧게 나누어 처리한다. JSON 명령 기록은 계속 localStorage에 먼저 저장한다. 중단·복원 오류 시 새 도시 자동 저장을 막아 원본을 보존한다.
 

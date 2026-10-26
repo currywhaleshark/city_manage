@@ -53,7 +53,7 @@ test("production adds only industrial journeys and leaves every base journey unc
     assert.ok(findRoute(network, t.origin, t.destination).length);
     assert.notEqual(t.purpose, "school");
   }
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   city.apply("production", "factory");
   city.runUntil(300);
   assert.equal(city.demand.length, 110);
@@ -63,7 +63,7 @@ test("production adds only industrial journeys and leaves every base journey unc
 });
 
 test("recurring vehicles really travel on both banks and all bridges, with no dropped trips", () => {
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   const trips = new Map<number, Trip>();
   const bridges = new Map([-48, 96, 240].map(z => [z, new Set<number>()]));
   let west = 0, east = 0;
@@ -94,7 +94,7 @@ test("recurring vehicles really travel on both banks and all bridges, with no dr
 });
 
 test("legacy JSON and v2 checkpoints preserve the city and switch only at the next cycle", async () => {
-  const old = new LiveCitySimulation(2404, Infinity);
+  const old = new LiveCitySimulation(2404, Infinity, 0, 0, 0, 0, 0, Infinity);
   old.apply("outreach", "river");
   old.runUntil(325.4);
   old.observe();
@@ -109,16 +109,20 @@ test("legacy JSON and v2 checkpoints preserve the city and switch only at the ne
   assert.deepEqual([...copy.vehicles], [...old.vehicles]);
   assert.deepEqual(copy.demand, old.demand);
   assert.deepEqual(copy.news, old.news);
-  assert.deepEqual(copy.save(), {...save, cityTrafficFrom: 600});
+  // A legacy save has no daily cycle either; both start on the same boundary.
+  assert.deepEqual(copy.save(), {...save, cityTrafficFrom: 600, dailyCycleFrom: 600});
   const replayed = await restoreLiveCity(save);
   assert.deepEqual([...copy.vehicles], [...replayed.vehicles]);
   assert.deepEqual(copy.news, replayed.news);
   old.cityTrafficFrom = 600;
+  old.dailyCycleFrom = 600;
   for (const city of [old, copy, replayed]) city.runUntil(650);
   assert.deepEqual([...copy.vehicles], [...old.vehicles]);
   assert.deepEqual([...copy.vehicles], [...replayed.vehicles]);
   assert.deepEqual(copy.demand, old.demand);
-  assert.deepEqual(copy.demand.map(t => t.origin), createCityDemand(2406, false, true).map(t => t.origin));
+  assert.equal(copy.clock?.hour, 7, "the day starts at 07:00 on the switch boundary");
+  assert.ok(copy.demand.slice(copy.releasedCount).every(t => t.id >= 5000000),
+    "after the switch only hourly departures are scheduled");
   assert.equal(copy.notes, "기존 조사 기록");
   assert.deepEqual(copy.observations, save.observations);
   assert.equal(save.cityTrafficFrom, undefined, "never mutate imported source data");
@@ -167,7 +171,7 @@ test("traffic transition records reject incompatible caches and malformed transi
   for (const time of [-300, 1, 600, Infinity, NaN])
     assert.throws(() => validateLiveSave({...save, cityTrafficFrom: time}));
   assert.throws(() => restoreLiveCheckpoint(captureLiveCheckpoint(city), {...save, cityTrafficFrom: 300}));
-  const old = new LiveCitySimulation(2404, Infinity);
+  const old = new LiveCitySimulation(2404, Infinity, 0, 0, 0, 0, 0, Infinity);
   old.runUntil(301);
   assert.throws(() => restoreLiveCheckpoint(captureLiveCheckpoint(old), {...old.save(), cityTrafficFrom: 300}));
   assert.equal(prepareLiveSave({...save, time: 300, cityTrafficFrom: undefined}).cityTrafficFrom, 600);

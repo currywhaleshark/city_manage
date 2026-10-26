@@ -36,9 +36,17 @@ const definitions = [
   { id: "homes", nodeId: "n1-2", name: "주거지 앞", turn: -1 },
   { id: "park", nodeId: "n2-3", name: "공원 앞", turn: -1 },
 ];
+/**
+ * Cumulative route shares in the order of `definitions` (school front, school
+ * side, homes; the park takes the rest). Written out so old cities replay exactly.
+ */
+export const SCHOOL_WALKS = [0.4, 0.7, 0.85] as const;
+export const NEIGHBORHOOD_WALKS = [0.1, 0.2, 0.6] as const;
 export function createPedestrianDemand(
   seed = 2404,
   count = 60,
+  spread = 190,
+  [first, second, third]: readonly number[] = SCHOOL_WALKS,
 ): readonly PedestrianTrip[] {
   const random = seededRandom(seed ^ 0x706564);
   return Object.freeze(
@@ -46,8 +54,8 @@ export function createPedestrianDemand(
       const r = random();
       return Object.freeze({
         id,
-        routeId: definitions[r < 0.4 ? 0 : r < 0.7 ? 1 : r < 0.85 ? 2 : 3].id,
-        departAt: Math.round((2 + (id / count) * 190 + random() * 3) * 10) / 10,
+        routeId: definitions[r < first ? 0 : r < second ? 1 : r < third ? 2 : 3].id,
+        departAt: Math.round((2 + (id / count) * spread + random() * 3) * 10) / 10,
         speed: 1.1 + random() * 0.4,
         color: [0xf3bd43, 0x427ab2, 0xb95149, 0x579476][id % 4],
       });

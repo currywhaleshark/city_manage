@@ -61,7 +61,7 @@ test("policy preview respects plot size and sewer connections, including repeata
 });
 
 test("budget grants update the policy list without losing focus or expanded tradeoffs", () => {
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute grants
   city.apply("extraTruck");
   city.apply("signal", city.targets("signal")[0].id);
   const dom = new JSDOM(

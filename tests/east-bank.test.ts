@@ -40,7 +40,7 @@ test("rush hour crowds commutes across the river; staggering only restores their
   }
   assert.ok(crowded >= 20);
 
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   city.apply("stagger", STAGGER_TARGET);
   city.runUntil(300);
   assert.equal(city.demand.length, plain.length);
@@ -62,14 +62,15 @@ test("a new city opens the east bank at once: shop collection, market curb and t
   for (const title of ["작업장 배출구 아래", "강너머 상점가 수거장", "강너머 상가 거리"])
     assert.ok(problems.includes(title), `${title} is announced: ${problems.join(", ")}`);
   const east = city.news.filter((n) => n.type === "problem" && n.position!.x >= 128);
-  assert.ok(east[0].time <= 400, "the first east story does not wait behind every western one");
+  // During the morning commute a commute problem may take one slot first.
+  assert.ok(east[0].time <= 450, "the first east story does not wait behind every western one");
   const market = city.parking.episodes.filter((e) => e.request.siteId === "east-market");
   assert.ok(market.length >= 3);
   assert.ok(market.every((e) => e.request.surface === "road"), "no walking route crosses the river");
 });
 
 test("an older city replays unchanged and gains the east bank only from its switch time", async () => {
-  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, Infinity, Infinity);
+  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, Infinity, Infinity, Infinity);
   old.apply("patrol", "school");
   old.runUntil(412.3);
   const save = old.save();
@@ -95,7 +96,7 @@ test("an older city replays unchanged and gains the east bank only from its swit
   assert.deepEqual(copy.save(), replayed.save());
   assert.ok(copy.sites.some((s) => s.id === EAST_WASTE_SITE.id));
   assert.ok(copy.parking.episodes.some((e) => e.request.siteId === "east-market"));
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-9");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-10");
 });
 
 test("signal timing is chosen once per district and only retimes that district", () => {

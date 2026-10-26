@@ -5,7 +5,7 @@ import { captureLiveCheckpoint, restoreLiveCheckpoint } from "../src/simulation/
 import { CityTutorial, tutorialResultText } from "../src/ui/city-tutorial";
 
 test("tutorial waits for a real problem, highlights its place before speech, and compares the chosen policy", () => {
-  const sim = new LiveCitySimulation();
+  const sim = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   const tutorial = new CityTutorial();
   tutorial.start();
   tutorial.advance(sim, 30);
@@ -48,7 +48,7 @@ test("tutorial waits for a real problem, highlights its place before speech, and
 });
 
 test("minimum observation time, pause, and later policies cannot skip or replace the first lesson", () => {
-  const sim = new LiveCitySimulation();
+  const sim = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   sim.advance(120);
   const tutorial = new CityTutorial();
   tutorial.start();
@@ -70,7 +70,7 @@ test("minimum observation time, pause, and later policies cannot skip or replace
 });
 
 test("progress resumes at speech, observation and frozen results, while old saves remain in free play", () => {
-  const sim = new LiveCitySimulation();
+  const sim = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
   const tutorial = new CityTutorial();
   const restored = new CityTutorial();
   tutorial.start();
