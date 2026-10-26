@@ -51,7 +51,7 @@ test("rush hour crowds commutes across the river; staggering only restores their
 });
 
 test("a new city opens the east bank at once: shop collection, market curb and their own alerts", () => {
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 300, Infinity); // no hourly schedule
   city.runUntil(1);
   const shops = city.sites.find((s) => s.id === EAST_WASTE_SITE.id)!;
   assert.equal(shops.capacity, 40);
@@ -96,7 +96,7 @@ test("an older city replays unchanged and gains the east bank only from its swit
   assert.deepEqual(copy.save(), replayed.save());
   assert.ok(copy.sites.some((s) => s.id === EAST_WASTE_SITE.id));
   assert.ok(copy.parking.episodes.some((e) => e.request.siteId === "east-market"));
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-11");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-12");
 });
 
 test("signal timing is chosen once per district and only retimes that district", () => {

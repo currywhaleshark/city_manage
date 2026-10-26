@@ -268,7 +268,7 @@ test("an older city replays unchanged and starts its day at 07:00 on the next fi
   assert.equal(copy.budget, 100 - 30 + 20, "the five-minute grant stops at the switch");
   assert.ok(copy.timeLabel(300).endsWith("초"));
   assert.equal(copy.timeLabel(600), "1일차 오전 7:00");
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-11");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-12");
 });
 
 test("the first lesson prefers a problem that shows a result soon, and waits for a commute result", () => {

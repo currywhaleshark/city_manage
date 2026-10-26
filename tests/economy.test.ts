@@ -253,7 +253,7 @@ test("a living-state-10 cache gains empty income, withdrawals and footbridges", 
   city.runUntil(500);
   copy.runUntil(500);
   assert.deepEqual([...copy.vehicles], [...city.vehicles]);
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-11");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-12");
 });
 
 test("daylight follows the clock: warm sunrise in the east, white noon, sunset in the west, dark night", () => {

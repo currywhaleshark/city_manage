@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-26T05:28:00.987Z",
+  "generatedAt": "2026-10-26T07:42:39.756Z",
   "daySeconds": 2880,
   "hourSeconds": 120,
   "hourlyTrips": [
@@ -33,33 +33,35 @@
       "seed": 2404,
       "days": 3,
       "seconds": 8640,
-      "budget": 676,
+      "budget": 876,
       "unreachable": 0,
       "pendingAtEnd": 0,
       "peakHour": {
-        "day": 1,
+        "day": 3,
         "hour": 9,
-        "meanOnRoad": 79.1,
-        "maxOnRoad": 91
+        "meanOnRoad": 77.7,
+        "maxOnRoad": 86
       },
       "commutes": [
         {
           "day": 1,
-          "traffic": 35,
-          "traffic-east": 5.666666666666667,
-          "school-signal": 28.666666666666668
+          "traffic": 35.333333333333336,
+          "traffic-east": 6.666666666666667,
+          "school-signal": 28.333333333333332
         },
         {
           "day": 2,
-          "traffic": 37,
-          "traffic-east": 11,
-          "school-signal": 26
+          "traffic": 33,
+          "traffic-east": 8.666666666666666,
+          "school-signal": 23,
+          "supply": 4
         },
         {
           "day": 3,
-          "traffic": 37.333333333333336,
-          "traffic-east": 9.333333333333334,
-          "school-signal": 24.333333333333332
+          "traffic": 40,
+          "traffic-east": 9,
+          "school-signal": 26,
+          "supply": 2
         }
       ],
       "problems": [
@@ -86,32 +88,37 @@
         {
           "when": "1일차 오전 10:30",
           "type": "problem",
-          "title": "작업장 배출구 아래"
+          "title": "동네 상점"
+        },
+        {
+          "when": "1일차 오전 11:20",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
         },
         {
           "when": "1일차 오전 11:20",
           "type": "problem",
-          "title": "생활 시설"
+          "title": "작업장 배출구 아래"
         },
         {
           "when": "1일차 오후 12:10",
           "type": "problem",
-          "title": "강너머 상점가 수거장"
+          "title": "생활 시설"
         },
         {
           "when": "1일차 오후 1:00",
           "type": "problem",
-          "title": "동네 상점"
+          "title": "강너머 상점가 수거장"
         },
         {
           "when": "1일차 오후 1:50",
           "type": "problem",
-          "title": "강너머 상가 거리"
+          "title": "주택가 뒷골목"
         },
         {
           "when": "1일차 오후 2:40",
           "type": "problem",
-          "title": "주택가 뒷골목"
+          "title": "강너머 상가 거리"
         },
         {
           "when": "1일차 오후 2:50",
@@ -139,11 +146,6 @@
           "title": "강너머 상가 거리"
         },
         {
-          "when": "1일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
           "when": "1일차 오후 6:30",
           "type": "improved",
           "title": "강너머 상가 거리의 변화"
@@ -151,20 +153,15 @@
         {
           "when": "1일차 오후 6:50",
           "type": "problem",
-          "title": "남쪽 주택가 수거장"
+          "title": "서쪽 끝 주택가 수거장"
         },
         {
           "when": "1일차 오후 7:40",
           "type": "problem",
-          "title": "서쪽 끝 주택가 수거장"
+          "title": "주거지 골목"
         },
         {
-          "when": "1일차 오후 8:00",
-          "type": "improved",
-          "title": "남쪽 주택가 수거장의 변화"
-        },
-        {
-          "when": "1일차 오후 8:30",
+          "when": "1일차 오후 8:10",
           "type": "improved",
           "title": "서쪽 끝 주택가 수거장의 변화"
         },
@@ -176,12 +173,12 @@
         {
           "when": "1일차 오후 9:20",
           "type": "problem",
-          "title": "주거지 골목"
+          "title": "시장 옆 골목"
         },
         {
           "when": "1일차 오후 10:10",
           "type": "problem",
-          "title": "시장 옆 골목"
+          "title": "학교 가는 길 주택가 수거장"
         },
         {
           "when": "1일차 오후 10:50",
@@ -189,94 +186,29 @@
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "1일차 오후 11:00",
-          "type": "problem",
-          "title": "학교 가는 길 주택가 수거장"
-        },
-        {
           "when": "1일차 오후 11:10",
           "type": "improved",
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "1일차 오후 11:50",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오전 12:20",
+          "when": "2일차 오전 12:10",
           "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오전 1:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오전 2:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "2일차 오전 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오전 2:30",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "주거지 골목의 변화"
         },
         {
           "when": "2일차 오전 3:00",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "2일차 오전 3:50",
           "type": "improved",
           "title": "공터 옆 길의 변화"
         },
         {
-          "when": "2일차 오전 3:50",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "2일차 오전 4:30",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
           "when": "2일차 오전 4:40",
-          "type": "problem",
-          "title": "학교 앞 수거장 수거장"
-        },
-        {
-          "when": "2일차 오전 5:20",
           "type": "improved",
           "title": "주택가 뒷골목의 변화"
         },
         {
           "when": "2일차 오전 5:30",
-          "type": "problem",
-          "title": "북쪽 주택가 수거장"
-        },
-        {
-          "when": "2일차 오전 6:10",
           "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
-          "when": "2일차 오전 6:20",
-          "type": "problem",
-          "title": "동쪽 상점가 수거장"
-        },
-        {
-          "when": "2일차 오전 6:50",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "새봄천 산책길의 변화"
         },
         {
           "when": "2일차 오전 7:20",
@@ -294,27 +226,27 @@
           "title": "학교 앞의 변화"
         },
         {
-          "when": "2일차 오전 9:00",
-          "type": "improved",
-          "title": "새봄천 산책길의 변화"
-        },
-        {
-          "when": "2일차 오전 9:00",
-          "type": "problem",
-          "title": "남쪽 주택가 수거장"
-        },
-        {
-          "when": "2일차 오전 9:50",
+          "when": "2일차 오전 9:10",
           "type": "problem",
           "title": "강너머 출근길"
         },
         {
-          "when": "2일차 오전 10:40",
+          "when": "2일차 오전 9:20",
+          "type": "improved",
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오전 10:00",
           "type": "problem",
           "title": "주택가 뒷골목"
         },
         {
-          "when": "2일차 오전 11:30",
+          "when": "2일차 오전 11:20",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "2일차 오전 11:20",
           "type": "problem",
           "title": "시장 옆 골목"
         },
@@ -324,39 +256,39 @@
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "2일차 오후 12:20",
+          "when": "2일차 오후 12:10",
           "type": "problem",
           "title": "공터 옆 길"
         },
         {
           "when": "2일차 오후 1:00",
-          "type": "improved",
-          "title": "강너머 상점가 수거장의 변화"
-        },
-        {
-          "when": "2일차 오후 1:10",
           "type": "problem",
-          "title": "서쪽 끝 주택가 수거장"
+          "title": "시장 옆 골목"
         },
         {
-          "when": "2일차 오후 2:00",
+          "when": "2일차 오후 1:50",
           "type": "problem",
-          "title": "강너머 상가 거리"
+          "title": "북쪽 주택가 수거장"
         },
         {
-          "when": "2일차 오후 2:40",
+          "when": "2일차 오후 2:50",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "시장 옆 골목의 변화"
         },
         {
           "when": "2일차 오후 2:50",
           "type": "problem",
-          "title": "시장 옆 골목"
+          "title": "남쪽 주택가 수거장"
         },
         {
           "when": "2일차 오후 3:40",
           "type": "problem",
           "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 3:50",
+          "type": "improved",
+          "title": "북쪽 주택가 수거장의 변화"
         },
         {
           "when": "2일차 오후 4:30",
@@ -369,39 +301,14 @@
           "title": "학교 앞의 변화"
         },
         {
-          "when": "2일차 오후 5:00",
-          "type": "improved",
-          "title": "학교 앞 수거장 수거장의 변화"
-        },
-        {
           "when": "2일차 오후 5:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 5:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "2일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
-          "when": "2일차 오후 6:10",
           "type": "problem",
           "title": "새봄천 산책길"
         },
         {
-          "when": "2일차 오후 6:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오후 6:30",
-          "type": "improved",
-          "title": "동쪽 상점가 수거장의 변화"
+          "when": "2일차 오후 6:10",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
         },
         {
           "when": "2일차 오후 7:00",
@@ -409,114 +316,54 @@
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "2일차 오후 7:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 8:10",
+          "when": "2일차 오후 7:00",
           "type": "problem",
           "title": "주거지 골목"
         },
         {
-          "when": "2일차 오후 8:50",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오후 9:00",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "2일차 오후 9:50",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 10:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오후 11:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 11:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "3일차 오전 12:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 12:50",
+          "when": "2일차 오후 7:50",
           "type": "problem",
           "title": "강너머 상점가 수거장"
         },
         {
-          "when": "3일차 오전 1:40",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 2:30",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 2:30",
+          "when": "2일차 오후 8:40",
           "type": "problem",
           "title": "시장 옆 골목"
         },
         {
-          "when": "3일차 오전 3:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 4:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오전 4:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 5:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 5:50",
+          "when": "2일차 오후 9:00",
           "type": "improved",
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "3일차 오전 6:10",
+          "when": "2일차 오후 10:10",
+          "type": "improved",
+          "title": "학교 가는 길 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오전 12:10",
           "type": "improved",
           "title": "주거지 골목의 변화"
         },
         {
+          "when": "3일차 오전 1:00",
+          "type": "improved",
+          "title": "서쪽 끝 주택가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오전 2:50",
+          "type": "improved",
+          "title": "새봄천 산책길의 변화"
+        },
+        {
+          "when": "3일차 오전 3:10",
+          "type": "improved",
+          "title": "남쪽 주택가 수거장의 변화"
+        },
+        {
           "when": "3일차 오전 6:10",
-          "type": "problem",
-          "title": "학교 앞 수거장 수거장"
-        },
-        {
-          "when": "3일차 오전 6:50",
           "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 6:50",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "주택가 뒷골목의 변화"
         },
         {
           "when": "3일차 오전 7:20",
@@ -529,249 +376,144 @@
           "title": "주거지 골목"
         },
         {
-          "when": "3일차 오전 8:20",
+          "when": "3일차 오전 8:50",
           "type": "improved",
           "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 8:30",
-          "type": "improved",
-          "title": "학교 가는 길 주택가 수거장의 변화"
         },
         {
           "when": "3일차 오전 9:00",
           "type": "problem",
-          "title": "시장 옆 골목"
+          "title": "학교 앞 수거장 수거장"
         },
         {
-          "when": "3일차 오전 9:10",
+          "when": "3일차 오전 10:10",
           "type": "improved",
-          "title": "북쪽 주택가 수거장의 변화"
+          "title": "학교 앞 수거장 수거장의 변화"
         },
         {
-          "when": "3일차 오전 9:50",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오전 10:40",
+          "when": "3일차 오전 10:50",
           "type": "improved",
-          "title": "시장 옆 골목의 변화"
+          "title": "공터 옆 길의 변화"
         },
         {
-          "when": "3일차 오전 10:40",
+          "when": "3일차 오전 11:00",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "주거지 골목의 변화"
         },
         {
           "when": "3일차 오전 11:20",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오전 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
         },
         {
           "when": "3일차 오후 12:10",
           "type": "problem",
-          "title": "학교 가는 길 주택가 수거장"
+          "title": "주택가 뒷골목"
         },
         {
-          "when": "3일차 오후 12:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 1:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오후 2:00",
-          "type": "improved",
-          "title": "학교 가는 길 주택가 수거장의 변화"
-        },
-        {
-          "when": "3일차 오후 2:10",
+          "when": "3일차 오후 1:00",
           "type": "problem",
           "title": "강너머 상가 거리"
         },
         {
-          "when": "3일차 오후 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 2:50",
+          "when": "3일차 오후 1:10",
           "type": "improved",
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "3일차 오후 3:00",
+          "when": "3일차 오후 1:50",
           "type": "problem",
           "title": "시장 옆 골목"
         },
         {
+          "when": "3일차 오후 2:40",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 3:30",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
           "when": "3일차 오후 3:50",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오후 4:40",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 5:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오후 5:50",
           "type": "improved",
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "3일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
-          "when": "3일차 오후 6:10",
+          "when": "3일차 오후 4:20",
           "type": "problem",
           "title": "강너머 상가 거리"
         },
         {
-          "when": "3일차 오후 6:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 6:40",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오후 7:00",
+          "when": "3일차 오후 5:10",
           "type": "problem",
           "title": "동쪽 상점가 수거장"
         },
         {
-          "when": "3일차 오후 7:50",
+          "when": "3일차 오후 6:00",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "새봄천 산책길"
         },
         {
-          "when": "3일차 오후 8:40",
+          "when": "3일차 오후 6:40",
+          "type": "improved",
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오후 6:50",
+          "type": "problem",
+          "title": "공터 옆 길"
+        },
+        {
+          "when": "3일차 오후 7:00",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
+        },
+        {
+          "when": "3일차 오후 7:40",
           "type": "problem",
           "title": "주거지 골목"
         },
         {
-          "when": "3일차 오후 9:30",
+          "when": "3일차 오후 8:30",
           "type": "problem",
           "title": "시장 옆 골목"
         },
         {
-          "when": "3일차 오후 10:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 10:20",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오후 10:40",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오후 11:10",
-          "type": "problem",
-          "title": "학교 가는 길 주택가 수거장"
-        },
-        {
-          "when": "3일차 오후 11:50",
+          "when": "3일차 오후 8:50",
           "type": "improved",
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "4일차 오전 12:00",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "4일차 오전 12:50",
+          "when": "3일차 오후 9:50",
           "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "동쪽 상점가 수거장의 변화"
         },
         {
-          "when": "4일차 오전 1:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "4일차 오전 1:30",
-          "type": "improved",
-          "title": "서쪽 끝 주택가 수거장의 변화"
-        },
-        {
-          "when": "4일차 오전 2:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "4일차 오전 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "4일차 오전 2:30",
-          "type": "improved",
-          "title": "남쪽 주택가 수거장의 변화"
-        },
-        {
-          "when": "4일차 오전 2:40",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "4일차 오전 3:00",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "4일차 오전 3:50",
-          "type": "problem",
-          "title": "북쪽 주택가 수거장"
-        },
-        {
-          "when": "4일차 오전 4:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "4일차 오전 5:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "4일차 오전 6:10",
+          "when": "4일차 오전 12:10",
           "type": "improved",
           "title": "주거지 골목의 변화"
         },
         {
-          "when": "4일차 오전 6:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
+          "when": "4일차 오전 2:20",
+          "type": "improved",
+          "title": "주택가 뒷골목의 변화"
+        },
+        {
+          "when": "4일차 오전 3:00",
+          "type": "improved",
+          "title": "새봄천 산책길의 변화"
         },
         {
           "when": "4일차 오전 6:20",
           "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "4일차 오전 6:40",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "학교 가는 길 주택가 수거장의 변화"
         }
       ],
       "hours": [
@@ -785,7 +527,12 @@
           "meanStopped": 13.3,
           "meanTravel": 59,
           "pedestrians": 12.9,
-          "engineMsPerCitySecond": 7.44
+          "engineMsPerCitySecond": 4.85,
+          "collectionBags": 250.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 35.8,
+          "lowStockShops": 0,
+          "illegalParking": 3.67
         },
         {
           "day": 1,
@@ -794,190 +541,270 @@
           "arrived": 25,
           "meanOnRoad": 67.7,
           "maxOnRoad": 77,
-          "meanStopped": 30.6,
+          "meanStopped": 29.2,
           "meanTravel": 142,
           "pedestrians": 21.4,
-          "engineMsPerCitySecond": 4.97
+          "engineMsPerCitySecond": 4.62,
+          "collectionBags": 244.1,
+          "collectionOverCapacity": 3,
+          "illegalBags": 44.6,
+          "lowStockShops": 0,
+          "illegalParking": 3.42
         },
         {
           "day": 1,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 37,
-          "meanOnRoad": 79.1,
-          "maxOnRoad": 85,
-          "meanStopped": 34.7,
-          "meanTravel": 186,
-          "pedestrians": 17.3,
-          "engineMsPerCitySecond": 4.32
+          "arrived": 39,
+          "meanOnRoad": 77.4,
+          "maxOnRoad": 84,
+          "meanStopped": 33.2,
+          "meanTravel": 189,
+          "pedestrians": 16.7,
+          "engineMsPerCitySecond": 6.24,
+          "collectionBags": 220,
+          "collectionOverCapacity": 4,
+          "illegalBags": 50.4,
+          "lowStockShops": 1.08,
+          "illegalParking": 3.42
         },
         {
           "day": 1,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 47,
-          "meanOnRoad": 65.7,
-          "maxOnRoad": 75,
-          "meanStopped": 29.8,
-          "meanTravel": 202,
-          "pedestrians": 10.9,
-          "engineMsPerCitySecond": 4.21
+          "arrived": 49,
+          "meanOnRoad": 61.4,
+          "maxOnRoad": 74,
+          "meanStopped": 27.2,
+          "meanTravel": 197,
+          "pedestrians": 10.6,
+          "engineMsPerCitySecond": 3.72,
+          "collectionBags": 213.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 66.2,
+          "lowStockShops": 3,
+          "illegalParking": 2.5
         },
         {
           "day": 1,
           "hour": 11,
           "scheduled": 23,
-          "arrived": 50,
-          "meanOnRoad": 38.5,
-          "maxOnRoad": 47,
-          "meanStopped": 16.8,
-          "meanTravel": 234,
-          "pedestrians": 9.2,
-          "engineMsPerCitySecond": 4.27
+          "arrived": 48,
+          "meanOnRoad": 32.7,
+          "maxOnRoad": 43,
+          "meanStopped": 13.6,
+          "meanTravel": 209,
+          "pedestrians": 8.9,
+          "engineMsPerCitySecond": 2.47,
+          "collectionBags": 232.4,
+          "collectionOverCapacity": 3,
+          "illegalBags": 75,
+          "lowStockShops": 2.58,
+          "illegalParking": 1.33
         },
         {
           "day": 1,
           "hour": 12,
           "scheduled": 35,
-          "arrived": 25,
-          "meanOnRoad": 29.8,
-          "maxOnRoad": 38,
-          "meanStopped": 13.3,
-          "meanTravel": 134,
-          "pedestrians": 12.1,
-          "engineMsPerCitySecond": 4.24
+          "arrived": 24,
+          "meanOnRoad": 29.4,
+          "maxOnRoad": 37,
+          "meanStopped": 13,
+          "meanTravel": 131,
+          "pedestrians": 11.3,
+          "engineMsPerCitySecond": 2.76,
+          "collectionBags": 251,
+          "collectionOverCapacity": 4,
+          "illegalBags": 89.8,
+          "lowStockShops": 1.08,
+          "illegalParking": 1.08
         },
         {
           "day": 1,
           "hour": 13,
           "scheduled": 23,
-          "arrived": 34,
-          "meanOnRoad": 32.7,
-          "maxOnRoad": 39,
-          "meanStopped": 13.4,
+          "arrived": 33,
+          "meanOnRoad": 32.3,
+          "maxOnRoad": 37,
+          "meanStopped": 12.8,
           "meanTravel": 116,
           "pedestrians": 8.2,
-          "engineMsPerCitySecond": 6.35
+          "engineMsPerCitySecond": 2.39,
+          "collectionBags": 269.7,
+          "collectionOverCapacity": 5,
+          "illegalBags": 107.6,
+          "lowStockShops": 1.25,
+          "illegalParking": 1.92
         },
         {
           "day": 1,
           "hour": 14,
           "scheduled": 23,
-          "arrived": 24,
-          "meanOnRoad": 24.9,
+          "arrived": 25,
+          "meanOnRoad": 24.1,
           "maxOnRoad": 28,
-          "meanStopped": 9.3,
-          "meanTravel": 142,
+          "meanStopped": 9.1,
+          "meanTravel": 143,
           "pedestrians": 8.2,
-          "engineMsPerCitySecond": 4.51
+          "engineMsPerCitySecond": 1.84,
+          "collectionBags": 243.2,
+          "collectionOverCapacity": 4,
+          "illegalBags": 108.4,
+          "lowStockShops": 2.5,
+          "illegalParking": 1.83
         },
         {
           "day": 1,
           "hour": 15,
           "scheduled": 34,
           "arrived": 21,
-          "meanOnRoad": 30.8,
-          "maxOnRoad": 39,
-          "meanStopped": 12.9,
-          "meanTravel": 136,
+          "meanOnRoad": 30.3,
+          "maxOnRoad": 38,
+          "meanStopped": 12.4,
+          "meanTravel": 114,
           "pedestrians": 11.8,
-          "engineMsPerCitySecond": 4.06
+          "engineMsPerCitySecond": 2.42,
+          "collectionBags": 214,
+          "collectionOverCapacity": 3,
+          "illegalBags": 118.2,
+          "lowStockShops": 1.5,
+          "illegalParking": 2.83
         },
         {
           "day": 1,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 37,
-          "meanOnRoad": 32.2,
-          "maxOnRoad": 38,
-          "meanStopped": 12.7,
-          "meanTravel": 131,
+          "arrived": 38,
+          "meanOnRoad": 31.7,
+          "maxOnRoad": 37,
+          "meanStopped": 12.9,
+          "meanTravel": 132,
           "pedestrians": 10.7,
-          "engineMsPerCitySecond": 6.77
+          "engineMsPerCitySecond": 2.56,
+          "collectionBags": 227.5,
+          "collectionOverCapacity": 3,
+          "illegalBags": 121,
+          "lowStockShops": 2,
+          "illegalParking": 1.75
         },
         {
           "day": 1,
           "hour": 17,
           "scheduled": 52,
-          "arrived": 34,
-          "meanOnRoad": 42.6,
-          "maxOnRoad": 49,
-          "meanStopped": 18.3,
-          "meanTravel": 112,
-          "pedestrians": 17.6,
-          "engineMsPerCitySecond": 13.66
+          "arrived": 31,
+          "meanOnRoad": 42.9,
+          "maxOnRoad": 50,
+          "meanStopped": 19.5,
+          "meanTravel": 110,
+          "pedestrians": 17.2,
+          "engineMsPerCitySecond": 3.1,
+          "collectionBags": 256.2,
+          "collectionOverCapacity": 3,
+          "illegalBags": 121.8,
+          "lowStockShops": 2.08,
+          "illegalParking": 2.83
         },
         {
           "day": 1,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 43,
-          "meanOnRoad": 54.1,
+          "arrived": 45,
+          "meanOnRoad": 55.5,
           "maxOnRoad": 64,
-          "meanStopped": 22.8,
-          "meanTravel": 122,
-          "pedestrians": 21.9,
-          "engineMsPerCitySecond": 13.38
+          "meanStopped": 24,
+          "meanTravel": 126,
+          "pedestrians": 22.4,
+          "engineMsPerCitySecond": 3.34,
+          "collectionBags": 255.7,
+          "collectionOverCapacity": 2,
+          "illegalBags": 130.6,
+          "lowStockShops": 2.25,
+          "illegalParking": 2.5
         },
         {
           "day": 1,
           "hour": 19,
           "scheduled": 40,
-          "arrived": 52,
-          "meanOnRoad": 54.3,
+          "arrived": 51,
+          "meanOnRoad": 55.5,
           "maxOnRoad": 61,
-          "meanStopped": 23.6,
+          "meanStopped": 23.3,
           "meanTravel": 135,
-          "pedestrians": 16.4,
-          "engineMsPerCitySecond": 13.41
+          "pedestrians": 21.3,
+          "engineMsPerCitySecond": 4.29,
+          "collectionBags": 255.8,
+          "collectionOverCapacity": 2,
+          "illegalBags": 130.4,
+          "lowStockShops": 3,
+          "illegalParking": 3
         },
         {
           "day": 1,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 42,
-          "meanOnRoad": 49.5,
+          "arrived": 43,
+          "meanOnRoad": 48.9,
           "maxOnRoad": 52,
-          "meanStopped": 20.1,
-          "meanTravel": 141,
-          "pedestrians": 15.8,
-          "engineMsPerCitySecond": 11.75
+          "meanStopped": 19.4,
+          "meanTravel": 147,
+          "pedestrians": 20.3,
+          "engineMsPerCitySecond": 3.25,
+          "collectionBags": 252.1,
+          "collectionOverCapacity": 2,
+          "illegalBags": 140.2,
+          "lowStockShops": 3,
+          "illegalParking": 3
         },
         {
           "day": 1,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 32,
-          "meanOnRoad": 43,
-          "maxOnRoad": 48,
-          "meanStopped": 18.2,
-          "meanTravel": 175,
-          "pedestrians": 11.8,
-          "engineMsPerCitySecond": 9.88
+          "arrived": 31,
+          "meanOnRoad": 42.1,
+          "maxOnRoad": 45,
+          "meanStopped": 17.4,
+          "meanTravel": 161,
+          "pedestrians": 13.9,
+          "engineMsPerCitySecond": 3.27,
+          "collectionBags": 286,
+          "collectionOverCapacity": 2,
+          "illegalBags": 144,
+          "lowStockShops": 3.58,
+          "illegalParking": 3
         },
         {
           "day": 1,
           "hour": 22,
           "scheduled": 3,
-          "arrived": 36,
-          "meanOnRoad": 22.8,
-          "maxOnRoad": 38,
-          "meanStopped": 10,
-          "meanTravel": 163,
+          "arrived": 35,
+          "meanOnRoad": 21.1,
+          "maxOnRoad": 35,
+          "meanStopped": 9.1,
+          "meanTravel": 160,
           "pedestrians": 3,
-          "engineMsPerCitySecond": 6.65
+          "engineMsPerCitySecond": 2.02,
+          "collectionBags": 257.1,
+          "collectionOverCapacity": 2,
+          "illegalBags": 132.1,
+          "lowStockShops": 2.33,
+          "illegalParking": 2.75
         },
         {
           "day": 1,
           "hour": 23,
           "scheduled": 2,
-          "arrived": 8,
-          "meanOnRoad": 3.3,
-          "maxOnRoad": 7,
-          "meanStopped": 1.1,
-          "meanTravel": 163,
+          "arrived": 9,
+          "meanOnRoad": 4.3,
+          "maxOnRoad": 9,
+          "meanStopped": 1.9,
+          "meanTravel": 180,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 2.23
+          "engineMsPerCitySecond": 1.18,
+          "collectionBags": 256.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 115.7,
+          "lowStockShops": 2,
+          "illegalParking": 1
         },
         {
           "day": 2,
@@ -989,7 +816,12 @@
           "meanStopped": 0.8,
           "meanTravel": 141,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.77
+          "engineMsPerCitySecond": 0.96,
+          "collectionBags": 258.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 63.3,
+          "lowStockShops": 2,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -1001,7 +833,12 @@
           "meanStopped": 0.3,
           "meanTravel": 132,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 2.29
+          "engineMsPerCitySecond": 1.07,
+          "collectionBags": 260.7,
+          "collectionOverCapacity": 2,
+          "illegalBags": 59.1,
+          "lowStockShops": 0.5,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -1013,7 +850,12 @@
           "meanStopped": 0.1,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 4.31
+          "engineMsPerCitySecond": 0.98,
+          "collectionBags": 262.7,
+          "collectionOverCapacity": 2,
+          "illegalBags": 20.8,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -1025,7 +867,12 @@
           "meanStopped": 0.8,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 4.97
+          "engineMsPerCitySecond": 0.89,
+          "collectionBags": 264.8,
+          "collectionOverCapacity": 2,
+          "illegalBags": 16.6,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -1037,7 +884,12 @@
           "meanStopped": 0.5,
           "meanTravel": 170,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 2.64
+          "engineMsPerCitySecond": 1.19,
+          "collectionBags": 246,
+          "collectionOverCapacity": 3,
+          "illegalBags": 5.6,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -1049,7 +901,12 @@
           "meanStopped": 0.8,
           "meanTravel": 151,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 4.1
+          "engineMsPerCitySecond": 1.17,
+          "collectionBags": 248.1,
+          "collectionOverCapacity": 3,
+          "illegalBags": 0,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -1058,226 +915,321 @@
           "arrived": 4,
           "meanOnRoad": 21.3,
           "maxOnRoad": 27,
-          "meanStopped": 7.2,
+          "meanStopped": 7.3,
           "meanTravel": 61,
           "pedestrians": 8.1,
-          "engineMsPerCitySecond": 7.22
+          "engineMsPerCitySecond": 2.55,
+          "collectionBags": 222.9,
+          "collectionOverCapacity": 2,
+          "illegalBags": 12.1,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         },
         {
           "day": 2,
           "hour": 7,
           "scheduled": 46,
-          "arrived": 25,
+          "arrived": 26,
           "meanOnRoad": 47.8,
           "maxOnRoad": 54,
-          "meanStopped": 19.3,
-          "meanTravel": 146,
+          "meanStopped": 18.9,
+          "meanTravel": 141,
           "pedestrians": 15.2,
-          "engineMsPerCitySecond": 12.03
+          "engineMsPerCitySecond": 3.6,
+          "collectionBags": 248.6,
+          "collectionOverCapacity": 3,
+          "illegalBags": 13.9,
+          "lowStockShops": 0,
+          "illegalParking": 2.75
         },
         {
           "day": 2,
           "hour": 8,
           "scheduled": 52,
-          "arrived": 31,
-          "meanOnRoad": 71.4,
-          "maxOnRoad": 80,
-          "meanStopped": 31.5,
-          "meanTravel": 157,
-          "pedestrians": 18.9,
-          "engineMsPerCitySecond": 23.27
+          "arrived": 30,
+          "meanOnRoad": 70.4,
+          "maxOnRoad": 78,
+          "meanStopped": 29.8,
+          "meanTravel": 165,
+          "pedestrians": 18.1,
+          "engineMsPerCitySecond": 4.09,
+          "collectionBags": 228.3,
+          "collectionOverCapacity": 4,
+          "illegalBags": 19.7,
+          "lowStockShops": 0,
+          "illegalParking": 2.75
         },
         {
           "day": 2,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 40,
-          "meanOnRoad": 79,
-          "maxOnRoad": 91,
-          "meanStopped": 36.1,
-          "meanTravel": 207,
-          "pedestrians": 16.3,
-          "engineMsPerCitySecond": 17.04
+          "arrived": 43,
+          "meanOnRoad": 74.2,
+          "maxOnRoad": 83,
+          "meanStopped": 33.8,
+          "meanTravel": 193,
+          "pedestrians": 16,
+          "engineMsPerCitySecond": 3.93,
+          "collectionBags": 204.9,
+          "collectionOverCapacity": 3,
+          "illegalBags": 28.5,
+          "lowStockShops": 0,
+          "illegalParking": 2.33
         },
         {
           "day": 2,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 48,
-          "meanOnRoad": 57.5,
-          "maxOnRoad": 65,
-          "meanStopped": 27.9,
-          "meanTravel": 208,
-          "pedestrians": 11.5,
-          "engineMsPerCitySecond": 10.63
+          "arrived": 45,
+          "meanOnRoad": 56,
+          "maxOnRoad": 64,
+          "meanStopped": 25.8,
+          "meanTravel": 198,
+          "pedestrians": 10.9,
+          "engineMsPerCitySecond": 3.02,
+          "collectionBags": 221.9,
+          "collectionOverCapacity": 3,
+          "illegalBags": 31.3,
+          "lowStockShops": 0,
+          "illegalParking": 1.75
         },
         {
           "day": 2,
           "hour": 11,
           "scheduled": 23,
-          "arrived": 47,
-          "meanOnRoad": 37.4,
-          "maxOnRoad": 47,
-          "meanStopped": 15.6,
-          "meanTravel": 183,
+          "arrived": 46,
+          "meanOnRoad": 36.8,
+          "maxOnRoad": 50,
+          "meanStopped": 16.2,
+          "meanTravel": 189,
           "pedestrians": 8.5,
-          "engineMsPerCitySecond": 7.99
+          "engineMsPerCitySecond": 2.36,
+          "collectionBags": 233.9,
+          "collectionOverCapacity": 3,
+          "illegalBags": 52.1,
+          "lowStockShops": 0,
+          "illegalParking": 1
         },
         {
           "day": 2,
           "hour": 12,
           "scheduled": 35,
-          "arrived": 22,
-          "meanOnRoad": 27.4,
-          "maxOnRoad": 39,
-          "meanStopped": 10.9,
-          "meanTravel": 142,
-          "pedestrians": 11.7,
-          "engineMsPerCitySecond": 5.44
+          "arrived": 25,
+          "meanOnRoad": 29.2,
+          "maxOnRoad": 37,
+          "meanStopped": 12.3,
+          "meanTravel": 145,
+          "pedestrians": 11.1,
+          "engineMsPerCitySecond": 2.19,
+          "collectionBags": 211.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 55.9,
+          "lowStockShops": 0,
+          "illegalParking": 1.08
         },
         {
           "day": 2,
           "hour": 13,
           "scheduled": 23,
-          "arrived": 34,
-          "meanOnRoad": 29.8,
-          "maxOnRoad": 35,
-          "meanStopped": 12.1,
-          "meanTravel": 120,
-          "pedestrians": 9.7,
-          "engineMsPerCitySecond": 12.63
+          "arrived": 31,
+          "meanOnRoad": 31.1,
+          "maxOnRoad": 36,
+          "meanStopped": 13.6,
+          "meanTravel": 123,
+          "pedestrians": 9.4,
+          "engineMsPerCitySecond": 2.17,
+          "collectionBags": 225.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 67.7,
+          "lowStockShops": 0,
+          "illegalParking": 2.17
         },
         {
           "day": 2,
           "hour": 14,
           "scheduled": 23,
-          "arrived": 27,
-          "meanOnRoad": 25.3,
-          "maxOnRoad": 28,
-          "meanStopped": 9.8,
-          "meanTravel": 122,
+          "arrived": 26,
+          "meanOnRoad": 26.5,
+          "maxOnRoad": 30,
+          "meanStopped": 10.6,
+          "meanTravel": 121,
           "pedestrians": 7.9,
-          "engineMsPerCitySecond": 7.13
+          "engineMsPerCitySecond": 1.71,
+          "collectionBags": 253.4,
+          "collectionOverCapacity": 3,
+          "illegalBags": 72.5,
+          "lowStockShops": 0,
+          "illegalParking": 1.42
         },
         {
           "day": 2,
           "hour": 15,
           "scheduled": 34,
-          "arrived": 29,
-          "meanOnRoad": 24.2,
+          "arrived": 30,
+          "meanOnRoad": 25.3,
           "maxOnRoad": 30,
-          "meanStopped": 10.8,
-          "meanTravel": 101,
+          "meanStopped": 11.4,
+          "meanTravel": 122,
           "pedestrians": 11.8,
-          "engineMsPerCitySecond": 5.37
+          "engineMsPerCitySecond": 1.96,
+          "collectionBags": 225,
+          "collectionOverCapacity": 3,
+          "illegalBags": 74.3,
+          "lowStockShops": 0,
+          "illegalParking": 2.17
         },
         {
           "day": 2,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 29,
-          "meanOnRoad": 26.5,
-          "maxOnRoad": 31,
-          "meanStopped": 10.3,
-          "meanTravel": 109,
-          "pedestrians": 10.3,
-          "engineMsPerCitySecond": 7.68
+          "arrived": 31,
+          "meanOnRoad": 27.2,
+          "maxOnRoad": 32,
+          "meanStopped": 10.8,
+          "meanTravel": 110,
+          "pedestrians": 9.9,
+          "engineMsPerCitySecond": 2.09,
+          "collectionBags": 241.4,
+          "collectionOverCapacity": 3,
+          "illegalBags": 89.1,
+          "lowStockShops": 0,
+          "illegalParking": 2.08
         },
         {
           "day": 2,
           "hour": 17,
           "scheduled": 52,
-          "arrived": 23,
-          "meanOnRoad": 39.4,
-          "maxOnRoad": 56,
-          "meanStopped": 17.9,
-          "meanTravel": 119,
-          "pedestrians": 17.9,
-          "engineMsPerCitySecond": 8.88
+          "arrived": 24,
+          "meanOnRoad": 38.3,
+          "maxOnRoad": 54,
+          "meanStopped": 16.9,
+          "meanTravel": 118,
+          "pedestrians": 17.8,
+          "engineMsPerCitySecond": 2.76,
+          "collectionBags": 212.3,
+          "collectionOverCapacity": 2,
+          "illegalBags": 98.9,
+          "lowStockShops": 0,
+          "illegalParking": 3.17
         },
         {
           "day": 2,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 50,
-          "meanOnRoad": 66.8,
+          "arrived": 42,
+          "meanOnRoad": 68,
           "maxOnRoad": 73,
-          "meanStopped": 31.7,
-          "meanTravel": 130,
-          "pedestrians": 23.8,
-          "engineMsPerCitySecond": 9.22
+          "meanStopped": 30.8,
+          "meanTravel": 120,
+          "pedestrians": 23.3,
+          "engineMsPerCitySecond": 3.36,
+          "collectionBags": 246.2,
+          "collectionOverCapacity": 4,
+          "illegalBags": 104.7,
+          "lowStockShops": 0.83,
+          "illegalParking": 3.75
         },
         {
           "day": 2,
           "hour": 19,
           "scheduled": 40,
-          "arrived": 47,
-          "meanOnRoad": 66,
+          "arrived": 51,
+          "meanOnRoad": 67,
           "maxOnRoad": 73,
-          "meanStopped": 28.7,
-          "meanTravel": 160,
-          "pedestrians": 19.1,
-          "engineMsPerCitySecond": 6.88
+          "meanStopped": 29.3,
+          "meanTravel": 162,
+          "pedestrians": 21.3,
+          "engineMsPerCitySecond": 3.72,
+          "collectionBags": 283.2,
+          "collectionOverCapacity": 4,
+          "illegalBags": 115.5,
+          "lowStockShops": 1,
+          "illegalParking": 3.67
         },
         {
           "day": 2,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 45,
-          "meanOnRoad": 52.4,
-          "maxOnRoad": 57,
-          "meanStopped": 23.4,
+          "arrived": 47,
+          "meanOnRoad": 51.4,
+          "maxOnRoad": 56,
+          "meanStopped": 22,
           "meanTravel": 167,
-          "pedestrians": 16.8,
-          "engineMsPerCitySecond": 3.73
+          "pedestrians": 19.7,
+          "engineMsPerCitySecond": 2.9,
+          "collectionBags": 286.4,
+          "collectionOverCapacity": 4,
+          "illegalBags": 123.3,
+          "lowStockShops": 1.08,
+          "illegalParking": 2
         },
         {
           "day": 2,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 43,
-          "meanOnRoad": 43.8,
-          "maxOnRoad": 52,
-          "meanStopped": 18.5,
+          "arrived": 42,
+          "meanOnRoad": 43.3,
+          "maxOnRoad": 49,
+          "meanStopped": 18,
           "meanTravel": 159,
-          "pedestrians": 16.3,
-          "engineMsPerCitySecond": 3.37
+          "pedestrians": 13.8,
+          "engineMsPerCitySecond": 2.82,
+          "collectionBags": 264.1,
+          "collectionOverCapacity": 2,
+          "illegalBags": 140.1,
+          "lowStockShops": 2,
+          "illegalParking": 1.08
         },
         {
           "day": 2,
           "hour": 22,
           "scheduled": 3,
-          "arrived": 26,
-          "meanOnRoad": 21.9,
+          "arrived": 31,
+          "meanOnRoad": 19.2,
           "maxOnRoad": 33,
-          "meanStopped": 10.3,
-          "meanTravel": 171,
-          "pedestrians": 4.6,
-          "engineMsPerCitySecond": 2.48
+          "meanStopped": 7.3,
+          "meanTravel": 161,
+          "pedestrians": 1.9,
+          "engineMsPerCitySecond": 1.97,
+          "collectionBags": 237.4,
+          "collectionOverCapacity": 2,
+          "illegalBags": 135.9,
+          "lowStockShops": 1.08,
+          "illegalParking": 1
         },
         {
           "day": 2,
           "hour": 23,
           "scheduled": 2,
-          "arrived": 10,
-          "meanOnRoad": 6.5,
-          "maxOnRoad": 10,
-          "meanStopped": 2.7,
-          "meanTravel": 193,
+          "arrived": 6,
+          "meanOnRoad": 4.4,
+          "maxOnRoad": 7,
+          "meanStopped": 2,
+          "meanTravel": 175,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.79
+          "engineMsPerCitySecond": 1.35,
+          "collectionBags": 243.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 131.7,
+          "lowStockShops": 1,
+          "illegalParking": 1
         },
         {
           "day": 3,
           "hour": 0,
           "scheduled": 1,
           "arrived": 3,
-          "meanOnRoad": 2.1,
-          "maxOnRoad": 3,
+          "meanOnRoad": 2.3,
+          "maxOnRoad": 4,
           "meanStopped": 0.8,
-          "meanTravel": 185,
+          "meanTravel": 166,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.4
+          "engineMsPerCitySecond": 1.11,
+          "collectionBags": 215.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 127.5,
+          "lowStockShops": 0.08,
+          "illegalParking": 0.08
         },
         {
           "day": 3,
@@ -1289,7 +1241,12 @@
           "meanStopped": 0.3,
           "meanTravel": 131,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.17
+          "engineMsPerCitySecond": 1,
+          "collectionBags": 215.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 100.5,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -1301,7 +1258,12 @@
           "meanStopped": 0.1,
           "meanTravel": 94,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.49
+          "engineMsPerCitySecond": 1.62,
+          "collectionBags": 177.5,
+          "collectionOverCapacity": 1,
+          "illegalBags": 96.3,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -1313,7 +1275,12 @@
           "meanStopped": 0.4,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.35
+          "engineMsPerCitySecond": 1.72,
+          "collectionBags": 164.6,
+          "collectionOverCapacity": 1,
+          "illegalBags": 93.2,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -1325,7 +1292,12 @@
           "meanStopped": 0.6,
           "meanTravel": 104,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.19
+          "engineMsPerCitySecond": 1.97,
+          "collectionBags": 166.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 93.2,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -1334,238 +1306,338 @@
           "arrived": 1,
           "meanOnRoad": 1.9,
           "maxOnRoad": 3,
-          "meanStopped": 0.8,
+          "meanStopped": 0.6,
           "meanTravel": 55,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.2
+          "engineMsPerCitySecond": 1.79,
+          "collectionBags": 168.8,
+          "collectionOverCapacity": 2,
+          "illegalBags": 64,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
           "hour": 6,
           "scheduled": 29,
-          "arrived": 3,
-          "meanOnRoad": 21.3,
-          "maxOnRoad": 28,
-          "meanStopped": 7.6,
-          "meanTravel": 121,
+          "arrived": 4,
+          "meanOnRoad": 21.2,
+          "maxOnRoad": 27,
+          "meanStopped": 8.8,
+          "meanTravel": 132,
           "pedestrians": 8.1,
-          "engineMsPerCitySecond": 2.3
+          "engineMsPerCitySecond": 2.15,
+          "collectionBags": 175.1,
+          "collectionOverCapacity": 2,
+          "illegalBags": 41.3,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         },
         {
           "day": 3,
           "hour": 7,
           "scheduled": 46,
-          "arrived": 21,
-          "meanOnRoad": 47.5,
-          "maxOnRoad": 53,
-          "meanStopped": 19.8,
-          "meanTravel": 143,
-          "pedestrians": 15.3,
-          "engineMsPerCitySecond": 3.85
+          "arrived": 19,
+          "meanOnRoad": 49,
+          "maxOnRoad": 56,
+          "meanStopped": 20,
+          "meanTravel": 144,
+          "pedestrians": 14.8,
+          "engineMsPerCitySecond": 4.35,
+          "collectionBags": 201.9,
+          "collectionOverCapacity": 2,
+          "illegalBags": 28.4,
+          "lowStockShops": 0,
+          "illegalParking": 2.83
         },
         {
           "day": 3,
           "hour": 8,
           "scheduled": 52,
-          "arrived": 44,
-          "meanOnRoad": 68.3,
-          "maxOnRoad": 76,
-          "meanStopped": 29.3,
-          "meanTravel": 157,
-          "pedestrians": 19.7,
-          "engineMsPerCitySecond": 4.76
+          "arrived": 40,
+          "meanOnRoad": 72.5,
+          "maxOnRoad": 81,
+          "meanStopped": 33.5,
+          "meanTravel": 165,
+          "pedestrians": 19.3,
+          "engineMsPerCitySecond": 5.62,
+          "collectionBags": 233.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 30.9,
+          "lowStockShops": 0,
+          "illegalParking": 2.92
         },
         {
           "day": 3,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 33,
-          "meanOnRoad": 74.1,
-          "maxOnRoad": 83,
-          "meanStopped": 32.6,
-          "meanTravel": 186,
-          "pedestrians": 16.7,
-          "engineMsPerCitySecond": 5.53
+          "arrived": 34,
+          "meanOnRoad": 77.7,
+          "maxOnRoad": 86,
+          "meanStopped": 35,
+          "meanTravel": 197,
+          "pedestrians": 16.3,
+          "engineMsPerCitySecond": 4.86,
+          "collectionBags": 238.9,
+          "collectionOverCapacity": 1,
+          "illegalBags": 41.7,
+          "lowStockShops": 0,
+          "illegalParking": 2
         },
         {
           "day": 3,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 49,
-          "meanOnRoad": 57.4,
-          "maxOnRoad": 61,
-          "meanStopped": 25.3,
-          "meanTravel": 197,
+          "arrived": 47,
+          "meanOnRoad": 61.5,
+          "maxOnRoad": 70,
+          "meanStopped": 26.6,
+          "meanTravel": 215,
           "pedestrians": 12.3,
-          "engineMsPerCitySecond": 3.85
+          "engineMsPerCitySecond": 3.46,
+          "collectionBags": 237.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 17,
+          "lowStockShops": 0,
+          "illegalParking": 1.08
         },
         {
           "day": 3,
           "hour": 11,
           "scheduled": 23,
           "arrived": 45,
-          "meanOnRoad": 34.8,
-          "maxOnRoad": 47,
-          "meanStopped": 13.8,
-          "meanTravel": 188,
-          "pedestrians": 9,
-          "engineMsPerCitySecond": 2.98
+          "meanOnRoad": 38.3,
+          "maxOnRoad": 53,
+          "meanStopped": 17,
+          "meanTravel": 190,
+          "pedestrians": 8.6,
+          "engineMsPerCitySecond": 3.66,
+          "collectionBags": 253.5,
+          "collectionOverCapacity": 1,
+          "illegalBags": 25.8,
+          "lowStockShops": 0,
+          "illegalParking": 0.75
         },
         {
           "day": 3,
           "hour": 12,
           "scheduled": 35,
-          "arrived": 24,
-          "meanOnRoad": 31.2,
-          "maxOnRoad": 38,
-          "meanStopped": 12.4,
-          "meanTravel": 144,
-          "pedestrians": 12.7,
-          "engineMsPerCitySecond": 2.71
+          "arrived": 28,
+          "meanOnRoad": 32.5,
+          "maxOnRoad": 40,
+          "meanStopped": 14.5,
+          "meanTravel": 159,
+          "pedestrians": 11.5,
+          "engineMsPerCitySecond": 2.69,
+          "collectionBags": 283.1,
+          "collectionOverCapacity": 4,
+          "illegalBags": 32.6,
+          "lowStockShops": 0,
+          "illegalParking": 1.83
         },
         {
           "day": 3,
           "hour": 13,
           "scheduled": 23,
           "arrived": 29,
-          "meanOnRoad": 30.8,
-          "maxOnRoad": 36,
-          "meanStopped": 12.7,
-          "meanTravel": 125,
-          "pedestrians": 10.4,
-          "engineMsPerCitySecond": 3.05
+          "meanOnRoad": 32.7,
+          "maxOnRoad": 39,
+          "meanStopped": 12.4,
+          "meanTravel": 138,
+          "pedestrians": 8.9,
+          "engineMsPerCitySecond": 2.5,
+          "collectionBags": 277.2,
+          "collectionOverCapacity": 4,
+          "illegalBags": 35.4,
+          "lowStockShops": 0,
+          "illegalParking": 1.83
         },
         {
           "day": 3,
           "hour": 14,
           "scheduled": 23,
-          "arrived": 28,
-          "meanOnRoad": 24.8,
-          "maxOnRoad": 30,
-          "meanStopped": 10.5,
-          "meanTravel": 129,
+          "arrived": 34,
+          "meanOnRoad": 23.7,
+          "maxOnRoad": 31,
+          "meanStopped": 9.7,
+          "meanTravel": 147,
           "pedestrians": 7.7,
-          "engineMsPerCitySecond": 2.28
+          "engineMsPerCitySecond": 2.05,
+          "collectionBags": 300.8,
+          "collectionOverCapacity": 4,
+          "illegalBags": 46.2,
+          "lowStockShops": 0,
+          "illegalParking": 1.17
         },
         {
           "day": 3,
           "hour": 15,
           "scheduled": 34,
-          "arrived": 22,
-          "meanOnRoad": 31.6,
+          "arrived": 17,
+          "meanOnRoad": 30.5,
           "maxOnRoad": 39,
-          "meanStopped": 13.2,
-          "meanTravel": 142,
-          "pedestrians": 11.4,
-          "engineMsPerCitySecond": 2.68
+          "meanStopped": 12.6,
+          "meanTravel": 115,
+          "pedestrians": 11.3,
+          "engineMsPerCitySecond": 2.35,
+          "collectionBags": 284.3,
+          "collectionOverCapacity": 5,
+          "illegalBags": 50,
+          "lowStockShops": 0,
+          "illegalParking": 2.42
         },
         {
           "day": 3,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 37,
-          "meanOnRoad": 33.7,
-          "maxOnRoad": 37,
-          "meanStopped": 14.4,
-          "meanTravel": 125,
-          "pedestrians": 11.5,
-          "engineMsPerCitySecond": 2.98
+          "arrived": 36,
+          "meanOnRoad": 35,
+          "maxOnRoad": 38,
+          "meanStopped": 15.1,
+          "meanTravel": 128,
+          "pedestrians": 11.1,
+          "engineMsPerCitySecond": 2.27,
+          "collectionBags": 252.3,
+          "collectionOverCapacity": 5,
+          "illegalBags": 57.8,
+          "lowStockShops": 0,
+          "illegalParking": 1.92
         },
         {
           "day": 3,
           "hour": 17,
           "scheduled": 52,
-          "arrived": 31,
-          "meanOnRoad": 40.3,
-          "maxOnRoad": 51,
-          "meanStopped": 18.2,
-          "meanTravel": 126,
-          "pedestrians": 19.7,
-          "engineMsPerCitySecond": 3.12
+          "arrived": 30,
+          "meanOnRoad": 42,
+          "maxOnRoad": 54,
+          "meanStopped": 19.2,
+          "meanTravel": 133,
+          "pedestrians": 19.3,
+          "engineMsPerCitySecond": 2.82,
+          "collectionBags": 264.7,
+          "collectionOverCapacity": 4,
+          "illegalBags": 75.6,
+          "lowStockShops": 0.08,
+          "illegalParking": 3.17
         },
         {
           "day": 3,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 46,
-          "meanOnRoad": 57.6,
-          "maxOnRoad": 63,
-          "meanStopped": 24.8,
-          "meanTravel": 116,
+          "arrived": 51,
+          "meanOnRoad": 56.7,
+          "maxOnRoad": 61,
+          "meanStopped": 24,
+          "meanTravel": 120,
           "pedestrians": 25.1,
-          "engineMsPerCitySecond": 4.1
+          "engineMsPerCitySecond": 3.06,
+          "collectionBags": 246.3,
+          "collectionOverCapacity": 3,
+          "illegalBags": 76.4,
+          "lowStockShops": 0.75,
+          "illegalParking": 3.92
         },
         {
           "day": 3,
           "hour": 19,
           "scheduled": 40,
-          "arrived": 52,
-          "meanOnRoad": 52.8,
-          "maxOnRoad": 62,
-          "meanStopped": 23.3,
-          "meanTravel": 130,
-          "pedestrians": 27.7,
-          "engineMsPerCitySecond": 3.77
+          "arrived": 55,
+          "meanOnRoad": 53,
+          "maxOnRoad": 61,
+          "meanStopped": 23.6,
+          "meanTravel": 133,
+          "pedestrians": 29.8,
+          "engineMsPerCitySecond": 2.83,
+          "collectionBags": 275.2,
+          "collectionOverCapacity": 4,
+          "illegalBags": 92.2,
+          "lowStockShops": 0.83,
+          "illegalParking": 3.67
         },
         {
           "day": 3,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 43,
-          "meanOnRoad": 49.7,
-          "maxOnRoad": 55,
-          "meanStopped": 21.3,
-          "meanTravel": 148,
-          "pedestrians": 20.8,
-          "engineMsPerCitySecond": 3.65
+          "arrived": 35,
+          "meanOnRoad": 51.8,
+          "maxOnRoad": 57,
+          "meanStopped": 21.9,
+          "meanTravel": 144,
+          "pedestrians": 26.7,
+          "engineMsPerCitySecond": 2.75,
+          "collectionBags": 289.7,
+          "collectionOverCapacity": 3,
+          "illegalBags": 99,
+          "lowStockShops": 2,
+          "illegalParking": 1.83
         },
         {
           "day": 3,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 32,
-          "meanOnRoad": 37.3,
-          "maxOnRoad": 42,
-          "meanStopped": 17.8,
-          "meanTravel": 170,
-          "pedestrians": 11.5,
-          "engineMsPerCitySecond": 3.21
+          "arrived": 37,
+          "meanOnRoad": 35.9,
+          "maxOnRoad": 45,
+          "meanStopped": 14.3,
+          "meanTravel": 171,
+          "pedestrians": 16.4,
+          "engineMsPerCitySecond": 2.12,
+          "collectionBags": 236.2,
+          "collectionOverCapacity": 2,
+          "illegalBags": 106.8,
+          "lowStockShops": 1.17,
+          "illegalParking": 1.25
         },
         {
           "day": 3,
           "hour": 22,
           "scheduled": 3,
-          "arrived": 23,
-          "meanOnRoad": 27.3,
-          "maxOnRoad": 38,
-          "meanStopped": 10.9,
-          "meanTravel": 168,
+          "arrived": 22,
+          "meanOnRoad": 25.1,
+          "maxOnRoad": 34,
+          "meanStopped": 8.9,
+          "meanTravel": 149,
           "pedestrians": 2.1,
-          "engineMsPerCitySecond": 2.22
+          "engineMsPerCitySecond": 1.48,
+          "collectionBags": 242.4,
+          "collectionOverCapacity": 2,
+          "illegalBags": 97.6,
+          "lowStockShops": 0,
+          "illegalParking": 1
         },
         {
           "day": 3,
           "hour": 23,
           "scheduled": 2,
-          "arrived": 17,
-          "meanOnRoad": 9.9,
-          "maxOnRoad": 17,
-          "meanStopped": 4.4,
-          "meanTravel": 208,
+          "arrived": 16,
+          "meanOnRoad": 8.1,
+          "maxOnRoad": 14,
+          "meanStopped": 3.8,
+          "meanTravel": 199,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.72
+          "engineMsPerCitySecond": 0.92,
+          "collectionBags": 248.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 93.4,
+          "lowStockShops": 0,
+          "illegalParking": 1
         },
         {
           "day": 4,
           "hour": 0,
           "scheduled": 1,
           "arrived": 4,
-          "meanOnRoad": 2,
+          "meanOnRoad": 2.2,
           "maxOnRoad": 4,
-          "meanStopped": 0.7,
-          "meanTravel": 173,
+          "meanStopped": 0.9,
+          "meanTravel": 177,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.41
+          "engineMsPerCitySecond": 0.83,
+          "collectionBags": 240.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 89.2,
+          "lowStockShops": 0,
+          "illegalParking": 0.08
         },
         {
           "day": 4,
@@ -1577,19 +1649,29 @@
           "meanStopped": 0.8,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.16
+          "engineMsPerCitySecond": 0.79,
+          "collectionBags": 242.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 68.4,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
           "hour": 2,
           "scheduled": 1,
           "arrived": 3,
-          "meanOnRoad": 1.3,
+          "meanOnRoad": 1.5,
           "maxOnRoad": 2,
-          "meanStopped": 0.2,
-          "meanTravel": 117,
+          "meanStopped": 0.3,
+          "meanTravel": 127,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.09
+          "engineMsPerCitySecond": 0.78,
+          "collectionBags": 199.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 35.8,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -1601,7 +1683,12 @@
           "meanStopped": 0.1,
           "meanTravel": 97,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.09
+          "engineMsPerCitySecond": 0.82,
+          "collectionBags": 201.9,
+          "collectionOverCapacity": 1,
+          "illegalBags": 32,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -1613,7 +1700,12 @@
           "meanStopped": 0.1,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.1
+          "engineMsPerCitySecond": 0.76,
+          "collectionBags": 204,
+          "collectionOverCapacity": 1,
+          "illegalBags": 32,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -1623,9 +1715,14 @@
           "meanOnRoad": 1.6,
           "maxOnRoad": 2,
           "meanStopped": 0.6,
-          "meanTravel": 79,
+          "meanTravel": 80,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.48
+          "engineMsPerCitySecond": 0.77,
+          "collectionBags": 169.1,
+          "collectionOverCapacity": 1,
+          "illegalBags": 32,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -1634,10 +1731,15 @@
           "arrived": 3,
           "meanOnRoad": 19.5,
           "maxOnRoad": 28,
-          "meanStopped": 7.3,
+          "meanStopped": 7,
           "meanTravel": 61,
           "pedestrians": 7.3,
-          "engineMsPerCitySecond": 3.15
+          "engineMsPerCitySecond": 2.52,
+          "collectionBags": 166.3,
+          "collectionOverCapacity": 1,
+          "illegalBags": 41.9,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         }
       ]
     },
@@ -1645,33 +1747,35 @@
       "seed": 2405,
       "days": 3,
       "seconds": 8640,
-      "budget": 676,
+      "budget": 876,
       "unreachable": 0,
       "pendingAtEnd": 0,
       "peakHour": {
         "day": 1,
         "hour": 9,
-        "meanOnRoad": 82.1,
-        "maxOnRoad": 89
+        "meanOnRoad": 78.8,
+        "maxOnRoad": 90
       },
       "commutes": [
         {
           "day": 1,
-          "traffic": 39.666666666666664,
+          "traffic": 38.333333333333336,
           "traffic-east": 9,
-          "school-signal": 32
+          "school-signal": 33
         },
         {
           "day": 2,
-          "traffic": 34.333333333333336,
-          "traffic-east": 8.666666666666666,
-          "school-signal": 23.666666666666668
+          "traffic": 33,
+          "traffic-east": 8,
+          "school-signal": 25,
+          "supply": 3.3333333333333335
         },
         {
           "day": 3,
-          "traffic": 33.333333333333336,
-          "traffic-east": 11.666666666666666,
-          "school-signal": 27
+          "traffic": 36.666666666666664,
+          "traffic-east": 8.333333333333334,
+          "school-signal": 25,
+          "supply": 2
         }
       ],
       "problems": [
@@ -1698,22 +1802,27 @@
         {
           "when": "1일차 오전 10:30",
           "type": "problem",
-          "title": "작업장 배출구 아래"
+          "title": "동네 상점"
+        },
+        {
+          "when": "1일차 오전 11:20",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
         },
         {
           "when": "1일차 오전 11:20",
           "type": "problem",
-          "title": "생활 시설"
+          "title": "작업장 배출구 아래"
         },
         {
           "when": "1일차 오후 12:10",
           "type": "problem",
-          "title": "강너머 상점가 수거장"
+          "title": "생활 시설"
         },
         {
           "when": "1일차 오후 1:00",
           "type": "problem",
-          "title": "동네 상점"
+          "title": "강너머 상점가 수거장"
         },
         {
           "when": "1일차 오후 1:50",
@@ -1746,154 +1855,59 @@
           "title": "새봄천 산책길"
         },
         {
-          "when": "1일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
           "when": "1일차 오후 6:50",
           "type": "improved",
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "1일차 오후 7:10",
-          "type": "improved",
-          "title": "남쪽 주택가 수거장의 변화"
-        },
-        {
-          "when": "1일차 오후 7:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "1일차 오후 8:10",
+          "when": "1일차 오후 6:50",
           "type": "problem",
           "title": "주거지 골목"
         },
         {
-          "when": "1일차 오후 8:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "1일차 오후 9:00",
+          "when": "1일차 오후 7:40",
           "type": "problem",
           "title": "서쪽 끝 주택가 수거장"
         },
         {
-          "when": "1일차 오후 9:40",
+          "when": "1일차 오후 8:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "1일차 오후 9:20",
+          "type": "improved",
+          "title": "남쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "1일차 오후 9:30",
           "type": "improved",
           "title": "서쪽 끝 주택가 수거장의 변화"
         },
         {
-          "when": "1일차 오후 9:50",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "1일차 오후 10:30",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "1일차 오후 10:40",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "1일차 오후 11:30",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "1일차 오후 11:50",
+          "when": "1일차 오후 11:00",
           "type": "improved",
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "2일차 오전 12:20",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "2일차 오전 12:30",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오전 1:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오전 2:10",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "2일차 오전 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오전 2:50",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "2일차 오전 2:50",
-          "type": "improved",
-          "title": "주택가 뒷골목의 변화"
-        },
-        {
-          "when": "2일차 오전 3:00",
-          "type": "problem",
-          "title": "학교 가는 길 주택가 수거장"
-        },
-        {
-          "when": "2일차 오전 3:10",
-          "type": "improved",
-          "title": "공터 옆 길의 변화"
-        },
-        {
-          "when": "2일차 오전 3:50",
-          "type": "problem",
-          "title": "동쪽 상점가 수거장"
-        },
-        {
-          "when": "2일차 오전 4:30",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "2일차 오전 4:40",
-          "type": "problem",
-          "title": "학교 앞 수거장 수거장"
-        },
-        {
-          "when": "2일차 오전 5:30",
-          "type": "problem",
-          "title": "주택가 뒷골목"
-        },
-        {
-          "when": "2일차 오전 6:10",
+          "when": "2일차 오전 12:10",
           "type": "improved",
           "title": "주거지 골목의 변화"
         },
         {
-          "when": "2일차 오전 6:20",
+          "when": "2일차 오전 2:10",
+          "type": "improved",
+          "title": "주택가 뒷골목의 변화"
+        },
+        {
+          "when": "2일차 오전 3:30",
           "type": "improved",
           "title": "새봄천 산책길의 변화"
         },
         {
-          "when": "2일차 오전 6:20",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "2일차 오전 6:50",
+          "when": "2일차 오전 5:00",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "공터 옆 길의 변화"
         },
         {
           "when": "2일차 오전 7:20",
@@ -1913,22 +1927,22 @@
         {
           "when": "2일차 오전 9:00",
           "type": "problem",
-          "title": "남쪽 주택가 수거장"
-        },
-        {
-          "when": "2일차 오전 9:40",
-          "type": "improved",
-          "title": "학교 앞 수거장 수거장의 변화"
+          "title": "동쪽 상점가 수거장"
         },
         {
           "when": "2일차 오전 9:50",
           "type": "problem",
-          "title": "강너머 출근길"
+          "title": "학교 가는 길 주택가 수거장"
         },
         {
           "when": "2일차 오전 10:40",
           "type": "problem",
-          "title": "공터 옆 길"
+          "title": "주택가 뒷골목"
+        },
+        {
+          "when": "2일차 오전 11:20",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
         },
         {
           "when": "2일차 오전 11:30",
@@ -1941,22 +1955,22 @@
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "2일차 오후 12:20",
+          "when": "2일차 오전 11:50",
           "type": "improved",
           "title": "강너머 상점가 수거장의 변화"
         },
         {
-          "when": "2일차 오후 12:20",
+          "when": "2일차 오후 12:30",
           "type": "problem",
-          "title": "북쪽 주택가 수거장"
+          "title": "시장 옆 골목"
         },
         {
-          "when": "2일차 오후 1:10",
+          "when": "2일차 오후 1:20",
           "type": "problem",
-          "title": "서쪽 끝 주택가 수거장"
+          "title": "공터 옆 길"
         },
         {
-          "when": "2일차 오후 2:00",
+          "when": "2일차 오후 2:10",
           "type": "problem",
           "title": "강너머 상가 거리"
         },
@@ -1967,48 +1981,48 @@
         },
         {
           "when": "2일차 오후 2:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 3:00",
           "type": "problem",
           "title": "새봄천 산책길"
         },
         {
-          "when": "2일차 오후 3:40",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 4:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오후 4:30",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "2일차 오후 5:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
-          "when": "2일차 오후 6:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "2일차 오후 6:20",
+          "when": "2일차 오후 3:10",
           "type": "improved",
           "title": "동쪽 상점가 수거장의 변화"
         },
         {
-          "when": "2일차 오후 6:50",
+          "when": "2일차 오후 3:50",
+          "type": "problem",
+          "title": "학교 앞"
+        },
+        {
+          "when": "2일차 오후 4:40",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
+        },
+        {
+          "when": "2일차 오후 4:50",
           "type": "improved",
           "title": "학교 앞의 변화"
+        },
+        {
+          "when": "2일차 오후 5:30",
+          "type": "problem",
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "2일차 오후 5:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
+        },
+        {
+          "when": "2일차 오후 6:20",
+          "type": "problem",
+          "title": "강너머 상가 거리"
         },
         {
           "when": "2일차 오후 6:50",
@@ -2016,199 +2030,104 @@
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "2일차 오후 7:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 7:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "2일차 오후 8:10",
+          "when": "2일차 오후 7:10",
           "type": "problem",
           "title": "주거지 골목"
         },
         {
-          "when": "2일차 오후 8:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오후 9:20",
-          "type": "improved",
-          "title": "북쪽 주택가 수거장의 변화"
-        },
-        {
-          "when": "2일차 오후 9:20",
+          "when": "2일차 오후 8:00",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "시장 옆 골목"
         },
         {
-          "when": "2일차 오후 10:10",
+          "when": "2일차 오후 8:50",
           "type": "problem",
           "title": "강너머 상점가 수거장"
         },
         {
-          "when": "2일차 오후 10:20",
+          "when": "2일차 오후 9:00",
           "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "2일차 오후 11:00",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "2일차 오후 11:50",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 12:30",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 12:40",
+          "when": "3일차 오전 12:00",
           "type": "improved",
           "title": "학교 가는 길 주택가 수거장의 변화"
         },
         {
-          "when": "3일차 오전 12:40",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오전 12:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "3일차 오전 1:30",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 2:50",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오전 3:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 4:30",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 4:30",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "3일차 오전 5:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 5:40",
-          "type": "improved",
-          "title": "서쪽 끝 주택가 수거장의 변화"
-        },
-        {
-          "when": "3일차 오전 6:10",
+          "when": "3일차 오전 12:10",
           "type": "improved",
           "title": "주거지 골목의 변화"
         },
         {
-          "when": "3일차 오전 6:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오전 6:20",
+          "when": "3일차 오전 1:50",
           "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "주택가 뒷골목의 변화"
         },
         {
-          "when": "3일차 오전 6:40",
+          "when": "3일차 오전 4:00",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "새봄천 산책길의 변화"
         },
         {
-          "when": "3일차 오전 6:50",
+          "when": "3일차 오전 4:40",
           "type": "improved",
-          "title": "시장 옆 골목의 변화"
+          "title": "남쪽 주택가 수거장의 변화"
         },
         {
-          "when": "3일차 오전 7:00",
+          "when": "3일차 오전 7:20",
           "type": "problem",
-          "title": "학교 앞 수거장 수거장"
+          "title": "학교 앞"
         },
         {
-          "when": "3일차 오전 7:50",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오전 8:40",
+          "when": "3일차 오전 8:10",
           "type": "problem",
           "title": "주거지 골목"
         },
         {
-          "when": "3일차 오전 9:30",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 10:20",
+          "when": "3일차 오전 8:40",
           "type": "improved",
           "title": "학교 앞의 변화"
         },
         {
-          "when": "3일차 오전 10:40",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "3일차 오전 10:50",
+          "when": "3일차 오전 8:40",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "공터 옆 길의 변화"
         },
         {
-          "when": "3일차 오전 11:30",
+          "when": "3일차 오전 9:00",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "강너머 출근길"
         },
         {
-          "when": "3일차 오후 12:20",
+          "when": "3일차 오전 9:50",
           "type": "problem",
-          "title": "동쪽 상점가 수거장"
+          "title": "학교 앞 수거장 수거장"
         },
         {
-          "when": "3일차 오후 12:40",
+          "when": "3일차 오전 11:10",
           "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "주거지 골목의 변화"
         },
         {
-          "when": "3일차 오후 1:20",
+          "when": "3일차 오전 11:10",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "주택가 뒷골목"
+        },
+        {
+          "when": "3일차 오전 11:20",
+          "type": "improved",
+          "title": "학교 앞 수거장 수거장의 변화"
+        },
+        {
+          "when": "3일차 오후 12:50",
+          "type": "problem",
+          "title": "남쪽 주택가 수거장"
         },
         {
           "when": "3일차 오후 1:40",
-          "type": "improved",
-          "title": "남쪽 주택가 수거장의 변화"
+          "type": "problem",
+          "title": "시장 옆 골목"
         },
         {
           "when": "3일차 오후 1:50",
@@ -2216,59 +2135,39 @@
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "3일차 오후 2:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오후 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
           "when": "3일차 오후 2:30",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오후 3:00",
           "type": "problem",
-          "title": "북쪽 주택가 수거장"
+          "title": "새봄천 산책길"
         },
         {
-          "when": "3일차 오후 3:50",
+          "when": "3일차 오후 3:20",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "공터 옆 길"
         },
         {
-          "when": "3일차 오후 4:40",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 4:40",
+          "when": "3일차 오후 4:10",
           "type": "problem",
           "title": "강너머 상가 거리"
         },
         {
-          "when": "3일차 오후 5:30",
+          "when": "3일차 오후 4:40",
+          "type": "improved",
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오후 5:00",
           "type": "problem",
           "title": "서쪽 끝 주택가 수거장"
         },
         {
-          "when": "3일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
-          "when": "3일차 오후 6:20",
+          "when": "3일차 오후 5:50",
           "type": "problem",
-          "title": "시장 옆 골목"
+          "title": "주거지 골목"
         },
         {
-          "when": "3일차 오후 6:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
+          "when": "3일차 오후 6:40",
+          "type": "problem",
+          "title": "동쪽 상점가 수거장"
         },
         {
           "when": "3일차 오후 7:00",
@@ -2276,134 +2175,49 @@
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "3일차 오후 7:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오후 8:10",
-          "type": "problem",
-          "title": "주거지 골목"
-        },
-        {
-          "when": "3일차 오후 8:50",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 9:00",
-          "type": "problem",
-          "title": "학교 가는 길 주택가 수거장"
-        },
-        {
-          "when": "3일차 오후 9:50",
-          "type": "problem",
-          "title": "남쪽 주택가 수거장"
-        },
-        {
-          "when": "3일차 오후 10:40",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오후 10:50",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오후 11:30",
+          "when": "3일차 오후 7:30",
           "type": "problem",
           "title": "시장 옆 골목"
         },
         {
-          "when": "4일차 오전 12:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "4일차 오전 12:50",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "4일차 오전 1:20",
-          "type": "improved",
-          "title": "주택가 뒷골목의 변화"
-        },
-        {
-          "when": "4일차 오전 1:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "4일차 오전 1:50",
+          "when": "3일차 오후 7:50",
           "type": "improved",
           "title": "시장 옆 골목의 변화"
         },
         {
+          "when": "3일차 오후 7:50",
+          "type": "improved",
+          "title": "동쪽 상점가 수거장의 변화"
+        },
+        {
+          "when": "3일차 오후 8:20",
+          "type": "problem",
+          "title": "학교 가는 길 주택가 수거장"
+        },
+        {
+          "when": "4일차 오전 12:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "4일차 오전 1:40",
+          "type": "improved",
+          "title": "학교 가는 길 주택가 수거장의 변화"
+        },
+        {
           "when": "4일차 오전 1:50",
           "type": "improved",
-          "title": "공터 옆 길의 변화"
+          "title": "서쪽 끝 주택가 수거장의 변화"
         },
         {
-          "when": "4일차 오전 2:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "4일차 오전 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "4일차 오전 2:40",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "4일차 오전 3:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "4일차 오전 4:20",
-          "type": "problem",
-          "title": "주택가 뒷골목"
-        },
-        {
-          "when": "4일차 오전 4:30",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "4일차 오전 5:10",
-          "type": "problem",
-          "title": "공터 옆 길"
-        },
-        {
-          "when": "4일차 오전 5:20",
+          "when": "4일차 오전 3:00",
           "type": "improved",
           "title": "새봄천 산책길의 변화"
         },
         {
           "when": "4일차 오전 6:00",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "4일차 오전 6:10",
           "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
-          "when": "4일차 오전 6:40",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "4일차 오전 6:50",
-          "type": "problem",
-          "title": "시장 옆 골목"
+          "title": "남쪽 주택가 수거장의 변화"
         }
       ],
       "hours": [
@@ -2417,7 +2231,12 @@
           "meanStopped": 12.8,
           "meanTravel": 92,
           "pedestrians": 13,
-          "engineMsPerCitySecond": 3.25
+          "engineMsPerCitySecond": 3.28,
+          "collectionBags": 228.3,
+          "collectionOverCapacity": 1,
+          "illegalBags": 32.8,
+          "lowStockShops": 0,
+          "illegalParking": 3.58
         },
         {
           "day": 1,
@@ -2426,202 +2245,287 @@
           "arrived": 24,
           "meanOnRoad": 68.9,
           "maxOnRoad": 79,
-          "meanStopped": 33.1,
+          "meanStopped": 31.8,
           "meanTravel": 148,
           "pedestrians": 20.8,
-          "engineMsPerCitySecond": 5.01
+          "engineMsPerCitySecond": 4.45,
+          "collectionBags": 223.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 34.6,
+          "lowStockShops": 0,
+          "illegalParking": 3.5
         },
         {
           "day": 1,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 42,
-          "meanOnRoad": 82.1,
-          "maxOnRoad": 89,
-          "meanStopped": 36.6,
-          "meanTravel": 193,
-          "pedestrians": 18.7,
-          "engineMsPerCitySecond": 6.6
+          "arrived": 47,
+          "meanOnRoad": 78.8,
+          "maxOnRoad": 87,
+          "meanStopped": 36.5,
+          "meanTravel": 187,
+          "pedestrians": 20.2,
+          "engineMsPerCitySecond": 4.23,
+          "collectionBags": 234.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 42.4,
+          "lowStockShops": 1.42,
+          "illegalParking": 3.42
         },
         {
           "day": 1,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 42,
-          "meanOnRoad": 62.7,
-          "maxOnRoad": 70,
-          "meanStopped": 28.8,
-          "meanTravel": 226,
-          "pedestrians": 13.1,
-          "engineMsPerCitySecond": 5.21
+          "arrived": 39,
+          "meanOnRoad": 58.4,
+          "maxOnRoad": 64,
+          "meanStopped": 27.1,
+          "meanTravel": 225,
+          "pedestrians": 13.3,
+          "engineMsPerCitySecond": 3.44,
+          "collectionBags": 230.9,
+          "collectionOverCapacity": 5,
+          "illegalBags": 52.2,
+          "lowStockShops": 3,
+          "illegalParking": 2.5
         },
         {
           "day": 1,
           "hour": 11,
           "scheduled": 23,
-          "arrived": 47,
-          "meanOnRoad": 41.7,
-          "maxOnRoad": 53,
-          "meanStopped": 18.8,
-          "meanTravel": 203,
+          "arrived": 45,
+          "meanOnRoad": 42.3,
+          "maxOnRoad": 52,
+          "meanStopped": 19.3,
+          "meanTravel": 183,
           "pedestrians": 8.3,
-          "engineMsPerCitySecond": 3.43
+          "engineMsPerCitySecond": 2.51,
+          "collectionBags": 220.4,
+          "collectionOverCapacity": 3,
+          "illegalBags": 63,
+          "lowStockShops": 1.67,
+          "illegalParking": 0.92
         },
         {
           "day": 1,
           "hour": 12,
           "scheduled": 35,
           "arrived": 37,
-          "meanOnRoad": 32,
-          "maxOnRoad": 35,
-          "meanStopped": 12.8,
-          "meanTravel": 148,
-          "pedestrians": 12.2,
-          "engineMsPerCitySecond": 3.3
+          "meanOnRoad": 32.9,
+          "maxOnRoad": 39,
+          "meanStopped": 13.2,
+          "meanTravel": 162,
+          "pedestrians": 11.4,
+          "engineMsPerCitySecond": 2.48,
+          "collectionBags": 229.4,
+          "collectionOverCapacity": 3,
+          "illegalBags": 65.8,
+          "lowStockShops": 1,
+          "illegalParking": 0.08
         },
         {
           "day": 1,
           "hour": 13,
           "scheduled": 23,
-          "arrived": 23,
-          "meanOnRoad": 28,
+          "arrived": 22,
+          "meanOnRoad": 28.1,
           "maxOnRoad": 32,
           "meanStopped": 11.1,
-          "meanTravel": 130,
-          "pedestrians": 9.3,
-          "engineMsPerCitySecond": 2.74
+          "meanTravel": 129,
+          "pedestrians": 8.8,
+          "engineMsPerCitySecond": 1.95,
+          "collectionBags": 255.8,
+          "collectionOverCapacity": 4,
+          "illegalBags": 75.6,
+          "lowStockShops": 1,
+          "illegalParking": 1.17
         },
         {
           "day": 1,
           "hour": 14,
           "scheduled": 23,
           "arrived": 24,
-          "meanOnRoad": 28.2,
-          "maxOnRoad": 31,
-          "meanStopped": 12.5,
-          "meanTravel": 131,
-          "pedestrians": 8.7,
-          "engineMsPerCitySecond": 2.59
+          "meanOnRoad": 29.3,
+          "maxOnRoad": 32,
+          "meanStopped": 12.8,
+          "meanTravel": 134,
+          "pedestrians": 8.5,
+          "engineMsPerCitySecond": 2.01,
+          "collectionBags": 275.3,
+          "collectionOverCapacity": 4,
+          "illegalBags": 76.4,
+          "lowStockShops": 0.92,
+          "illegalParking": 1.42
         },
         {
           "day": 1,
           "hour": 15,
           "scheduled": 34,
-          "arrived": 25,
-          "meanOnRoad": 32.3,
+          "arrived": 26,
+          "meanOnRoad": 31.5,
           "maxOnRoad": 38,
-          "meanStopped": 12.7,
-          "meanTravel": 146,
+          "meanStopped": 12.3,
+          "meanTravel": 140,
           "pedestrians": 11.5,
-          "engineMsPerCitySecond": 3.15
+          "engineMsPerCitySecond": 2.05,
+          "collectionBags": 276.3,
+          "collectionOverCapacity": 4,
+          "illegalBags": 86.2,
+          "lowStockShops": 2.25,
+          "illegalParking": 3.42
         },
         {
           "day": 1,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 43,
-          "meanOnRoad": 30.6,
-          "maxOnRoad": 38,
-          "meanStopped": 13.8,
+          "arrived": 41,
+          "meanOnRoad": 31.4,
+          "maxOnRoad": 39,
+          "meanStopped": 14.7,
           "meanTravel": 122,
           "pedestrians": 11.6,
-          "engineMsPerCitySecond": 2.65
+          "engineMsPerCitySecond": 2.16,
+          "collectionBags": 226.4,
+          "collectionOverCapacity": 3,
+          "illegalBags": 90,
+          "lowStockShops": 2,
+          "illegalParking": 3.17
         },
         {
           "day": 1,
           "hour": 17,
           "scheduled": 52,
           "arrived": 22,
-          "meanOnRoad": 38.8,
-          "maxOnRoad": 53,
-          "meanStopped": 15.8,
-          "meanTravel": 121,
+          "meanOnRoad": 40.1,
+          "maxOnRoad": 56,
+          "meanStopped": 15.9,
+          "meanTravel": 126,
           "pedestrians": 17.3,
-          "engineMsPerCitySecond": 3.27
+          "engineMsPerCitySecond": 2.42,
+          "collectionBags": 223.6,
+          "collectionOverCapacity": 3,
+          "illegalBags": 102.8,
+          "lowStockShops": 2,
+          "illegalParking": 3.42
         },
         {
           "day": 1,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 44,
-          "meanOnRoad": 61,
-          "maxOnRoad": 71,
-          "meanStopped": 27.8,
-          "meanTravel": 123,
+          "arrived": 48,
+          "meanOnRoad": 60.5,
+          "maxOnRoad": 69,
+          "meanStopped": 27.7,
+          "meanTravel": 132,
           "pedestrians": 26.3,
-          "engineMsPerCitySecond": 4.12
+          "engineMsPerCitySecond": 3.06,
+          "collectionBags": 250.7,
+          "collectionOverCapacity": 3,
+          "illegalBags": 118.6,
+          "lowStockShops": 2.5,
+          "illegalParking": 2.75
         },
         {
           "day": 1,
           "hour": 19,
           "scheduled": 40,
           "arrived": 50,
-          "meanOnRoad": 64.1,
-          "maxOnRoad": 70,
-          "meanStopped": 27.7,
-          "meanTravel": 138,
-          "pedestrians": 20.8,
-          "engineMsPerCitySecond": 4.55
+          "meanOnRoad": 64.5,
+          "maxOnRoad": 71,
+          "meanStopped": 27.5,
+          "meanTravel": 134,
+          "pedestrians": 26.8,
+          "engineMsPerCitySecond": 2.99,
+          "collectionBags": 279.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 122.4,
+          "lowStockShops": 2.42,
+          "illegalParking": 2.67
         },
         {
           "day": 1,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 42,
-          "meanOnRoad": 52.1,
+          "arrived": 41,
+          "meanOnRoad": 50.9,
           "maxOnRoad": 56,
           "meanStopped": 22.8,
-          "meanTravel": 170,
-          "pedestrians": 14.6,
-          "engineMsPerCitySecond": 3.7
+          "meanTravel": 162,
+          "pedestrians": 22.3,
+          "engineMsPerCitySecond": 2.62,
+          "collectionBags": 305.9,
+          "collectionOverCapacity": 3,
+          "illegalBags": 131.2,
+          "lowStockShops": 3,
+          "illegalParking": 2.08
         },
         {
           "day": 1,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 39,
-          "meanOnRoad": 43.3,
-          "maxOnRoad": 51,
-          "meanStopped": 17.6,
-          "meanTravel": 163,
-          "pedestrians": 11.8,
-          "engineMsPerCitySecond": 3.32
+          "arrived": 37,
+          "meanOnRoad": 43.1,
+          "maxOnRoad": 52,
+          "meanStopped": 17.5,
+          "meanTravel": 178,
+          "pedestrians": 13.9,
+          "engineMsPerCitySecond": 2.9,
+          "collectionBags": 235.1,
+          "collectionOverCapacity": 1,
+          "illegalBags": 130,
+          "lowStockShops": 2.75,
+          "illegalParking": 2.08
         },
         {
           "day": 1,
           "hour": 22,
           "scheduled": 3,
-          "arrived": 28,
-          "meanOnRoad": 22.9,
-          "maxOnRoad": 33,
-          "meanStopped": 8.6,
-          "meanTravel": 169,
-          "pedestrians": 2.8,
-          "engineMsPerCitySecond": 2.41
+          "arrived": 31,
+          "meanOnRoad": 23.8,
+          "maxOnRoad": 35,
+          "meanStopped": 9,
+          "meanTravel": 173,
+          "pedestrians": 2.3,
+          "engineMsPerCitySecond": 2.17,
+          "collectionBags": 240.9,
+          "collectionOverCapacity": 1,
+          "illegalBags": 125.8,
+          "lowStockShops": 2,
+          "illegalParking": 1.92
         },
         {
           "day": 1,
           "hour": 23,
           "scheduled": 2,
-          "arrived": 13,
-          "meanOnRoad": 7.1,
-          "maxOnRoad": 14,
-          "meanStopped": 2.6,
-          "meanTravel": 225,
+          "arrived": 11,
+          "meanOnRoad": 5.7,
+          "maxOnRoad": 11,
+          "meanStopped": 1.8,
+          "meanTravel": 191,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.46
+          "engineMsPerCitySecond": 1,
+          "collectionBags": 246.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 121.6,
+          "lowStockShops": 1.92,
+          "illegalParking": 1
         },
         {
           "day": 2,
           "hour": 0,
           "scheduled": 1,
           "arrived": 4,
-          "meanOnRoad": 2,
-          "maxOnRoad": 4,
-          "meanStopped": 0.9,
-          "meanTravel": 136,
+          "meanOnRoad": 1.8,
+          "maxOnRoad": 3,
+          "meanStopped": 0.7,
+          "meanTravel": 127,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.03
+          "engineMsPerCitySecond": 0.79,
+          "collectionBags": 229,
+          "collectionOverCapacity": 1,
+          "illegalBags": 114.5,
+          "lowStockShops": 0.75,
+          "illegalParking": 0.08
         },
         {
           "day": 2,
@@ -2633,7 +2537,12 @@
           "meanStopped": 0,
           "meanTravel": 108,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.17
+          "engineMsPerCitySecond": 0.75,
+          "collectionBags": 230.9,
+          "collectionOverCapacity": 1,
+          "illegalBags": 35.4,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -2645,7 +2554,12 @@
           "meanStopped": 0.8,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.27
+          "engineMsPerCitySecond": 0.81,
+          "collectionBags": 232.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 23.2,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -2657,7 +2571,12 @@
           "meanStopped": 0.7,
           "meanTravel": 165,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.44
+          "engineMsPerCitySecond": 0.73,
+          "collectionBags": 234.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 16.2,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -2669,7 +2588,12 @@
           "meanStopped": 0.3,
           "meanTravel": 157,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.3
+          "engineMsPerCitySecond": 0.65,
+          "collectionBags": 236.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 0,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -2678,118 +2602,168 @@
           "arrived": 0,
           "meanOnRoad": 2.4,
           "maxOnRoad": 3,
-          "meanStopped": 1,
+          "meanStopped": 1.1,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.64
+          "engineMsPerCitySecond": 0.75,
+          "collectionBags": 238.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 0,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
           "hour": 6,
           "scheduled": 29,
           "arrived": 5,
-          "meanOnRoad": 23.3,
-          "maxOnRoad": 29,
-          "meanStopped": 8.4,
-          "meanTravel": 140,
+          "meanOnRoad": 23.7,
+          "maxOnRoad": 30,
+          "meanStopped": 8.6,
+          "meanTravel": 149,
           "pedestrians": 7.7,
-          "engineMsPerCitySecond": 2.77
+          "engineMsPerCitySecond": 1.75,
+          "collectionBags": 231.4,
+          "collectionOverCapacity": 2,
+          "illegalBags": 9.1,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         },
         {
           "day": 2,
           "hour": 7,
           "scheduled": 46,
           "arrived": 23,
-          "meanOnRoad": 51.3,
-          "maxOnRoad": 60,
-          "meanStopped": 20.6,
-          "meanTravel": 146,
-          "pedestrians": 16,
-          "engineMsPerCitySecond": 4.19
+          "meanOnRoad": 50.7,
+          "maxOnRoad": 57,
+          "meanStopped": 19.8,
+          "meanTravel": 144,
+          "pedestrians": 15.4,
+          "engineMsPerCitySecond": 2.97,
+          "collectionBags": 259.5,
+          "collectionOverCapacity": 4,
+          "illegalBags": 7.9,
+          "lowStockShops": 0,
+          "illegalParking": 2.75
         },
         {
           "day": 2,
           "hour": 8,
           "scheduled": 52,
           "arrived": 37,
-          "meanOnRoad": 69.8,
-          "maxOnRoad": 77,
-          "meanStopped": 30.3,
-          "meanTravel": 172,
+          "meanOnRoad": 69,
+          "maxOnRoad": 75,
+          "meanStopped": 28.8,
+          "meanTravel": 171,
           "pedestrians": 21.8,
-          "engineMsPerCitySecond": 5.33
+          "engineMsPerCitySecond": 3.64,
+          "collectionBags": 243.9,
+          "collectionOverCapacity": 3,
+          "illegalBags": 19.7,
+          "lowStockShops": 0,
+          "illegalParking": 2.83
         },
         {
           "day": 2,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 38,
-          "meanOnRoad": 72.6,
-          "maxOnRoad": 80,
-          "meanStopped": 34.5,
-          "meanTravel": 191,
-          "pedestrians": 16.9,
-          "engineMsPerCitySecond": 4.89
+          "arrived": 39,
+          "meanOnRoad": 69.8,
+          "maxOnRoad": 78,
+          "meanStopped": 32.3,
+          "meanTravel": 190,
+          "pedestrians": 18.1,
+          "engineMsPerCitySecond": 3.49,
+          "collectionBags": 207.1,
+          "collectionOverCapacity": 2,
+          "illegalBags": 28.5,
+          "lowStockShops": 0,
+          "illegalParking": 2.33
         },
         {
           "day": 2,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 44,
-          "meanOnRoad": 59.6,
-          "maxOnRoad": 68,
-          "meanStopped": 27.7,
-          "meanTravel": 181,
-          "pedestrians": 12.9,
-          "engineMsPerCitySecond": 3.95
+          "arrived": 43,
+          "meanOnRoad": 54.3,
+          "maxOnRoad": 62,
+          "meanStopped": 23.4,
+          "meanTravel": 177,
+          "pedestrians": 11.4,
+          "engineMsPerCitySecond": 2.74,
+          "collectionBags": 234.6,
+          "collectionOverCapacity": 3,
+          "illegalBags": 28.3,
+          "lowStockShops": 0,
+          "illegalParking": 1.75
         },
         {
           "day": 2,
           "hour": 11,
           "scheduled": 23,
-          "arrived": 43,
-          "meanOnRoad": 35.8,
-          "maxOnRoad": 50,
-          "meanStopped": 16.8,
-          "meanTravel": 210,
-          "pedestrians": 8.3,
-          "engineMsPerCitySecond": 3.14
+          "arrived": 39,
+          "meanOnRoad": 37.3,
+          "maxOnRoad": 46,
+          "meanStopped": 16.5,
+          "meanTravel": 211,
+          "pedestrians": 8.2,
+          "engineMsPerCitySecond": 2.2,
+          "collectionBags": 202.4,
+          "collectionOverCapacity": 2,
+          "illegalBags": 36.1,
+          "lowStockShops": 0,
+          "illegalParking": 1
         },
         {
           "day": 2,
           "hour": 12,
           "scheduled": 35,
-          "arrived": 26,
-          "meanOnRoad": 33.9,
-          "maxOnRoad": 43,
-          "meanStopped": 15.7,
-          "meanTravel": 156,
+          "arrived": 31,
+          "meanOnRoad": 34.7,
+          "maxOnRoad": 40,
+          "meanStopped": 15.3,
+          "meanTravel": 176,
           "pedestrians": 11.8,
-          "engineMsPerCitySecond": 2.8
+          "engineMsPerCitySecond": 2.19,
+          "collectionBags": 223.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 40.9,
+          "lowStockShops": 0,
+          "illegalParking": 1.08
         },
         {
           "day": 2,
           "hour": 13,
           "scheduled": 23,
-          "arrived": 37,
-          "meanOnRoad": 35.5,
-          "maxOnRoad": 38,
-          "meanStopped": 13.1,
-          "meanTravel": 144,
-          "pedestrians": 10.1,
-          "engineMsPerCitySecond": 3.04
+          "arrived": 38,
+          "meanOnRoad": 34.7,
+          "maxOnRoad": 37,
+          "meanStopped": 14.1,
+          "meanTravel": 139,
+          "pedestrians": 8.9,
+          "engineMsPerCitySecond": 1.85,
+          "collectionBags": 245.3,
+          "collectionOverCapacity": 4,
+          "illegalBags": 55.7,
+          "lowStockShops": 0,
+          "illegalParking": 2.08
         },
         {
           "day": 2,
           "hour": 14,
           "scheduled": 23,
-          "arrived": 27,
-          "meanOnRoad": 20.5,
-          "maxOnRoad": 25,
-          "meanStopped": 8.3,
-          "meanTravel": 130,
-          "pedestrians": 7.4,
-          "engineMsPerCitySecond": 2.4
+          "arrived": 24,
+          "meanOnRoad": 19.8,
+          "maxOnRoad": 24,
+          "meanStopped": 7.4,
+          "meanTravel": 129,
+          "pedestrians": 7.2,
+          "engineMsPerCitySecond": 1.73,
+          "collectionBags": 238.1,
+          "collectionOverCapacity": 3,
+          "illegalBags": 66.5,
+          "lowStockShops": 0,
+          "illegalParking": 1.5
         },
         {
           "day": 2,
@@ -2797,119 +2771,169 @@
           "scheduled": 34,
           "arrived": 23,
           "meanOnRoad": 25.3,
-          "maxOnRoad": 34,
+          "maxOnRoad": 35,
           "meanStopped": 10.3,
-          "meanTravel": 99,
+          "meanTravel": 100,
           "pedestrians": 11.2,
-          "engineMsPerCitySecond": 2.66
+          "engineMsPerCitySecond": 1.78,
+          "collectionBags": 183.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 65.3,
+          "lowStockShops": 0,
+          "illegalParking": 1.75
         },
         {
           "day": 2,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 25,
-          "meanOnRoad": 29.9,
-          "maxOnRoad": 38,
+          "arrived": 27,
+          "meanOnRoad": 29.6,
+          "maxOnRoad": 37,
           "meanStopped": 12.3,
-          "meanTravel": 118,
-          "pedestrians": 10.9,
-          "engineMsPerCitySecond": 2.6
+          "meanTravel": 121,
+          "pedestrians": 10.8,
+          "engineMsPerCitySecond": 1.74,
+          "collectionBags": 196.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 81.1,
+          "lowStockShops": 0,
+          "illegalParking": 1.08
         },
         {
           "day": 2,
           "hour": 17,
           "scheduled": 52,
           "arrived": 41,
-          "meanOnRoad": 46.5,
-          "maxOnRoad": 52,
-          "meanStopped": 21.3,
+          "meanOnRoad": 46.1,
+          "maxOnRoad": 50,
+          "meanStopped": 20.7,
           "meanTravel": 125,
           "pedestrians": 16.9,
-          "engineMsPerCitySecond": 4.09
+          "engineMsPerCitySecond": 2.76,
+          "collectionBags": 211,
+          "collectionOverCapacity": 2,
+          "illegalBags": 83.9,
+          "lowStockShops": 0.58,
+          "illegalParking": 2.58
         },
         {
           "day": 2,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 43,
-          "meanOnRoad": 62.5,
-          "maxOnRoad": 68,
-          "meanStopped": 25.3,
-          "meanTravel": 121,
-          "pedestrians": 23.8,
-          "engineMsPerCitySecond": 4.17
+          "arrived": 37,
+          "meanOnRoad": 65.2,
+          "maxOnRoad": 74,
+          "meanStopped": 29.1,
+          "meanTravel": 123,
+          "pedestrians": 25.1,
+          "engineMsPerCitySecond": 3.36,
+          "collectionBags": 232.5,
+          "collectionOverCapacity": 3,
+          "illegalBags": 100.7,
+          "lowStockShops": 0.83,
+          "illegalParking": 3.5
         },
         {
           "day": 2,
           "hour": 19,
           "scheduled": 40,
-          "arrived": 57,
-          "meanOnRoad": 54.6,
-          "maxOnRoad": 62,
-          "meanStopped": 23.3,
-          "meanTravel": 154,
-          "pedestrians": 17,
-          "engineMsPerCitySecond": 4.13
+          "arrived": 54,
+          "meanOnRoad": 60.5,
+          "maxOnRoad": 67,
+          "meanStopped": 28.3,
+          "meanTravel": 165,
+          "pedestrians": 25.2,
+          "engineMsPerCitySecond": 2.98,
+          "collectionBags": 220.3,
+          "collectionOverCapacity": 3,
+          "illegalBags": 118.5,
+          "lowStockShops": 0.92,
+          "illegalParking": 3.67
         },
         {
           "day": 2,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 35,
-          "meanOnRoad": 48.6,
-          "maxOnRoad": 52,
-          "meanStopped": 20.4,
-          "meanTravel": 144,
-          "pedestrians": 19.5,
-          "engineMsPerCitySecond": 3.85
+          "arrived": 43,
+          "meanOnRoad": 52.3,
+          "maxOnRoad": 57,
+          "meanStopped": 22.9,
+          "meanTravel": 159,
+          "pedestrians": 23.3,
+          "engineMsPerCitySecond": 2.8,
+          "collectionBags": 199,
+          "collectionOverCapacity": 2,
+          "illegalBags": 123.3,
+          "lowStockShops": 1.75,
+          "illegalParking": 2
         },
         {
           "day": 2,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 41,
-          "meanOnRoad": 39.8,
-          "maxOnRoad": 48,
-          "meanStopped": 16.2,
-          "meanTravel": 151,
-          "pedestrians": 16.3,
-          "engineMsPerCitySecond": 3.08
+          "arrived": 39,
+          "meanOnRoad": 40.6,
+          "maxOnRoad": 49,
+          "meanStopped": 16.7,
+          "meanTravel": 150,
+          "pedestrians": 17.5,
+          "engineMsPerCitySecond": 2.63,
+          "collectionBags": 230.1,
+          "collectionOverCapacity": 2,
+          "illegalBags": 131.5,
+          "lowStockShops": 1.83,
+          "illegalParking": 1.08
         },
         {
           "day": 2,
           "hour": 22,
           "scheduled": 3,
-          "arrived": 20,
-          "meanOnRoad": 23.3,
-          "maxOnRoad": 34,
-          "meanStopped": 9.2,
-          "meanTravel": 160,
+          "arrived": 22,
+          "meanOnRoad": 24,
+          "maxOnRoad": 35,
+          "meanStopped": 9.9,
+          "meanTravel": 169,
           "pedestrians": 2.1,
-          "engineMsPerCitySecond": 2.52
+          "engineMsPerCitySecond": 1.6,
+          "collectionBags": 235.9,
+          "collectionOverCapacity": 2,
+          "illegalBags": 127.3,
+          "lowStockShops": 1,
+          "illegalParking": 1
         },
         {
           "day": 2,
           "hour": 23,
           "scheduled": 2,
           "arrived": 17,
-          "meanOnRoad": 5.4,
-          "maxOnRoad": 14,
-          "meanStopped": 2.3,
-          "meanTravel": 187,
+          "meanOnRoad": 6.6,
+          "maxOnRoad": 13,
+          "meanStopped": 2.4,
+          "meanTravel": 196,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.46
+          "engineMsPerCitySecond": 1.18,
+          "collectionBags": 217.8,
+          "collectionOverCapacity": 2,
+          "illegalBags": 123.1,
+          "lowStockShops": 0.5,
+          "illegalParking": 1
         },
         {
           "day": 3,
           "hour": 0,
           "scheduled": 1,
           "arrived": 2,
-          "meanOnRoad": 1.7,
+          "meanOnRoad": 1,
           "maxOnRoad": 2,
-          "meanStopped": 0.6,
-          "meanTravel": 157,
+          "meanStopped": 0.5,
+          "meanTravel": 118,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.33
+          "engineMsPerCitySecond": 0.82,
+          "collectionBags": 188.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 118.9,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -2921,31 +2945,46 @@
           "meanStopped": 0,
           "meanTravel": 78,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.27
+          "engineMsPerCitySecond": 0.8,
+          "collectionBags": 190.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 59.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
           "hour": 2,
           "scheduled": 1,
-          "arrived": 1,
-          "meanOnRoad": 1,
-          "maxOnRoad": 1,
+          "arrived": 0,
+          "meanOnRoad": 1.1,
+          "maxOnRoad": 2,
           "meanStopped": 0.3,
-          "meanTravel": 144,
+          "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.24
+          "engineMsPerCitySecond": 0.79,
+          "collectionBags": 192.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 55.5,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
           "hour": 3,
           "scheduled": 1,
-          "arrived": 1,
-          "meanOnRoad": 1.2,
+          "arrived": 2,
+          "meanOnRoad": 1.3,
           "maxOnRoad": 2,
           "meanStopped": 0.5,
-          "meanTravel": 55,
+          "meanTravel": 105,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.3
+          "engineMsPerCitySecond": 0.76,
+          "collectionBags": 194.4,
+          "collectionOverCapacity": 2,
+          "illegalBags": 51.3,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -2957,7 +2996,12 @@
           "meanStopped": 0.5,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.19
+          "engineMsPerCitySecond": 0.84,
+          "collectionBags": 153.2,
+          "collectionOverCapacity": 1,
+          "illegalBags": 35.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -2969,223 +3013,318 @@
           "meanStopped": 0.3,
           "meanTravel": 145,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.5
+          "engineMsPerCitySecond": 0.78,
+          "collectionBags": 155.1,
+          "collectionOverCapacity": 1,
+          "illegalBags": 36.2,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
           "hour": 6,
           "scheduled": 29,
           "arrived": 2,
-          "meanOnRoad": 23,
+          "meanOnRoad": 22.9,
           "maxOnRoad": 29,
-          "meanStopped": 8.9,
-          "meanTravel": 90,
+          "meanStopped": 8.4,
+          "meanTravel": 88,
           "pedestrians": 8.1,
-          "engineMsPerCitySecond": 2.52
+          "engineMsPerCitySecond": 1.81,
+          "collectionBags": 183.4,
+          "collectionOverCapacity": 2,
+          "illegalBags": 36.2,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         },
         {
           "day": 3,
           "hour": 7,
           "scheduled": 46,
-          "arrived": 22,
-          "meanOnRoad": 53.7,
-          "maxOnRoad": 61,
-          "meanStopped": 23.3,
-          "meanTravel": 140,
+          "arrived": 24,
+          "meanOnRoad": 51.7,
+          "maxOnRoad": 59,
+          "meanStopped": 22.1,
+          "meanTravel": 144,
           "pedestrians": 15.7,
-          "engineMsPerCitySecond": 4
+          "engineMsPerCitySecond": 3.06,
+          "collectionBags": 215.7,
+          "collectionOverCapacity": 2,
+          "illegalBags": 40.4,
+          "lowStockShops": 0,
+          "illegalParking": 2.83
         },
         {
           "day": 3,
           "hour": 8,
           "scheduled": 52,
-          "arrived": 35,
-          "meanOnRoad": 69.1,
-          "maxOnRoad": 75,
-          "meanStopped": 29.3,
-          "meanTravel": 178,
+          "arrived": 36,
+          "meanOnRoad": 67.2,
+          "maxOnRoad": 73,
+          "meanStopped": 30.3,
+          "meanTravel": 166,
           "pedestrians": 19.8,
-          "engineMsPerCitySecond": 4.81
+          "engineMsPerCitySecond": 3.27,
+          "collectionBags": 245.1,
+          "collectionOverCapacity": 2,
+          "illegalBags": 12,
+          "lowStockShops": 0,
+          "illegalParking": 2.83
         },
         {
           "day": 3,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 38,
-          "meanOnRoad": 78.6,
-          "maxOnRoad": 89,
-          "meanStopped": 35.2,
-          "meanTravel": 198,
+          "arrived": 33,
+          "meanOnRoad": 78.8,
+          "maxOnRoad": 90,
+          "meanStopped": 30.7,
+          "meanTravel": 195,
           "pedestrians": 16.6,
-          "engineMsPerCitySecond": 5.1
+          "engineMsPerCitySecond": 3.71,
+          "collectionBags": 274.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 14.8,
+          "lowStockShops": 0,
+          "illegalParking": 2.5
         },
         {
           "day": 3,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 50,
-          "meanOnRoad": 61.8,
-          "maxOnRoad": 70,
-          "meanStopped": 28.3,
-          "meanTravel": 200,
+          "arrived": 54,
+          "meanOnRoad": 62.4,
+          "maxOnRoad": 73,
+          "meanStopped": 28,
+          "meanTravel": 206,
           "pedestrians": 13,
-          "engineMsPerCitySecond": 5.76
+          "engineMsPerCitySecond": 2.76,
+          "collectionBags": 293.2,
+          "collectionOverCapacity": 3,
+          "illegalBags": 29.6,
+          "lowStockShops": 0,
+          "illegalParking": 1.58
         },
         {
           "day": 3,
           "hour": 11,
           "scheduled": 23,
-          "arrived": 42,
-          "meanOnRoad": 37.3,
-          "maxOnRoad": 50,
-          "meanStopped": 15.2,
-          "meanTravel": 224,
+          "arrived": 40,
+          "meanOnRoad": 35.3,
+          "maxOnRoad": 48,
+          "meanStopped": 16.8,
+          "meanTravel": 214,
           "pedestrians": 8.8,
-          "engineMsPerCitySecond": 3.53
+          "engineMsPerCitySecond": 2.23,
+          "collectionBags": 244.2,
+          "collectionOverCapacity": 2,
+          "illegalBags": 30.4,
+          "lowStockShops": 0,
+          "illegalParking": 0.75
         },
         {
           "day": 3,
           "hour": 12,
           "scheduled": 35,
-          "arrived": 32,
-          "meanOnRoad": 30.7,
-          "maxOnRoad": 35,
-          "meanStopped": 12.1,
-          "meanTravel": 126,
-          "pedestrians": 12.1,
-          "engineMsPerCitySecond": 2.96
+          "arrived": 24,
+          "meanOnRoad": 36.3,
+          "maxOnRoad": 43,
+          "meanStopped": 18.4,
+          "meanTravel": 107,
+          "pedestrians": 12,
+          "engineMsPerCitySecond": 2.14,
+          "collectionBags": 263.6,
+          "collectionOverCapacity": 3,
+          "illegalBags": 45.2,
+          "lowStockShops": 0,
+          "illegalParking": 0.08
         },
         {
           "day": 3,
           "hour": 13,
           "scheduled": 23,
-          "arrived": 33,
-          "meanOnRoad": 26.8,
-          "maxOnRoad": 35,
-          "meanStopped": 10.4,
-          "meanTravel": 115,
+          "arrived": 29,
+          "meanOnRoad": 38.1,
+          "maxOnRoad": 44,
+          "meanStopped": 20.8,
+          "meanTravel": 136,
           "pedestrians": 9.1,
-          "engineMsPerCitySecond": 2.61
+          "engineMsPerCitySecond": 2.32,
+          "collectionBags": 262.4,
+          "collectionOverCapacity": 3,
+          "illegalBags": 51,
+          "lowStockShops": 0,
+          "illegalParking": 1.33
         },
         {
           "day": 3,
           "hour": 14,
           "scheduled": 23,
-          "arrived": 20,
-          "meanOnRoad": 27.2,
-          "maxOnRoad": 31,
-          "meanStopped": 11.8,
-          "meanTravel": 129,
+          "arrived": 31,
+          "meanOnRoad": 32.3,
+          "maxOnRoad": 36,
+          "meanStopped": 13.6,
+          "meanTravel": 188,
           "pedestrians": 7.8,
-          "engineMsPerCitySecond": 2.78
+          "engineMsPerCitySecond": 1.89,
+          "collectionBags": 244.9,
+          "collectionOverCapacity": 2,
+          "illegalBags": 59.8,
+          "lowStockShops": 0,
+          "illegalParking": 0.67
         },
         {
           "day": 3,
           "hour": 15,
           "scheduled": 34,
-          "arrived": 29,
-          "meanOnRoad": 32.3,
+          "arrived": 31,
+          "meanOnRoad": 32.1,
           "maxOnRoad": 35,
-          "meanStopped": 14.4,
-          "meanTravel": 134,
-          "pedestrians": 11.6,
-          "engineMsPerCitySecond": 2.89
+          "meanStopped": 13.9,
+          "meanTravel": 160,
+          "pedestrians": 11.2,
+          "engineMsPerCitySecond": 1.96,
+          "collectionBags": 262.3,
+          "collectionOverCapacity": 4,
+          "illegalBags": 78.6,
+          "lowStockShops": 0,
+          "illegalParking": 3.25
         },
         {
           "day": 3,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 23,
-          "meanOnRoad": 31.3,
-          "maxOnRoad": 39,
-          "meanStopped": 12.8,
-          "meanTravel": 117,
-          "pedestrians": 11.7,
-          "engineMsPerCitySecond": 2.89
+          "arrived": 25,
+          "meanOnRoad": 31,
+          "maxOnRoad": 36,
+          "meanStopped": 12.5,
+          "meanTravel": 125,
+          "pedestrians": 11.3,
+          "engineMsPerCitySecond": 1.95,
+          "collectionBags": 240.6,
+          "collectionOverCapacity": 4,
+          "illegalBags": 86.4,
+          "lowStockShops": 0,
+          "illegalParking": 3
         },
         {
           "day": 3,
           "hour": 17,
           "scheduled": 52,
-          "arrived": 38,
-          "meanOnRoad": 47.8,
+          "arrived": 35,
+          "meanOnRoad": 46.6,
           "maxOnRoad": 53,
-          "meanStopped": 20.4,
-          "meanTravel": 146,
-          "pedestrians": 18.6,
-          "engineMsPerCitySecond": 4.13
+          "meanStopped": 20.1,
+          "meanTravel": 138,
+          "pedestrians": 18,
+          "engineMsPerCitySecond": 2.51,
+          "collectionBags": 218.2,
+          "collectionOverCapacity": 4,
+          "illegalBags": 98.2,
+          "lowStockShops": 1,
+          "illegalParking": 3.75
         },
         {
           "day": 3,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 47,
-          "meanOnRoad": 54.8,
-          "maxOnRoad": 64,
-          "meanStopped": 23,
+          "arrived": 48,
+          "meanOnRoad": 54.4,
+          "maxOnRoad": 63,
+          "meanStopped": 23.1,
           "meanTravel": 121,
           "pedestrians": 28.8,
-          "engineMsPerCitySecond": 4.06
+          "engineMsPerCitySecond": 2.91,
+          "collectionBags": 245.3,
+          "collectionOverCapacity": 4,
+          "illegalBags": 108,
+          "lowStockShops": 0.42,
+          "illegalParking": 2.92
         },
         {
           "day": 3,
           "hour": 19,
           "scheduled": 40,
-          "arrived": 47,
-          "meanOnRoad": 66.8,
-          "maxOnRoad": 72,
-          "meanStopped": 30.1,
-          "meanTravel": 142,
-          "pedestrians": 23.2,
-          "engineMsPerCitySecond": 4.66
+          "arrived": 48,
+          "meanOnRoad": 65,
+          "maxOnRoad": 70,
+          "meanStopped": 27.9,
+          "meanTravel": 136,
+          "pedestrians": 25.7,
+          "engineMsPerCitySecond": 3.07,
+          "collectionBags": 218.9,
+          "collectionOverCapacity": 3,
+          "illegalBags": 123.8,
+          "lowStockShops": 0.92,
+          "illegalParking": 2.67
         },
         {
           "day": 3,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 41,
-          "meanOnRoad": 48.5,
-          "maxOnRoad": 55,
-          "meanStopped": 19.2,
-          "meanTravel": 182,
-          "pedestrians": 13.6,
-          "engineMsPerCitySecond": 3.84
+          "arrived": 40,
+          "meanOnRoad": 45.5,
+          "maxOnRoad": 52,
+          "meanStopped": 18.1,
+          "meanTravel": 175,
+          "pedestrians": 15.4,
+          "engineMsPerCitySecond": 2.35,
+          "collectionBags": 246,
+          "collectionOverCapacity": 3,
+          "illegalBags": 135.6,
+          "lowStockShops": 2.08,
+          "illegalParking": 1.17
         },
         {
           "day": 3,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 32,
-          "meanOnRoad": 44.2,
+          "arrived": 31,
+          "meanOnRoad": 43.2,
           "maxOnRoad": 47,
-          "meanStopped": 18.8,
-          "meanTravel": 165,
-          "pedestrians": 11.4,
-          "engineMsPerCitySecond": 3.47
+          "meanStopped": 17.9,
+          "meanTravel": 162,
+          "pedestrians": 11.3,
+          "engineMsPerCitySecond": 2.32,
+          "collectionBags": 271.7,
+          "collectionOverCapacity": 3,
+          "illegalBags": 145.4,
+          "lowStockShops": 1.33,
+          "illegalParking": 1.25
         },
         {
           "day": 3,
           "hour": 22,
           "scheduled": 3,
-          "arrived": 26,
-          "meanOnRoad": 35.2,
-          "maxOnRoad": 45,
-          "meanStopped": 13.7,
-          "meanTravel": 175,
+          "arrived": 32,
+          "meanOnRoad": 30.3,
+          "maxOnRoad": 42,
+          "meanStopped": 12.1,
+          "meanTravel": 176,
           "pedestrians": 2.3,
-          "engineMsPerCitySecond": 2.73
+          "engineMsPerCitySecond": 1.61,
+          "collectionBags": 267.3,
+          "collectionOverCapacity": 3,
+          "illegalBags": 141.2,
+          "lowStockShops": 1,
+          "illegalParking": 1
         },
         {
           "day": 3,
           "hour": 23,
           "scheduled": 2,
-          "arrived": 24,
-          "meanOnRoad": 9.7,
-          "maxOnRoad": 20,
-          "meanStopped": 4.3,
-          "meanTravel": 227,
+          "arrived": 18,
+          "meanOnRoad": 6.9,
+          "maxOnRoad": 15,
+          "meanStopped": 2.8,
+          "meanTravel": 193,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.44
+          "engineMsPerCitySecond": 0.88,
+          "collectionBags": 273.1,
+          "collectionOverCapacity": 3,
+          "illegalBags": 137,
+          "lowStockShops": 0.58,
+          "illegalParking": 1
         },
         {
           "day": 4,
@@ -3197,31 +3336,46 @@
           "meanStopped": 0.8,
           "meanTravel": 198,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.41
+          "engineMsPerCitySecond": 0.93,
+          "collectionBags": 275.1,
+          "collectionOverCapacity": 3,
+          "illegalBags": 132.8,
+          "lowStockShops": 0,
+          "illegalParking": 0.08
         },
         {
           "day": 4,
           "hour": 1,
           "scheduled": 1,
-          "arrived": 2,
-          "meanOnRoad": 1.3,
+          "arrived": 3,
+          "meanOnRoad": 1.2,
           "maxOnRoad": 2,
           "meanStopped": 0.3,
-          "meanTravel": 131,
+          "meanTravel": 112,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.67
+          "engineMsPerCitySecond": 0.81,
+          "collectionBags": 167.5,
+          "collectionOverCapacity": 1,
+          "illegalBags": 128.6,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
           "hour": 2,
           "scheduled": 1,
-          "arrived": 1,
+          "arrived": 0,
           "meanOnRoad": 1,
           "maxOnRoad": 1,
           "meanStopped": 0.3,
-          "meanTravel": 95,
+          "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.23
+          "engineMsPerCitySecond": 0.8,
+          "collectionBags": 168.9,
+          "collectionOverCapacity": 1,
+          "illegalBags": 124.4,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -3233,7 +3387,12 @@
           "meanStopped": 0,
           "meanTravel": 115,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.08
+          "engineMsPerCitySecond": 0.76,
+          "collectionBags": 170.9,
+          "collectionOverCapacity": 1,
+          "illegalBags": 121,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -3245,7 +3404,12 @@
           "meanStopped": 0.2,
           "meanTravel": 63,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.3
+          "engineMsPerCitySecond": 0.73,
+          "collectionBags": 172.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 121,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -3254,10 +3418,15 @@
           "arrived": 0,
           "meanOnRoad": 2.5,
           "maxOnRoad": 3,
-          "meanStopped": 1.3,
+          "meanStopped": 1.2,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.37
+          "engineMsPerCitySecond": 0.79,
+          "collectionBags": 120.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 101.4,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -3269,7 +3438,12 @@
           "meanStopped": 8.3,
           "meanTravel": 97,
           "pedestrians": 7.5,
-          "engineMsPerCitySecond": 2.64
+          "engineMsPerCitySecond": 2,
+          "collectionBags": 148.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 78.9,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         }
       ]
     },
@@ -3277,33 +3451,35 @@
       "seed": 2406,
       "days": 3,
       "seconds": 8640,
-      "budget": 676,
+      "budget": 876,
       "unreachable": 0,
-      "pendingAtEnd": 0,
+      "pendingAtEnd": 1,
       "peakHour": {
         "day": 3,
         "hour": 9,
-        "meanOnRoad": 88.2,
-        "maxOnRoad": 97
+        "meanOnRoad": 81.9,
+        "maxOnRoad": 93
       },
       "commutes": [
         {
           "day": 1,
-          "traffic": 33,
+          "traffic": 33.333333333333336,
           "traffic-east": 11.666666666666666,
-          "school-signal": 28.333333333333332
+          "school-signal": 28
         },
         {
           "day": 2,
-          "traffic": 37.333333333333336,
-          "traffic-east": 8.333333333333334,
-          "school-signal": 31.333333333333332
+          "traffic": 35.666666666666664,
+          "traffic-east": 8,
+          "school-signal": 27.666666666666668,
+          "supply": 3
         },
         {
           "day": 3,
-          "traffic": 41.666666666666664,
-          "traffic-east": 10.333333333333334,
-          "school-signal": 31.666666666666668
+          "traffic": 37.666666666666664,
+          "traffic-east": 8.666666666666666,
+          "school-signal": 32.333333333333336,
+          "supply": 2.3333333333333335
         }
       ],
       "problems": [
@@ -3330,7 +3506,12 @@
         {
           "when": "1일차 오전 10:30",
           "type": "problem",
-          "title": "생활 시설"
+          "title": "동네 상점"
+        },
+        {
+          "when": "1일차 오전 11:10",
+          "type": "improved",
+          "title": "주거지 골목의 변화"
         },
         {
           "when": "1일차 오전 11:20",
@@ -3340,7 +3521,7 @@
         {
           "when": "1일차 오후 12:10",
           "type": "problem",
-          "title": "동네 상점"
+          "title": "생활 시설"
         },
         {
           "when": "1일차 오후 1:00",
@@ -3383,11 +3564,6 @@
           "title": "강너머 상가 거리"
         },
         {
-          "when": "1일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
           "when": "1일차 오후 6:40",
           "type": "improved",
           "title": "강너머 상가 거리의 변화"
@@ -3400,12 +3576,7 @@
         {
           "when": "1일차 오후 7:40",
           "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "1일차 오후 8:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "주거지 골목"
         },
         {
           "when": "1일차 오후 8:30",
@@ -3415,7 +3586,7 @@
         {
           "when": "1일차 오후 9:20",
           "type": "problem",
-          "title": "주거지 골목"
+          "title": "시장 옆 골목"
         },
         {
           "when": "1일차 오후 9:30",
@@ -3425,7 +3596,7 @@
         {
           "when": "1일차 오후 10:10",
           "type": "problem",
-          "title": "시장 옆 골목"
+          "title": "학교 가는 길 주택가 수거장"
         },
         {
           "when": "1일차 오후 10:50",
@@ -3438,109 +3609,54 @@
           "title": "공터 옆 길의 변화"
         },
         {
-          "when": "1일차 오후 11:00",
-          "type": "problem",
-          "title": "학교 가는 길 주택가 수거장"
-        },
-        {
-          "when": "1일차 오후 11:50",
+          "when": "1일차 오후 11:30",
           "type": "improved",
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "1일차 오후 11:50",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오전 12:30",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오전 1:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오전 2:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "2일차 오전 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오전 2:40",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "2일차 오전 3:00",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "2일차 오전 3:50",
-          "type": "problem",
-          "title": "학교 앞 수거장 수거장"
-        },
-        {
-          "when": "2일차 오전 4:30",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "2일차 오전 4:50",
-          "type": "problem",
-          "title": "북쪽 주택가 수거장"
-        },
-        {
-          "when": "2일차 오전 5:30",
-          "type": "improved",
-          "title": "강너머 상점가 수거장의 변화"
-        },
-        {
-          "when": "2일차 오전 5:40",
-          "type": "problem",
-          "title": "남쪽 주택가 수거장"
-        },
-        {
-          "when": "2일차 오전 6:10",
+          "when": "2일차 오전 12:10",
           "type": "improved",
           "title": "주거지 골목의 변화"
         },
         {
-          "when": "2일차 오전 6:30",
-          "type": "problem",
-          "title": "강너머 상가 거리"
+          "when": "2일차 오전 3:50",
+          "type": "improved",
+          "title": "새봄천 산책길의 변화"
         },
         {
-          "when": "2일차 오전 6:50",
+          "when": "2일차 오전 5:20",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오전 5:30",
+          "type": "improved",
+          "title": "주택가 뒷골목의 변화"
         },
         {
           "when": "2일차 오전 7:20",
           "type": "problem",
-          "title": "공터 옆 길"
+          "title": "학교 앞"
         },
         {
           "when": "2일차 오전 8:10",
           "type": "problem",
-          "title": "서쪽 끝 주택가 수거장"
+          "title": "주거지 골목"
+        },
+        {
+          "when": "2일차 오전 8:40",
+          "type": "improved",
+          "title": "학교 앞의 변화"
         },
         {
           "when": "2일차 오전 9:00",
           "type": "problem",
-          "title": "동쪽 상점가 수거장"
+          "title": "학교 앞 수거장 수거장"
         },
         {
-          "when": "2일차 오전 9:40",
+          "when": "2일차 오전 9:30",
           "type": "improved",
-          "title": "새봄천 산책길의 변화"
+          "title": "학교 앞 수거장 수거장의 변화"
         },
         {
           "when": "2일차 오전 9:50",
@@ -3549,53 +3665,38 @@
         },
         {
           "when": "2일차 오전 10:40",
-          "type": "improved",
-          "title": "동쪽 상점가 수거장의 변화"
-        },
-        {
-          "when": "2일차 오전 10:40",
           "type": "problem",
-          "title": "강너머 상가 거리"
+          "title": "주택가 뒷골목"
         },
         {
-          "when": "2일차 오전 11:00",
+          "when": "2일차 오전 11:20",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "주거지 골목의 변화"
         },
         {
           "when": "2일차 오전 11:30",
           "type": "problem",
-          "title": "주거지 골목"
+          "title": "남쪽 주택가 수거장"
         },
         {
           "when": "2일차 오후 12:20",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "공터 옆 길"
         },
         {
-          "when": "2일차 오후 12:40",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오후 1:20",
-          "type": "improved",
-          "title": "학교 앞 수거장 수거장의 변화"
-        },
-        {
-          "when": "2일차 오후 1:20",
+          "when": "2일차 오후 1:10",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "시장 옆 골목"
         },
         {
-          "when": "2일차 오후 2:10",
+          "when": "2일차 오후 2:00",
           "type": "problem",
           "title": "강너머 상가 거리"
         },
         {
-          "when": "2일차 오후 2:20",
+          "when": "2일차 오후 2:30",
           "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "학교 가는 길 주택가 수거장의 변화"
         },
         {
           "when": "2일차 오후 2:40",
@@ -3603,42 +3704,37 @@
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "2일차 오후 3:00",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "2일차 오후 3:50",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 4:40",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "2일차 오후 4:50",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오후 4:50",
+          "when": "2일차 오후 2:50",
           "type": "improved",
           "title": "시장 옆 골목의 변화"
         },
         {
-          "when": "2일차 오후 5:30",
+          "when": "2일차 오후 2:50",
           "type": "problem",
           "title": "새봄천 산책길"
         },
         {
-          "when": "2일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
+          "when": "2일차 오후 3:40",
+          "type": "problem",
+          "title": "북쪽 주택가 수거장"
         },
         {
-          "when": "2일차 오후 6:20",
+          "when": "2일차 오후 4:30",
+          "type": "problem",
+          "title": "강너머 상가 거리"
+        },
+        {
+          "when": "2일차 오후 5:10",
+          "type": "improved",
+          "title": "북쪽 주택가 수거장의 변화"
+        },
+        {
+          "when": "2일차 오후 5:20",
+          "type": "problem",
+          "title": "서쪽 끝 주택가 수거장"
+        },
+        {
+          "when": "2일차 오후 6:10",
           "type": "problem",
           "title": "강너머 상점가 수거장"
         },
@@ -3648,124 +3744,49 @@
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "2일차 오후 7:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "2일차 오후 8:10",
+          "when": "2일차 오후 7:00",
           "type": "problem",
           "title": "주거지 골목"
         },
         {
-          "when": "2일차 오후 8:50",
+          "when": "2일차 오후 7:30",
           "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "남쪽 주택가 수거장의 변화"
         },
         {
-          "when": "2일차 오후 9:00",
+          "when": "2일차 오후 7:50",
           "type": "problem",
           "title": "시장 옆 골목"
         },
         {
-          "when": "2일차 오후 9:50",
-          "type": "problem",
-          "title": "학교 앞"
+          "when": "2일차 오후 9:10",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
         },
         {
           "when": "2일차 오후 10:10",
           "type": "improved",
-          "title": "학교 가는 길 주택가 수거장의 변화"
-        },
-        {
-          "when": "2일차 오후 10:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "2일차 오후 10:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "2일차 오후 11:20",
-          "type": "problem",
-          "title": "학교 앞"
+          "title": "서쪽 끝 주택가 수거장의 변화"
         },
         {
           "when": "3일차 오전 12:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오전 12:30",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 1:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 2:30",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "3일차 오전 2:50",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오전 3:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 4:30",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오전 4:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "3일차 오전 5:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오전 6:10",
           "type": "improved",
           "title": "주거지 골목의 변화"
         },
         {
-          "when": "3일차 오전 6:10",
-          "type": "problem",
-          "title": "강너머 상가 거리"
+          "when": "3일차 오전 3:20",
+          "type": "improved",
+          "title": "공터 옆 길의 변화"
         },
         {
-          "when": "3일차 오전 6:20",
+          "when": "3일차 오전 4:30",
           "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "새봄천 산책길의 변화"
         },
         {
-          "when": "3일차 오전 6:40",
+          "when": "3일차 오전 6:30",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오전 6:40",
-          "type": "improved",
-          "title": "남쪽 주택가 수거장의 변화"
+          "title": "주택가 뒷골목의 변화"
         },
         {
           "when": "3일차 오전 7:20",
@@ -3773,9 +3794,14 @@
           "title": "학교 앞"
         },
         {
+          "when": "3일차 오전 8:00",
+          "type": "improved",
+          "title": "강너머 상점가 수거장의 변화"
+        },
+        {
           "when": "3일차 오전 8:10",
           "type": "problem",
-          "title": "강너머 상가 거리"
+          "title": "주거지 골목"
         },
         {
           "when": "3일차 오전 8:50",
@@ -3784,23 +3810,13 @@
         },
         {
           "when": "3일차 오전 9:00",
-          "type": "improved",
-          "title": "북쪽 주택가 수거장의 변화"
-        },
-        {
-          "when": "3일차 오전 9:00",
           "type": "problem",
-          "title": "시장 옆 골목"
+          "title": "학교 앞 수거장 수거장"
         },
         {
           "when": "3일차 오전 9:50",
           "type": "problem",
-          "title": "주거지 골목"
-        },
-        {
-          "when": "3일차 오전 10:40",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
+          "title": "주택가 뒷골목"
         },
         {
           "when": "3일차 오전 10:40",
@@ -3808,209 +3824,129 @@
           "title": "학교 가는 길 주택가 수거장"
         },
         {
-          "when": "3일차 오전 10:50",
+          "when": "3일차 오전 11:10",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "주거지 골목의 변화"
+        },
+        {
+          "when": "3일차 오전 11:20",
+          "type": "improved",
+          "title": "학교 앞 수거장 수거장의 변화"
         },
         {
           "when": "3일차 오전 11:30",
           "type": "problem",
-          "title": "동쪽 상점가 수거장"
+          "title": "시장 옆 골목"
+        },
+        {
+          "when": "3일차 오전 11:50",
+          "type": "improved",
+          "title": "시장 옆 골목의 변화"
         },
         {
           "when": "3일차 오후 12:20",
           "type": "problem",
-          "title": "학교 앞 수거장 수거장"
+          "title": "강너머 상가 거리"
         },
         {
           "when": "3일차 오후 1:10",
           "type": "problem",
-          "title": "학교 앞"
+          "title": "남쪽 주택가 수거장"
         },
         {
           "when": "3일차 오후 2:00",
           "type": "problem",
-          "title": "강너머 상가 거리"
+          "title": "시장 옆 골목"
         },
         {
-          "when": "3일차 오후 2:20",
+          "when": "3일차 오후 2:50",
           "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 2:30",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "시장 옆 골목의 변화"
         },
         {
           "when": "3일차 오후 2:50",
           "type": "problem",
-          "title": "남쪽 주택가 수거장"
+          "title": "북쪽 주택가 수거장"
+        },
+        {
+          "when": "3일차 오후 3:00",
+          "type": "improved",
+          "title": "강너머 상가 거리의 변화"
         },
         {
           "when": "3일차 오후 3:40",
           "type": "problem",
-          "title": "시장 옆 골목"
+          "title": "새봄천 산책길"
         },
         {
           "when": "3일차 오후 4:30",
           "type": "problem",
-          "title": "강너머 상가 거리"
+          "title": "학교 앞"
         },
         {
           "when": "3일차 오후 4:40",
           "type": "improved",
-          "title": "시장 옆 골목의 변화"
+          "title": "학교 앞의 변화"
         },
         {
           "when": "3일차 오후 5:20",
           "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오후 6:10",
-          "type": "improved",
-          "title": "주거지 골목의 변화"
-        },
-        {
-          "when": "3일차 오후 6:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 7:00",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오후 7:00",
-          "type": "improved",
-          "title": "공터 옆 길의 변화"
-        },
-        {
-          "when": "3일차 오후 7:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "3일차 오후 8:10",
-          "type": "problem",
-          "title": "주거지 골목"
-        },
-        {
-          "when": "3일차 오후 8:50",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "3일차 오후 9:00",
-          "type": "problem",
-          "title": "북쪽 주택가 수거장"
-        },
-        {
-          "when": "3일차 오후 9:50",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "3일차 오후 10:00",
-          "type": "improved",
-          "title": "서쪽 끝 주택가 수거장의 변화"
-        },
-        {
-          "when": "3일차 오후 10:40",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "3일차 오후 10:50",
-          "type": "improved",
-          "title": "강너머 상가 거리의 변화"
-        },
-        {
-          "when": "3일차 오후 11:30",
-          "type": "problem",
           "title": "공터 옆 길"
         },
         {
-          "when": "3일차 오후 11:50",
+          "when": "3일차 오후 5:50",
           "type": "improved",
-          "title": "시장 옆 골목의 변화"
+          "title": "북쪽 주택가 수거장의 변화"
         },
         {
-          "when": "4일차 오전 12:20",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "4일차 오전 1:20",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "4일차 오전 1:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "4일차 오전 2:10",
+          "when": "3일차 오후 6:10",
           "type": "problem",
           "title": "강너머 상가 거리"
         },
         {
-          "when": "4일차 오전 2:20",
-          "type": "improved",
-          "title": "학교 앞의 변화"
-        },
-        {
-          "when": "4일차 오전 2:40",
+          "when": "3일차 오후 6:40",
           "type": "improved",
           "title": "강너머 상가 거리의 변화"
         },
         {
-          "when": "4일차 오전 3:00",
-          "type": "problem",
-          "title": "시장 옆 골목"
-        },
-        {
-          "when": "4일차 오전 3:50",
-          "type": "problem",
-          "title": "학교 앞"
-        },
-        {
-          "when": "4일차 오전 4:40",
+          "when": "3일차 오후 6:40",
           "type": "improved",
-          "title": "학교 앞의 변화"
+          "title": "학교 가는 길 주택가 수거장의 변화"
         },
         {
-          "when": "4일차 오전 4:40",
-          "type": "problem",
-          "title": "강너머 상가 거리"
-        },
-        {
-          "when": "4일차 오전 4:50",
-          "type": "improved",
-          "title": "시장 옆 골목의 변화"
-        },
-        {
-          "when": "4일차 오전 5:30",
+          "when": "3일차 오후 7:00",
           "type": "problem",
           "title": "서쪽 끝 주택가 수거장"
         },
         {
-          "when": "4일차 오전 6:10",
+          "when": "3일차 오후 7:50",
+          "type": "problem",
+          "title": "주거지 골목"
+        },
+        {
+          "when": "3일차 오후 8:40",
+          "type": "problem",
+          "title": "강너머 상점가 수거장"
+        },
+        {
+          "when": "4일차 오전 12:10",
           "type": "improved",
           "title": "주거지 골목의 변화"
         },
         {
-          "when": "4일차 오전 6:40",
+          "when": "4일차 오전 2:10",
           "type": "improved",
-          "title": "강너머 상점가 수거장의 변화"
+          "title": "새봄천 산책길의 변화"
         },
         {
-          "when": "4일차 오전 7:00",
+          "when": "4일차 오전 2:50",
           "type": "improved",
-          "title": "강너머 상가 거리의 변화"
+          "title": "서쪽 끝 주택가 수거장의 변화"
+        },
+        {
+          "when": "4일차 오전 3:20",
+          "type": "improved",
+          "title": "남쪽 주택가 수거장의 변화"
         }
       ],
       "hours": [
@@ -4024,7 +3960,12 @@
           "meanStopped": 10.8,
           "meanTravel": 85,
           "pedestrians": 13.3,
-          "engineMsPerCitySecond": 2.87
+          "engineMsPerCitySecond": 2.08,
+          "collectionBags": 239.3,
+          "collectionOverCapacity": 2,
+          "illegalBags": 32.8,
+          "lowStockShops": 0,
+          "illegalParking": 3.58
         },
         {
           "day": 1,
@@ -4036,103 +3977,148 @@
           "meanStopped": 30.6,
           "meanTravel": 147,
           "pedestrians": 21.3,
-          "engineMsPerCitySecond": 4.69
+          "engineMsPerCitySecond": 3.43,
+          "collectionBags": 233.6,
+          "collectionOverCapacity": 3,
+          "illegalBags": 38.6,
+          "lowStockShops": 0,
+          "illegalParking": 3.58
         },
         {
           "day": 1,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 39,
-          "meanOnRoad": 77.7,
+          "arrived": 40,
+          "meanOnRoad": 77.5,
           "maxOnRoad": 83,
-          "meanStopped": 33.3,
-          "meanTravel": 191,
+          "meanStopped": 33.1,
+          "meanTravel": 189,
           "pedestrians": 23.9,
-          "engineMsPerCitySecond": 4.74
+          "engineMsPerCitySecond": 3.58,
+          "collectionBags": 202.1,
+          "collectionOverCapacity": 2,
+          "illegalBags": 52.4,
+          "lowStockShops": 1.75,
+          "illegalParking": 3.42
         },
         {
           "day": 1,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 49,
+          "arrived": 48,
           "meanOnRoad": 54.9,
-          "maxOnRoad": 68,
-          "meanStopped": 24.7,
-          "meanTravel": 202,
-          "pedestrians": 12.8,
-          "engineMsPerCitySecond": 3.01
+          "maxOnRoad": 67,
+          "meanStopped": 23.8,
+          "meanTravel": 204,
+          "pedestrians": 12.3,
+          "engineMsPerCitySecond": 2.56,
+          "collectionBags": 209.9,
+          "collectionOverCapacity": 4,
+          "illegalBags": 60.2,
+          "lowStockShops": 2.92,
+          "illegalParking": 2.5
         },
         {
           "day": 1,
           "hour": 11,
           "scheduled": 23,
-          "arrived": 38,
-          "meanOnRoad": 39.3,
-          "maxOnRoad": 50,
+          "arrived": 39,
+          "meanOnRoad": 37.8,
+          "maxOnRoad": 48,
           "meanStopped": 16.3,
-          "meanTravel": 193,
-          "pedestrians": 8.3,
-          "engineMsPerCitySecond": 3.12
+          "meanTravel": 190,
+          "pedestrians": 8,
+          "engineMsPerCitySecond": 2.4,
+          "collectionBags": 210.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 69,
+          "lowStockShops": 1.75,
+          "illegalParking": 1.08
         },
         {
           "day": 1,
           "hour": 12,
           "scheduled": 35,
           "arrived": 32,
-          "meanOnRoad": 31.8,
+          "meanOnRoad": 32.1,
           "maxOnRoad": 36,
-          "meanStopped": 12.8,
-          "meanTravel": 151,
-          "pedestrians": 11.3,
-          "engineMsPerCitySecond": 2.23
+          "meanStopped": 12.7,
+          "meanTravel": 149,
+          "pedestrians": 10.8,
+          "engineMsPerCitySecond": 1.89,
+          "collectionBags": 231.2,
+          "collectionOverCapacity": 3,
+          "illegalBags": 76.8,
+          "lowStockShops": 1,
+          "illegalParking": 1.08
         },
         {
           "day": 1,
           "hour": 13,
           "scheduled": 23,
-          "arrived": 30,
-          "meanOnRoad": 32.8,
-          "maxOnRoad": 37,
-          "meanStopped": 12.8,
-          "meanTravel": 128,
-          "pedestrians": 10,
-          "engineMsPerCitySecond": 2.51
+          "arrived": 29,
+          "meanOnRoad": 32.2,
+          "maxOnRoad": 36,
+          "meanStopped": 12.3,
+          "meanTravel": 125,
+          "pedestrians": 8.3,
+          "engineMsPerCitySecond": 1.82,
+          "collectionBags": 215.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 87.6,
+          "lowStockShops": 1.17,
+          "illegalParking": 1.92
         },
         {
           "day": 1,
           "hour": 14,
           "scheduled": 23,
-          "arrived": 28,
-          "meanOnRoad": 24.9,
-          "maxOnRoad": 28,
-          "meanStopped": 9.8,
-          "meanTravel": 137,
-          "pedestrians": 7.7,
-          "engineMsPerCitySecond": 2.03
+          "arrived": 29,
+          "meanOnRoad": 24.6,
+          "maxOnRoad": 29,
+          "meanStopped": 9.5,
+          "meanTravel": 139,
+          "pedestrians": 7.3,
+          "engineMsPerCitySecond": 1.57,
+          "collectionBags": 223,
+          "collectionOverCapacity": 3,
+          "illegalBags": 88.4,
+          "lowStockShops": 1,
+          "illegalParking": 1.92
         },
         {
           "day": 1,
           "hour": 15,
           "scheduled": 34,
-          "arrived": 25,
-          "meanOnRoad": 27.8,
-          "maxOnRoad": 32,
-          "meanStopped": 11.5,
-          "meanTravel": 120,
+          "arrived": 23,
+          "meanOnRoad": 28.3,
+          "maxOnRoad": 34,
+          "meanStopped": 11.8,
+          "meanTravel": 117,
           "pedestrians": 11.8,
-          "engineMsPerCitySecond": 1.93
+          "engineMsPerCitySecond": 1.76,
+          "collectionBags": 231.1,
+          "collectionOverCapacity": 3,
+          "illegalBags": 96.2,
+          "lowStockShops": 2,
+          "illegalParking": 2.92
         },
         {
           "day": 1,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 35,
-          "meanOnRoad": 27.3,
+          "arrived": 36,
+          "meanOnRoad": 26.8,
           "maxOnRoad": 31,
-          "meanStopped": 13,
-          "meanTravel": 112,
-          "pedestrians": 11.3,
-          "engineMsPerCitySecond": 2.18
+          "meanStopped": 12.7,
+          "meanTravel": 110,
+          "pedestrians": 10.8,
+          "engineMsPerCitySecond": 1.7,
+          "collectionBags": 231.5,
+          "collectionOverCapacity": 3,
+          "illegalBags": 94,
+          "lowStockShops": 1.42,
+          "illegalParking": 1.67
         },
         {
           "day": 1,
@@ -4142,81 +4128,116 @@
           "meanOnRoad": 41.8,
           "maxOnRoad": 51,
           "meanStopped": 15.8,
-          "meanTravel": 118,
-          "pedestrians": 18,
-          "engineMsPerCitySecond": 2.87
+          "meanTravel": 119,
+          "pedestrians": 17.6,
+          "engineMsPerCitySecond": 2.3,
+          "collectionBags": 245.2,
+          "collectionOverCapacity": 3,
+          "illegalBags": 98.8,
+          "lowStockShops": 2.33,
+          "illegalParking": 2.75
         },
         {
           "day": 1,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 46,
-          "meanOnRoad": 63,
-          "maxOnRoad": 71,
-          "meanStopped": 28,
+          "arrived": 47,
+          "meanOnRoad": 62.3,
+          "maxOnRoad": 70,
+          "meanStopped": 26.7,
           "meanTravel": 114,
           "pedestrians": 26,
-          "engineMsPerCitySecond": 3.76
+          "engineMsPerCitySecond": 3.2,
+          "collectionBags": 230.5,
+          "collectionOverCapacity": 3,
+          "illegalBags": 102.5,
+          "lowStockShops": 2.08,
+          "illegalParking": 2.58
         },
         {
           "day": 1,
           "hour": 19,
           "scheduled": 40,
-          "arrived": 51,
-          "meanOnRoad": 55.4,
+          "arrived": 53,
+          "meanOnRoad": 53.5,
           "maxOnRoad": 61,
-          "meanStopped": 22.5,
-          "meanTravel": 147,
-          "pedestrians": 20.5,
-          "engineMsPerCitySecond": 3.32
+          "meanStopped": 21.8,
+          "meanTravel": 148,
+          "pedestrians": 24.8,
+          "engineMsPerCitySecond": 2.78,
+          "collectionBags": 261.6,
+          "collectionOverCapacity": 3,
+          "illegalBags": 105.3,
+          "lowStockShops": 2.17,
+          "illegalParking": 3.17
         },
         {
           "day": 1,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 40,
-          "meanOnRoad": 47.8,
+          "arrived": 38,
+          "meanOnRoad": 45.8,
           "maxOnRoad": 51,
-          "meanStopped": 20.3,
-          "meanTravel": 161,
-          "pedestrians": 13.6,
-          "engineMsPerCitySecond": 3.31
+          "meanStopped": 18.8,
+          "meanTravel": 147,
+          "pedestrians": 15.8,
+          "engineMsPerCitySecond": 2.45,
+          "collectionBags": 283.7,
+          "collectionOverCapacity": 3,
+          "illegalBags": 126.1,
+          "lowStockShops": 3,
+          "illegalParking": 2.42
         },
         {
           "day": 1,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 32,
-          "meanOnRoad": 40.5,
+          "arrived": 33,
+          "meanOnRoad": 40.1,
           "maxOnRoad": 45,
-          "meanStopped": 16.5,
-          "meanTravel": 146,
-          "pedestrians": 10.2,
-          "engineMsPerCitySecond": 2.75
+          "meanStopped": 16.7,
+          "meanTravel": 148,
+          "pedestrians": 9.3,
+          "engineMsPerCitySecond": 2.13,
+          "collectionBags": 260.7,
+          "collectionOverCapacity": 2,
+          "illegalBags": 129.9,
+          "lowStockShops": 1.67,
+          "illegalParking": 3.08
         },
         {
           "day": 1,
           "hour": 22,
           "scheduled": 3,
-          "arrived": 31,
-          "meanOnRoad": 26.7,
-          "maxOnRoad": 39,
-          "meanStopped": 11.5,
-          "meanTravel": 181,
-          "pedestrians": 2.1,
-          "engineMsPerCitySecond": 1.86
+          "arrived": 28,
+          "meanOnRoad": 26,
+          "maxOnRoad": 37,
+          "meanStopped": 11.6,
+          "meanTravel": 176,
+          "pedestrians": 1.7,
+          "engineMsPerCitySecond": 1.41,
+          "collectionBags": 266.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 75.8,
+          "lowStockShops": 2,
+          "illegalParking": 2.67
         },
         {
           "day": 1,
           "hour": 23,
           "scheduled": 2,
-          "arrived": 15,
-          "meanOnRoad": 5.4,
-          "maxOnRoad": 10,
-          "meanStopped": 1.9,
-          "meanTravel": 171,
+          "arrived": 16,
+          "meanOnRoad": 5.7,
+          "maxOnRoad": 11,
+          "meanStopped": 2,
+          "meanTravel": 175,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.41
+          "engineMsPerCitySecond": 0.83,
+          "collectionBags": 272.3,
+          "collectionOverCapacity": 2,
+          "illegalBags": 71.6,
+          "lowStockShops": 1.17,
+          "illegalParking": 1.42
         },
         {
           "day": 2,
@@ -4228,7 +4249,12 @@
           "meanStopped": 0.1,
           "meanTravel": 92,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 0.97
+          "engineMsPerCitySecond": 0.7,
+          "collectionBags": 257.4,
+          "collectionOverCapacity": 2,
+          "illegalBags": 67.4,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -4240,7 +4266,12 @@
           "meanStopped": 0.8,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.07
+          "engineMsPerCitySecond": 0.67,
+          "collectionBags": 259.3,
+          "collectionOverCapacity": 2,
+          "illegalBags": 19.9,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -4252,7 +4283,12 @@
           "meanStopped": 0.8,
           "meanTravel": 165,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.12
+          "engineMsPerCitySecond": 0.67,
+          "collectionBags": 206.2,
+          "collectionOverCapacity": 2,
+          "illegalBags": 15.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -4264,7 +4300,12 @@
           "meanStopped": 0.5,
           "meanTravel": 153,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 0.91
+          "engineMsPerCitySecond": 0.78,
+          "collectionBags": 208.2,
+          "collectionOverCapacity": 2,
+          "illegalBags": 11.5,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
@@ -4276,271 +4317,386 @@
           "meanStopped": 0.5,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.02
+          "engineMsPerCitySecond": 0.69,
+          "collectionBags": 207.8,
+          "collectionOverCapacity": 2,
+          "illegalBags": 8.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
           "hour": 5,
           "scheduled": 2,
           "arrived": 2,
-          "meanOnRoad": 2.7,
+          "meanOnRoad": 2.8,
           "maxOnRoad": 4,
           "meanStopped": 0.7,
-          "meanTravel": 189,
+          "meanTravel": 201,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.09
+          "engineMsPerCitySecond": 0.8,
+          "collectionBags": 166.2,
+          "collectionOverCapacity": 1,
+          "illegalBags": 0,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 2,
           "hour": 6,
           "scheduled": 29,
           "arrived": 5,
-          "meanOnRoad": 23.3,
+          "meanOnRoad": 23.1,
           "maxOnRoad": 28,
-          "meanStopped": 8,
-          "meanTravel": 89,
+          "meanStopped": 7.8,
+          "meanTravel": 86,
           "pedestrians": 7.8,
-          "engineMsPerCitySecond": 2.34
+          "engineMsPerCitySecond": 2.06,
+          "collectionBags": 187.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 18.7,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         },
         {
           "day": 2,
           "hour": 7,
           "scheduled": 46,
-          "arrived": 23,
+          "arrived": 22,
           "meanOnRoad": 46.2,
           "maxOnRoad": 51,
-          "meanStopped": 20.3,
-          "meanTravel": 147,
+          "meanStopped": 18.9,
+          "meanTravel": 142,
           "pedestrians": 16.8,
-          "engineMsPerCitySecond": 3.44
+          "engineMsPerCitySecond": 2.86,
+          "collectionBags": 209.9,
+          "collectionOverCapacity": 2,
+          "illegalBags": 19.5,
+          "lowStockShops": 0,
+          "illegalParking": 2.75
         },
         {
           "day": 2,
           "hour": 8,
           "scheduled": 52,
-          "arrived": 35,
-          "meanOnRoad": 65.4,
+          "arrived": 39,
+          "meanOnRoad": 64.6,
           "maxOnRoad": 72,
-          "meanStopped": 30.1,
-          "meanTravel": 151,
-          "pedestrians": 21.2,
-          "engineMsPerCitySecond": 4.16
+          "meanStopped": 28.8,
+          "meanTravel": 162,
+          "pedestrians": 19.8,
+          "engineMsPerCitySecond": 3.4,
+          "collectionBags": 207.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 26.3,
+          "lowStockShops": 0,
+          "illegalParking": 2.67
         },
         {
           "day": 2,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 39,
-          "meanOnRoad": 77.5,
-          "maxOnRoad": 85,
-          "meanStopped": 36.8,
-          "meanTravel": 181,
+          "arrived": 43,
+          "meanOnRoad": 73.1,
+          "maxOnRoad": 83,
+          "meanStopped": 34.1,
+          "meanTravel": 166,
           "pedestrians": 15,
-          "engineMsPerCitySecond": 4.22
+          "engineMsPerCitySecond": 3.39,
+          "collectionBags": 181.6,
+          "collectionOverCapacity": 3,
+          "illegalBags": 33.1,
+          "lowStockShops": 0,
+          "illegalParking": 2.33
         },
         {
           "day": 2,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 46,
-          "meanOnRoad": 55.9,
-          "maxOnRoad": 63,
-          "meanStopped": 26.5,
-          "meanTravel": 209,
-          "pedestrians": 10.8,
-          "engineMsPerCitySecond": 3.14
+          "arrived": 40,
+          "meanOnRoad": 52.5,
+          "maxOnRoad": 59,
+          "meanStopped": 24.8,
+          "meanTravel": 202,
+          "pedestrians": 11.9,
+          "engineMsPerCitySecond": 2.52,
+          "collectionBags": 183.5,
+          "collectionOverCapacity": 2,
+          "illegalBags": 36.9,
+          "lowStockShops": 0,
+          "illegalParking": 1.67
         },
         {
           "day": 2,
           "hour": 11,
           "scheduled": 23,
-          "arrived": 42,
-          "meanOnRoad": 37.6,
-          "maxOnRoad": 47,
-          "meanStopped": 18,
-          "meanTravel": 177,
-          "pedestrians": 8.9,
-          "engineMsPerCitySecond": 2.59
+          "arrived": 41,
+          "meanOnRoad": 36.2,
+          "maxOnRoad": 44,
+          "meanStopped": 16.8,
+          "meanTravel": 179,
+          "pedestrians": 8.5,
+          "engineMsPerCitySecond": 1.95,
+          "collectionBags": 197.3,
+          "collectionOverCapacity": 3,
+          "illegalBags": 57.7,
+          "lowStockShops": 0,
+          "illegalParking": 0.83
         },
         {
           "day": 2,
           "hour": 12,
           "scheduled": 35,
-          "arrived": 30,
-          "meanOnRoad": 34.1,
+          "arrived": 32,
+          "meanOnRoad": 34,
           "maxOnRoad": 37,
-          "meanStopped": 14.3,
-          "meanTravel": 155,
+          "meanStopped": 14,
+          "meanTravel": 152,
           "pedestrians": 11.3,
-          "engineMsPerCitySecond": 2.29
+          "engineMsPerCitySecond": 2.12,
+          "collectionBags": 218.7,
+          "collectionOverCapacity": 3,
+          "illegalBags": 58.5,
+          "lowStockShops": 0,
+          "illegalParking": 1.08
         },
         {
           "day": 2,
           "hour": 13,
           "scheduled": 23,
-          "arrived": 34,
-          "meanOnRoad": 26.5,
-          "maxOnRoad": 34,
-          "meanStopped": 12,
-          "meanTravel": 137,
+          "arrived": 32,
+          "meanOnRoad": 26.4,
+          "maxOnRoad": 35,
+          "meanStopped": 11.4,
+          "meanTravel": 121,
           "pedestrians": 8.9,
-          "engineMsPerCitySecond": 2.21
+          "engineMsPerCitySecond": 1.58,
+          "collectionBags": 238.1,
+          "collectionOverCapacity": 3,
+          "illegalBags": 73.3,
+          "lowStockShops": 0,
+          "illegalParking": 2.08
         },
         {
           "day": 2,
           "hour": 14,
           "scheduled": 23,
-          "arrived": 21,
-          "meanOnRoad": 21.9,
-          "maxOnRoad": 27,
-          "meanStopped": 8.4,
-          "meanTravel": 114,
+          "arrived": 22,
+          "meanOnRoad": 20.9,
+          "maxOnRoad": 26,
+          "meanStopped": 7.6,
+          "meanTravel": 116,
           "pedestrians": 7.7,
-          "engineMsPerCitySecond": 1.85
+          "engineMsPerCitySecond": 1.5,
+          "collectionBags": 214.7,
+          "collectionOverCapacity": 4,
+          "illegalBags": 85.1,
+          "lowStockShops": 0,
+          "illegalParking": 1.42
         },
         {
           "day": 2,
           "hour": 15,
           "scheduled": 34,
-          "arrived": 22,
-          "meanOnRoad": 26.4,
+          "arrived": 21,
+          "meanOnRoad": 26.8,
           "maxOnRoad": 38,
-          "meanStopped": 11.9,
-          "meanTravel": 127,
-          "pedestrians": 11.2,
-          "engineMsPerCitySecond": 2.04
+          "meanStopped": 12,
+          "meanTravel": 119,
+          "pedestrians": 11.1,
+          "engineMsPerCitySecond": 1.78,
+          "collectionBags": 225.9,
+          "collectionOverCapacity": 4,
+          "illegalBags": 85.9,
+          "lowStockShops": 0,
+          "illegalParking": 2.17
         },
         {
           "day": 2,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 36,
-          "meanOnRoad": 36.4,
-          "maxOnRoad": 44,
-          "meanStopped": 16.5,
-          "meanTravel": 115,
+          "arrived": 37,
+          "meanOnRoad": 35.5,
+          "maxOnRoad": 42,
+          "meanStopped": 15.7,
+          "meanTravel": 114,
           "pedestrians": 10.7,
-          "engineMsPerCitySecond": 2.45
+          "engineMsPerCitySecond": 1.99,
+          "collectionBags": 218.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 98.7,
+          "lowStockShops": 0,
+          "illegalParking": 2.08
         },
         {
           "day": 2,
           "hour": 17,
           "scheduled": 52,
-          "arrived": 33,
-          "meanOnRoad": 44.8,
-          "maxOnRoad": 53,
-          "meanStopped": 19,
-          "meanTravel": 120,
+          "arrived": 31,
+          "meanOnRoad": 46.1,
+          "maxOnRoad": 54,
+          "meanStopped": 20.1,
+          "meanTravel": 121,
           "pedestrians": 17.6,
-          "engineMsPerCitySecond": 2.93
+          "engineMsPerCitySecond": 2.57,
+          "collectionBags": 214,
+          "collectionOverCapacity": 3,
+          "illegalBags": 104.5,
+          "lowStockShops": 0.25,
+          "illegalParking": 3.17
         },
         {
           "day": 2,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 48,
-          "meanOnRoad": 59.3,
-          "maxOnRoad": 65,
-          "meanStopped": 24.4,
-          "meanTravel": 133,
-          "pedestrians": 22.7,
-          "engineMsPerCitySecond": 3.54
+          "arrived": 50,
+          "meanOnRoad": 58.7,
+          "maxOnRoad": 62,
+          "meanStopped": 24,
+          "meanTravel": 127,
+          "pedestrians": 24.3,
+          "engineMsPerCitySecond": 3.1,
+          "collectionBags": 243.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 115.3,
+          "lowStockShops": 1.42,
+          "illegalParking": 3.83
         },
         {
           "day": 2,
           "hour": 19,
           "scheduled": 40,
-          "arrived": 52,
-          "meanOnRoad": 55.9,
-          "maxOnRoad": 63,
-          "meanStopped": 24.6,
-          "meanTravel": 139,
-          "pedestrians": 18.3,
-          "engineMsPerCitySecond": 3.31
+          "arrived": 49,
+          "meanOnRoad": 56.1,
+          "maxOnRoad": 61,
+          "meanStopped": 24.3,
+          "meanTravel": 148,
+          "pedestrians": 26.2,
+          "engineMsPerCitySecond": 3.09,
+          "collectionBags": 230.9,
+          "collectionOverCapacity": 2,
+          "illegalBags": 118.1,
+          "lowStockShops": 2.08,
+          "illegalParking": 3.67
         },
         {
           "day": 2,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 38,
-          "meanOnRoad": 49.3,
+          "arrived": 42,
+          "meanOnRoad": 47.8,
           "maxOnRoad": 56,
-          "meanStopped": 19.8,
-          "meanTravel": 164,
-          "pedestrians": 14.7,
-          "engineMsPerCitySecond": 3.11
+          "meanStopped": 18.9,
+          "meanTravel": 156,
+          "pedestrians": 25.8,
+          "engineMsPerCitySecond": 2.59,
+          "collectionBags": 258,
+          "collectionOverCapacity": 2,
+          "illegalBags": 126.9,
+          "lowStockShops": 1.83,
+          "illegalParking": 2.17
         },
         {
           "day": 2,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 34,
-          "meanOnRoad": 43.8,
-          "maxOnRoad": 50,
-          "meanStopped": 19,
-          "meanTravel": 160,
-          "pedestrians": 11,
-          "engineMsPerCitySecond": 2.81
+          "arrived": 32,
+          "meanOnRoad": 42.2,
+          "maxOnRoad": 45,
+          "meanStopped": 18.7,
+          "meanTravel": 154,
+          "pedestrians": 22.3,
+          "engineMsPerCitySecond": 2.31,
+          "collectionBags": 253.3,
+          "collectionOverCapacity": 1,
+          "illegalBags": 133.7,
+          "lowStockShops": 1.33,
+          "illegalParking": 1.08
         },
         {
           "day": 2,
           "hour": 22,
           "scheduled": 3,
           "arrived": 29,
-          "meanOnRoad": 23.6,
+          "meanOnRoad": 25.6,
           "maxOnRoad": 40,
-          "meanStopped": 9.3,
-          "meanTravel": 170,
-          "pedestrians": 2.4,
-          "engineMsPerCitySecond": 1.87
+          "meanStopped": 11.1,
+          "meanTravel": 172,
+          "pedestrians": 6.5,
+          "engineMsPerCitySecond": 3.03,
+          "collectionBags": 246.9,
+          "collectionOverCapacity": 1,
+          "illegalBags": 129.5,
+          "lowStockShops": 1,
+          "illegalParking": 1
         },
         {
           "day": 2,
           "hour": 23,
           "scheduled": 2,
           "arrived": 12,
-          "meanOnRoad": 6.6,
+          "meanOnRoad": 5.5,
           "maxOnRoad": 12,
-          "meanStopped": 2.4,
-          "meanTravel": 200,
+          "meanStopped": 2.7,
+          "meanTravel": 197,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.17
+          "engineMsPerCitySecond": 1.46,
+          "collectionBags": 225.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 97.1,
+          "lowStockShops": 1,
+          "illegalParking": 1
         },
         {
           "day": 3,
           "hour": 0,
           "scheduled": 1,
-          "arrived": 4,
-          "meanOnRoad": 1.5,
-          "maxOnRoad": 3,
-          "meanStopped": 0.5,
-          "meanTravel": 160,
+          "arrived": 3,
+          "meanOnRoad": 2.4,
+          "maxOnRoad": 4,
+          "meanStopped": 0.9,
+          "meanTravel": 158,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.19
+          "engineMsPerCitySecond": 0.76,
+          "collectionBags": 227.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 92.9,
+          "lowStockShops": 0.33,
+          "illegalParking": 0
         },
         {
           "day": 3,
           "hour": 1,
           "scheduled": 1,
-          "arrived": 0,
+          "arrived": 1,
           "meanOnRoad": 1.1,
           "maxOnRoad": 2,
           "meanStopped": 0.3,
-          "meanTravel": null,
+          "meanTravel": 270,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.04
+          "engineMsPerCitySecond": 0.76,
+          "collectionBags": 214.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 88.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
           "hour": 2,
           "scheduled": 1,
           "arrived": 2,
-          "meanOnRoad": 1.3,
+          "meanOnRoad": 1.4,
           "maxOnRoad": 2,
-          "meanStopped": 0.5,
-          "meanTravel": 106,
+          "meanStopped": 0.6,
+          "meanTravel": 118,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 0.86
+          "engineMsPerCitySecond": 0.74,
+          "collectionBags": 216.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 44.4,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -4552,19 +4708,29 @@
           "meanStopped": 0.4,
           "meanTravel": 57,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 0.87
+          "engineMsPerCitySecond": 0.74,
+          "collectionBags": 218.7,
+          "collectionOverCapacity": 2,
+          "illegalBags": 26.3,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
           "hour": 4,
           "scheduled": 1,
           "arrived": 1,
-          "meanOnRoad": 0.5,
+          "meanOnRoad": 0.4,
           "maxOnRoad": 1,
           "meanStopped": 0.2,
-          "meanTravel": 235,
+          "meanTravel": 230,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 0.93
+          "engineMsPerCitySecond": 0.75,
+          "collectionBags": 220.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 22.1,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
@@ -4576,223 +4742,318 @@
           "meanStopped": 0.3,
           "meanTravel": 152,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.14
+          "engineMsPerCitySecond": 0.74,
+          "collectionBags": 181.4,
+          "collectionOverCapacity": 2,
+          "illegalBags": 20.9,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 3,
           "hour": 6,
           "scheduled": 29,
           "arrived": 4,
-          "meanOnRoad": 23.1,
+          "meanOnRoad": 23.2,
           "maxOnRoad": 30,
           "meanStopped": 8.5,
-          "meanTravel": 83,
+          "meanTravel": 78,
           "pedestrians": 8.3,
-          "engineMsPerCitySecond": 2.09
+          "engineMsPerCitySecond": 1.64,
+          "collectionBags": 207.7,
+          "collectionOverCapacity": 3,
+          "illegalBags": 4.8,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         },
         {
           "day": 3,
           "hour": 7,
           "scheduled": 46,
-          "arrived": 22,
-          "meanOnRoad": 49.7,
-          "maxOnRoad": 56,
-          "meanStopped": 20.5,
-          "meanTravel": 158,
-          "pedestrians": 15.3,
-          "engineMsPerCitySecond": 3.49
+          "arrived": 19,
+          "meanOnRoad": 50.3,
+          "maxOnRoad": 58,
+          "meanStopped": 21.9,
+          "meanTravel": 162,
+          "pedestrians": 15.2,
+          "engineMsPerCitySecond": 2.74,
+          "collectionBags": 192,
+          "collectionOverCapacity": 2,
+          "illegalBags": 12.3,
+          "lowStockShops": 0,
+          "illegalParking": 2.75
         },
         {
           "day": 3,
           "hour": 8,
           "scheduled": 52,
-          "arrived": 30,
-          "meanOnRoad": 70.4,
-          "maxOnRoad": 76,
-          "meanStopped": 32.3,
-          "meanTravel": 163,
+          "arrived": 36,
+          "meanOnRoad": 71.4,
+          "maxOnRoad": 78,
+          "meanStopped": 31.3,
+          "meanTravel": 174,
           "pedestrians": 20.7,
-          "engineMsPerCitySecond": 5.71
+          "engineMsPerCitySecond": 3.2,
+          "collectionBags": 204.3,
+          "collectionOverCapacity": 2,
+          "illegalBags": 18.1,
+          "lowStockShops": 0,
+          "illegalParking": 3
         },
         {
           "day": 3,
           "hour": 9,
           "scheduled": 40,
-          "arrived": 32,
-          "meanOnRoad": 88.2,
-          "maxOnRoad": 97,
-          "meanStopped": 40.2,
-          "meanTravel": 212,
-          "pedestrians": 16.1,
-          "engineMsPerCitySecond": 4.6
+          "arrived": 35,
+          "meanOnRoad": 81.9,
+          "maxOnRoad": 93,
+          "meanStopped": 38.9,
+          "meanTravel": 201,
+          "pedestrians": 19.3,
+          "engineMsPerCitySecond": 3.77,
+          "collectionBags": 233.7,
+          "collectionOverCapacity": 3,
+          "illegalBags": 20.9,
+          "lowStockShops": 0,
+          "illegalParking": 2.5
         },
         {
           "day": 3,
           "hour": 10,
           "scheduled": 29,
-          "arrived": 60,
-          "meanOnRoad": 66.8,
-          "maxOnRoad": 75,
-          "meanStopped": 32.5,
-          "meanTravel": 217,
-          "pedestrians": 12.6,
-          "engineMsPerCitySecond": 3.71
+          "arrived": 51,
+          "meanOnRoad": 64.9,
+          "maxOnRoad": 71,
+          "meanStopped": 33.3,
+          "meanTravel": 197,
+          "pedestrians": 16.8,
+          "engineMsPerCitySecond": 2.88,
+          "collectionBags": 246.7,
+          "collectionOverCapacity": 5,
+          "illegalBags": 33.7,
+          "lowStockShops": 0,
+          "illegalParking": 1.58
         },
         {
           "day": 3,
           "hour": 11,
           "scheduled": 23,
-          "arrived": 37,
-          "meanOnRoad": 39.8,
-          "maxOnRoad": 51,
-          "meanStopped": 19.5,
-          "meanTravel": 201,
+          "arrived": 33,
+          "meanOnRoad": 45.4,
+          "maxOnRoad": 54,
+          "meanStopped": 20.5,
+          "meanTravel": 208,
           "pedestrians": 8.4,
-          "engineMsPerCitySecond": 2.64
+          "engineMsPerCitySecond": 2.42,
+          "collectionBags": 211.5,
+          "collectionOverCapacity": 4,
+          "illegalBags": 38.5,
+          "lowStockShops": 0,
+          "illegalParking": 1.25
         },
         {
           "day": 3,
           "hour": 12,
           "scheduled": 35,
-          "arrived": 37,
-          "meanOnRoad": 33,
-          "maxOnRoad": 37,
-          "meanStopped": 13.8,
-          "meanTravel": 170,
+          "arrived": 40,
+          "meanOnRoad": 34.7,
+          "maxOnRoad": 39,
+          "meanStopped": 17.1,
+          "meanTravel": 184,
           "pedestrians": 11.9,
-          "engineMsPerCitySecond": 2.59
+          "engineMsPerCitySecond": 1.95,
+          "collectionBags": 223.2,
+          "collectionOverCapacity": 3,
+          "illegalBags": 52.3,
+          "lowStockShops": 0,
+          "illegalParking": 2.08
         },
         {
           "day": 3,
           "hour": 13,
           "scheduled": 23,
-          "arrived": 25,
-          "meanOnRoad": 34.6,
+          "arrived": 24,
+          "meanOnRoad": 36.8,
           "maxOnRoad": 38,
-          "meanStopped": 13.5,
-          "meanTravel": 142,
+          "meanStopped": 15.5,
+          "meanTravel": 151,
           "pedestrians": 8.7,
-          "engineMsPerCitySecond": 2.77
+          "engineMsPerCitySecond": 2.15,
+          "collectionBags": 204.3,
+          "collectionOverCapacity": 3,
+          "illegalBags": 54.1,
+          "lowStockShops": 0,
+          "illegalParking": 2.67
         },
         {
           "day": 3,
           "hour": 14,
           "scheduled": 23,
-          "arrived": 30,
-          "meanOnRoad": 25.5,
-          "maxOnRoad": 28,
-          "meanStopped": 11,
-          "meanTravel": 138,
+          "arrived": 33,
+          "meanOnRoad": 29.9,
+          "maxOnRoad": 34,
+          "meanStopped": 12.8,
+          "meanTravel": 156,
           "pedestrians": 7.5,
-          "engineMsPerCitySecond": 2.21
+          "engineMsPerCitySecond": 1.77,
+          "collectionBags": 222.6,
+          "collectionOverCapacity": 4,
+          "illegalBags": 62.9,
+          "lowStockShops": 0,
+          "illegalParking": 1.75
         },
         {
           "day": 3,
           "hour": 15,
           "scheduled": 34,
-          "arrived": 24,
-          "meanOnRoad": 30.4,
-          "maxOnRoad": 34,
-          "meanStopped": 12.6,
-          "meanTravel": 128,
-          "pedestrians": 11.6,
-          "engineMsPerCitySecond": 2.52
+          "arrived": 28,
+          "meanOnRoad": 27.8,
+          "maxOnRoad": 31,
+          "meanStopped": 11.5,
+          "meanTravel": 165,
+          "pedestrians": 11.5,
+          "engineMsPerCitySecond": 1.82,
+          "collectionBags": 240,
+          "collectionOverCapacity": 4,
+          "illegalBags": 81.7,
+          "lowStockShops": 0,
+          "illegalParking": 1.92
         },
         {
           "day": 3,
           "hour": 16,
           "scheduled": 29,
-          "arrived": 32,
-          "meanOnRoad": 31.7,
-          "maxOnRoad": 34,
-          "meanStopped": 12.4,
-          "meanTravel": 127,
-          "pedestrians": 11.1,
-          "engineMsPerCitySecond": 2.6
+          "arrived": 31,
+          "meanOnRoad": 31.3,
+          "maxOnRoad": 36,
+          "meanStopped": 12.9,
+          "meanTravel": 122,
+          "pedestrians": 11,
+          "engineMsPerCitySecond": 1.8,
+          "collectionBags": 257.4,
+          "collectionOverCapacity": 4,
+          "illegalBags": 85.5,
+          "lowStockShops": 0,
+          "illegalParking": 1
         },
         {
           "day": 3,
           "hour": 17,
           "scheduled": 52,
-          "arrived": 29,
-          "meanOnRoad": 42.3,
-          "maxOnRoad": 54,
+          "arrived": 27,
+          "meanOnRoad": 43.8,
+          "maxOnRoad": 55,
           "meanStopped": 19.2,
-          "meanTravel": 126,
-          "pedestrians": 18.3,
-          "engineMsPerCitySecond": 3.03
+          "meanTravel": 132,
+          "pedestrians": 17.8,
+          "engineMsPerCitySecond": 2.44,
+          "collectionBags": 224.8,
+          "collectionOverCapacity": 3,
+          "illegalBags": 97.3,
+          "lowStockShops": 0,
+          "illegalParking": 2.42
         },
         {
           "day": 3,
           "hour": 18,
           "scheduled": 58,
-          "arrived": 46,
-          "meanOnRoad": 66.9,
-          "maxOnRoad": 71,
-          "meanStopped": 33.3,
-          "meanTravel": 113,
+          "arrived": 51,
+          "meanOnRoad": 65,
+          "maxOnRoad": 70,
+          "meanStopped": 30.8,
+          "meanTravel": 114,
           "pedestrians": 24.8,
-          "engineMsPerCitySecond": 3.99
+          "engineMsPerCitySecond": 2.99,
+          "collectionBags": 198.9,
+          "collectionOverCapacity": 3,
+          "illegalBags": 99.1,
+          "lowStockShops": 0.08,
+          "illegalParking": 3.67
         },
         {
           "day": 3,
           "hour": 19,
           "scheduled": 40,
-          "arrived": 40,
-          "meanOnRoad": 62.8,
-          "maxOnRoad": 68,
-          "meanStopped": 30.2,
-          "meanTravel": 161,
-          "pedestrians": 15.9,
-          "engineMsPerCitySecond": 4.2
+          "arrived": 44,
+          "meanOnRoad": 58.3,
+          "maxOnRoad": 63,
+          "meanStopped": 27.3,
+          "meanTravel": 160,
+          "pedestrians": 16.3,
+          "engineMsPerCitySecond": 2.91,
+          "collectionBags": 226,
+          "collectionOverCapacity": 3,
+          "illegalBags": 119.9,
+          "lowStockShops": 0.58,
+          "illegalParking": 3.67
         },
         {
           "day": 3,
           "hour": 20,
           "scheduled": 34,
-          "arrived": 49,
-          "meanOnRoad": 54.5,
-          "maxOnRoad": 62,
-          "meanStopped": 22.4,
-          "meanTravel": 191,
-          "pedestrians": 14.5,
-          "engineMsPerCitySecond": 3.04
+          "arrived": 38,
+          "meanOnRoad": 51.7,
+          "maxOnRoad": 56,
+          "meanStopped": 19.4,
+          "meanTravel": 181,
+          "pedestrians": 14.1,
+          "engineMsPerCitySecond": 2.62,
+          "collectionBags": 265.1,
+          "collectionOverCapacity": 3,
+          "illegalBags": 123.7,
+          "lowStockShops": 2.08,
+          "illegalParking": 2
         },
         {
           "day": 3,
           "hour": 21,
           "scheduled": 29,
-          "arrived": 34,
-          "meanOnRoad": 50.8,
-          "maxOnRoad": 57,
-          "meanStopped": 22.5,
-          "meanTravel": 163,
-          "pedestrians": 11.3,
-          "engineMsPerCitySecond": 3.3
+          "arrived": 42,
+          "meanOnRoad": 47.9,
+          "maxOnRoad": 53,
+          "meanStopped": 20.2,
+          "meanTravel": 166,
+          "pedestrians": 10.7,
+          "engineMsPerCitySecond": 2.62,
+          "collectionBags": 294.2,
+          "collectionOverCapacity": 3,
+          "illegalBags": 128.5,
+          "lowStockShops": 2.08,
+          "illegalParking": 1.17
         },
         {
           "day": 3,
           "hour": 22,
           "scheduled": 3,
-          "arrived": 34,
-          "meanOnRoad": 27.6,
-          "maxOnRoad": 44,
-          "meanStopped": 10.2,
-          "meanTravel": 188,
-          "pedestrians": 1.9,
-          "engineMsPerCitySecond": 1.87
+          "arrived": 31,
+          "meanOnRoad": 25.5,
+          "maxOnRoad": 41,
+          "meanStopped": 10.5,
+          "meanTravel": 177,
+          "pedestrians": 1.8,
+          "engineMsPerCitySecond": 1.7,
+          "collectionBags": 256.4,
+          "collectionOverCapacity": 3,
+          "illegalBags": 124.3,
+          "lowStockShops": 1.17,
+          "illegalParking": 1
         },
         {
           "day": 3,
           "hour": 23,
           "scheduled": 2,
-          "arrived": 15,
-          "meanOnRoad": 7.6,
-          "maxOnRoad": 15,
-          "meanStopped": 3.6,
-          "meanTravel": 223,
+          "arrived": 13,
+          "meanOnRoad": 5.5,
+          "maxOnRoad": 12,
+          "meanStopped": 2.7,
+          "meanTravel": 192,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.05
+          "engineMsPerCitySecond": 0.85,
+          "collectionBags": 195.8,
+          "collectionOverCapacity": 2,
+          "illegalBags": 120.1,
+          "lowStockShops": 0.83,
+          "illegalParking": 1
         },
         {
           "day": 4,
@@ -4804,7 +5065,12 @@
           "meanStopped": 0.2,
           "meanTravel": 108,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 0.97
+          "engineMsPerCitySecond": 0.81,
+          "collectionBags": 197.7,
+          "collectionOverCapacity": 2,
+          "illegalBags": 115.9,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -4816,7 +5082,12 @@
           "meanStopped": 0.1,
           "meanTravel": 99,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.08
+          "engineMsPerCitySecond": 0.73,
+          "collectionBags": 199.6,
+          "collectionOverCapacity": 2,
+          "illegalBags": 111.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -4828,7 +5099,12 @@
           "meanStopped": 0.1,
           "meanTravel": null,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.02
+          "engineMsPerCitySecond": 0.72,
+          "collectionBags": 163.7,
+          "collectionOverCapacity": 2,
+          "illegalBags": 107.5,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -4840,7 +5116,12 @@
           "meanStopped": 0.3,
           "meanTravel": 81,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 0.95
+          "engineMsPerCitySecond": 0.76,
+          "collectionBags": 124.8,
+          "collectionOverCapacity": 1,
+          "illegalBags": 75.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -4852,7 +5133,12 @@
           "meanStopped": 0.6,
           "meanTravel": 89,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.14
+          "engineMsPerCitySecond": 0.72,
+          "collectionBags": 126.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 75.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
@@ -4864,19 +5150,29 @@
           "meanStopped": 0.3,
           "meanTravel": 114,
           "pedestrians": 0,
-          "engineMsPerCitySecond": 1.07
+          "engineMsPerCitySecond": 0.75,
+          "collectionBags": 128.7,
+          "collectionOverCapacity": 1,
+          "illegalBags": 75.7,
+          "lowStockShops": 0,
+          "illegalParking": 0
         },
         {
           "day": 4,
           "hour": 6,
           "scheduled": 29,
-          "arrived": 6,
-          "meanOnRoad": 21.4,
-          "maxOnRoad": 26,
-          "meanStopped": 8.4,
-          "meanTravel": 81,
-          "pedestrians": 7.6,
-          "engineMsPerCitySecond": 2.45
+          "arrived": 5,
+          "meanOnRoad": 20.6,
+          "maxOnRoad": 25,
+          "meanStopped": 8.5,
+          "meanTravel": 76,
+          "pedestrians": 7.5,
+          "engineMsPerCitySecond": 1.82,
+          "collectionBags": 154.9,
+          "collectionOverCapacity": 1,
+          "illegalBags": 89.3,
+          "lowStockShops": 0,
+          "illegalParking": 0.17
         }
       ]
     }

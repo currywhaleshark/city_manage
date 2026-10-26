@@ -239,7 +239,9 @@ test("live UI keeps a read story, carries its context into policy selection, and
     assert.equal(document.body.dataset.livePanel, "", "the X closes without opening the content panel");
     assert.equal(document.activeElement, el("#city-canvas"));
     assert.notEqual(el("#resident-bubble").dataset.resident === firstId && !el("#resident-bubble").hidden, true);
-    while (state().time < 630) tick(1);
+    // Waste builds up over the day; wait for its first problem.
+    const wasteProblem = () => state().news.some((n: any) => n.topic === "waste" && n.type === "problem");
+    while (!wasteProblem() && state().time < 2000) tick(1);
     click('[data-panel-open="news"]');
     const news = state().news.find(
       (n: any) => n.topic === "waste" && n.type === "problem",

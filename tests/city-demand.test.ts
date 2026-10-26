@@ -138,7 +138,9 @@ test("legacy JSON and v2 checkpoints preserve the city and switch only at the ne
 });
 
 test("patrol clears its local obstacle without changing demand or clearing other sites", () => {
-  const base = new LiveCitySimulation(), policy = new LiveCitySimulation();
+  // Parking all day (no hourly schedule), so the street has cars to clear.
+  const base = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 300, Infinity),
+    policy = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 300, Infinity);
   base.runUntil(300);
   policy.runUntil(300);
   policy.apply("patrol", "homes");

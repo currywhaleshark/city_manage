@@ -7,7 +7,7 @@ import {
 
 // This is an internal structured-clone cache, never accepted from imported JSON.
 // Bump when engine state/semantics change. The portable command log remains authoritative.
-export const CHECKPOINT_VERSION = "living-state-11";
+export const CHECKPOINT_VERSION = "living-state-12";
 const shared = [
   "network",
   "pedestrians",
@@ -120,7 +120,8 @@ export function restoreLiveCheckpoint(
   const beforeShop = beforeEast || (checkpoint?.version as string) === "living-state-8";
   const beforeDaily = beforeShop || (checkpoint?.version as string) === "living-state-9";
   const beforeEconomy = beforeDaily || (checkpoint?.version as string) === "living-state-10";
-  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeEconomy)
+  const beforeServices = beforeEconomy || (checkpoint?.version as string) === "living-state-11";
+  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeServices)
     throw new Error("도시 저장 형식이 바뀌었어요.");
   const saved = validateLiveSave(checkpoint.save);
   if (
@@ -141,6 +142,8 @@ export function restoreLiveCheckpoint(
     (saved.dailyCycleFrom !== requested.dailyCycleFrom &&
       !(saved.dailyCycleFrom === undefined && requested.dailyCycleFrom! > saved.time)) ||
     (saved.startingBudget ?? 100) !== requested.startingBudget ||
+    (saved.dailyServicesFrom !== requested.dailyServicesFrom &&
+      !(saved.dailyServicesFrom === undefined && requested.dailyServicesFrom! > saved.time)) ||
     JSON.stringify(saved.withdrawals ?? []) !==
       JSON.stringify((requested.withdrawals ?? []).slice(0, saved.withdrawals?.length ?? 0)) ||
     (requested.withdrawals ?? [])
@@ -169,7 +172,7 @@ export function restoreLiveCheckpoint(
       saved.vehicleAccessFrom ?? Infinity, saved.vehicleArrivalFrom ?? Infinity,
       saved.trafficRoutingFrom ?? Infinity, saved.eastBankFrom ?? Infinity,
       saved.eastShopFrom ?? Infinity, saved.dailyCycleFrom ?? Infinity,
-      saved.startingBudget ?? 100);
+      saved.startingBudget ?? 100, saved.dailyServicesFrom ?? Infinity);
   if (previous && !("cityTrafficFrom" in state.world))
     state.world.cityTrafficFrom = saved.cityTrafficFrom ?? Infinity;
   if (beforeAccess && !("vehicleAccessFrom" in state.world))
@@ -208,6 +211,9 @@ export function restoreLiveCheckpoint(
     state.pedestrians.bridges = new Set();
     state.pedestrians.closingBridges = new Set();
   }
+  // Hourly everyday life adds only its switch time.
+  if (beforeServices && !("dailyServicesFrom" in state.world))
+    state.world.dailyServicesFrom = saved.dailyServicesFrom ?? Infinity;
   if (legacy) {
     // Only presentation state changed. Keep the physical city and avoid a full replay.
     Object.assign(state.world, {
@@ -261,5 +267,6 @@ export function restoreLiveCheckpoint(
   city.eastBankFrom = requested.eastBankFrom!;
   city.eastShopFrom = requested.eastShopFrom!;
   city.dailyCycleFrom = requested.dailyCycleFrom!;
+  city.dailyServicesFrom = requested.dailyServicesFrom!;
   return city;
 }

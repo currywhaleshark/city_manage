@@ -100,14 +100,19 @@ const when = (time: number) =>
 const reactionNote = (id: LivePolicyId) =>
   sim.usesDailyCycle && (id === "signal" || id === "stagger")
     ? `효과가 시작된 뒤 출근 시간(오전 ${COMMUTE_FROM}~${COMMUTE_UNTIL}시)이 끝나면, 시행 전 출근 시간과 비교해 소식에 남겨요.`
-    : "도시 시간 2분 뒤의 변화를 소식에 남겨요.";
+    : sim.usesDailyServices && LIVE_POLICIES.find((p) => p.id === id)!.topic === "supply"
+      ? "효과가 시작된 뒤 가게 문을 연 하루(오전 10시~오후 10시)가 끝나면, 시행 전과 비교해 소식에 남겨요."
+      : "도시 시간 2분 뒤의 변화를 소식에 남겨요.";
 /** The tutorial waits for the real comparison: two minutes, or a whole commute. */
 function watchText() {
   const index = tutorial.actionIndex;
   const action = index === undefined ? undefined : sim.actions[index];
   const at = index === undefined ? undefined : sim.reactionAt(index);
+  const supply = action && LIVE_POLICIES.find((p) => p.id === action.id)!.topic === "supply";
   return action && at !== undefined && at > action.time + 120 + 1e-6
-    ? `정책을 시행했어요. 효과가 시작된 뒤 출근 시간(오전 ${COMMUTE_FROM}~${COMMUTE_UNTIL}시)이 끝나면 시행 전 출근 시간과 비교해 볼게요. 밤에는 빨리 넘어가요.`
+    ? supply
+      ? "정책을 시행했어요. 효과가 시작된 뒤 가게 문을 연 하루(오전 10시~오후 10시)가 끝나면 시행 전과 비교해 볼게요. 밤에는 빨리 넘어가요."
+      : `정책을 시행했어요. 효과가 시작된 뒤 출근 시간(오전 ${COMMUTE_FROM}~${COMMUTE_UNTIL}시)이 끝나면 시행 전 출근 시간과 비교해 볼게요. 밤에는 빨리 넘어가요.`
     : "정책을 시행했어요. 도시 시간 2분이 지나면 시행한 곳의 전후 모습을 비교해 볼게요.";
 }
 const budgetNote = () =>

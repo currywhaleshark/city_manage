@@ -13,7 +13,7 @@ const heard = (id: CommunityProjectId) =>
   communityProject(id).voices.map((v) => v.id);
 
 test("meetings need different voices, a real location and budget; only one voluntary project at a time", () => {
-  const s = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 100); // a city that began at 100
+  const s = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 100, Infinity); // began at 100, no hourly schedule
   assert.throws(() =>
     s.council.start("walking", "school", "together", ["child"]),
   );

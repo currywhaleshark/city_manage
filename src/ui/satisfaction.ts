@@ -5,6 +5,7 @@ import {
   type Topic,
 } from "../simulation/live";
 import { pendingText } from "./map-feedback";
+import { DAY_SECONDS } from "../simulation/day-clock";
 import {
   citySatisfaction,
   SATISFACTION_TOPICS,
@@ -34,6 +35,8 @@ export class SatisfactionTracker {
   readonly history: SatisfactionSample[] = [];
   current?: SatisfactionSample;
   detail?: CitySatisfaction;
+  /** Phase 1b of the daily cycle: arrows compare with the same time yesterday. */
+  private daily = false;
 
   reset() {
     this.history.length = 0;
@@ -41,6 +44,7 @@ export class SatisfactionTracker {
   }
 
   update(sim: LiveCitySimulation) {
+    this.daily = sim.usesDailyServices;
     const raw = citySatisfaction(sim);
     this.detail = raw;
     const previous = this.current;
@@ -73,12 +77,24 @@ export class SatisfactionTracker {
     }
   }
 
-  /** Change against the newest sample at least a minute old. */
+  /** Yesterday at this time once a day of history exists, otherwise a minute ago. */
+  private get trendSeconds() {
+    const oldest = this.history[0];
+    return this.daily && this.current && oldest &&
+      this.current.time - oldest.time >= DAY_SECONDS
+      ? DAY_SECONDS
+      : SATISFACTION_TREND;
+  }
+  get trendLabel() {
+    return this.trendSeconds === DAY_SECONDS ? "어제 이 시각" : "1분 전";
+  }
+  /** Change against the newest sample at least the comparison period old. */
   trend(line: SatisfactionLine = "overall") {
     if (!this.current) return 0;
+    const seconds = this.trendSeconds;
     let before: SatisfactionSample | undefined;
     for (const s of this.history)
-      if (this.current.time - s.time >= SATISFACTION_TREND) before = s;
+      if (this.current.time - s.time >= seconds) before = s;
     if (!before) return 0;
     return lineValue(this.current, line) - lineValue(before, line);
   }
@@ -136,20 +152,20 @@ export function satisfactionBand(score: number) {
 const faces = { good: "😊", fair: "😐", poor: "😟" };
 const moods = { good: "만족해요", fair: "보통이에요", poor: "불편해요" };
 
-export function trendMarkup(change: number) {
+export function trendMarkup(change: number, since = "1분 전") {
   const n = Math.round(change);
   if (n >= 1)
-    return `<span class="satisfaction-trend up" aria-label="1분 전보다 ${n} 올랐어요">▲${n}</span>`;
+    return `<span class="satisfaction-trend up" aria-label="${since}보다 ${n} 올랐어요">▲${n}</span>`;
   if (n <= -1)
-    return `<span class="satisfaction-trend down" aria-label="1분 전보다 ${-n} 내렸어요">▼${-n}</span>`;
-  return `<span class="satisfaction-trend same" aria-label="1분 전과 비슷해요">–</span>`;
+    return `<span class="satisfaction-trend down" aria-label="${since}보다 ${-n} 내렸어요">▼${-n}</span>`;
+  return `<span class="satisfaction-trend same" aria-label="${since}과 비슷해요">–</span>`;
 }
 
 /** Header gauge contents; the button itself is static in the page shell. */
 export function satisfactionGauge(tracker: SatisfactionTracker) {
   const score = tracker.current?.overall ?? 0;
   const band = satisfactionBand(score);
-  return `<span class="satisfaction-face" aria-hidden="true">${faces[band]}</span><span class="satisfaction-copy"><small>주민 만족도</small><b>${Math.round(score)}</b></span>${trendMarkup(tracker.trend())}<i class="satisfaction-meter" aria-hidden="true"><i class="${band}" style="width:${score.toFixed(0)}%"></i></i>`;
+  return `<span class="satisfaction-face" aria-hidden="true">${faces[band]}</span><span class="satisfaction-copy"><small>주민 만족도</small><b>${Math.round(score)}</b></span>${trendMarkup(tracker.trend(), tracker.trendLabel)}<i class="satisfaction-meter" aria-hidden="true"><i class="${band}" style="width:${score.toFixed(0)}%"></i></i>`;
 }
 
 function partMarkup(p: SatisfactionPart) {
@@ -166,7 +182,7 @@ export function satisfactionTopics(
   return SATISFACTION_TOPICS.map((t) => {
     const score = current.topics[t];
     const band = satisfactionBand(score);
-    return `<details class="satisfaction-topic" data-satisfaction-topic="${t}" ${open.has(t) ? "open" : ""}><summary><span class="satisfaction-topic-title">${TOPICS[t]}</span><span class="satisfaction-bar" aria-hidden="true"><i class="${band}" style="width:${score.toFixed(0)}%"></i></span><b>${Math.round(score)}</b>${trendMarkup(tracker.trend(t))}</summary><p class="metric-note">왜 이 점수일까요? 지금 도시에서 잰 수치예요.</p><ul class="satisfaction-parts">${detail.topics[t].parts.map(partMarkup).join("")}</ul></details>`;
+    return `<details class="satisfaction-topic" data-satisfaction-topic="${t}" ${open.has(t) ? "open" : ""}><summary><span class="satisfaction-topic-title">${TOPICS[t]}</span><span class="satisfaction-bar" aria-hidden="true"><i class="${band}" style="width:${score.toFixed(0)}%"></i></span><b>${Math.round(score)}</b>${trendMarkup(tracker.trend(t), tracker.trendLabel)}</summary><p class="metric-note">왜 이 점수일까요? 지금 도시에서 잰 수치예요.</p><ul class="satisfaction-parts">${detail.topics[t].parts.map(partMarkup).join("")}</ul></details>`;
   }).join("");
 }
 
@@ -229,7 +245,7 @@ export function satisfactionChart(
 export function satisfactionSummary(tracker: SatisfactionTracker) {
   const score = tracker.current?.overall ?? 0;
   const band = satisfactionBand(score);
-  return `<span class="satisfaction-face ${band}" aria-hidden="true">${faces[band]}</span><div><small>주민들은 지금</small><strong>${moods[band]} · ${Math.round(score)}점</strong></div>${trendMarkup(tracker.trend())}`;
+  return `<span class="satisfaction-face ${band}" aria-hidden="true">${faces[band]}</span><div><small>주민들은 지금</small><strong>${moods[band]} · ${Math.round(score)}점</strong></div>${trendMarkup(tracker.trend(), tracker.trendLabel)}`;
 }
 
 /** Bought policies that have not started yet, so a flat score is not read as failure. */
@@ -252,5 +268,5 @@ export function satisfactionPanel(
         `<button class="satisfaction-line" data-satisfaction-line="${l}" aria-pressed="${l === line}">${l === "overall" ? "전체" : TOPICS[l]}</button>`,
     )
     .join("");
-  return `<div class="satisfaction-summary" id="satisfaction-summary">${satisfactionSummary(tracker)}</div><div id="satisfaction-pending" class="satisfaction-pending">${satisfactionPending(sim)}</div><p class="intro">주민이 겪는 불편을 잰 수치로 만든 점수예요. 분야를 눌러 어떤 수치 때문인지 살펴봐요.</p><div id="satisfaction-topics">${satisfactionTopics(tracker)}</div><h3>시간에 따른 변화</h3><div class="satisfaction-lines" role="group" aria-label="그래프에 볼 분야">${chips}</div><div id="satisfaction-chart">${satisfactionChart(tracker, sim, line)}</div><p class="metric-note">화살표는 도시 시간 1분 전과 비교한 변화예요. 여러 생활 변화가 함께 반영되므로 정책 하나의 효과로 단정하지 않아요. 준비 시간이 필요한 정책은 효과가 늦게 나타나요.</p>`;
+  return `<div class="satisfaction-summary" id="satisfaction-summary">${satisfactionSummary(tracker)}</div><div id="satisfaction-pending" class="satisfaction-pending">${satisfactionPending(sim)}</div><p class="intro">주민이 겪는 불편을 잰 수치로 만든 점수예요. 분야를 눌러 어떤 수치 때문인지 살펴봐요.</p><div id="satisfaction-topics">${satisfactionTopics(tracker)}</div><h3>시간에 따른 변화</h3><div class="satisfaction-lines" role="group" aria-label="그래프에 볼 분야">${chips}</div><div id="satisfaction-chart">${satisfactionChart(tracker, sim, line)}</div><p class="metric-note">화살표는 ${tracker.trendLabel === "1분 전" ? "도시 시간 1분 전" : "어제 같은 시각"}과 비교한 변화예요. 여러 생활 변화가 함께 반영되므로 정책 하나의 효과로 단정하지 않아요. 준비 시간이 필요한 정책은 효과가 늦게 나타나요.</p>`;
 }

@@ -146,6 +146,8 @@ export class WasteSimulation extends TrafficSimulation {
   readonly sites: WasteSite[];
   readonly trucks: WasteTruck[] = [];
   readonly configuration: WasteConfiguration;
+  /** Share of the usual waste made right now (the living city's quiet nights). */
+  generationFactor: () => number = () => 1;
   readonly policyIds: readonly string[];
   readonly cost: number;
   disposed = 0;
@@ -239,10 +241,12 @@ export class WasteSimulation extends TrafficSimulation {
   }
   override step() {
     super.step();
+    const factor = this.generationFactor();
     for (const site of this.sites) {
       const amount =
         site.rate *
         CONFIG.dt *
+        factor *
         (this.configuration.reduction ? 1 - 0.6 * site.participation : 1);
       site.generated += amount;
       site.remaining += amount;

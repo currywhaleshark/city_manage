@@ -21,6 +21,13 @@ for (const seed of [2404, 2405, 2406]) {
     meanTravel: number | null;
     pedestrians: number;
     engineMsPerCitySecond: number;
+    /** End of the hour: bags at household collection points, sites over capacity, roadside litter. */
+    collectionBags: number;
+    collectionOverCapacity: number;
+    illegalBags: number;
+    /** Mean over the hour: shops below 3 boxes, illegally parked cars. */
+    lowStockShops: number;
+    illegalParking: number;
   }[] = [];
   const commutes: { day: number; traffic?: number; "traffic-east"?: number; "school-signal"?: number }[] = [];
   const seen = new Set<number>();
@@ -30,7 +37,8 @@ for (const seed of [2404, 2405, 2406]) {
   for (let h = 0; h < DAYS * 24; h++) {
     const start = city.time;
     const { day, hour } = city.clock!;
-    let onRoad = 0, maxOnRoad = 0, stopped = 0, pedestrians = 0, samples = 0, engine = 0;
+    let onRoad = 0, maxOnRoad = 0, stopped = 0, pedestrians = 0, samples = 0, engine = 0,
+      lowStock = 0, illegalParking = 0;
     for (let s = 10; s <= HOUR_SECONDS; s += 10) {
       const t0 = performance.now();
       city.runUntil(start + s);
@@ -40,6 +48,8 @@ for (const seed of [2404, 2405, 2406]) {
       maxOnRoad = Math.max(maxOnRoad, cars);
       stopped += city.stats.stopped;
       pedestrians += city.pedestrians.active.size;
+      lowStock += city.logistics.shops.filter((x) => x.stock < 3).length;
+      illegalParking += city.parking.parkingStats.illegal;
       samples++;
     }
     // History keeps only the latest 1,500 trips, so count arrivals by id.
@@ -58,6 +68,11 @@ for (const seed of [2404, 2405, 2406]) {
         : null,
       pedestrians: +(pedestrians / samples).toFixed(1),
       engineMsPerCitySecond: +(engine / HOUR_SECONDS).toFixed(2),
+      collectionBags: +city.sites.filter((x) => !x.kind).reduce((n, x) => n + x.remaining, 0).toFixed(1),
+      collectionOverCapacity: city.sites.filter((x) => !x.kind && x.remaining > (x.capacity ?? Infinity)).length,
+      illegalBags: +city.dumpingStats.illegalRemaining.toFixed(1),
+      lowStockShops: +(lowStock / samples).toFixed(2),
+      illegalParking: +(illegalParking / samples).toFixed(2),
     });
     if (city.clock!.hour === 10) commutes.push({ day, ...city.lastCommute });
     for (const n of city.news)

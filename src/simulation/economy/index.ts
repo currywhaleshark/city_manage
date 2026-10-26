@@ -183,6 +183,8 @@ export interface CargoTruck {
   serviceStarted: number;
   delivered: number;
   journeys: { target: string; seconds: number }[];
+  /** Taken out of service: finish the current delivery, then park. */
+  retired?: boolean;
 }
 export class LogisticsSimulation extends TrafficSimulation {
   readonly scenarioId = "logistics";
@@ -297,15 +299,69 @@ export class LogisticsSimulation extends TrafficSimulation {
       ? "driving"
       : "blocked";
   }
+  /** The stop on a truck's round whose shop has the least stock (ties: round order). */
+  private emptiestShop(t: CargoTruck) {
+    let best = t.nextIndex % t.itinerary.length, low = Infinity;
+    for (let k = 0; k < t.itinerary.length; k++) {
+      const index = (t.nextIndex + k) % t.itinerary.length;
+      const stock = this.shops.find((s) => s.id === t.itinerary[index])?.stock ?? Infinity;
+      if (stock < low - 1e-9) [best, low] = [index, stock];
+    }
+    return best;
+  }
+  /** The next stop on a truck's round, after the current one, whose shop has room. */
+  private nextShopWithSpace(t: CargoTruck) {
+    const n = t.itinerary.length;
+    for (let k = 1; k < n; k++) {
+      const index = (t.nextIndex + k) % n;
+      const shop = this.shops.find((s) => s.id === t.itinerary[index]);
+      if (shop && shop.stock < shop.capacity - 1) return index;
+    }
+    return -1;
+  }
+  /** The supplier with the most goods waiting (ties: the first listed). */
+  private fullestSource() {
+    return this.sources.reduce((a, b) => (b.stock > a.stock ? b : a)).id;
+  }
+  /** A truck added by the living city: loads where most goods wait, then serves every shop in turn. */
+  addTruck() {
+    const i = this.trucks.length;
+    const source = this.fullestSource();
+    const truck: CargoTruck = {
+      id: 20000 + i,
+      name: `${i + 1}호 화물차`,
+      capacity: 36,
+      load: 0,
+      cargoSource: source,
+      sourceId: source,
+      sourceVisits: 0,
+      itinerary: this.shops.map((s) => s.id),
+      nextIndex: 0,
+      target: source,
+      phase: "driving",
+      departedAt: this.time,
+      serviceStarted: 0,
+      delivered: 0,
+      journeys: [],
+    };
+    this.trucks.push(truck);
+    this.dispatch(truck, source);
+    return truck;
+  }
+  /** Share of the usual sales right now (shops close at night in the living city). */
+  salesFactor: () => number = () => 1;
+  /** Living city: a truck that finds a shop full takes the rest to the next shop with space. */
+  moveOnWhenFull: () => boolean = () => false;
   override step() {
     super.step();
+    const sales = this.salesFactor();
     for (const s of this.sources) {
       const amount = s.rate * CONFIG.dt;
       s.stock += amount;
       s.generated += amount;
     }
     for (const s of this.shops) {
-      const wanted = s.demandRate * CONFIG.dt,
+      const wanted = s.demandRate * CONFIG.dt * sales,
         sold = Math.min(s.stock, wanted);
       s.requested += wanted;
       s.stock -= sold;
@@ -356,8 +412,11 @@ export class LogisticsSimulation extends TrafficSimulation {
         if (
           t.load >= t.capacity - 1e-8 ||
           (this.time - t.serviceStarted >= 30 && t.load >= 6)
-        )
+        ) {
+          // Living city: the driver heads for the emptiest shop on the round.
+          if (this.moveOnWhenFull()) t.nextIndex = this.emptiestShop(t);
           this.dispatch(t, t.itinerary[t.nextIndex % t.itinerary.length]);
+        }
       } else if (t.phase === "unloading") {
         const shop = this.shops.find((s) => s.id === t.target)!;
         const amount = Math.min(
@@ -380,15 +439,28 @@ export class LogisticsSimulation extends TrafficSimulation {
             type: "deliver",
             amount,
           });
-        if (t.load < 1e-8) {
+        const next = amount <= 0 && t.load > 1e-8 &&
+          shop.stock >= shop.capacity - 1e-8 && this.moveOnWhenFull()
+          ? this.nextShopWithSpace(t)
+          : -1;
+        if (next >= 0) {
+          t.nextIndex = next;
+          this.dispatch(t, t.itinerary[next]);
+        } else if (t.load < 1e-8 && t.retired) {
+          // A withdrawn truck parks after its last delivery.
+          this.retireService(t.id);
+          t.phase = "blocked";
+        } else if (t.load < 1e-8) {
           t.nextIndex++;
           t.sourceVisits++;
           t.sourceId =
-            t.id === 20001
-              ? this.configuration.diversify && t.sourceVisits % 2 === 0
-                ? "west-region"
-                : "east-region"
-              : "factory";
+            t.id >= 20002
+              ? this.fullestSource()
+              : t.id === 20001
+                ? this.configuration.diversify && t.sourceVisits % 2 === 0
+                  ? "west-region"
+                  : "east-region"
+                : "factory";
           this.dispatch(t, t.sourceId);
         }
       }

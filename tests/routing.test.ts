@@ -145,7 +145,7 @@ test("a bay exit safely clears an arrival that is holding a crossing queue behin
 
 test("rerouting preserves the car, destination and driven path, with safe junctions and a change cooldown", t => {
   // A pinned pre-east-bank history keeps the same blocked queue under test.
-  const city = new LiveCitySimulation(2404, 0, 0, 0, Infinity, Infinity, Infinity);
+  const city = new LiveCitySimulation(2404, 0, 0, 0, Infinity, Infinity, Infinity, 0, 300, Infinity);
   city.runUntil(300); city.apply("signal", "n3-2"); city.apply("patrol", "homes");
   city.runUntil(900);
   city.trafficRoutingFrom = 900.1;
