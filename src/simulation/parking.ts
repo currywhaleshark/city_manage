@@ -184,8 +184,19 @@ export interface ParkingRequest {
   maxWalk: number;
   color: number;
 }
+/** Income and deterrence in the living city (the parking experiment never charges). */
+export const LOT_FEE = 2;
+export const PARKING_FINE = 4;
+/** Drivers who skip a paid lot, and who stop parking illegally where fines are issued. */
+export const LOT_FEE_REFUSAL = 0.35;
+export const FINE_DETERRENCE = 0.4;
+/** A stable 0–1 value per driver, so reloading never rerolls their choice. */
+export const driverShare = (id: number, salt: number) =>
+  (((id * 2654435761 + salt * 40503) >>> 0) % 1000) / 1000;
 export interface ParkingEpisode {
   request: ParkingRequest;
+  /** Parked illegally where patrol shortens the stay: a ticket when fines apply. */
+  ticketed?: boolean;
   destination: "illegal" | "lot" | "bay";
   phase: "approaching" | "parked" | "leaving" | "finished";
   pose: Pose;
@@ -221,6 +232,10 @@ export class ParkingSimulation extends TrafficSimulation {
   readonly episodes: ParkingEpisode[] = [];
   readonly parcelUses: readonly ParcelUse[];
   lotCapacity: number;
+  /** Charges set by the living city's policies. */
+  fees = { lot: false, fines: false };
+  /** Money earned so far; the city credits it to its budget. */
+  earnings = { lot: 0, fines: 0 };
   /** Prototype getter, so checkpoints keep the same fields. */
   get siteList(): readonly ParkingSite[] {
     return PARKING_SITES;
@@ -300,6 +315,10 @@ export class ParkingSimulation extends TrafficSimulation {
       )
         continue;
       const site = this.siteList.find((s) => s.id === request.siteId)!;
+      const patrolled = applied.state.patrol && plan.patrolSite === site.id;
+      // Some drivers who know about fines park legally elsewhere instead.
+      if (this.fees.fines && patrolled && driverShare(request.id, 2) < FINE_DETERRENCE)
+        continue;
       const route = this.walkingRoute(site);
       const lane = this.network.lanes.get(site.laneId)!;
       const walkDistance =
@@ -311,7 +330,8 @@ export class ParkingSimulation extends TrafficSimulation {
         request.duration <= 150 &&
         !bayUsed;
       const lot =
-        !bay && slots < this.lotCapacity && walkDistance <= request.maxWalk;
+        !bay && slots < this.lotCapacity && walkDistance <= request.maxWalk &&
+        !(this.fees.lot && driverShare(request.id, 1) < LOT_FEE_REFUSAL);
       const destination = bay ? "bay" : lot ? "lot" : "illegal";
       // New parked vehicles cannot materialize on top of a passing vehicle.
       if (
@@ -348,6 +368,7 @@ export class ParkingSimulation extends TrafficSimulation {
         walkDistance: lot ? walkDistance : bay ? 12 : 0,
         illegalSeconds: 0,
         slot: lot ? slots : undefined,
+        ...(destination === "illegal" && patrolled ? { ticketed: true } : {}),
       };
       if (this.usesVehicleAccess && destination === "illegal" && request.surface === "road") {
         // Recurring illegal parking also drives in; never create a stationary car in traffic.
@@ -357,6 +378,7 @@ export class ParkingSimulation extends TrafficSimulation {
         continue;
       }
       if (lot) {
+        if (this.fees.lot) this.earnings.lot += LOT_FEE;
         occupiedSlots.add(slots);
         do {
           slots++;
@@ -425,10 +447,12 @@ export class ParkingSimulation extends TrafficSimulation {
       if (episode.phase === "approaching") {
         if (!this.serviceJourneys.get(episode.request.id)?.arrived) continue;
         episode.phase = "parked";
-        episode.releaseAt = this.time + (this.configuration.patrol &&
-          this.plan.patrolSite === episode.request.siteId
+        const patrolled = this.configuration.patrol &&
+          this.plan.patrolSite === episode.request.siteId;
+        episode.releaseAt = this.time + (patrolled
           ? Math.min(episode.request.duration, 40 + (episode.request.id % 2) * 8)
           : episode.request.duration);
+        if (patrolled && episode.destination === "illegal") episode.ticketed = true;
       }
       if (episode.phase !== "parked") continue;
       if (this.time + 1e-8 < episode.releaseAt) {
@@ -437,6 +461,7 @@ export class ParkingSimulation extends TrafficSimulation {
         continue;
       }
       const site = this.siteList.find((s) => s.id === episode.request.siteId)!;
+      if (episode.ticketed && this.fees.fines) this.earnings.fines += PARKING_FINE;
       if (
         episode.destination === "illegal" &&
         episode.request.surface === "sidewalk"

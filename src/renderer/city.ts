@@ -44,6 +44,9 @@ import { LogisticsRenderer } from "./logistics";
 import { stockBand } from "./map-data";
 import { BuildingColors } from "./building-colors";
 import { accessBand, wasteColor, cssColor } from "./map-data";
+import { daylight, NOON, type Daylight } from "./daylight";
+import { HOUR_SECONDS } from "../simulation/day-clock";
+import { StructureRenderer } from "./structures";
 import type { ResidentVoice } from "../simulation/residents";
 import {
   EnvironmentSimulation,
@@ -108,6 +111,7 @@ export class CityRenderer {
   private waterView?: WaterRenderer;
   private logisticsView?: LogisticsRenderer;
   private parkingView?: ParkingRenderer;
+  private structureView?: StructureRenderer;
   private facilityView?: FacilityRenderer;
   private environmentView?: EnvironmentRenderer;
   private residentView: ResidentRenderer;
@@ -154,6 +158,9 @@ export class CityRenderer {
   private dummy = new THREE.Object3D();
   private carColor = new THREE.Color();
   private sun = new THREE.DirectionalLight(0xfff6df, 2.6);
+  private sky = new THREE.HemisphereLight(0xfffaf0, 0x7f9678, 2.3);
+  /** Last applied hour (rounded), so unchanged light costs nothing. */
+  private lightKey = NaN;
   private quality: DisplayQuality;
   private ring: THREE.Mesh;
   private current?: TrafficSimulation;
@@ -187,7 +194,7 @@ export class CityRenderer {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.scene.background = new THREE.Color(0xe1e7dd);
-    this.scene.add(new THREE.HemisphereLight(0xfffaf0, 0x7f9678, 2.3));
+    this.scene.add(this.sky);
     const sun = this.sun;
     sun.position.set(-100, 350, 180);
     sun.target.position.set(WORLD.center, 0, WORLD.center);
@@ -809,6 +816,8 @@ export class CityRenderer {
     this.dumpingView = undefined;
     this.parkingView?.dispose();
     this.parkingView = undefined;
+    this.structureView?.dispose();
+    this.structureView = undefined;
     this.logisticsView?.dispose();
     this.logisticsView = undefined;
     this.policyView.setSimulation(sim);
@@ -875,6 +884,10 @@ export class CityRenderer {
       );
       this.scene.add(this.parkingView);
       this.selectable.push(...this.parkingView.selectable);
+    }
+    if (sim instanceof LiveCitySimulation) {
+      this.structureView = new StructureRenderer(sim);
+      this.scene.add(this.structureView);
     }
     if (facilities) {
       this.facilityView = new FacilityRenderer(
@@ -1497,12 +1510,34 @@ export class CityRenderer {
     this.renderer.setSize(rect.width, rect.height, false);
     this.cameraView.resize(rect.width, rect.height);
   }
+  /** Sun, sky and shadows follow the living city's clock; experiments keep noon. */
+  private applyDaylight(sim: TrafficSimulation) {
+    const clock = sim instanceof LiveCitySimulation ? sim.clock : undefined;
+    const hour = clock ? clock.hour + clock.intoHour / HOUR_SECONDS : NaN;
+    // About every six clock minutes is smooth enough and cheap.
+    const key = Number.isNaN(hour) ? -1 : Math.round(hour * 10);
+    if (key === this.lightKey) return;
+    this.lightKey = key;
+    const light: Daylight = Number.isNaN(hour) ? NOON : daylight(hour);
+    (this.scene.background as THREE.Color).setHex(light.background);
+    this.sky.color.setHex(light.sky);
+    this.sky.groundColor.setHex(light.ground);
+    this.sky.intensity = light.hemisphere;
+    this.sun.color.setHex(light.sunColor);
+    this.sun.intensity = light.sunIntensity;
+    this.sun.position.set(
+      WORLD.center + light.sun.x,
+      light.sun.y,
+      WORLD.center + light.sun.z,
+    );
+  }
   render(
     sim: TrafficSimulation,
     overlay: boolean,
     roadMetrics: RoadMetric[],
     paused = false,
   ) {
+    this.applyDaylight(sim);
     const water =
       sim instanceof LiveCitySimulation
         ? sim.water

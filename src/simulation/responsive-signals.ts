@@ -1,4 +1,14 @@
 import type { LiveCitySimulation } from "./live";
+import { createNetwork } from "../scenario";
+
+let defaults: Map<string, { ns: number; ew: number }> | undefined;
+/** Green splits of the original plan, restored after a withdrawn signal policy. */
+function defaultSplit(id: string) {
+  defaults ??= new Map(
+    [...createNetwork().nodes].map(([key, node]) => [key, { ns: node.signal.ns, ew: node.signal.ew }]),
+  );
+  return defaults.get(id)!;
+}
 
 /** The school and its western residential connections. */
 export const RESPONSIVE_SIGNAL_NODES = new Set(
@@ -19,12 +29,31 @@ export const EAST_SIGNAL_OUTLINE = [
 ];
 
 export function updateResponsiveSignals(city: LiveCitySimulation) {
-  for (const a of city.actions) {
-    if (a.id !== "signal") continue;
+  const active = city.activeActions.filter((a) => a.id === "signal");
+  for (const a of active)
     updateGroup(
       city,
       a.target === EAST_SIGNAL_TARGET ? EAST_SIGNAL_NODES : RESPONSIVE_SIGNAL_NODES,
     );
+  // A withdrawn district returns to its original splits, one whole cycle at a time.
+  if (!city.withdrawals.some((w) => city.actions[w.action].id === "signal")) return;
+  const east = active.some((a) => a.target === EAST_SIGNAL_TARGET);
+  if (!east) restoreGroup(city, EAST_SIGNAL_NODES);
+  if (active.length === Number(east)) restoreGroup(city, RESPONSIVE_SIGNAL_NODES);
+}
+
+function restoreGroup(city: LiveCitySimulation, nodes: Set<string>) {
+  for (const id of nodes) {
+    const signal = city.network.nodes.get(id)!.signal;
+    const split = defaultSplit(id);
+    if (signal.ns === split.ns && signal.ew === split.ew) continue;
+    const cycle = signal.ns + signal.ew + 2 * (signal.yellow + signal.clearance) +
+      (signal.walk ?? 0) + (signal.walkClearance ?? 0);
+    const phaseTime = ((city.time + signal.offset) % cycle + cycle) % cycle;
+    if (phaseTime > 1e-7 && cycle - phaseTime > 1e-7) continue;
+    signal.ns = split.ns;
+    signal.ew = split.ew;
+    signal.offset = -city.time;
   }
 }
 

@@ -43,7 +43,7 @@ test("resident votes are stable, budget-aware, one per resident, with an actual 
 });
 
 test("the mayor implements only the counted winner and cannot change a vote, skip voices or spend twice", () => {
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 100); // a city that began at 100
   const vote = holdCommunityVote(city.seed, "sorting", "alley", city.budget);
   const original = structuredClone(vote);
   assert.equal(city.council.records.length, 0);
@@ -109,7 +109,7 @@ test("problems remain visible without policy, policy mitigates locally, and the 
     const project = topic === "parking" ? "walking" : topic === "waste" ? "sorting" : "waterCare";
     const target = topic === "waste" ? "alley" : "homes";
     for (const mode of [0, 1, 2]) {
-      const city = new LiveCitySimulation(seed, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model, as measured
+      const city = new LiveCitySimulation(seed, 0, 0, 0, 0, 0, 0, Infinity, 100); // five-minute model, as measured
       city.runUntil(120);
       if (mode) {
         if (topic === "parking") city.apply("patrol", target);

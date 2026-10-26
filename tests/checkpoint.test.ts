@@ -99,7 +99,7 @@ test("v1 checkpoints migrate presentation state without replaying or changing th
   );
   copy.runUntil(245);
   assert.equal(copy.voices.length, 0);
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-10");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-11");
 });
 
 test("incompatible, different-city or damaged caches are rejected without touching the portable save", () => {
@@ -163,9 +163,17 @@ test("an imported log with new commands before the cached point cannot reuse tha
 });
 
 test("every policy's changed state survives checkpoints and continues identically", () => {
+  // Charges need the place they charge at first.
+  const requires: Partial<Record<string, "patrol" | "parkingLot" | "park">> = {
+    fines: "patrol",
+    parkingFee: "parkingLot",
+    parkFee: "park",
+  };
   for (const policy of LIVE_POLICIES) {
     const city = new LiveCitySimulation();
     city.runUntil(12);
+    const first = requires[policy.id];
+    if (first) city.apply(first, city.targets(first)[0]?.id ?? "");
     city.apply(policy.id, city.targets(policy.id)[0]?.id ?? "");
     city.runUntil(65);
     const copy = restoreLiveCheckpoint(

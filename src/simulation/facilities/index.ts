@@ -16,6 +16,9 @@ import {
 
 export const FACILITY_MODEL_VERSION = "facility-access-v2";
 export const WALK_LIMIT_SECONDS = 300;
+/** A fee at parks the city built: fewer residents visit, each pays per day. */
+export const PARK_FEE_USE = 0.6;
+export const PARK_FEE_PER_VISITOR = 0.2;
 export type ServiceKind = "library" | "park";
 export const SERVICE_NAMES = { library: "도서관", park: "공원" };
 export const FACILITY_SITES = BUILDABLE_PLOTS;
@@ -177,6 +180,7 @@ export class FacilitySimulation extends TrafficSimulation {
     policyIds: readonly string[] = [],
     plan: FacilityPlan = DEFAULT_FACILITY_PLAN,
     budget = 100,
+    readonly options: { parkFee?: boolean } = {},
   ) {
     // Planning has no elapsed travel simulation; whole-population access is calculated, never animated.
     super(DEFAULT_POLICY, [], undefined, []);
@@ -284,7 +288,9 @@ export class FacilitySimulation extends TrafficSimulation {
         name: `${site.name} ${SERVICE_NAMES[kind]}`,
         kind,
         position: { ...site.position },
-        capacity: kind === "library" ? 140 : 160,
+        capacity: kind === "library"
+          ? 140
+          : Math.round(160 * (options.parkFee ? PARK_FEE_USE : 1)),
         isNew: true,
       };
       this.facilities.push(facility);
@@ -379,6 +385,16 @@ export class FacilitySimulation extends TrafficSimulation {
       row.unserved = row.population - row.served;
       row.capacityShortfall = row.reachable - row.served;
     }
+  }
+  /** Residents who visit fee-charging parks (new parks only). */
+  get paidParkVisitors() {
+    if (!this.options.parkFee) return 0;
+    const paid = new Set(
+      this.facilities.filter((f) => f.isNew && f.kind === "park").map((f) => f.id),
+    );
+    return this.allocations
+      .filter((a) => paid.has(a.facilityId))
+      .reduce((n, a) => n + a.count, 0);
   }
   get facilityStats() {
     const population = this.access.reduce((n, r) => n + r.population, 0);

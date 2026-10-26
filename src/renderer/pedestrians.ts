@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import type { TrafficSimulation } from "../simulation";
+import { BRIDGE_HEIGHT, BRIDGE_RAMP } from "./structures";
 
 /** Four draw calls for all walkers; gait follows distance, including pause and replay. */
 export class PedestrianRenderer extends THREE.Group {
@@ -50,6 +51,16 @@ export class PedestrianRenderer extends THREE.Group {
           alpha;
       const distance =
         p.previousDistance + (p.distance - p.previousDistance) * alpha;
+      // On a footbridge, climb at each end of the crossing.
+      const route = sim.pedestrians.routes.get(p.trip.routeId);
+      const path = p.path ?? route;
+      const lift =
+        route && path && sim.pedestrians.bridges.has(route.nodeId) &&
+        distance > path.crossingStart && distance < path.crossingEnd
+          ? BRIDGE_HEIGHT * Math.min(1,
+            (distance - path.crossingStart) / BRIDGE_RAMP,
+            (path.crossingEnd - distance) / BRIDGE_RAMP)
+          : 0;
       const gait =
         p.distance > p.previousDistance + 0.001
           ? Math.sin(distance * 8) * 0.45
@@ -64,7 +75,7 @@ export class PedestrianRenderer extends THREE.Group {
       ) => {
         this.dummy.position.set(
           x + Math.cos(angle) * dx + Math.sin(angle) * dz,
-          y,
+          y + lift,
           z - Math.sin(angle) * dx + Math.cos(angle) * dz,
         );
         this.dummy.rotation.set(0, angle, 0);

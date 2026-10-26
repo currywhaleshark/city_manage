@@ -1,4 +1,5 @@
 import {
+  GLOBAL_POLICIES,
   LIVE_POLICIES,
   type LiveCitySimulation,
   type LivePolicyId,
@@ -8,20 +9,10 @@ import {
 // Read the same budget, applied policies and buildable targets as the engine.
 // This preview never buys a policy or reserves land.
 export function policyAvailability(sim: LiveCitySimulation, id: LivePolicyId) {
-  const policy = LIVE_POLICIES.find((p) => p.id === id)!;
-  const global = ["extraTruck", "reduce", "handling"].includes(id);
+  const global = GLOBAL_POLICIES.includes(id);
   const targets = sim.targets(id);
-  const reasons: string[] = [];
-  // Signal timing can be added once per district, until both are covered.
-  const repeatable = ["cleanup", "library", "park"].includes(id) ||
-    (id === "signal" && targets.length > 0);
-  if (sim.has(id) && !repeatable) {
-    reasons.push("시행 중");
-  } else {
-    if (sim.budget < policy.cost)
-      reasons.push(`예산 ${policy.cost - sim.budget} 부족`);
-    if (!global && !targets.length) reasons.push("지을 수 있는 공터 없음");
-  }
+  const blocked = sim.policyBlocked(id);
+  const reasons = blocked ? [blocked] : [];
   return {
     available: !reasons.length,
     global,

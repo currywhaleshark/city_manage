@@ -7,10 +7,10 @@ export const HOUR_SECONDS = 120;
 export const DAY_SECONDS = 24 * HOUR_SECONDS;
 /** A city switching to the daily cycle (new or loaded) starts at 07:00. */
 export const START_HOUR = 7;
-/** Nights fast-forward between 22:00 and 06:00. */
+/** Nights fast-forward between 22:00 and 06:00 (at least this playback speed). */
 export const NIGHT_FROM = 22;
 export const NIGHT_UNTIL = 6;
-export const NIGHT_SPEED = 16;
+export const NIGHT_SPEED = 32;
 /** The operating budget arrives once a day, at the same rate per elapsed second as before. */
 export const BUDGET_HOUR = 6;
 export const DAILY_BUDGET = 192;

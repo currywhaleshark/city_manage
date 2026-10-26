@@ -39,7 +39,9 @@ import {
   COMMUTE_UNTIL,
   DAILY_BUDGET,
   NIGHT_SPEED,
+  HOUR_SECONDS,
 } from "./simulation/day-clock";
+import { daylight } from "./renderer/daylight";
 import type { MapLayer } from "./scenarios";
 import {
   readDisplayQuality,
@@ -126,7 +128,7 @@ $("#app").innerHTML = `<main class="workspace">
   <section id="live-panel" class="floating-panel" hidden aria-labelledby="live-panel-title"><div class="panel-heading"><div><span class="eyebrow" id="live-eyebrow">새봄동</span><h2 id="live-panel-title" tabindex="-1"></h2></div><button id="close-panel" class="square" aria-label="패널 닫기">${icon("close", 18)}</button></div><div class="panel-body" id="live-panel-body"></div></section>
 </main>
 <footer class="command-deck"><div class="toolbelt"><div class="town-badge"><span>${icon("city", 30)}</span><div><strong>새봄동</strong><small>문제도, 변화도 이어져요</small></div></div><nav class="tools" aria-label="도시 관리">${tool("news", "동네 소식", "소식", "residents")}${tool("policy", "정책 만들기", "정책", "bypass")}${tool("observe", "도시 살펴보기", "살펴보기", "layers")}${tool("notebook", "조사 기록", "기록", "chart")}</nav><div class="compact-metrics"><div>${icon("coin", 20)}<span><small>남은 예산</small><strong id="live-budget">100</strong></span></div></div></div>
-<div class="statusbar"><div class="time-controls"><button id="pause" class="square" aria-label="일시정지" aria-describedby="clock">${icon("pause", 18)}</button><span id="clock">0:00</span></div><p id="footer-status">정책을 바꿔도 도시의 시간은 이어져요.</p><span id="next-grant">운영 예산 +20까지 5:00</span><button id="city-options-toggle" aria-label="배속과 도시 저장 더보기" aria-controls="city-options" aria-expanded="false"><span id="current-speed">4×</span><span>더보기</span></button><div id="city-options" class="city-options" role="group" aria-label="배속과 도시 저장"><label class="speed-control"><span>도시 시간 배속</span><select id="speed" aria-label="시뮬레이션 속도"><option value="1">1배속</option><option value="2">2배속</option><option value="4" selected>4배속</option><option value="8">8배속</option></select></label><button id="save-city">도시 저장</button></div></div></footer>
+<div class="statusbar"><div class="time-controls"><button id="pause" class="square" aria-label="일시정지" aria-describedby="clock">${icon("pause", 18)}</button><span id="clock">0:00</span></div><p id="footer-status">정책을 바꿔도 도시의 시간은 이어져요.</p><span id="next-grant">운영 예산 +20까지 5:00</span><button id="city-options-toggle" aria-label="배속과 도시 저장 더보기" aria-controls="city-options" aria-expanded="false"><span id="current-speed">8×</span><span>더보기</span></button><div id="city-options" class="city-options" role="group" aria-label="배속과 도시 저장"><label class="speed-control"><span>도시 시간 배속</span><select id="speed" aria-label="시뮬레이션 속도"><option value="1">1배속</option><option value="2">2배속</option><option value="4">4배속</option><option value="8" selected>8배속</option><option value="16">16배속</option><option value="32">32배속</option></select></label><button id="save-city">도시 저장</button></div></div></footer>
 <div id="toast" role="status" aria-live="polite"></div>`;
 $('[data-map-layer="environment"]').remove();
 const shortLayerLabels: Record<string, string> = {
@@ -461,7 +463,49 @@ function policies() {
       )
       .join(
         "",
-      )}</select></label><p class="metric-note">예산 <b id="policy-budget">${sim.budget}</b> · 현재 도시에서 바로 시작해요.<br>${budgetNote()}</p><div class="live-policy-list policy-options">${policyListMarkup(sim, topic)}</div><button class="secondary wide" data-panel-open="community">남은 문제를 주민과 의논하기</button>`,
+      )}</select></label><p class="metric-note">예산 <b id="policy-budget">${sim.budget}</b> · 현재 도시에서 바로 시작해요.<br>${budgetNote()}</p><div class="live-policy-list policy-options">${policyListMarkup(sim, topic)}</div>${incomeMarkup()}${withdrawMarkup()}<button class="secondary wide" data-panel-open="community">남은 문제를 주민과 의논하기</button>`,
+  );
+}
+/** Fees and fines earned, once any charging policy exists. */
+function incomeMarkup() {
+  const t = sim.todayIncome, y = sim.yesterdayIncome;
+  if (!["parkingFee", "fines", "parkFee"].some((id) => sim.has(id as LivePolicyId)) &&
+    !t.lot && !t.fines && !y.lot && !y.fines && !y.park) return "";
+  return `<p class="metric-note live-income">오늘 수입 · 주차장 ${t.lot} · 과태료 ${t.fines}<br>지난 하루 · 주차장 ${y.lot} · 과태료 ${y.fines} · 공원 이용료 ${y.park}</p>`;
+}
+/** Policies in effect for this topic, each of which can be taken back. */
+function withdrawMarkup() {
+  const items = sim.withdrawable.filter(
+    ({ action }) => LIVE_POLICIES.find((p) => p.id === action.id)!.topic === topic,
+  );
+  if (!items.length) return "";
+  return `<details class="live-withdraw"><summary>시행 중인 정책 ${items.length}개 · 철회하기</summary>${items
+    .map(({ action, index, blocked }) => {
+      const p = LIVE_POLICIES.find((p) => p.id === action.id)!;
+      const place = sim.policyComparisons[index]?.place ?? "도시 전체";
+      return `<div class="live-withdraw-item"><span><strong>${p.title}</strong><small>${escape(place)} · ${when(action.time)}</small></span><button data-withdraw="${index}" aria-disabled="${Boolean(blocked)}">철회</button>${blocked ? `<small>${blocked}</small>` : ""}</div>`;
+    })
+    .join("")}</details>`;
+}
+const withdrawEffect: Partial<Record<LivePolicyId, string>> = {
+  parkingLot: "공터를 다시 쓸 수 있고, 주차한 차는 떠날 때까지 머물러요.",
+  library: "공터를 다시 쓸 수 있어요.",
+  park: "공터를 다시 쓸 수 있어요.",
+  sewer: "공터를 다시 쓸 수 있어요.",
+  depot: "공터 F를 다시 쓸 수 있어요.",
+  extraTruck: "가장 나중에 늘린 수거차가 지금 일을 마치고 센터로 돌아가요.",
+  signal: "다음 신호 주기부터 원래 신호로 돌아가요.",
+  footbridge: "다음 신호 주기부터 횡단보도와 보행 신호가 다시 생겨요.",
+  stagger: "다음 아침 시각부터 출근 차량이 다시 몰려요.",
+};
+function confirmWithdraw(index: number) {
+  const action = sim.actions[index];
+  const p = LIVE_POLICIES.find((p) => p.id === action.id)!;
+  const place = sim.policyComparisons[index]?.place ?? "도시 전체";
+  show(
+    "withdraw",
+    `${p.title} 철회`,
+    `<span class="live-target">${escape(place)}</span><p class="intro">이 정책을 그만둬요.</p><p class="tradeoff">쓴 예산은 돌아오지 않아요. ${withdrawEffect[action.id] ?? ""}</p><div class="live-actions"><button id="cancel-policy">그대로 두기</button><button class="primary" data-withdraw-confirm="${index}">철회하기</button></div>`,
   );
 }
 function beginPolicy(id: LivePolicyId) {
@@ -854,6 +898,24 @@ document.addEventListener("click", (e) => {
     if (!n) return;
     close();
     readStory(n);
+    return;
+  }
+  if (b.dataset.withdraw !== undefined) {
+    const index = Number(b.dataset.withdraw);
+    const blocked = sim.withdrawBlocked(index);
+    if (blocked) toast(`${blocked}.`);
+    else confirmWithdraw(index);
+    return;
+  }
+  if (b.dataset.withdrawConfirm !== undefined) {
+    try {
+      sim.withdraw(Number(b.dataset.withdrawConfirm));
+      close();
+      save();
+      toast("정책을 철회했어요. 쓴 예산은 돌아오지 않아요.");
+    } catch (err) {
+      toast((err as Error).message);
+    }
     return;
   }
   if (b.dataset.reviewPolicy !== undefined) {
@@ -1268,6 +1330,10 @@ function frame(now: number) {
       $("#clock").title = `${clock.day}일차 ${time}`;
     } else $("#clock").textContent = stamp(sim.time);
     $("#current-speed").textContent = `${playbackSpeed()}×`;
+    // Light text on a dark evening sky.
+    const sky = clock ? daylight(clock.hour + clock.intoHour / HOUR_SECONDS).background : 0xffffff;
+    const dark = ((sky >> 16) & 255) * 0.3 + ((sky >> 8) & 255) * 0.59 + (sky & 255) * 0.11 < 110;
+    document.body.dataset.daylight = dark ? "night" : "day";
     inspector.update(sim.time, paused);
     $("#live-budget").textContent = String(sim.budget);
     $("#mobile-budget").textContent = String(sim.budget);

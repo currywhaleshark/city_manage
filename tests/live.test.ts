@@ -53,7 +53,7 @@ test("early improvements are rechecked instead of announcing a stale starting pr
 });
 
 test("one clock and transport state; applying a policy preserves the living world", () => {
-  const s = new LiveCitySimulation();
+  const s = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 100); // a city that began at 100
   s.runUntil(25);
   assert.equal(s.parking.vehicles, s.vehicles);
   assert.equal(s.logistics.vehicles, s.vehicles);
@@ -101,7 +101,7 @@ test("shared parked cars obstruct service traffic, with no hidden second traffic
 });
 
 test("real dumping litter transfers into the river with conservation; new waves and collections continue after 15 minutes", () => {
-  const s = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute model
+  const s = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity, 100); // five-minute model, began at 100
   s.runUntil(1250);
   assert.ok(s.transferredToRiver > 0);
   const w = s.wasteStats,
@@ -143,7 +143,7 @@ test("production has real benefits and wastewater costs, and parcel/budget valid
       base.logistics.sources.find((s) => s.id === "factory")!.generated,
   );
   assert.ok(more.water.waterStats.generated > base.water.waterStats.generated);
-  const s = new LiveCitySimulation();
+  const s = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 100); // a city that began at 100
   s.apply("parkingLot", "riverside");
   const budget = s.budget;
   assert.throws(() => s.apply("park", "riverside"));

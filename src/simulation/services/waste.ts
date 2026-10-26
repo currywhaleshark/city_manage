@@ -138,6 +138,8 @@ export interface WasteTruck {
   departedAt: number;
   serviceStarted: number;
   journeys: { target: string; seconds: number }[];
+  /** Taken out of service: return to the depot, unload and stay there. */
+  retired?: boolean;
 }
 export class WasteSimulation extends TrafficSimulation {
   readonly scenarioId: string = "waste";
@@ -295,7 +297,8 @@ export class WasteSimulation extends TrafficSimulation {
           }
           this.dispatch(
             truck,
-            truck.load >= truck.capacity - 1e-8 ||
+            truck.retired ||
+              truck.load >= truck.capacity - 1e-8 ||
               truck.nextIndex >= truck.itinerary.length
               ? "depot"
               : truck.itinerary[truck.nextIndex],
@@ -312,7 +315,7 @@ export class WasteSimulation extends TrafficSimulation {
           load: 0,
         });
         truck.load = 0;
-        if (truck.nextIndex >= truck.itinerary.length) {
+        if (truck.retired || truck.nextIndex >= truck.itinerary.length) {
           truck.phase = "finished";
           this.retireService(truck.id);
         } else this.dispatch(truck, truck.itinerary[truck.nextIndex]);

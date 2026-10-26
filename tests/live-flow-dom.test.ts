@@ -179,8 +179,8 @@ test("live UI keeps a read story, carries its context into policy selection, and
     }
     assert.equal(el("#live-panel").hidden, true);
     assert.equal(state().paused, false);
-    change("#speed", "8");
-    assert.equal(el<HTMLSelectElement>("#speed").value, "4");
+    change("#speed", "16");
+    assert.equal(el<HTMLSelectElement>("#speed").value, "8");
     document.body.dispatchEvent(new dom.window.KeyboardEvent("keydown", { key: " ", code: "Space", bubbles: true, cancelable: true }));
     assert.equal(state().paused, false, "the pause shortcut cannot bypass the lesson");
     click('#city-tutorial [data-tutorial="skip"]');
@@ -404,7 +404,22 @@ test("live UI keeps a read story, carries its context into policy selection, and
     change("#policy-topic", "waste");
     click('[data-live-policy="extraTruck"]');
     click("#apply-live-policy");
-    assert.equal(state().budget, 40);
+    assert.equal(state().budget, 240);
+    // Spend the generous starting budget down below a library (55).
+    const buy = (topic: string, id: string, place = true) => {
+      click('[data-panel-open="policy"]');
+      change("#policy-topic", topic);
+      click(`[data-live-policy="${id}"]`);
+      if (place) click("[data-placement-target]");
+      click("#apply-live-policy");
+    };
+    buy("parking", "patrol");
+    buy("parking", "footbridge");
+    buy("waste", "depot");
+    buy("parking", "loadingBay");
+    buy("parking", "fines", false);
+    buy("supply", "handling", false);
+    assert.equal(state().budget, 45);
     click('[data-panel-open="policy"]');
     change("#policy-topic", "access");
     const library = el<HTMLButtonElement>('[data-live-policy="library"]');
@@ -413,17 +428,18 @@ test("live UI keeps a read story, carries its context into policy selection, and
     click(".live-policy-details summary");
     library.focus();
     assert.equal(library.getAttribute("aria-disabled"), "true");
-    assert.equal(el("#policy-status-library").textContent, "예산 15 부족");
+    assert.equal(el("#policy-status-library").textContent, "예산 10 부족");
     library.click();
     assert.equal(document.querySelector("#placement-title"), null);
     assert.equal(document.body.dataset.livePanel, "policy");
     assert.equal(state().paused, false);
     // The daily budget arrives at 06:00; the night passes in fast-forward.
     change("#speed", "8");
-    while (state().budget === 40) tick(1);
+    // Fines may arrive meanwhile, so wait for the clock rather than the budget.
+    while (state().time < 2760) tick(1);
     tick();
     assert.equal(el("#clock").textContent, "2일 오전 6:00");
-    assert.equal(el("#policy-budget").textContent, "232");
+    assert.ok(Number(el("#policy-budget").textContent) >= 237, "the grant plus any fines");
     assert.equal(library.getAttribute("aria-disabled"), "false");
     assert.equal(document.activeElement, library);
     assert.equal(caveat.open, true);
@@ -435,7 +451,8 @@ test("live UI keeps a read story, carries its context into policy selection, and
     );
     click("#apply-live-policy");
     assert.equal(state().actions.at(-1).id, "library");
-    assert.equal(state().budget, 177);
+    const afterLibrary = state().budget;
+    assert.ok(afterLibrary >= 182);
     click('[data-panel-open="news"]');
     click('[data-panel-open="community"]');
     click('[data-community-project="waterCare"]');
@@ -444,7 +461,7 @@ test("live UI keeps a read story, carries its context into policy selection, and
     // The low-budget comparison is covered in community-vote.test.ts.
     assert.equal(el<HTMLButtonElement>("#community-vote").disabled, false);
     click("#cancel-meeting");
-    assert.equal(state().budget, 177);
+    assert.equal(state().budget, afterLibrary);
     assert.equal(state().paused, false);
     assert.equal(state().council.length, 0, "deferring a meeting spends nothing and creates no activity");
 

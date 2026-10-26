@@ -16,10 +16,14 @@ import {
 import { wasteLaneId, type WasteSite } from "./services/waste";
 import { LogisticsSimulation, type Shop } from "./economy";
 import { WaterSimulation, WATER_SOURCES, waterTargets } from "./water";
-import { FacilitySimulation, type PlannedFacility } from "./facilities";
+import {
+  FacilitySimulation,
+  PARK_FEE_PER_VISITOR,
+  type PlannedFacility,
+} from "./facilities";
 import { BUILDABLE_PLOTS } from "../city/world";
 import { validateParcelUses, type ParcelUse } from "../city/parcels";
-import { createDemand, SCHOOL_NODE, seededRandom } from "../scenario";
+import { CONFIG, createDemand, SCHOOL_NODE, seededRandom } from "../scenario";
 import {
   createCityDemand,
   createHourlyDemand,
@@ -127,6 +131,16 @@ export const LIVE_POLICIES = [
     tradeoff: "차량 수는 그대로예요. 일찍 또는 늦게 출근하는 작업자가 생겨요.",
   },
   {
+    id: "footbridge",
+    topic: "parking",
+    title: "육교 설치",
+    cost: 50,
+    description:
+      "횡단보도를 없애고 육교를 놓아요. 보행 신호 24초가 차 신호로 돌아가요.",
+    tradeoff:
+      "계단을 오르내려 걷는 시간이 늘고, 휠체어·유모차를 쓰는 사람은 불편해요. 다음 신호 주기부터 바뀌어요.",
+  },
+  {
     id: "patrol",
     topic: "parking",
     title: "순찰 구역 지정",
@@ -136,6 +150,15 @@ export const LIVE_POLICIES = [
     tradeoff: "주차 자리는 늘지 않아요. 새로 오는 차도 계속 살펴야 해요.",
   },
   {
+    id: "fines",
+    topic: "parking",
+    title: "불법주차 과태료",
+    cost: 10,
+    description:
+      "순찰하는 곳에서 단속한 차에 과태료 4를 받아요. 알게 된 운전자 일부는 그곳에 세우지 않아요.",
+    tradeoff: "순찰 구역이 있어야 하고, 순찰하지 않는 곳에는 효과가 없어요.",
+  },
+  {
     id: "parkingLot",
     topic: "parking",
     title: "공동주차장",
@@ -143,6 +166,14 @@ export const LIVE_POLICIES = [
     description:
       "공터에 주차장을 지어요. 이후 도착하는 차가 거리와 빈자리를 보고 이용해요.",
     tradeoff: "같은 공터에 공원이나 도서관을 지을 수 없어요.",
+  },
+  {
+    id: "parkingFee",
+    topic: "parking",
+    title: "주차장 이용료",
+    cost: 5,
+    description: "공동주차장에 세우는 차마다 이용료 2를 받아요.",
+    tradeoff: "요금을 내기 싫은 운전자 일부는 길가에 불법주차해요.",
   },
   {
     id: "loadingBay",
@@ -184,7 +215,16 @@ export const LIVE_POLICIES = [
     title: "수거차 한 대 추가",
     cost: 45,
     description: "수거차가 가장 많이 쌓인 곳부터 새로운 순회를 시작해요.",
-    tradeoff: "추가 차량도 같은 도로를 이용하므로 막힌 길에서는 기다려요.",
+    tradeoff:
+      "추가 차량도 같은 도로를 이용하므로 막힌 길에서는 기다려요. 자원순환센터에는 1대, 넓히면 3대까지 더 둘 수 있어요.",
+  },
+  {
+    id: "depot",
+    topic: "waste",
+    title: "자원순환센터 확장",
+    cost: 60,
+    description: "옆 공터 F까지 넓혀 수거차를 3대까지 더 둘 수 있어요.",
+    tradeoff: "공터 F를 다른 시설에 쓸 수 없어요. 수거차는 따로 늘려야 해요.",
   },
   {
     id: "reduce",
@@ -255,6 +295,14 @@ export const LIVE_POLICIES = [
     description: "900㎡ 이상 공터에 쉴 수 있는 공원을 만들어요.",
     tradeoff: "주차장이나 하수 처리 시설을 지을 공간은 줄어요.",
   },
+  {
+    id: "parkFee",
+    topic: "access",
+    title: "공원 이용료",
+    cost: 5,
+    description: "새로 지은 공원의 이용료를 매일 오전 6시에 모아요.",
+    tradeoff: "이용하는 주민이 줄어 시설을 이용하기 어려운 주민이 늘어요.",
+  },
 ] as const;
 export type LivePolicyId = (typeof LIVE_POLICIES)[number]["id"];
 export interface CityAction {
@@ -262,6 +310,39 @@ export interface CityAction {
   id: LivePolicyId;
   target: string;
   reason: string;
+}
+/** Taking back an earlier action. Spent money is not returned. */
+export interface CityWithdrawal {
+  time: number;
+  /** Actions applied before this one, to keep same-tick order on replay. */
+  policyCount: number;
+  /** Index of the withdrawn action. */
+  action: number;
+  reason: string;
+}
+/** New cities start with room to try several policies; older saves started at 100. */
+export const STARTING_BUDGET = 300;
+/** Policies that apply to the whole city rather than a place on the map. */
+export const GLOBAL_POLICIES: readonly LivePolicyId[] = [
+  "extraTruck", "reduce", "handling", "parkingFee", "fines", "parkFee",
+];
+/** One-off actions: their effect has already happened and cannot be taken back. */
+export const ONE_OFF_POLICIES: readonly LivePolicyId[] = ["cleanup", "outreach"];
+/** Extra collection trucks the recycling centre can hold, before and after expanding. */
+export const EXTRA_TRUCKS = { base: 1, expanded: 3 } as const;
+/** The four signal-controlled crosswalks a footbridge can replace. */
+export const CROSSWALKS = [
+  { id: "n3-2", name: "학교 정문 앞 횡단보도", position: { x: 48, z: 0 } },
+  { id: "n3-1", name: "학교 옆 횡단보도", position: { x: 48, z: -48 } },
+  { id: "n1-2", name: "주거지 앞 횡단보도", position: { x: -48, z: 0 } },
+  { id: "n2-3", name: "공원 앞 횡단보도", position: { x: 0, z: 48 } },
+] as const;
+const CROSSWALK_TIMING = { walk: 8, walkClearance: 16 } as const;
+/** Money earned besides the daily grant. */
+export interface CityIncome {
+  lot: number;
+  fines: number;
+  park: number;
 }
 export interface CityEvent {
   id: number;
@@ -302,6 +383,10 @@ export interface LiveSave {
   eastShopFrom?: number;
   /** Start of the daily cycle (07:00 of day 1); absent in saves from the five-minute model. */
   dailyCycleFrom?: number;
+  /** Budget the city started with; absent means 100 (cities before 2026-10-27). */
+  startingBudget?: number;
+  /** Actions taken back, in order. */
+  withdrawals?: CityWithdrawal[];
 }
 /** Morning commute series judged window by window in the daily cycle. */
 type CommuteKey = "traffic" | "traffic-east" | "school-signal";
@@ -333,7 +418,13 @@ export class LiveCitySimulation extends DumpingSimulation {
   readonly observations: LiveSave["observations"] = [];
   readonly council = new ResidentsCouncil(this);
   notes = "";
-  budget = 100;
+  budget: number;
+  readonly withdrawals: CityWithdrawal[] = [];
+  /** Income since 06:00 today, and the full day before it. */
+  todayIncome: CityIncome = { lot: 0, fines: 0, park: 0 };
+  yesterdayIncome: CityIncome = { lot: 0, fines: 0, park: 0 };
+  /** Parking earnings already added to the budget. */
+  private credited = { lot: 0, fines: 0 };
   transferredToRiver = 0;
   removedFromBoom = 0;
   revision = 0;
@@ -366,8 +457,10 @@ export class LiveCitySimulation extends DumpingSimulation {
   private commutePeaks = new Map<CommuteKey, number>();
   constructor(readonly seed = 2404, public cityTrafficFrom = 0, public vehicleAccessFrom = 0,
     public vehicleArrivalFrom = 0, public trafficRoutingFrom = 0, public eastBankFrom = 0,
-    public eastShopFrom = 0, public dailyCycleFrom = 0) {
+    public eastShopFrom = 0, public dailyCycleFrom = 0,
+    readonly startingBudget = STARTING_BUDGET) {
     super(seed, [], undefined, undefined, CITY_TRAFFIC_COUNT);
+    this.budget = startingBudget;
     if (dailyCycleFrom === 0) {
       // The first hour (07:00) is scheduled here; later hours start in step().
       this.demand = this.hourTrips(0, eastBankFrom === 0);
@@ -537,14 +630,16 @@ export class LiveCitySimulation extends DumpingSimulation {
   }
   override step() {
     this.openEastBank();
+    this.updateFootbridges();
     updateResponsiveSignals(this);
     this.parking.step();
     super.step();
     this.logistics.step();
     this.water.step();
     this.council.tick();
+    this.creditParking();
     for (const truck of this.trucks)
-      if (truck.phase === "finished") {
+      if (truck.phase === "finished" && !truck.retired) {
         truck.nextIndex = 0;
         this.dispatch(truck, truck.itinerary[0]);
       }
@@ -587,7 +682,15 @@ export class LiveCitySimulation extends DumpingSimulation {
       const elapsed = second - this.dailyCycleFrom;
       if (elapsed >= 0 && elapsed % HOUR_SECONDS === 0) {
         const hourIndex = elapsed / HOUR_SECONDS;
-        if ((START_HOUR + hourIndex) % 24 === BUDGET_HOUR) this.budget += DAILY_BUDGET;
+        if ((START_HOUR + hourIndex) % 24 === BUDGET_HOUR) {
+          // The daily grant, plus the park fees for the day; the ledger starts over.
+          const park = Math.round(
+            this.facilities.paidParkVisitors * PARK_FEE_PER_VISITOR,
+          );
+          this.budget += DAILY_BUDGET + park;
+          this.yesterdayIncome = { ...this.todayIncome, park };
+          this.todayIncome = { lot: 0, fines: 0, park: 0 };
+        }
         const rush = this.usesEastBank && !this.has("stagger");
         this.scheduleDemand(
           this.hourTrips(hourIndex, rush).map((t) => ({
@@ -715,8 +818,42 @@ export class LiveCitySimulation extends DumpingSimulation {
       }
     }
   }
+  /** Whether an action is still in effect (not withdrawn). */
+  isActive(index: number) {
+    return !this.withdrawals.some((w) => w.action === index);
+  }
+  /** Actions in effect, oldest first. */
+  get activeActions() {
+    return this.actions.filter((_, i) => this.isActive(i));
+  }
   has(id: LivePolicyId) {
-    return this.actions.some((a) => a.id === id);
+    return this.activeActions.some((a) => a.id === id);
+  }
+  /** Extra collection trucks still in service. */
+  get extraTrucks() {
+    return this.trucks.filter((t) => t.id >= 10002 && !t.retired).length;
+  }
+  get extraTruckLimit() {
+    return this.has("depot") ? EXTRA_TRUCKS.expanded : EXTRA_TRUCKS.base;
+  }
+  /** Why a policy cannot be bought right now, or undefined when it can. */
+  policyBlocked(id: LivePolicyId): string | undefined {
+    const policy = LIVE_POLICIES.find((p) => p.id === id)!;
+    const targets = this.targets(id);
+    const repeatable =
+      ["cleanup", "library", "park", "extraTruck"].includes(id) ||
+      ((id === "signal" || id === "footbridge") && targets.length > 0);
+    if (this.has(id) && !repeatable) return "시행 중";
+    if (id === "extraTruck" && this.extraTrucks >= this.extraTruckLimit)
+      return this.has("depot") ? "수거차 자리 없음" : "자원순환센터를 넓혀야 해요";
+    if (id === "parkingFee" && !this.has("parkingLot")) return "공동주차장이 먼저 필요해요";
+    if (id === "fines" && !this.has("patrol")) return "순찰 구역이 먼저 필요해요";
+    if (id === "parkFee" && !this.parcels.some((p) => p.kind === "park"))
+      return "새 공원이 먼저 필요해요";
+    if (!GLOBAL_POLICIES.includes(id) && !targets.length)
+      return id === "footbridge" ? "바꿀 횡단보도 없음" : "지을 수 있는 공터 없음";
+    if (this.budget < policy.cost) return `예산 ${policy.cost - this.budget} 부족`;
+    return undefined;
   }
   targets(id: LivePolicyId): PlacementTarget[] {
     const make = (
@@ -742,8 +879,16 @@ export class LiveCitySimulation extends DumpingSimulation {
           detail: "강 건너 36개 교차로 · 기다리는 차에 맞춰 조절",
         },
       ].filter(
-        (t) => !this.actions.some((a) => a.id === "signal" && a.target === t.id),
+        (t) => !this.activeActions.some((a) => a.id === "signal" && a.target === t.id),
       );
+    if (id === "footbridge")
+      return CROSSWALKS.filter(
+        (c) => !this.activeActions.some((a) => a.id === "footbridge" && a.target === c.id),
+      ).map((c) => make(c, "횡단보도를 육교로 바꿔요"));
+    if (id === "depot")
+      return BUILDABLE_PLOTS.filter(
+        (p) => p.id === "industry" && !this.parcels.some((u) => u.siteId === p.id),
+      ).map((p) => ({ ...p, detail: "자원순환센터 바로 옆 공터" }));
     if (id === "stagger")
       return [
         {
@@ -789,17 +934,15 @@ export class LiveCitySimulation extends DumpingSimulation {
   apply(id: LivePolicyId, target = "", reason = "") {
     const p = LIVE_POLICIES.find((p) => p.id === id);
     if (!p) throw new Error("정책을 확인해 주세요.");
-    if (
-      this.has(id) &&
-      !["cleanup", "library", "park", "signal"].includes(id)
-    )
-      throw new Error("이미 시행 중인 정책이에요.");
-    if (this.budget < p.cost)
+    const blocked = this.policyBlocked(id);
+    if (blocked === "시행 중") throw new Error("이미 시행 중인 정책이에요.");
+    if (blocked?.startsWith("예산"))
       throw new Error(
         "예산이 부족해요. 다음 운영 예산을 기다리거나 다른 방법을 살펴봐요.",
       );
     const targets = this.targets(id),
-      global = ["extraTruck", "reduce", "handling"].includes(id);
+      global = GLOBAL_POLICIES.includes(id);
+    if (blocked && (global || targets.length)) throw new Error(`${blocked}.`);
     if (!global && !targets.some((t) => t.id === target))
       throw new Error(
         id === "signal" && this.has(id)
@@ -809,7 +952,7 @@ export class LiveCitySimulation extends DumpingSimulation {
     const before = this.measure(p.topic, target);
     let facility: FacilitySimulation | undefined;
     let parcel: ParcelUse | undefined;
-    if (["parkingLot", "library", "park", "sewer"].includes(id)) {
+    if (["parkingLot", "library", "park", "sewer", "depot"].includes(id)) {
       parcel = {
         siteId: target,
         kind:
@@ -817,25 +960,13 @@ export class LiveCitySimulation extends DumpingSimulation {
             ? "parking"
             : id === "sewer"
               ? "water"
-              : (id as "library" | "park"),
+              : (id as "library" | "park" | "depot"),
       };
       validateParcelUses([...this.parcels, parcel]);
-      if (id === "library" || id === "park") {
-        const buildings = [
-          ...this.parcels.filter(
-            (u): u is PlannedFacility =>
-              u.kind === "library" || u.kind === "park",
-          ),
-          { siteId: target, kind: id },
-        ];
-        facility = new FacilitySimulation(
-          this.seed,
-          [...new Set(buildings.map((b) => b.kind))],
-          { siteId: target, buildings },
-          Infinity,
-        );
-      }
+      if (id === "library" || id === "park")
+        facility = this.facilitiesFor([...this.parcels, parcel], this.has("parkFee"));
     }
+    if (id === "parkFee") facility = this.facilitiesFor(this.parcels, true);
     if (id === "signal") {
       // The current cycle completes safely; step() chooses the next timing.
     } else if (id === "patrol") {
@@ -846,8 +977,10 @@ export class LiveCitySimulation extends DumpingSimulation {
           e.phase === "parked" &&
           e.destination === "illegal" &&
           e.request.siteId === target
-        )
+        ) {
           e.releaseAt = Math.min(e.releaseAt, this.time + 40);
+          e.ticketed = true;
+        }
     } else if (id === "parkingLot") {
       this.parking.plan = { ...this.parking.plan, siteId: target };
       this.parking.configuration.parkingLot = true;
@@ -891,10 +1024,14 @@ export class LiveCitySimulation extends DumpingSimulation {
       this.dumpingConfiguration.outreach = true;
       this.outreachStarts = this.time + 60;
     } else if (id === "reduce") this.configuration.reduction = true;
+    else if (id === "parkingFee") this.parking.fees.lot = true;
+    else if (id === "fines") this.parking.fees.fines = true;
     else if (id === "extraTruck") {
+      // Each purchase is a new truck; a withdrawn one keeps its number.
+      const added = this.actions.filter((a) => a.id === "extraTruck").length;
       const truck = {
-        id: 10002,
-        name: "3호 수거차",
+        id: 10002 + added,
+        name: `${3 + added}호 수거차`,
         capacity: 55,
         load: 0,
         collected: 0,
@@ -963,6 +1100,131 @@ export class LiveCitySimulation extends DumpingSimulation {
         "b7",
         { x: 136, z: 164 },
       );
+    this.revision++;
+  }
+  /** Public facilities for the given land uses: the existing ones plus new libraries and parks. */
+  facilitiesFor(parcels: readonly ParcelUse[], parkFee: boolean) {
+    const buildings = parcels.filter(
+      (u): u is PlannedFacility => u.kind === "library" || u.kind === "park",
+    );
+    return buildings.length
+      ? new FacilitySimulation(
+          this.seed,
+          [...new Set(buildings.map((b) => b.kind))],
+          { siteId: buildings[buildings.length - 1].siteId, buildings },
+          Infinity,
+          { parkFee },
+        )
+      : new FacilitySimulation(this.seed);
+  }
+  /** Policies whose effect can still be taken back, with their action index. */
+  get withdrawable() {
+    return this.actions.flatMap((action, index) =>
+      this.isActive(index) && !ONE_OFF_POLICIES.includes(action.id)
+        ? [{ action, index, blocked: this.withdrawBlocked(index) }]
+        : [],
+    );
+  }
+  /** Why an action cannot be withdrawn right now (a policy that depends on it). */
+  withdrawBlocked(index: number): string | undefined {
+    const a = this.actions[index];
+    if (a.id === "parkingLot" && this.has("parkingFee")) return "주차장 이용료를 먼저 철회해요";
+    if (a.id === "patrol" && this.has("fines")) return "과태료를 먼저 철회해요";
+    if (a.id === "park" && this.has("parkFee") &&
+      this.parcels.filter((p) => p.kind === "park").length === 1)
+      return "공원 이용료를 먼저 철회해요";
+    if (a.id === "depot" && this.extraTrucks > EXTRA_TRUCKS.base)
+      return `수거차를 ${EXTRA_TRUCKS.base}대까지 먼저 줄여요`;
+    return undefined;
+  }
+  /**
+   * Take back an action. Spent money is not returned; buildings free their
+   * land, operating rules stop, and an extra truck finishes its trip first.
+   */
+  withdraw(index: number, reason = "") {
+    const a = this.actions[index];
+    if (!a || !this.isActive(index)) throw new Error("철회할 정책을 확인해 주세요.");
+    if (ONE_OFF_POLICIES.includes(a.id)) throw new Error("이미 끝난 일은 철회할 수 없어요.");
+    const blocked = this.withdrawBlocked(index);
+    if (blocked) throw new Error(`${blocked}.`);
+    const p = LIVE_POLICIES.find((p) => p.id === a.id)!;
+    const place = this.targetsForHistory(a);
+    const freeParcel = () => {
+      const i = this.parcels.findIndex((u) => u.siteId === a.target);
+      if (i >= 0) this.parcels.splice(i, 1);
+    };
+    this.withdrawals.push({
+      time: this.time,
+      policyCount: this.actions.length,
+      action: index,
+      reason: reason.slice(0, 400),
+    });
+    switch (a.id) {
+      case "patrol":
+        this.parking.configuration.patrol = false;
+        break;
+      case "fines":
+        this.parking.fees.fines = false;
+        break;
+      case "parkingLot":
+        freeParcel();
+        this.parking.configuration.parkingLot = false;
+        this.parking.lotCapacity = 0;
+        break;
+      case "parkingFee":
+        this.parking.fees.lot = false;
+        break;
+      case "loadingBay":
+        this.parking.configuration.loadingBay = false;
+        break;
+      case "dropoff":
+        this.dumpingConfiguration.dropoff = false;
+        break;
+      case "reduce":
+        this.configuration.reduction = false;
+        break;
+      case "extraTruck": {
+        // The newest truck still running goes back to the centre and stays.
+        const truck = [...this.trucks].reverse().find((t) => t.id >= 10002 && !t.retired);
+        if (truck) truck.retired = true;
+        break;
+      }
+      case "depot":
+        freeParcel();
+        break;
+      case "outlet":
+      case "riverCleanup":
+        this.water.configuration[a.id] = false;
+        break;
+      case "sewer":
+        freeParcel();
+        this.water.configuration.sewer = false;
+        break;
+      case "handling":
+        this.logistics.configuration.handling = false;
+        break;
+      case "production":
+        this.logistics.sources.find((s) => s.id === "factory")!.rate /= 1.5;
+        this.water.sourceMultiplier = 1;
+        break;
+      case "library":
+      case "park":
+        freeParcel();
+        this.facilities = this.facilitiesFor(this.parcels, this.has("parkFee"));
+        break;
+      case "parkFee":
+        this.facilities = this.facilitiesFor(this.parcels, false);
+        break;
+      // Signals, the stagger and footbridges follow the active list in step().
+    }
+    this.emit(
+      "policy",
+      p.topic,
+      `${p.title} 철회`,
+      `${place?.name ?? "도시 전체"} · 쓴 예산은 돌아오지 않아요.`,
+      this.place(p.topic).facilityId,
+      place?.position,
+    );
     this.revision++;
   }
   private trafficMeasurement(action: CityAction) {
@@ -1072,6 +1334,52 @@ export class LiveCitySimulation extends DumpingSimulation {
     this.news.push(event);
     if (this.news.length > 120) this.news.shift();
     return event;
+  }
+  /** Parking fees and fines go into the budget as they are earned. */
+  private creditParking() {
+    const { lot, fines } = this.parking.earnings;
+    if (lot === this.credited.lot && fines === this.credited.fines) return;
+    this.todayIncome.lot += lot - this.credited.lot;
+    this.todayIncome.fines += fines - this.credited.fines;
+    this.budget += lot - this.credited.lot + fines - this.credited.fines;
+    this.credited = { lot, fines };
+  }
+  /**
+   * A footbridge removes the crosswalk's pedestrian phase. The change waits
+   * for the start of a signal cycle, so no green or crossing is cut short,
+   * and a removed bridge waits until nobody is still on it.
+   */
+  private updateFootbridges() {
+    const active = this.activeActions;
+    for (const crosswalk of CROSSWALKS) {
+      const bridged = active.some(
+        (a) => a.id === "footbridge" && a.target === crosswalk.id,
+      );
+      if (bridged === this.pedestrians.bridges.has(crosswalk.id)) {
+        // Bought again before it closed.
+        this.pedestrians.closingBridges.delete(crosswalk.id);
+        continue;
+      }
+      // A withdrawn bridge closes at once to new walkers, who wait at the kerb.
+      if (!bridged) this.pedestrians.closingBridges.add(crosswalk.id);
+      const signal = this.network.nodes.get(crosswalk.id)!.signal;
+      const cycle = signal.ns + signal.ew + 2 * (signal.yellow + signal.clearance) +
+        (signal.walk ?? 0) + (signal.walkClearance ?? 0);
+      const phaseTime = (((this.time + signal.offset) % cycle) + cycle) % cycle;
+      if (phaseTime > CONFIG.dt - 1e-7) continue;
+      if (!bridged && [...this.pedestrians.active.values()].some(
+        (p) => p.crossing && this.pedestrians.routes.get(p.trip.routeId)?.nodeId === crosswalk.id,
+      )) continue;
+      if (bridged) {
+        this.pedestrians.bridges.add(crosswalk.id);
+        Object.assign(signal, { walk: 0, walkClearance: 0 });
+      } else {
+        this.pedestrians.bridges.delete(crosswalk.id);
+        this.pedestrians.closingBridges.delete(crosswalk.id);
+        Object.assign(signal, CROSSWALK_TIMING);
+      }
+      signal.offset = -this.time;
+    }
   }
   private commuteValue(key: CommuteKey) {
     if (key === "traffic-east") return this.eastStopped;
@@ -1398,6 +1706,15 @@ export class LiveCitySimulation extends DumpingSimulation {
         return a.time + 60;
       case "sewer":
         return a.time + 120;
+      case "footbridge": {
+        // The crosswalk changes at the start of the junction's next signal cycle.
+        if (this.pedestrians.bridges.has(a.target)) return a.time;
+        const signal = this.network.nodes.get(a.target)!.signal;
+        const cycle = signal.ns + signal.ew + 2 * (signal.yellow + signal.clearance) +
+          (signal.walk ?? 0) + (signal.walkClearance ?? 0);
+        const phaseTime = (((this.time + signal.offset) % cycle) + cycle) % cycle;
+        return this.time + cycle - phaseTime;
+      }
       case "stagger":
         // Daily cycle: the next morning hour scheduled after the decision.
         return a.time + 1e-8 >= this.dailyCycleFrom
@@ -1414,6 +1731,7 @@ export class LiveCitySimulation extends DumpingSimulation {
   /** Policies that are bought but not yet acting, so students know to wait. */
   get pendingEffects() {
     return this.actions.flatMap((action, index) => {
+      if (!this.isActive(index)) return [];
       const readyAt = this.effectReadyAt(action);
       if (readyAt <= this.time + 1e-7) return [];
       const policy = LIVE_POLICIES.find((p) => p.id === action.id)!;
@@ -1429,7 +1747,7 @@ export class LiveCitySimulation extends DumpingSimulation {
   }
   get policyMap(): AppliedPolicyMap {
     const map: AppliedPolicyMap = { places: [], shared: [] };
-    for (const a of this.actions) {
+    for (const a of this.activeActions) {
       const p = LIVE_POLICIES.find((p) => p.id === a.id)!;
       const t = this.targetsForHistory(a);
       const entry = {
@@ -1468,6 +1786,12 @@ export class LiveCitySimulation extends DumpingSimulation {
     return map;
   }
   private targetsForHistory(a: CityAction) {
+    if (a.id === "footbridge") return CROSSWALKS.find((c) => c.id === a.target);
+    if (a.id === "depot") return BUILDABLE_PLOTS.find((s) => s.id === a.target);
+    if (a.id === "fines")
+      return LIVE_PARKING_SITES.find((s) => s.id === this.parking.plan.patrolSite);
+    if (a.id === "parkingFee")
+      return BUILDABLE_PLOTS.find((s) => s.id === this.parking.plan.siteId);
     if (a.id === "patrol" || a.id === "loadingBay")
       return LIVE_PARKING_SITES.find((s) => s.id === a.target);
     if (["cleanup", "dropoff", "outreach"].includes(a.id))
@@ -1536,6 +1860,10 @@ export class LiveCitySimulation extends DumpingSimulation {
       ...(Number.isFinite(this.dailyCycleFrom)
         ? { dailyCycleFrom: this.dailyCycleFrom }
         : {}),
+      ...(this.startingBudget !== 100 ? { startingBudget: this.startingBudget } : {}),
+      ...(this.withdrawals.length
+        ? { withdrawals: this.withdrawals.map((w) => ({ ...w })) }
+        : {}),
     };
   }
 }
@@ -1600,6 +1928,43 @@ export function validateLiveSave(value: unknown): LiveSave {
       s.dailyCycleFrom > nextCityTrafficCycle(s.time))
   )
     throw new Error("하루 시간 기록을 확인할 수 없어요.");
+  if (
+    s.startingBudget !== undefined &&
+    (!Number.isSafeInteger(s.startingBudget) || s.startingBudget < 0 || s.startingBudget > 1000)
+  )
+    throw new Error("처음 예산 기록을 확인할 수 없어요.");
+  if (s.withdrawals !== undefined) {
+    if (!Array.isArray(s.withdrawals) || s.withdrawals.length > 500)
+      throw new Error("철회 기록을 확인해 주세요.");
+    let lastTime = 0,
+      lastCount = 0;
+    const taken = new Set<number>();
+    for (const w of s.withdrawals) {
+      if (
+        !w ||
+        !Number.isFinite(w.time) ||
+        w.time < lastTime ||
+        w.time > s.time ||
+        Math.abs(w.time * 10 - Math.round(w.time * 10)) > 1e-5 ||
+        !Number.isInteger(w.policyCount) ||
+        w.policyCount < lastCount ||
+        w.policyCount > s.actions.length ||
+        (w.policyCount > 0 && s.actions[w.policyCount - 1].time > w.time) ||
+        (w.policyCount < s.actions.length && s.actions[w.policyCount].time < w.time) ||
+        !Number.isInteger(w.action) ||
+        w.action < 0 ||
+        w.action >= w.policyCount ||
+        taken.has(w.action) ||
+        ONE_OFF_POLICIES.includes(s.actions[w.action].id) ||
+        typeof w.reason !== "string" ||
+        w.reason.length > 400
+      )
+        throw new Error("철회 기록의 순서와 정책을 확인해 주세요.");
+      taken.add(w.action);
+      lastTime = w.time;
+      lastCount = w.policyCount;
+    }
+  }
   let previous = 0;
   for (const a of s.actions) {
     if (
@@ -1679,6 +2044,7 @@ export function prepareLiveSave(value: unknown): LiveSave {
     eastShopFrom: save.eastShopFrom ?? (Math.round(save.time * 10) + 1) / 10,
     // The day starts at 07:00 on the next five-minute boundary.
     dailyCycleFrom: save.dailyCycleFrom ?? nextCityTrafficCycle(save.time),
+    startingBudget: save.startingBudget ?? 100,
   };
 }
 export async function restoreLiveCity(
@@ -1694,9 +2060,10 @@ export async function restoreLiveCity(
     city = options.initialCity ??
       new LiveCitySimulation(save.seed, save.cityTrafficFrom, save.vehicleAccessFrom,
         save.vehicleArrivalFrom, save.trafficRoutingFrom, save.eastBankFrom,
-        save.eastShopFrom, save.dailyCycleFrom);
+        save.eastShopFrom, save.dailyCycleFrom, save.startingBudget);
   if (
     city.seed !== save.seed ||
+    city.startingBudget !== save.startingBudget ||
     Math.round(city.time * 10) > Math.round(save.time * 10) ||
     (city.cityTrafficFrom !== save.cityTrafficFrom &&
       !(city.cityTrafficFrom === Infinity && save.cityTrafficFrom! > city.time)) ||
@@ -1722,7 +2089,8 @@ export async function restoreLiveCity(
   city.eastShopFrom = save.eastShopFrom!;
   city.dailyCycleFrom = save.dailyCycleFrom!;
   const previousActions = city.actions.length,
-    previousMeetings = city.council.records.length;
+    previousMeetings = city.council.records.length,
+    previousWithdrawals = city.withdrawals.length;
   const commands = [
     ...save.actions
       .map((a, index) => ({
@@ -1749,6 +2117,14 @@ export async function restoreLiveCity(
         },
       }))
       .slice(previousMeetings),
+    // After meetings held at the same count, before the next action.
+    ...(save.withdrawals ?? [])
+      .map((w) => ({
+        time: w.time,
+        order: w.policyCount * 2 + 0.5,
+        run: () => city.withdraw(w.action, w.reason),
+      }))
+      .slice(previousWithdrawals),
   ].sort((a, b) => a.time - b.time || a.order - b.order);
   let i = 0;
   while (city.time + 1e-7 < save.time) {

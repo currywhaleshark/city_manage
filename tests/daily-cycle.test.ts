@@ -21,6 +21,7 @@ import {
 import {
   LiveCitySimulation,
   STAGGER_TARGET,
+  STARTING_BUDGET,
   prepareLiveSave,
   restoreLiveCity,
   validateLiveSave,
@@ -104,8 +105,8 @@ test("a whole day: peaks, a quiet night, one daily budget and every trip account
     const { day, hour } = city.clock!;
     if (day === 1 || hour < 7) hourly.set(hour, [...(hourly.get(hour) ?? []), onRoad()]);
     if (hour >= 1 && hour < 5) nightPedestrians += city.pedestrians.active.size;
-    if (Math.abs(time - (at(2, 6) - 20)) < 1e-6) assert.equal(city.budget, 100);
-    if (Math.abs(time - (at(2, 6) + 20)) < 1e-6) assert.equal(city.budget, 100 + DAILY_BUDGET);
+    if (Math.abs(time - (at(2, 6) - 20)) < 1e-6) assert.equal(city.budget, STARTING_BUDGET);
+    if (Math.abs(time - (at(2, 6) + 20)) < 1e-6) assert.equal(city.budget, STARTING_BUDGET + DAILY_BUDGET);
   }
   const mean = (h: number) => hourly.get(h)!.reduce((n, v) => n + v, 0) / hourly.get(h)!.length;
   const morning = Math.max(mean(8), mean(9));
@@ -114,7 +115,7 @@ test("a whole day: peaks, a quiet night, one daily budget and every trip account
   assert.ok(mean(18) > mean(13) * 1.5, `evening peak ${mean(18)} vs midday ${mean(13)}`);
   assert.ok(mean(2) < 3, `quiet night ${mean(2)}`);
   assert.equal(nightPedestrians, 0);
-  assert.equal(city.budget, 100 + DAILY_BUDGET, "the budget arrives once a day");
+  assert.equal(city.budget, STARTING_BUDGET + DAILY_BUDGET, "the budget arrives once a day");
   // Hours scheduled: 07:00 of day 1 through 11:00 of day 2.
   let expected = 0;
   for (let i = 0; i <= Math.floor(end / HOUR_SECONDS); i++) expected += HOURLY_TRIPS[(7 + i) % 24];
@@ -241,7 +242,7 @@ test("a city saved mid-day restores the same clock and future from JSON and from
 });
 
 test("an older city replays unchanged and starts its day at 07:00 on the next five-minute boundary", async () => {
-  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity);
+  const old = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity, 100);
   old.apply("patrol", "school");
   old.runUntil(412.3);
   const save = old.save();
@@ -267,7 +268,7 @@ test("an older city replays unchanged and starts its day at 07:00 on the next fi
   assert.equal(copy.budget, 100 - 30 + 20, "the five-minute grant stops at the switch");
   assert.ok(copy.timeLabel(300).endsWith("초"));
   assert.equal(copy.timeLabel(600), "1일차 오전 7:00");
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-10");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-11");
 });
 
 test("the first lesson prefers a problem that shows a result soon, and waits for a commute result", () => {

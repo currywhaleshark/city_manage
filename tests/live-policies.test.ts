@@ -9,7 +9,7 @@ import {
 } from "../src/ui/live-policies";
 
 test("policy preview uses the real budget, separates global policies, and detects already applied policies", () => {
-  const city = new LiveCitySimulation();
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, 0, 100); // a city that began at 100
   const before = city.save();
   assert.equal(policyAvailability(city, "extraTruck").available, true);
   assert.equal(
@@ -30,7 +30,10 @@ test("policy preview uses the real budget, separates global policies, and detect
   );
   city.apply("signal", city.targets("signal")[0].id);
   assert.equal(policyAvailability(city, "parkingLot").label, "예산 15 부족");
-  assert.equal(policyAvailability(city, "extraTruck").label, "시행 중");
+  assert.equal(policyAvailability(city, "extraTruck").label, "자원순환센터를 넓혀야 해요");
+  assert.equal(policyAvailability(city, "parkingFee").label, "공동주차장이 먼저 필요해요");
+  assert.equal(policyAvailability(city, "fines").label, "순찰 구역이 먼저 필요해요");
+  assert.equal(policyAvailability(city, "parkFee").label, "새 공원이 먼저 필요해요");
 });
 
 test("policy preview respects plot size and sewer connections, including repeatable buildings", () => {
@@ -56,12 +59,13 @@ test("policy preview respects plot size and sewer connections, including repeata
   city.budget = 20;
   assert.equal(
     policyAvailability(city, "library").label,
-    "예산 35 부족 · 지을 수 있는 공터 없음",
+    "지을 수 있는 공터 없음",
+    "no land is the reason that matters, before the budget",
   );
 });
 
 test("budget grants update the policy list without losing focus or expanded tradeoffs", () => {
-  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity); // five-minute grants
+  const city = new LiveCitySimulation(2404, 0, 0, 0, 0, 0, 0, Infinity, 100); // five-minute grants
   city.apply("extraTruck");
   city.apply("signal", city.targets("signal")[0].id);
   const dom = new JSDOM(

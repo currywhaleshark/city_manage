@@ -2,13 +2,14 @@ import { BUILDABLE_PLOTS } from "./world";
 
 export interface ParcelUse {
   siteId: string;
-  kind: "library" | "park" | "parking" | "water";
+  kind: "library" | "park" | "parking" | "water" | "depot";
 }
 export const PARCEL_AREA = {
   library: 400,
   park: 900,
   parking: 400,
   water: 144,
+  depot: 900,
 } as const;
 /** Every construction system uses the same finite parcels and occupancy rule. */
 export function validateParcelUses(uses: readonly ParcelUse[]) {

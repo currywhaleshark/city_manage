@@ -4,11 +4,10 @@ import {
   validateLiveSave,
   type LiveSave,
 } from "./live";
-import { FacilitySimulation, type PlannedFacility } from "./facilities";
 
 // This is an internal structured-clone cache, never accepted from imported JSON.
 // Bump when engine state/semantics change. The portable command log remains authoritative.
-export const CHECKPOINT_VERSION = "living-state-10";
+export const CHECKPOINT_VERSION = "living-state-11";
 const shared = [
   "network",
   "pedestrians",
@@ -120,7 +119,8 @@ export function restoreLiveCheckpoint(
   const beforeEast = beforeRelief || (checkpoint?.version as string) === "living-state-7";
   const beforeShop = beforeEast || (checkpoint?.version as string) === "living-state-8";
   const beforeDaily = beforeShop || (checkpoint?.version as string) === "living-state-9";
-  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeDaily)
+  const beforeEconomy = beforeDaily || (checkpoint?.version as string) === "living-state-10";
+  if (checkpoint?.version !== CHECKPOINT_VERSION && !beforeEconomy)
     throw new Error("도시 저장 형식이 바뀌었어요.");
   const saved = validateLiveSave(checkpoint.save);
   if (
@@ -140,6 +140,12 @@ export function restoreLiveCheckpoint(
       !(saved.eastShopFrom === undefined && requested.eastShopFrom! > saved.time)) ||
     (saved.dailyCycleFrom !== requested.dailyCycleFrom &&
       !(saved.dailyCycleFrom === undefined && requested.dailyCycleFrom! > saved.time)) ||
+    (saved.startingBudget ?? 100) !== requested.startingBudget ||
+    JSON.stringify(saved.withdrawals ?? []) !==
+      JSON.stringify((requested.withdrawals ?? []).slice(0, saved.withdrawals?.length ?? 0)) ||
+    (requested.withdrawals ?? [])
+      .slice(saved.withdrawals?.length ?? 0)
+      .some((w) => w.time < saved.time - 1e-7 || w.policyCount < saved.actions.length) ||
     Math.round(saved.time * 10) > Math.round(requested.time * 10) ||
     JSON.stringify(saved.actions) !==
       JSON.stringify(requested.actions.slice(0, saved.actions.length)) ||
@@ -162,7 +168,8 @@ export function restoreLiveCheckpoint(
     city = new LiveCitySimulation(saved.seed, saved.cityTrafficFrom ?? Infinity,
       saved.vehicleAccessFrom ?? Infinity, saved.vehicleArrivalFrom ?? Infinity,
       saved.trafficRoutingFrom ?? Infinity, saved.eastBankFrom ?? Infinity,
-      saved.eastShopFrom ?? Infinity, saved.dailyCycleFrom ?? Infinity);
+      saved.eastShopFrom ?? Infinity, saved.dailyCycleFrom ?? Infinity,
+      saved.startingBudget ?? 100);
   if (previous && !("cityTrafficFrom" in state.world))
     state.world.cityTrafficFrom = saved.cityTrafficFrom ?? Infinity;
   if (beforeAccess && !("vehicleAccessFrom" in state.world))
@@ -184,6 +191,22 @@ export function restoreLiveCheckpoint(
     state.world.dailyCycleFrom = saved.dailyCycleFrom ?? Infinity;
     state.world.commuteSamples = new Map();
     state.world.commutePeaks = new Map();
+  }
+  // Income, withdrawals and footbridges start empty; older cities began at 100.
+  if (beforeEconomy && !("withdrawals" in state.world)) {
+    Object.assign(state.world, {
+      startingBudget: saved.startingBudget ?? 100,
+      withdrawals: [],
+      todayIncome: { lot: 0, fines: 0, park: 0 },
+      yesterdayIncome: { lot: 0, fines: 0, park: 0 },
+      credited: { lot: 0, fines: 0 },
+    });
+    Object.assign(state.parking, {
+      fees: { lot: false, fines: false },
+      earnings: { lot: 0, fines: 0 },
+    });
+    state.pedestrians.bridges = new Set();
+    state.pedestrians.closingBridges = new Set();
   }
   if (legacy) {
     // Only presentation state changed. Keep the physical city and avoid a full replay.
@@ -221,16 +244,8 @@ export function restoreLiveCheckpoint(
     if (!node) throw new Error("지도 위치가 달라요.");
     Object.assign(node.signal, n.signal);
   }
-  const buildings = city.parcels.filter(
-    (p): p is PlannedFacility => p.kind === "library" || p.kind === "park",
-  );
-  if (buildings.length)
-    city.facilities = new FacilitySimulation(
-      city.seed,
-      [...new Set(buildings.map((b) => b.kind))],
-      { siteId: buildings[0].siteId, buildings },
-      Infinity,
-    );
+  if (city.parcels.some((p) => p.kind === "library" || p.kind === "park"))
+    city.facilities = city.facilitiesFor(city.parcels, city.has("parkFee"));
   if (
     city.time !== saved.time ||
     city.seed !== saved.seed ||

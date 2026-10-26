@@ -461,6 +461,42 @@
 .live-policy[aria-disabled="true"] {
   cursor: default;
 }
+.living-city .live-withdraw {
+  margin: 12px 0;
+}
+.living-city .live-withdraw summary {
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--cyan);
+}
+.living-city .live-withdraw-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4px 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.living-city .live-withdraw-item > span {
+  display: grid;
+}
+.living-city .live-withdraw-item small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.living-city .live-withdraw-item > small {
+  grid-column: 1 / -1;
+}
+.living-city .live-withdraw-item button {
+  min-height: 36px;
+  padding: 0 12px;
+}
+.living-city .live-withdraw-item button[aria-disabled="true"] {
+  opacity: 0.5;
+}
+.living-city .live-income {
+  margin-top: 8px;
+}
 .live-policy[aria-disabled="true"] strong {
   color: var(--muted);
 }
@@ -1465,4 +1501,13 @@
   margin: 0;
   font-weight: 700;
   color: #e7c26a;
+}
+
+/* Night sky: the title and compass sit directly on the map background. */
+.living-city[data-daylight="night"] .brand h1 {
+  color: #eef2f7;
+}
+.living-city[data-daylight="night"] .brand > div > span,
+.living-city[data-daylight="night"] .compass {
+  color: #c4cfdd;
 }

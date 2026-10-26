@@ -30,6 +30,8 @@ export interface Pedestrian {
   path?: WalkingRoute;
 }
 export const WALKING_GAP = 0.85;
+/** On a footbridge, stairs and the longer way over halve walking speed while crossing. */
+export const FOOTBRIDGE_SPEED = 0.5;
 const definitions = [
   { id: "school-front", nodeId: "n3-2", name: "학교 정문 앞", turn: 0 },
   { id: "school-side", nodeId: "n3-1", name: "학교 옆", turn: 1 },
@@ -208,6 +210,10 @@ export class PedestrianSystem {
     extraDistance?: number;
   }[] = [];
   readonly blockedNodes = new Set<string>();
+  /** Junctions whose crossing is a footbridge: no signal wait, no conflict with cars. */
+  readonly bridges = new Set<string>();
+  /** Withdrawn footbridges: walkers still on them finish, nobody new goes up. */
+  readonly closingBridges = new Set<string>();
   readonly events: {
     id: number;
     node: string;
@@ -308,11 +314,13 @@ export class PedestrianSystem {
       let leaderDistance = Infinity;
       for (const person of people) {
         const path = person.path ?? route;
+        const bridged = this.bridges.has(route.nodeId);
         person.previousPose = { ...person.pose };
         person.previousDistance = person.distance;
+        const speed = person.trip.speed * (bridged && person.crossing ? FOOTBRIDGE_SPEED : 1);
         let next = Math.min(
           path.length,
-          person.distance + person.trip.speed * dt,
+          person.distance + speed * dt,
           pathDistance(leaderDistance - WALKING_GAP, path, route),
         );
         leaderDistance = routeProgress(person.distance, path, route);
@@ -322,8 +330,9 @@ export class PedestrianSystem {
           next > path.crossingStart
         ) {
           if (
-            phase === "pedestrian-green" &&
-            !vehicleLocks.get(route.nodeId)?.size
+            (bridged && !this.closingBridges.has(route.nodeId)) ||
+            (phase === "pedestrian-green" &&
+              !vehicleLocks.get(route.nodeId)?.size)
           ) {
             person.crossing = true;
             this.events.push({
@@ -357,7 +366,7 @@ export class PedestrianSystem {
             type: "exit",
           });
         }
-        if (person.crossing) this.blockedNodes.add(route.nodeId);
+        if (person.crossing && !bridged) this.blockedNodes.add(route.nodeId);
         if (next >= path.length) {
           this.completed.push({
             id: person.trip.id,

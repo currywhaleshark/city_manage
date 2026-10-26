@@ -96,7 +96,7 @@ test("an older city replays unchanged and gains the east bank only from its swit
   assert.deepEqual(copy.save(), replayed.save());
   assert.ok(copy.sites.some((s) => s.id === EAST_WASTE_SITE.id));
   assert.ok(copy.parking.episodes.some((e) => e.request.siteId === "east-market"));
-  assert.equal(captureLiveCheckpoint(copy).version, "living-state-10");
+  assert.equal(captureLiveCheckpoint(copy).version, "living-state-11");
 });
 
 test("signal timing is chosen once per district and only retimes that district", () => {
